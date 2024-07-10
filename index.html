@@ -2,22 +2,25 @@
 <html lang="en">
   <head>
     <title>Doctor Who 2d</title>
-    <link href="/style.css" type="text/css" rel="stylesheet" />
-  </head>
-
-  <body>
-    <div class="game-container">
-      <canvas class="game-canvas" width="352" height="198"> </canvas>
-    </div>
-
-    <!-- Scripts -->
+    <link id="style" type="text/css" rel="stylesheet" />
     <script>
+      // Determine the base path based on hostname
+      const basePath =
+        window.location.hostname.includes("localhost") ||
+        window.location.hostname.includes("127.0.0.1")
+          ? ""
+          : "/DoctorWho-2d-game";
+
       document.addEventListener("DOMContentLoaded", function () {
-        const basePath =
-          window.location.hostname.includes("localhost") ||
-          window.location.hostname.includes("127.0.0.1")
-            ? ""
-            : "/DoctorWho-2d-game";
+        // Set the stylesheet href
+        const styleLink = document.getElementById("style");
+        if (styleLink) {
+          styleLink.href = `${basePath}/style.css`;
+        } else {
+          console.error("Style link not found");
+        }
+
+        // Scripts to load in order
         const scripts = [
           "utils.js",
           "DirectionInput.js",
@@ -29,15 +32,26 @@
           "init.js",
         ];
 
-        scripts.forEach((script) => {
+        // Function to load scripts in order
+        function loadScriptsSequentially(index) {
+          if (index >= scripts.length) return;
+
           const scriptElement = document.createElement("script");
-          scriptElement.src = `${basePath}/${script}`;
-          scriptElement.onerror = function () {
+          scriptElement.src = `${basePath}/${scripts[index]}`;
+          scriptElement.onload = () => loadScriptsSequentially(index + 1);
+          scriptElement.onerror = () =>
             console.error(`Failed to load ${scriptElement.src}`);
-          };
           document.body.appendChild(scriptElement);
-        });
+        }
+
+        // Start loading scripts
+        loadScriptsSequentially(0);
       });
     </script>
+  </head>
+  <body>
+    <div class="game-container">
+      <canvas class="game-canvas" width="352" height="198"></canvas>
+    </div>
   </body>
 </html>
