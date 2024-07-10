@@ -11,19 +11,47 @@ class OverWorldMap {
   }
 
   drawLowerImage(ctx, cameraPerson) {
-    ctx.drawImage(
-      this.lowerImage,
-      utils.withGrid(10.5) - cameraPerson.x,
-      utils.withGrid(6) - cameraPerson.y
-    );
+    const basePath =
+      window.location.hostname.includes("localhost") ||
+      window.location.hostname.includes("127.0.0.1")
+        ? ""
+        : "/DoctorWho-2d-game";
+
+    if (basePath === "") {
+      ctx.drawImage(
+        this.lowerImage,
+        utils.withGrid(10.5) - cameraPerson.x,
+        utils.withGrid(6) - cameraPerson.y
+      );
+    } else {
+      ctx.drawImage(
+        basePath + this.lowerImage,
+        utils.withGrid(10.5) - cameraPerson.x,
+        utils.withGrid(6) - cameraPerson.y
+      );
+    }
   }
 
   drawUpperImage(ctx, cameraPerson) {
-    ctx.drawImage(
-      this.upperImage,
-      utils.withGrid(10.5) - cameraPerson.x,
-      utils.withGrid(6) - cameraPerson.y
-    );
+    const basePath =
+      window.location.hostname.includes("localhost") ||
+      window.location.hostname.includes("127.0.0.1")
+        ? ""
+        : "/DoctorWho-2d-game";
+
+    if (basePath === "") {
+      ctx.drawImage(
+        this.upperImage,
+        utils.withGrid(10.5) - cameraPerson.x,
+        utils.withGrid(6) - cameraPerson.y
+      );
+    } else {
+      ctx.drawImage(
+        basePath + this.upperImage,
+        utils.withGrid(10.5) - cameraPerson.x,
+        utils.withGrid(6) - cameraPerson.y
+      );
+    }
   }
 
   isSpaceTaken(currentX, currentY, direction) {
