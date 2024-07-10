@@ -10,14 +10,34 @@
       <canvas class="game-canvas" width="352" height="198"> </canvas>
     </div>
 
-    <!--Scripts-->
-    <script src="/utils.js"></script>
-    <script src="/DirectionInput.js"></script>
-    <script src="/OverWorld.js"></script>
-    <script src="/GameObject.js"></script>
-    <script src="/Person.js"></script>
-    <script src="/Sprite.js"></script>
-    <script src="/OverWorldMap.js"></script>
-    <script src="/init.js"></script>
+    <!-- Scripts -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const basePath =
+          window.location.hostname.includes("localhost") ||
+          window.location.hostname.includes("127.0.0.1")
+            ? ""
+            : "/DoctorWho-2d-game";
+        const scripts = [
+          "utils.js",
+          "DirectionInput.js",
+          "OverWorld.js",
+          "GameObject.js",
+          "Person.js",
+          "Sprite.js",
+          "OverWorldMap.js",
+          "init.js",
+        ];
+
+        scripts.forEach((script) => {
+          const scriptElement = document.createElement("script");
+          scriptElement.src = `${basePath}/${script}`;
+          scriptElement.onerror = function () {
+            console.error(`Failed to load ${scriptElement.src}`);
+          };
+          document.body.appendChild(scriptElement);
+        });
+      });
+    </script>
   </body>
 </html>
