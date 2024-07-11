@@ -67,8 +67,8 @@ body.mobile-device .controls-container {
 }
 
 body.mobile-device .game-container {
-  width: 95vw;
-  height: 20vh;
+  width: 90vw;
+  height: 30vh;
 }
 
 body.mobile-device button {
