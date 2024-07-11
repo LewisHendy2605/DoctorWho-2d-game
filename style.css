@@ -41,13 +41,22 @@ body {
   gap: 10px;
 }
 
+/*larger screen */
+@media (min-width: 1200px) {
+  .game-container {
+    width: 70vw;
+    height: 70vh;
+  }
+}
+
+/*smaller screen */
 @media (max-width: 756px) {
   .controls-container {
     display: grid; /* Show controls only on screens narrower than 757px */
   }
 
   .game-container {
-    width: 98vw;
+    width: 95vw;
     height: 30vh;
   }
 }
@@ -58,8 +67,8 @@ body.mobile-device .controls-container {
 }
 
 body.mobile-device .game-container {
-  width: 98vw;
-  height: 15vh;
+  width: 95vw;
+  height: 20vh;
 }
 
 body.mobile-device button {
