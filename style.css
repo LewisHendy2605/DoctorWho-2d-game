@@ -108,6 +108,10 @@ button {
   font-size: 35px;
   cursor: pointer;
   touch-action: none; /* Prevent double-tap zoom */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Prevent text selection for Safari */
+  -moz-user-select: none; /* Prevent text selection for Firefox */
+  -ms-user-select: none; /* Prevent text selection for IE */
 }
 
 button:hover {
