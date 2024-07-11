@@ -11,13 +11,14 @@ body {
 
 .game-container {
   position: relative;
-  width: 100vw;
+  width: 90vw;
   height: 50vh;
   margin: 0 auto;
   outline: 1px solid #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 1%;
 }
 
 .game-container canvas {
@@ -28,15 +29,20 @@ body {
 
 .controls-container {
   position: absolute;
-  bottom: 100px;
+  margin-top: 5%;
+
   left: 50%;
   transform: translateX(-50%);
-  display: grid;
+  display: none;
   grid-template-areas:
     " .  up  . "
     "left  .  right"
     " . down  . ";
   gap: 10px;
+}
+
+body.mobile .controls-container {
+  display: grid; /* Show controls only on mobile */
 }
 
 .control {
