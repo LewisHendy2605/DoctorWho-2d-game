@@ -96,6 +96,26 @@ class Sprite {
 
     const [frameX, frameY] = this.frame;
 
+    /*
+    if (this.image.src.includes("characters-doctor-who")) {
+      this.isLoaded &&
+        ctx.drawImage(this.image, 0, 0, 128, 128, x + 4, y + 4, 32, 32);
+    } else {
+      this.isLoaded &&
+        ctx.drawImage(
+          this.image,
+          frameX * 32,
+          frameY * 32,
+          32,
+          32,
+          x,
+          y,
+          32,
+          32
+        );
+    }
+        */
+
     this.isLoaded &&
       ctx.drawImage(this.image, frameX * 32, frameY * 32, 32, 32, x, y, 32, 32);
 

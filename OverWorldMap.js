@@ -106,6 +106,7 @@ window.OverworldMaps = {
         isPlayerControlled: true,
         x: utils.withGrid(46),
         y: utils.withGrid(50),
+        src: "/images/characters-doctor-who/doctor-11-prod.png",
       }),
       npc1: new Person({
         x: utils.withGrid(51),
