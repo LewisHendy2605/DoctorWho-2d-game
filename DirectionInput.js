@@ -34,7 +34,7 @@ class DirectionInput {
       }
     });
 
-    // Add event listeners for buttons
+    // Add event listeners for buttons (mouse and touch)
     document
       .querySelector(".up-control button")
       .addEventListener("mousedown", () => this.handleButtonDown("up"));
@@ -42,11 +42,25 @@ class DirectionInput {
       .querySelector(".up-control button")
       .addEventListener("mouseup", () => this.handleButtonUp("up"));
     document
+      .querySelector(".up-control button")
+      .addEventListener("touchstart", () => this.handleButtonDown("up"));
+    document
+      .querySelector(".up-control button")
+      .addEventListener("touchend", () => this.handleButtonUp("up"));
+
+    document
       .querySelector(".down-control button")
       .addEventListener("mousedown", () => this.handleButtonDown("down"));
     document
       .querySelector(".down-control button")
       .addEventListener("mouseup", () => this.handleButtonUp("down"));
+    document
+      .querySelector(".down-control button")
+      .addEventListener("touchstart", () => this.handleButtonDown("down"));
+    document
+      .querySelector(".down-control button")
+      .addEventListener("touchend", () => this.handleButtonUp("down"));
+
     document
       .querySelector(".left-control button")
       .addEventListener("mousedown", () => this.handleButtonDown("left"));
@@ -54,11 +68,24 @@ class DirectionInput {
       .querySelector(".left-control button")
       .addEventListener("mouseup", () => this.handleButtonUp("left"));
     document
+      .querySelector(".left-control button")
+      .addEventListener("touchstart", () => this.handleButtonDown("left"));
+    document
+      .querySelector(".left-control button")
+      .addEventListener("touchend", () => this.handleButtonUp("left"));
+
+    document
       .querySelector(".right-control button")
       .addEventListener("mousedown", () => this.handleButtonDown("right"));
     document
       .querySelector(".right-control button")
       .addEventListener("mouseup", () => this.handleButtonUp("right"));
+    document
+      .querySelector(".right-control button")
+      .addEventListener("touchstart", () => this.handleButtonDown("right"));
+    document
+      .querySelector(".right-control button")
+      .addEventListener("touchend", () => this.handleButtonUp("right"));
   }
 
   handleButtonDown(direction) {
