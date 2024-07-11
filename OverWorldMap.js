@@ -39,6 +39,9 @@ class OverWorldMap {
         ? ""
         : "/DoctorWho-2d-game";
 
+    console.log("Test: ", window.location.hostname.includes("127.0.0.1"));
+    console.log("BAsePath: ", basePath);
+
     if (basePath === "") {
       ctx.drawImage(
         this.upperImage,
