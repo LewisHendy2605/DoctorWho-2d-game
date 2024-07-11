@@ -58,6 +58,14 @@
         } else {
           console.log("Not a mobile device");
         }
+
+        // Prevent context menu on long press for buttons
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach((button) => {
+          button.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+          });
+        });
       });
     </script>
   </head>
