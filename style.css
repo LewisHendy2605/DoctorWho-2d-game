@@ -11,14 +11,66 @@ body {
 
 .game-container {
   position: relative;
-  width: 352px;
-  height: 198px;
+  width: 100vw;
+  height: 50vh;
   margin: 0 auto;
   outline: 1px solid #fff;
-
-  transform: scale(3) translateY(50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-container canvas {
+  width: 100%;
+  height: 100%;
   image-rendering: pixelated;
+}
+
+.controls-container {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-areas:
+    " .  up  . "
+    "left  .  right"
+    " . down  . ";
+  gap: 10px;
+}
+
+.control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.up-control {
+  grid-area: up;
+}
+
+.down-control {
+  grid-area: down;
+}
+
+.left-control {
+  grid-area: left;
+}
+
+.right-control {
+  grid-area: right;
+}
+
+button {
+  width: 130px;
+  height: 130px;
+  background: #fff;
+  border: none;
+  outline: none;
+  font-size: 35px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ddd;
 }
