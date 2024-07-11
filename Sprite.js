@@ -2,7 +2,7 @@ class Sprite {
   constructor(config) {
     // Set up the image
     this.image = new Image();
-    this.image.src = config.src;
+    this.image.src = utils.setDynamicPath(config.src);
     this.image.onload = () => {
       this.isLoaded = true;
     };
@@ -11,7 +11,7 @@ class Sprite {
     this.shadow = new Image();
     this.useShadow = true; //config.useShadow || fasle
     if (this.useShadow) {
-      this.shadow.src = "/images/characters/shadow.png";
+      this.shadow.src = utils.setDynamicPath("/images/characters/shadow.png");
     }
 
     this.shadow.onload = () => {

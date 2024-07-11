@@ -20,4 +20,15 @@ const utils = {
     }
     return { x, y };
   },
+  setDynamicPath(src) {
+    const basePath =
+      window.location.hostname.includes("localhost") ||
+      window.location.hostname.includes("127.0.0.1")
+        ? ""
+        : "/DoctorWho-2d-game";
+
+    src = basePath + src;
+
+    return src;
+  },
 };

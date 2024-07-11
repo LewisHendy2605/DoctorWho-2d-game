@@ -4,60 +4,27 @@ class OverWorldMap {
     this.walls = config.walls || {};
 
     this.lowerImage = new Image();
-    this.lowerImage.src = config.lowerSrc;
+    this.lowerImage.src = utils.setDynamicPath(config.lowerSrc);
 
     this.upperImage = new Image();
-    this.upperImage.src = config.upperSrc;
+    this.upperImage.src = utils.setDynamicPath(config.upperSrc);
+    //console.log("Config src: ", this.dynamicPath(config.lowerSrc));
   }
 
   drawLowerImage(ctx, cameraPerson) {
-    const basePath =
-      window.location.hostname.includes("localhost") ||
-      window.location.hostname.includes("127.0.0.1")
-        ? ""
-        : "/DoctorWho-2d-game";
-
-    console.log("Test: ", window.location.hostname.includes("127.0.0.1"));
-    console.log("BAsePath: ", basePath);
-
-    if (basePath === "") {
-      ctx.drawImage(
-        this.lowerImage,
-        utils.withGrid(10.5) - cameraPerson.x,
-        utils.withGrid(6) - cameraPerson.y
-      );
-    } else {
-      ctx.drawImage(
-        basePath + this.lowerImage,
-        utils.withGrid(10.5) - cameraPerson.x,
-        utils.withGrid(6) - cameraPerson.y
-      );
-    }
+    ctx.drawImage(
+      this.lowerImage,
+      utils.withGrid(10.5) - cameraPerson.x,
+      utils.withGrid(6) - cameraPerson.y
+    );
   }
 
   drawUpperImage(ctx, cameraPerson) {
-    const basePath =
-      window.location.hostname.includes("localhost") ||
-      window.location.hostname.includes("127.0.0.1")
-        ? ""
-        : "/DoctorWho-2d-game";
-
-    console.log("Test: ", window.location.hostname.includes("127.0.0.1"));
-    console.log("BAsePath: ", basePath);
-
-    if (basePath === "") {
-      ctx.drawImage(
-        this.upperImage,
-        utils.withGrid(10.5) - cameraPerson.x,
-        utils.withGrid(6) - cameraPerson.y
-      );
-    } else {
-      ctx.drawImage(
-        basePath + this.upperImage,
-        utils.withGrid(10.5) - cameraPerson.x,
-        utils.withGrid(6) - cameraPerson.y
-      );
-    }
+    ctx.drawImage(
+      this.upperImage,
+      utils.withGrid(10.5) - cameraPerson.x,
+      utils.withGrid(6) - cameraPerson.y
+    );
   }
 
   isSpaceTaken(currentX, currentY, direction) {
