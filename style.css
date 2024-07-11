@@ -52,6 +52,16 @@ body {
   }
 }
 
+/* Show controls-container on mobile devices */
+body.mobile-device .controls-container {
+  display: grid;
+}
+
+body.mobile-device .game-container {
+  width: 98vw;
+  height: 30vh;
+}
+
 .control {
   display: flex;
   justify-content: center;
