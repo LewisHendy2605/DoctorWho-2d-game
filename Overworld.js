@@ -47,7 +47,7 @@ class OverWorld {
   }
 
   init() {
-    this.map = new OverWorldMap(window.OverworldMaps.DemoRoom);
+    this.map = new OverWorldMap(window.OverworldMaps.Tardis);
     //console.log(this.map.walls);
     this.map.mountObjects();
 
@@ -57,6 +57,7 @@ class OverWorld {
 
     this.startGameLoop();
 
+    /*
     this.map.startCutscene([
       { who: "hero", type: "walk", direction: "down" },
       { who: "hero", type: "walk", direction: "down" },
@@ -64,6 +65,7 @@ class OverWorld {
       { who: "npcA", type: "walk", direction: "left" },
       { who: "npcA", type: "stand", direction: "up", time: 800 },
     ]);
+    */
 
     console.log("Hello from the Overworld", this);
   }
