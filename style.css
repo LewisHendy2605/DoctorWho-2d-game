@@ -59,7 +59,13 @@ body.mobile-device .controls-container {
 
 body.mobile-device .game-container {
   width: 98vw;
-  height: 30vh;
+  height: 15vh;
+}
+
+body.mobile-device button {
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
 }
 
 .control {
