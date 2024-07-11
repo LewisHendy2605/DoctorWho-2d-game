@@ -33,7 +33,7 @@ body {
 
   left: 50%;
   transform: translateX(-50%);
-  display: none;
+  display: grid;
   grid-template-areas:
     " .  up  . "
     "left  .  right"
@@ -41,8 +41,11 @@ body {
   gap: 10px;
 }
 
-body.mobile .controls-container {
-  display: grid; /* Show controls only on mobile */
+/* Media Query for Mobile Devices */
+@media (min-width: 757px) {
+  .controls-container {
+    display: none; /* Hide controls on screens wider than 756px */
+  }
 }
 
 .control {
