@@ -51,7 +51,8 @@ body {
 @media (max-width: 757px) {
   .game-container {
     width: 98vw;
-    height: 30vh;
+    height: 50vh;
+    margin: auto;
   }
 }
 
