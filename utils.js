@@ -31,4 +31,10 @@ const utils = {
 
     return src;
   },
+  emeitEvent(name, detail) {
+    const event = new CustomEvent(name, {
+      detail,
+    });
+    document.dispatchEvent(event);
+  },
 };
