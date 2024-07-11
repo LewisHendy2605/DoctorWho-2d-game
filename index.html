@@ -49,6 +49,16 @@
         // Start loading scripts
         loadScriptsSequentially(0);
       });
+
+      // Detect mobile device and add a class to body
+      document.addEventListener("DOMContentLoaded", function () {
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+          console.log("Mobile device detected");
+          document.body.classList.add("mobile-device");
+        } else {
+          console.log("Not a mobile device");
+        }
+      });
     </script>
   </head>
   <body>
