@@ -33,7 +33,7 @@ body {
 
   left: 50%;
   transform: translateX(-50%);
-  display: grid;
+  display: none;
   grid-template-areas:
     " .  up  . "
     "left  .  right"
@@ -41,18 +41,14 @@ body {
   gap: 10px;
 }
 
-/* Media Query for Mobile Devices */
-@media (min-width: 757px) {
+@media (max-width: 756px) {
   .controls-container {
-    display: none; /* Hide controls on screens wider than 756px */
+    display: grid; /* Show controls only on screens narrower than 757px */
   }
-}
 
-@media (max-width: 757px) {
   .game-container {
     width: 98vw;
-    height: 50vh;
-    margin: auto;
+    height: 30vh;
   }
 }
 
