@@ -196,7 +196,7 @@ window.OverworldMaps = {
     },
   },
   Tardis: {
-    lowerSrc: "/images/tardis/Tardis-map-v7.png",
+    lowerSrc: "/images/tardis/Tardis-map-v8.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {
       hero: new Person({
