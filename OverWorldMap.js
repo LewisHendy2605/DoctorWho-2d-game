@@ -137,7 +137,7 @@ window.OverworldMaps = {
     },
   },
   Tardis: {
-    lowerSrc: "/images/tardis/Tardis-map-v6.png",
+    lowerSrc: "/images/tardis/Tardis-map-v7.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {
       hero: new Person({
@@ -153,6 +153,7 @@ window.OverworldMaps = {
       }),
     },
     walls: {
+      // Console
       [utils.asGridCoord(48, 48)]: true,
       [utils.asGridCoord(48, 49)]: true,
       [utils.asGridCoord(48, 50)]: true,
@@ -168,6 +169,89 @@ window.OverworldMaps = {
 
       [utils.asGridCoord(50, 48)]: true,
       [utils.asGridCoord(49, 48)]: true,
+
+      //// RAILS
+
+      // Top rail
+      [utils.asGridCoord(52, 41)]: true,
+      [utils.asGridCoord(51, 41)]: true,
+      [utils.asGridCoord(50, 41)]: true,
+      [utils.asGridCoord(49, 41)]: true,
+      [utils.asGridCoord(48, 41)]: true,
+      [utils.asGridCoord(47, 41)]: true,
+      [utils.asGridCoord(46, 41)]: true,
+      [utils.asGridCoord(45, 41)]: true,
+      [utils.asGridCoord(44, 41)]: true,
+
+      // Top right corner
+      [utils.asGridCoord(53, 42)]: true,
+      [utils.asGridCoord(54, 43)]: true,
+      [utils.asGridCoord(55, 44)]: true,
+      [utils.asGridCoord(56, 45)]: true,
+
+      // Right rail
+      [utils.asGridCoord(57, 46)]: true,
+      [utils.asGridCoord(57, 47)]: true,
+      [utils.asGridCoord(57, 48)]: true,
+      [utils.asGridCoord(57, 49)]: true,
+      [utils.asGridCoord(57, 50)]: true,
+      [utils.asGridCoord(57, 51)]: true,
+      [utils.asGridCoord(57, 52)]: true,
+      [utils.asGridCoord(57, 53)]: true,
+      [utils.asGridCoord(57, 54)]: true,
+      [utils.asGridCoord(57, 55)]: true,
+
+      // Bottom right rail
+      [utils.asGridCoord(56, 56)]: true,
+      [utils.asGridCoord(55, 57)]: true,
+      [utils.asGridCoord(54, 57)]: true,
+      [utils.asGridCoord(53, 58)]: true,
+
+      // Bottom rail
+      [utils.asGridCoord(52, 59)]: true,
+      [utils.asGridCoord(51, 59)]: true,
+      [utils.asGridCoord(50, 59)]: true,
+      [utils.asGridCoord(49, 59)]: true,
+      [utils.asGridCoord(48, 59)]: true,
+      [utils.asGridCoord(47, 59)]: true,
+      [utils.asGridCoord(46, 59)]: true,
+      [utils.asGridCoord(45, 59)]: true,
+
+      // Bottom left rail
+      [utils.asGridCoord(44, 58)]: true,
+      [utils.asGridCoord(43, 57)]: true,
+      [utils.asGridCoord(42, 56)]: true,
+      [utils.asGridCoord(41, 55)]: true,
+      [utils.asGridCoord(40, 54)]: true,
+      [utils.asGridCoord(39, 53)]: true,
+      [utils.asGridCoord(38, 52)]: true,
+
+      // top left rail
+      [utils.asGridCoord(38, 47)]: true,
+      [utils.asGridCoord(39, 46)]: true,
+      [utils.asGridCoord(40, 45)]: true,
+      [utils.asGridCoord(41, 44)]: true,
+      [utils.asGridCoord(42, 43)]: true,
+      [utils.asGridCoord(43, 42)]: true,
+      [utils.asGridCoord(44, 41)]: true,
+
+      // entry right rail
+      [utils.asGridCoord(38, 51)]: true,
+      [utils.asGridCoord(37, 51)]: true,
+      [utils.asGridCoord(36, 51)]: true,
+      [utils.asGridCoord(35, 51)]: true,
+      [utils.asGridCoord(34, 51)]: true,
+      [utils.asGridCoord(33, 51)]: true,
+      [utils.asGridCoord(32, 51)]: true,
+
+      // entry left rail
+      [utils.asGridCoord(38, 48)]: true,
+      [utils.asGridCoord(37, 48)]: true,
+      [utils.asGridCoord(36, 48)]: true,
+      [utils.asGridCoord(35, 48)]: true,
+      [utils.asGridCoord(34, 48)]: true,
+      [utils.asGridCoord(33, 48)]: true,
+      [utils.asGridCoord(32, 48)]: true,
     },
   },
 };
