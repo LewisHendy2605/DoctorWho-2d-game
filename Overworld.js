@@ -69,7 +69,7 @@ class OverWorld {
   }
 
   init() {
-    this.startMap(window.OverworldMaps.DemoRoom);
+    this.startMap(window.OverworldMaps.Tardis);
 
     this.bindActionInput();
     this.bindHeroPositionCheck();

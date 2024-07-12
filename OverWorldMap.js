@@ -206,8 +206,8 @@ window.OverworldMaps = {
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
       npc1: new Person({
-        x: utils.withGrid(51),
-        y: utils.withGrid(55),
+        x: utils.withGrid(48),
+        y: utils.withGrid(53),
         src: "/images/characters/people/npc1.png",
         talking: [
           {
@@ -221,6 +221,18 @@ window.OverworldMaps = {
           },
         ],
       }),
+    },
+    cutsceneSpaces: {
+      [utils.asGridCoord(31, 50)]: [
+        {
+          events: [{ type: "changeMap", map: "Outside_tardis" }],
+        },
+      ],
+      [utils.asGridCoord(31, 49)]: [
+        {
+          events: [{ type: "changeMap", map: "Outside_tardis" }],
+        },
+      ],
     },
     walls: {
       // Console
@@ -322,6 +334,46 @@ window.OverworldMaps = {
       [utils.asGridCoord(34, 48)]: true,
       [utils.asGridCoord(33, 48)]: true,
       [utils.asGridCoord(32, 48)]: true,
+    },
+  },
+  Outside_tardis: {
+    lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
+    upperSrc: "/images/maps/KitchenUpper.png",
+    gameObjects: {
+      hero: new Person({
+        isPlayerControlled: true,
+        x: utils.withGrid(48),
+        y: utils.withGrid(40),
+        src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      npcB: new Person({
+        x: utils.withGrid(10),
+        y: utils.withGrid(8),
+        src: "/images/characters/people/npc3.png",
+        talking: [
+          {
+            events: [
+              {
+                type: "textMessage",
+                text: "Hey, you made it",
+                faceHero: ["npcB"],
+              },
+            ],
+          },
+        ],
+      }),
+    },
+    cutsceneSpaces: {
+      [utils.asGridCoord(48, 39)]: [
+        {
+          events: [{ type: "changeMap", map: "Tardis" }],
+        },
+      ],
+      [utils.asGridCoord(31, 49)]: [
+        {
+          events: [{ type: "changeMap", map: "Outside_tardis" }],
+        },
+      ],
     },
   },
 };
