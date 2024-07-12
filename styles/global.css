@@ -1,3 +1,13 @@
+:root {
+  --border-color: #291d4d;
+  --dialog-background: #291d4d;
+
+  --menu-background: #ffe8d2;
+  --menu-border-color: #a48465;
+  --menu-font-color: #3a160d;
+  --menu-selected-background: #7fc2ff;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -11,26 +21,21 @@ body {
 
 .game-container {
   position: relative;
-  width: 90vw;
-  height: 50vh;
+  width: 352px;
+  height: 198px;
   margin: 0 auto;
   outline: 1px solid #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1%;
+
+  transform: scale(3) translateY(50%);
 }
 
 .game-container canvas {
-  width: 100%;
-  height: 100%;
   image-rendering: pixelated;
 }
 
 .controls-container {
   position: absolute;
-  margin-top: 5%;
-
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   display: none;
@@ -41,12 +46,9 @@ body {
   gap: 10px;
 }
 
-/*larger screen */
-@media (min-width: 1200px) {
-  .game-container {
-    width: 70vw;
-    height: 70vh;
-  }
+/* Media query for wider screens */
+
+@media (min-width: 900px) {
 }
 
 /*smaller screen */
@@ -99,7 +101,7 @@ body.mobile-device button {
   grid-area: right;
 }
 
-button {
+.control-button {
   width: 130px;
   height: 130px;
   background: #fff;

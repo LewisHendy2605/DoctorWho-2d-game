@@ -46,26 +46,52 @@ class OverWorld {
     step();
   }
 
-  init() {
-    this.map = new OverWorldMap(window.OverworldMaps.Tardis);
-    //console.log(this.map.walls);
+  bindActionInput() {
+    new KeyPressListener("Enter", () => {
+      // Is there a person here to talk to ?
+      this.map.checkForActionCutscene();
+    });
+  }
+
+  bindHeroPositionCheck() {
+    document.addEventListener("PersonWalkComplete", (e) => {
+      if (e.detail.whoId == "hero") {
+        // Heros position has chaged
+        this.map.checkForFootstepCutscene();
+      }
+    });
+  }
+
+  startMap(mapConfig) {
+    this.map = new OverWorldMap(mapConfig);
+    this.map.overworld = this;
     this.map.mountObjects();
+  }
+
+  init() {
+    this.startMap(window.OverworldMaps.DemoRoom);
+
+    this.bindActionInput();
+    this.bindHeroPositionCheck();
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();
     //this.directionInput.direction;
-
     this.startGameLoop();
 
     /*
     this.map.startCutscene([
       { who: "hero", type: "walk", direction: "down" },
       { who: "hero", type: "walk", direction: "down" },
+      { who: "npcA", type: "walk", direction: "up" },
       { who: "npcA", type: "walk", direction: "left" },
-      { who: "npcA", type: "walk", direction: "left" },
-      { who: "npcA", type: "stand", direction: "up", time: 800 },
+      { who: "hero", type: "stand", direction: "right", time: 200 },
+      { type: "textMessage", text: "Hello Buddy" },
+      //{ who: "npcA", type: "npcA", direction: "npcA" },
+      //{ who: "npcA", type: "walk", direction: "left" },
+      //{ who: "npcA", type: "stand", direction: "up", time: 800 },
     ]);
-    */
+*/
 
     console.log("Hello from the Overworld", this);
   }

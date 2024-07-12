@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <title>Doctor Who 2d</title>
-    <link id="style" type="text/css" rel="stylesheet" />
+    <link id="global" type="text/css" rel="stylesheet" />
+    <link id="TextMessage" type="text/css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -21,9 +22,15 @@
 
       document.addEventListener("DOMContentLoaded", function () {
         // Set the stylesheet href
-        const styleLink = document.getElementById("style");
+        const styleLink = document.getElementById("global");
         if (styleLink) {
-          styleLink.href = `${basePath}/style.css`;
+          styleLink.href = `${basePath}/styles/global.css`;
+        } else {
+          console.error("Style link not found");
+        }
+        const styleLinkTM = document.getElementById("TextMessage");
+        if (styleLinkTM) {
+          styleLinkTM.href = `${basePath}/styles/TextMessage.css`;
         } else {
           console.error("Style link not found");
         }
@@ -38,6 +45,8 @@
           "Sprite.js",
           "OverWorldMap.js",
           "OverworldEvent.js",
+          "TextMessage.js",
+          "KeyPressListener.js",
           "init.js",
         ];
 
@@ -83,16 +92,16 @@
 
     <div class="controls-container">
       <div class="control up-control">
-        <button><i class="fas fa-arrow-up"></i></button>
+        <button><i class="fas fa-arrow-up control-button"></i></button>
       </div>
       <div class="control left-control">
-        <button><i class="fas fa-arrow-left"></i></button>
+        <button><i class="fas fa-arrow-left control-button"></i></button>
       </div>
       <div class="control right-control">
-        <button><i class="fas fa-arrow-right"></i></button>
+        <button><i class="fas fa-arrow-right control-button"></i></button>
       </div>
       <div class="control down-control">
-        <button><i class="fas fa-arrow-down"></i></button>
+        <button><i class="fas fa-arrow-down control-button"></i></button>
       </div>
     </div>
   </body>

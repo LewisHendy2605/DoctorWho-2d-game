@@ -1,0 +1,35 @@
+/*larger screen */
+@media (min-width: 1200px) {
+  .game-container {
+    width: 70vw;
+    height: 70vh;
+  }
+}
+
+/*smaller screen */
+@media (max-width: 756px) {
+  .controls-container {
+    display: grid; /* Show controls only on screens narrower than 757px */
+  }
+
+  .game-container {
+    width: 95vw;
+    height: 30vh;
+  }
+}
+
+/* Show controls-container on mobile devices */
+body.mobile-device .controls-container {
+  display: grid;
+}
+
+body.mobile-device .game-container {
+  width: 90vw;
+  height: 35vh;
+}
+
+body.mobile-device button {
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
+}
