@@ -1,3 +1,13 @@
+.game-container {
+  position: relative;
+  width: 352px;
+  height: 198px;
+  margin: 0 auto;
+  outline: 1px solid #fff;
+
+  transform: scale(3) translateY(50%);
+}
+
 /*larger screen */
 @media (min-width: 1200px) {
   .game-container {
