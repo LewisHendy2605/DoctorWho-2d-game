@@ -3,10 +3,11 @@ class TextMessage {
     this.text = text;
     this.onComplete = onComplete;
     this.element = null;
+    this.interrupted = false; // Flag to indicate if the event was interrupted
   }
 
   createElement() {
-    //Create the element
+    // Create the element
     this.element = document.createElement("div");
     this.element.classList.add("TextMessage");
 
@@ -23,11 +24,23 @@ class TextMessage {
       this.actionListener.unbind();
       this.done();
     });
+
+    // Cancel if walk away
+    const handlePersonStartWalk = () => {
+      document.removeEventListener("PersonStartWalk", handlePersonStartWalk);
+      this.interrupted = true; // Set the interrupted flag
+      this.done();
+    };
+
+    document.addEventListener("PersonStartWalk", handlePersonStartWalk);
   }
 
   done() {
-    this.element.remove();
-    this.onComplete();
+    if (this.element) {
+      this.element.remove();
+      this.element = null;
+    }
+    this.onComplete(this.interrupted); // Pass the interrupted flag to the callback
   }
 
   init(container) {

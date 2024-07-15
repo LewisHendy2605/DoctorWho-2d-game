@@ -58,7 +58,11 @@ class OverworldEvent {
 
     const message = new TextMessage({
       text: this.event.text,
-      onComplete: () => resolve(),
+      onComplete: (interrupted) => {
+        if (!interrupted) {
+          resolve();
+        }
+      },
     });
     message.init(document.querySelector(".game-container"));
   }

@@ -58,6 +58,7 @@ class OverWorld {
       if (e.detail.whoId == "hero") {
         // Heros position has chaged
         this.map.checkForFootstepCutscene();
+        this.map.checkForFootstepInteractive();
       }
     });
   }

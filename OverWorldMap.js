@@ -3,6 +3,7 @@ class OverWorldMap {
     this.overworld = null;
     this.gameObjects = config.gameObjects;
     this.cutsceneSpaces = config.cutsceneSpaces || {};
+    this.interavtives = config.interavtives || {};
     this.walls = config.walls || {};
 
     this.lowerImage = new Image();
@@ -64,6 +65,19 @@ class OverWorldMap {
     Object.values(this.gameObjects).forEach((object) => object.doBehavior());
   }
 
+  async startInteractive(events) {
+    //Start a loop of async events, await each one
+    for (let i = 0; i < events.length; i++) {
+      const eventHandler = new OverworldEvent({
+        event: events[i],
+        map: this,
+      });
+      await eventHandler.init();
+    }
+    // Reset NPCs to do their idle behavior
+    Object.values(this.gameObjects).forEach((object) => object.doBehavior());
+  }
+
   checkForActionCutscene() {
     const hero = this.gameObjects["hero"];
     const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
@@ -80,6 +94,14 @@ class OverWorldMap {
     const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
     if (!this.isCutScenePlaying && match) {
       this.startCutscene(match[0].events);
+    }
+  }
+
+  checkForFootstepInteractive() {
+    const hero = this.gameObjects["hero"];
+    const match = this.interavtives[`${hero.x},${hero.y}`];
+    if (!this.isCutScenePlaying && match) {
+      this.startInteractive(match[0].events);
     }
   }
 
@@ -197,15 +219,15 @@ window.OverworldMaps = {
   },
   Tardis: {
     lowerSrc: "/images/tardis/Tardis-map-v8.png",
-    upperSrc: "/images/maps/KitchenUpper.png",
+    upperSrc: "",
     gameObjects: {
       hero: new Person({
         isPlayerControlled: true,
-        x: utils.withGrid(46),
+        x: utils.withGrid(45),
         y: utils.withGrid(50),
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
-      npc1: new Person({
+      npcA: new Person({
         x: utils.withGrid(48),
         y: utils.withGrid(53),
         src: "/images/characters/people/npc1.png",
@@ -215,7 +237,7 @@ window.OverworldMaps = {
               {
                 type: "textMessage",
                 text: "Hey, you made it",
-                faceHero: ["npcB"],
+                faceHero: ["npcA"],
               },
             ],
           },
@@ -223,6 +245,7 @@ window.OverworldMaps = {
       }),
     },
     cutsceneSpaces: {
+      // Exit
       [utils.asGridCoord(31, 50)]: [
         {
           events: [{ type: "changeMap", map: "Outside_tardis" }],
@@ -231,6 +254,25 @@ window.OverworldMaps = {
       [utils.asGridCoord(31, 49)]: [
         {
           events: [{ type: "changeMap", map: "Outside_tardis" }],
+        },
+      ],
+    },
+    interavtives: {
+      // Console
+      [utils.asGridCoord(47, 50)]: [
+        {
+          events: [
+            { type: "textMessage", text: "Press Enter to Fly" },
+            { who: "hero", type: "walk", direction: "up" },
+            { who: "hero", type: "stand", direction: "right", time: 600 },
+            { who: "hero", type: "walk", direction: "up" },
+            { who: "hero", type: "walk", direction: "up" },
+            { who: "hero", type: "walk", direction: "right" },
+            { who: "hero", type: "stand", direction: "down", time: 700 },
+            { who: "hero", type: "walk", direction: "right" },
+            { who: "hero", type: "walk", direction: "right" },
+            { who: "hero", type: "stand", direction: "down", time: 700 },
+          ],
         },
       ],
     },

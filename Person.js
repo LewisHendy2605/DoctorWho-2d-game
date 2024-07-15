@@ -38,7 +38,7 @@ class Person extends GameObject {
   }
 
   startBehavior(state, behavior) {
-    // Setting character direction to whatever behavir has
+    // Setting character direction to whatever behavior has
     this.direction = behavior.direction;
 
     if (behavior.type === "walk") {
@@ -53,6 +53,9 @@ class Person extends GameObject {
 
       // Ready to walk
       state.map.moveWall(this.x, this.y, this.direction);
+      utils.emeitEvent("PersonStartWalk", {
+        whoId: this.id,
+      });
       this.movingProgressRemaining = 16;
       this.updateSprite(state);
     }

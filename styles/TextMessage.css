@@ -3,7 +3,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 36px;
+  height: 20%;
   font-size: 12px;
   padding: 4px;
   background: var(--menu-background);
@@ -13,16 +13,17 @@
 
 .TextMessage_p {
   margin: 0;
-  font-size: 12px;
+  font-size: 35px;
 }
 
 .TextMessage_button {
   margin: 0;
-  font-size: 8px;
-  padding: 0px;
+  font-size: 35px;
+  padding: 9px;
   --webkit-apperance: none;
   background: none;
-  border: 0;
+  border: 5px solid black;
+  border-radius: 10px;
   font-family: inherit;
   cursor: pointer;
 

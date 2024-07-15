@@ -67,6 +67,25 @@ body {
   .controls-container {
     height: 30vh;
   }
+
+  .game-container {
+    width: 90vw;
+    height: 90vh;
+  }
+}
+
+@media (max-height: 530px) {
+  .game-container {
+    width: 80vw;
+    height: 80vh;
+  }
+}
+
+@media (max-height: 439px) {
+  .game-container {
+    width: 60vw;
+    height: 80vh;
+  }
 }
 
 /* Show controls-container on mobile devices */
