@@ -2,6 +2,7 @@ class OverworldEvent {
   constructor({ map, event }) {
     this.map = map;
     this.event = event;
+    //this.audioManager = new AudioManager();
   }
 
   stand(resolve) {
@@ -65,6 +66,16 @@ class OverworldEvent {
       },
     });
     message.init(document.querySelector(".game-container"));
+  }
+
+  playAudio(resolve) {
+    if (this.event.audioSrc) {
+      this.audioManager = new AudioManager();
+      // Play audio effect without blocking other actions
+      this.audioManager.playBackground(this.event.audioSrc);
+    }
+    // Resolve immediately if no further action is needed
+    resolve();
   }
 
   changeMap(resolve) {

@@ -262,7 +262,8 @@ window.OverworldMaps = {
       [utils.asGridCoord(47, 50)]: [
         {
           events: [
-            { type: "textMessage", text: "Press Enter to Fly" },
+            { type: "textMessage", text: "Press Enter to Takeoff" },
+            { type: "playAudio", audioSrc: "/audio/tardis_takeoff_2014.mp3" },
             { who: "hero", type: "walk", direction: "up" },
             { who: "hero", type: "stand", direction: "right", time: 600 },
             { who: "hero", type: "walk", direction: "up" },
@@ -272,6 +273,18 @@ window.OverworldMaps = {
             { who: "hero", type: "walk", direction: "right" },
             { who: "hero", type: "walk", direction: "right" },
             { who: "hero", type: "stand", direction: "down", time: 700 },
+            { who: "hero", type: "walk", direction: "right" },
+            { who: "hero", type: "walk", direction: "right" },
+            { who: "hero", type: "walk", direction: "down" },
+            { who: "hero", type: "walk", direction: "down" },
+            { who: "hero", type: "stand", direction: "left", time: 700 },
+            { who: "hero", type: "walk", direction: "down" },
+            { who: "hero", type: "walk", direction: "down" },
+            { who: "hero", type: "walk", direction: "down" },
+            { who: "hero", type: "walk", direction: "left" },
+            { who: "hero", type: "walk", direction: "left" },
+            { who: "hero", type: "walk", direction: "left" },
+            { who: "hero", type: "stand", direction: "up", time: 700 },
           ],
         },
       ],
