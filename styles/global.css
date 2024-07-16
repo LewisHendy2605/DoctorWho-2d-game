@@ -21,8 +21,8 @@ body {
 
 .game-container {
   position: relative;
-  width: 85vw;
-  height: 60vh;
+  width: 85svw;
+  height: 60svh;
   margin: 2% auto;
   outline: 1px solid #fff;
 
@@ -83,7 +83,7 @@ body {
 
 @media (max-height: 439px) {
   .game-container {
-    width: 60vw;
+    width: 90vw;
     height: 80vh;
   }
 }
@@ -94,8 +94,8 @@ body.mobile-device .controls-container {
 }
 
 body.mobile-device .game-container {
-  width: 90vw;
-  height: 35vh;
+  width: 98svw;
+  height: 35svh;
 }
 
 body.mobile-device .control-button {
