@@ -33,59 +33,31 @@ class DirectionInput {
         this.heldDirections.splice(index, 1);
       }
     });
-
     // Add event listeners for buttons (mouse and touch)
-    document
-      .querySelector(".up-control button")
-      .addEventListener("mousedown", () => this.handleButtonDown("up"));
-    document
-      .querySelector(".up-control button")
-      .addEventListener("mouseup", () => this.handleButtonUp("up"));
-    document
-      .querySelector(".up-control button")
-      .addEventListener("touchstart", () => this.handleButtonDown("up"));
-    document
-      .querySelector(".up-control button")
-      .addEventListener("touchend", () => this.handleButtonUp("up"));
+    // Define a helper function to bind touch and mouse events
+    const bindControl = (selector, direction) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.addEventListener("mousedown", () =>
+          this.handleButtonDown(direction)
+        );
+        element.addEventListener("mouseup", () =>
+          this.handleButtonUp(direction)
+        );
+        element.addEventListener("touchstart", () =>
+          this.handleButtonDown(direction)
+        );
+        element.addEventListener("touchend", () =>
+          this.handleButtonUp(direction)
+        );
+      }
+    };
 
-    document
-      .querySelector(".down-control button")
-      .addEventListener("mousedown", () => this.handleButtonDown("down"));
-    document
-      .querySelector(".down-control button")
-      .addEventListener("mouseup", () => this.handleButtonUp("down"));
-    document
-      .querySelector(".down-control button")
-      .addEventListener("touchstart", () => this.handleButtonDown("down"));
-    document
-      .querySelector(".down-control button")
-      .addEventListener("touchend", () => this.handleButtonUp("down"));
-
-    document
-      .querySelector(".left-control button")
-      .addEventListener("mousedown", () => this.handleButtonDown("left"));
-    document
-      .querySelector(".left-control button")
-      .addEventListener("mouseup", () => this.handleButtonUp("left"));
-    document
-      .querySelector(".left-control button")
-      .addEventListener("touchstart", () => this.handleButtonDown("left"));
-    document
-      .querySelector(".left-control button")
-      .addEventListener("touchend", () => this.handleButtonUp("left"));
-
-    document
-      .querySelector(".right-control button")
-      .addEventListener("mousedown", () => this.handleButtonDown("right"));
-    document
-      .querySelector(".right-control button")
-      .addEventListener("mouseup", () => this.handleButtonUp("right"));
-    document
-      .querySelector(".right-control button")
-      .addEventListener("touchstart", () => this.handleButtonDown("right"));
-    document
-      .querySelector(".right-control button")
-      .addEventListener("touchend", () => this.handleButtonUp("right"));
+    // Bind controls for all directions
+    bindControl(".up-control button", "up");
+    bindControl(".down-control button", "down");
+    bindControl(".left-control button", "left");
+    bindControl(".right-control button", "right");
   }
 
   handleButtonDown(direction) {

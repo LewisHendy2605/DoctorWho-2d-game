@@ -25,6 +25,7 @@ class OverWorldMap {
   }
 
   drawUpperImage(ctx, cameraPerson) {
+    console.log(this.upperImage);
     ctx.drawImage(
       this.upperImage,
       utils.withGrid(10.5) - cameraPerson.x,
@@ -219,7 +220,7 @@ window.OverworldMaps = {
   },
   Tardis: {
     lowerSrc: "/images/tardis/Tardis-map-v9.png",
-    upperSrc: "",
+    upperSrc: "/images/tardis/Tardis-map-v9.png",
     gameObjects: {
       hero: new Person({
         isPlayerControlled: true,
