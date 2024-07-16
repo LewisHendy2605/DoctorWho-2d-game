@@ -25,7 +25,6 @@ class OverWorldMap {
   }
 
   drawUpperImage(ctx, cameraPerson) {
-    console.log(this.upperImage);
     ctx.drawImage(
       this.upperImage,
       utils.withGrid(10.5) - cameraPerson.x,
