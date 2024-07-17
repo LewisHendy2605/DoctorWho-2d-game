@@ -4,6 +4,7 @@
     <title>Doctor Who 2d</title>
     <link id="global" type="text/css" rel="stylesheet" />
     <link id="TextMessage" type="text/css" rel="stylesheet" />
+    <link id="SceneTransition" type="text/css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -22,15 +23,24 @@
 
       document.addEventListener("DOMContentLoaded", function () {
         // Set the stylesheet href
+        //global
         const styleLink = document.getElementById("global");
         if (styleLink) {
           styleLink.href = `${basePath}/styles/global.css`;
         } else {
           console.error("Style link not found");
         }
+        //text message
         const styleLinkTM = document.getElementById("TextMessage");
         if (styleLinkTM) {
           styleLinkTM.href = `${basePath}/styles/TextMessage.css`;
+        } else {
+          console.error("Style link not found");
+        }
+        //scene transition
+        const styleLinkST = document.getElementById("SceneTransition");
+        if (styleLinkST) {
+          styleLinkST.href = `${basePath}/styles/SceneTransition.css`;
         } else {
           console.error("Style link not found");
         }
@@ -49,6 +59,7 @@
           "TextMessage.js",
           "KeyPressListener.js",
           "RevealingText.js",
+          "SceneTransition.js",
           "init.js",
         ];
 

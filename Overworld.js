@@ -70,7 +70,7 @@ class OverWorld {
   }
 
   init() {
-    this.startMap(window.OverworldMaps.Kitchen);
+    this.startMap(window.OverworldMaps.Tardis);
 
     this.bindActionInput();
     this.bindHeroPositionCheck();
@@ -80,10 +80,9 @@ class OverWorld {
     //this.directionInput.direction;
     this.startGameLoop();
 
-    this.map.startCutscene([
-      { type: "textMessage", text: "Hello Buddy, your in the kitchen now !!" },
-    ]);
-
-    console.log("Hello from the Overworld", this);
+    //this.map.startCutscene([
+    //{ type: "changeMap", map: "DemoRoom" },
+    //{ type: "textMessage", text: "Hello Buddy, your in the kitchen now !!" },
+    //]);
   }
 }
