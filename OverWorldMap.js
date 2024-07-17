@@ -218,7 +218,7 @@ window.OverworldMaps = {
     },
   },
   Tardis: {
-    lowerSrc: "/images/tardis/Tardis-map-v11.png",
+    lowerSrc: "/images/tardis/Tardis-map-v10.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {
       hero: new Person({
@@ -242,6 +242,12 @@ window.OverworldMaps = {
             ],
           },
         ],
+      }),
+      console: new GameObject({
+        x: utils.withGrid(47.5),
+        y: utils.withGrid(48),
+        src: "/images/tardis/tardis-console.png",
+        isConsole: true,
       }),
     },
     cutsceneSpaces: {

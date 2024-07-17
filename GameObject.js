@@ -5,10 +5,20 @@ class GameObject {
     this.x = config.x || 0;
     this.y = config.y || 0;
     this.direction = config.direction || "down";
-    this.sprite = new Sprite({
-      gameObject: this,
-      src: config.src || "/images/characters/people/hero.png",
-    });
+
+    this.isConsole = config.isConsole || false;
+
+    if (this.isConsole) {
+      this.sprite = new Console({
+        gameObject: this,
+        src: config.src || "/images/characters/people/hero.png",
+      });
+    } else {
+      this.sprite = new Sprite({
+        gameObject: this,
+        src: config.src || "/images/characters/people/hero.png",
+      });
+    }
 
     this.behaviorLoop = config.behaviorLoop || [];
     this.behaviorLoopIndex = 0;

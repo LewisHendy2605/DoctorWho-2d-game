@@ -1,4 +1,4 @@
-class Sprite {
+class Console {
   constructor(config) {
     // Set up the image
     this.image = new Image();
@@ -20,37 +20,11 @@ class Sprite {
 
     // Configure Animation and initial state
     this.animations = config.animations || {
-      "idle-down": [[0, 0]],
-      "idle-right": [[0, 1]],
-      "idle-up": [[0, 2]],
-      "idle-left": [[0, 3]],
-      "walk-down": [
-        [1, 0],
-        [0, 0],
-        [3, 0],
-        [0, 0],
-      ],
-      "walk-right": [
-        [1, 1],
-        [0, 1],
-        [3, 1],
-        [0, 1],
-      ],
-      "walk-up": [
-        [1, 2],
-        [0, 2],
-        [3, 2],
-        [0, 2],
-      ],
-      "walk-left": [
-        [1, 3],
-        [0, 3],
-        [3, 3],
-        [0, 3],
-      ],
+      start: [[0, 0]],
+      "cirleLever-down": [[1, 0]],
     };
     //this.currentAnimation = config.currentAnimation || "idle-down";
-    this.currentAnimation = "idle-right";
+    this.currentAnimation = "cirleLever-down";
     this.currentAnimationFrame = 0;
 
     this.animationFrameLimit = config.animationFrameLimit || 8;
@@ -97,28 +71,38 @@ class Sprite {
     const [frameX, frameY] = this.frame;
 
     /*
-    if (this.image.src.includes("characters-doctor-who")) {
-      this.isLoaded &&
-        ctx.drawImage(this.image, 0, 0, 128, 128, x + 4, y + 4, 32, 32);
-    } else {
-      this.isLoaded &&
-        ctx.drawImage(
-          this.image,
-          frameX * 32,
-          frameY * 32,
-          32,
-          32,
-          x,
-          y,
-          32,
-          32
-        );
-    }
-        */
+      if (this.image.src.includes("characters-doctor-who")) {
+        this.isLoaded &&
+          ctx.drawImage(this.image, 0, 0, 128, 128, x + 4, y + 4, 32, 32);
+      } else {
+        this.isLoaded &&
+          ctx.drawImage(
+            this.image,
+            frameX * 32,
+            frameY * 32,
+            32,
+            32,
+            x,
+            y,
+            32,
+            32
+          );
+      }
+          */
 
     console.log("Image: ", this.image);
     this.isLoaded &&
-      ctx.drawImage(this.image, frameX * 32, frameY * 32, 32, 32, x, y, 32, 32);
+      ctx.drawImage(
+        this.image,
+        frameX * 100,
+        frameY * 100,
+        100,
+        100,
+        x,
+        y,
+        100,
+        100
+      );
 
     this.updateAnimationProgress();
   }

@@ -15,7 +15,6 @@ class OverWorld {
       const cameraPerson = this.map.gameObjects.hero;
 
       // Update all objects
-
       Object.values(this.map.gameObjects).forEach((object) => {
         object.update({
           arrow: this.directionInput.direction,
@@ -27,12 +26,12 @@ class OverWorld {
       this.map.drawLowerImage(this.ctx, cameraPerson);
 
       //Draw Game Objects
-
       Object.values(this.map.gameObjects)
         .sort((a, b) => {
           return a.y - b.y;
         })
         .forEach((object) => {
+          console.log("object: ", object);
           object.sprite.draw(this.ctx, cameraPerson);
         });
 
