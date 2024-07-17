@@ -31,7 +31,6 @@ class OverWorld {
           return a.y - b.y;
         })
         .forEach((object) => {
-          console.log("object: ", object);
           object.sprite.draw(this.ctx, cameraPerson);
         });
 

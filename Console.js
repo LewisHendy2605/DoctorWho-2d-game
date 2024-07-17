@@ -90,7 +90,6 @@ class Console {
       }
           */
 
-    console.log("Image: ", this.image);
     this.isLoaded &&
       ctx.drawImage(
         this.image,

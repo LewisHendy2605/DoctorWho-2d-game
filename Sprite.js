@@ -116,7 +116,6 @@ class Sprite {
     }
         */
 
-    console.log("Image: ", this.image);
     this.isLoaded &&
       ctx.drawImage(this.image, frameX * 32, frameY * 32, 32, 32, x, y, 32, 32);
 
