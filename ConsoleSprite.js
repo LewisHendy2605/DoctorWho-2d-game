@@ -35,6 +35,9 @@ class ConsoleSprite {
   }
 
   get frame() {
+    //console.log(this.currentAnimation);
+    //console.log(this.animations[this.currentAnimation]);
+    //console.log(this.currentAnimationFrame);
     return this.animations[this.currentAnimation][this.currentAnimationFrame];
   }
 

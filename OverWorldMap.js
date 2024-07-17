@@ -243,7 +243,7 @@ window.OverworldMaps = {
           },
         ],
       }),
-      console: new GameObject({
+      console: new Console({
         x: utils.withGrid(47.5),
         y: utils.withGrid(48),
         src: "/images/tardis/tardis-console.png",
