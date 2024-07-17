@@ -248,6 +248,9 @@ window.OverworldMaps = {
         y: utils.withGrid(48),
         src: "/images/tardis/tardis-console.png",
         isConsole: true,
+        behaviorLoop: [
+          //{ type: "circleLeverDown" }
+        ],
       }),
     },
     cutsceneSpaces: {
@@ -270,6 +273,8 @@ window.OverworldMaps = {
           events: [
             { type: "textMessage", text: "Press Enter to Takeoff" },
             { type: "playAudio", audioSrc: "/audio/tardis_takeoff_2014.mp3" },
+            { who: "console", type: "circleLeverDown" },
+            { who: "hero", type: "walk", direction: "up" },
             { who: "hero", type: "walk", direction: "up" },
             { who: "hero", type: "stand", direction: "right", time: 600 },
             { who: "hero", type: "walk", direction: "up" },

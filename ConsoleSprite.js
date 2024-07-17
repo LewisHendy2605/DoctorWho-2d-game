@@ -21,10 +21,10 @@ class ConsoleSprite {
     // Configure Animation and initial state
     this.animations = config.animations || {
       start: [[0, 0]],
-      "cirleLever-down": [[1, 0]],
+      circleLeverDown: [[1, 0]],
     };
     //this.currentAnimation = config.currentAnimation || "idle-down";
-    this.currentAnimation = "cirleLever-down";
+    this.currentAnimation = "start";
     this.currentAnimationFrame = 0;
 
     this.animationFrameLimit = config.animationFrameLimit || 8;

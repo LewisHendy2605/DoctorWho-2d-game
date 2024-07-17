@@ -88,6 +88,19 @@ class OverworldEvent {
     });
   }
 
+  circleLeverDown(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    setTimeout(function () {
+      who.startBehavior(
+        { map: this.map },
+        {
+          type: "circleLeverDown",
+        }
+      );
+      resolve();
+    }, 100);
+  }
+
   init() {
     return new Promise((resolve) => {
       this[this.event.type](resolve);

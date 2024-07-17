@@ -20,14 +20,14 @@ class Console extends GameObject {
   }
 
   startBehavior(state, behavior) {
-    // TODO - animation ?
+    this.updateSprite(behavior.type);
   }
 
   updatePosition() {
     // Dont need i think
   }
 
-  updateSprite() {
-    // TODO
+  updateSprite(type) {
+    this.sprite.setAnimation(type);
   }
 }
