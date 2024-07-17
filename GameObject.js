@@ -9,7 +9,7 @@ class GameObject {
     this.isConsole = config.isConsole || false;
 
     if (this.isConsole) {
-      this.sprite = new Console({
+      this.sprite = new ConsoleSprite({
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
