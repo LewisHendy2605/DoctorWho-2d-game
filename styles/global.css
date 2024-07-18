@@ -73,10 +73,12 @@ body.mobile-device .controls-container {
   display: grid;
 }
 
+/*
 body.mobile-device .game-container {
   width: 98svw;
   height: 30svh;
 }
+  */
 
 body.mobile-device .control-button {
   width: 100px;
