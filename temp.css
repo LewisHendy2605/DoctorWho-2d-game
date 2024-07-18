@@ -14,6 +14,42 @@
     width: 70vw;
     height: 70vh;
   }
+} /*smaller screen */
+@media (max-width: 756px) {
+  .controls-container {
+    display: grid; /* Show controls only on screens narrower than 757px */
+  }
+
+  .game-container {
+    width: 95vw;
+    height: 40vh;
+  }
+}
+
+/*smaller screen */
+@media (max-height: 620px) {
+  .controls-container {
+    height: 30vh;
+  }
+
+  .game-container {
+    width: 90vw;
+    height: 90vh;
+  }
+}
+
+@media (max-height: 530px) {
+  .game-container {
+    width: 80vw;
+    height: 80vh;
+  }
+}
+
+@media (max-height: 439px) {
+  .game-container {
+    width: 90vw;
+    height: 80vh;
+  }
 }
 
 /*smaller screen */
@@ -42,4 +78,74 @@ body.mobile-device button {
   width: 100px;
   height: 100px;
   font-size: 30px;
+}
+
+.controls-container {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  grid-template-areas:
+    " .  up  . "
+    "left  .  right"
+    " . down  . ";
+  gap: 10px;
+}
+
+/* Show controls-container on mobile devices */
+body.mobile-device .controls-container {
+  display: grid;
+}
+
+body.mobile-device .game-container {
+  width: 98svw;
+  height: 30svh;
+}
+
+body.mobile-device .control-button {
+  width: 100px;
+  height: 100px;
+  font-size: 30px;
+}
+
+.control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.up-control {
+  grid-area: up;
+}
+
+.down-control {
+  grid-area: down;
+}
+
+.left-control {
+  grid-area: left;
+}
+
+.right-control {
+  grid-area: right;
+}
+
+.control-button {
+  width: 130px;
+  height: 130px;
+  background: #fff;
+  border: none;
+  outline: none;
+  font-size: 35px;
+  cursor: pointer;
+  touch-action: none; /* Prevent double-tap zoom */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Prevent text selection for Safari */
+  -moz-user-select: none; /* Prevent text selection for Firefox */
+  -ms-user-select: none; /* Prevent text selection for IE */
+}
+
+button:hover {
+  background: #ddd;
 }

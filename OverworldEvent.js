@@ -88,6 +88,15 @@ class OverworldEvent {
     });
   }
 
+  battle(resolve) {
+    const battle = new Battle({
+      onComplete: () => {
+        resolve();
+      },
+    });
+    battle.init(document.querySelector(".game-container"));
+  }
+
   circleLeverDown(resolve) {
     const who = this.map.gameObjects[this.event.who];
     setTimeout(function () {

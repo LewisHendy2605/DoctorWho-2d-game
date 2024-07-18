@@ -5,6 +5,10 @@
     <link id="global" type="text/css" rel="stylesheet" />
     <link id="TextMessage" type="text/css" rel="stylesheet" />
     <link id="SceneTransition" type="text/css" rel="stylesheet" />
+    <link id="Battle" type="text/css" rel="stylesheet" />
+    <link id="Combatant" type="text/css" rel="stylesheet" />
+    <link id="Team" type="text/css" rel="stylesheet" />
+    <link id="SubmissionMenu" type="text/css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -45,8 +49,41 @@
           console.error("Style link not found");
         }
 
+        // Battle css
+        const battleLink = document.getElementById("Battle");
+        if (battleLink) {
+          battleLink.href = `${basePath}/styles/Battle.css`;
+        } else {
+          console.error("Style link not found");
+        }
+        //
+        const combatantLink = document.getElementById("Combatant");
+        if (combatantLink) {
+          combatantLink.href = `${basePath}/styles/Combatant.css`;
+        } else {
+          console.error("Style link not found");
+        }
+        //
+        const teamLink = document.getElementById("Team");
+        if (teamLink) {
+          teamLink.href = `${basePath}/styles/Team.css`;
+        } else {
+          console.error("Style link not found");
+        }
+        //
+        const submissionMenuLink = document.getElementById("SubmissionMenu");
+        if (submissionMenuLink) {
+          submissionMenuLink.href = `${basePath}/styles/SubmissionMenu.css`;
+        } else {
+          console.error("Style link not found");
+        }
+
         // Scripts to load in order
         const scripts = [
+          // Content
+          "Content/pizzas.js",
+
+          // Scripts
           "utils.js",
           "AudioManager.js",
           "DirectionInput.js",
@@ -62,6 +99,13 @@
           "KeyPressListener.js",
           "RevealingText.js",
           "SceneTransition.js",
+
+          // Battle scripts
+          "Battle/Battle.js",
+          "Battle/SubmissionMenu.js",
+          "Battle/Team.js",
+          "Battle/Combatant.js",
+
           "init.js",
         ];
 
