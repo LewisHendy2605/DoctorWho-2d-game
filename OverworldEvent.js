@@ -98,6 +98,84 @@ class OverworldEvent {
         }
       );
       resolve();
+    }, 200);
+  }
+
+  consoleStart(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    setTimeout(function () {
+      who.startBehavior(
+        { map: this.map },
+        {
+          type: "start",
+        }
+      );
+      resolve();
+    }, 200);
+  }
+
+  takeOffOne(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    setTimeout(function () {
+      who.startBehavior(
+        { map: this.map },
+        {
+          type: "take-off-one",
+        }
+      );
+      resolve();
+    }, 300);
+  }
+
+  takeOffTwo(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    setTimeout(function () {
+      who.startBehavior(
+        { map: this.map },
+        {
+          type: "take-off-two",
+        }
+      );
+      resolve();
+    }, 900);
+  }
+
+  takeOffThree(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    setTimeout(function () {
+      who.startBehavior(
+        { map: this.map },
+        {
+          type: "take-off-three",
+        }
+      );
+      resolve();
+    }, 900);
+  }
+
+  takeOffFour(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    setTimeout(function () {
+      who.startBehavior(
+        { map: this.map },
+        {
+          type: "take-off-four",
+        }
+      );
+      resolve();
+    }, 900);
+  }
+
+  takeOffFive(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    setTimeout(function () {
+      who.startBehavior(
+        { map: this.map },
+        {
+          type: "take-off-five",
+        }
+      );
+      resolve();
     }, 100);
   }
 

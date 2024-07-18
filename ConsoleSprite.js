@@ -21,7 +21,11 @@ class ConsoleSprite {
     // Configure Animation and initial state
     this.animations = config.animations || {
       start: [[0, 0]],
-      circleLeverDown: [[1, 0]],
+      "take-off-one": [[1, 0]],
+      "take-off-two": [[2, 0]],
+      "take-off-three": [[0, 1]],
+      "take-off-four": [[1, 1]],
+      "take-off-five": [[2, 1]],
     };
     //this.currentAnimation = config.currentAnimation || "idle-down";
     this.currentAnimation = "start";

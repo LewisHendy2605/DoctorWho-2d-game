@@ -33,8 +33,10 @@ class TextMessage {
 
     // Cancel if walk away
     const handlePersonStartWalk = () => {
+      console.log("person walked daway");
       document.removeEventListener("PersonStartWalk", handlePersonStartWalk);
       this.interrupted = true; // Set the interrupted flag
+      this.revealingText.warpToDone();
       this.done();
     };
 

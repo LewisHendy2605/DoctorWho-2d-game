@@ -75,7 +75,11 @@ class OverWorldMap {
       await eventHandler.init();
     }
     // Reset NPCs to do their idle behavior
-    Object.values(this.gameObjects).forEach((object) => object.doBehavior());
+    Object.values(this.gameObjects).forEach((object) => {
+      if (object) {
+        object.doBehavior();
+      }
+    });
   }
 
   checkForActionCutscene() {
@@ -273,29 +277,49 @@ window.OverworldMaps = {
           events: [
             { type: "textMessage", text: "Press Enter to Takeoff" },
             { type: "playAudio", audioSrc: "/audio/tardis_takeoff_2014.mp3" },
-            { who: "console", type: "circleLeverDown" },
+            { who: "console", type: "takeOffOne" },
+            { who: "console", type: "takeOffTwo" },
             { who: "hero", type: "walk", direction: "up" },
             { who: "hero", type: "walk", direction: "up" },
             { who: "hero", type: "stand", direction: "right", time: 600 },
+            { who: "console", type: "takeOffThree" },
+            { who: "console", type: "takeOffFour" },
             { who: "hero", type: "walk", direction: "up" },
-            { who: "hero", type: "walk", direction: "up" },
+            { who: "hero", type: "walk", direction: "right" },
             { who: "hero", type: "walk", direction: "right" },
             { who: "hero", type: "stand", direction: "down", time: 700 },
             { who: "hero", type: "walk", direction: "right" },
             { who: "hero", type: "walk", direction: "right" },
-            { who: "hero", type: "stand", direction: "down", time: 700 },
             { who: "hero", type: "walk", direction: "right" },
-            { who: "hero", type: "walk", direction: "right" },
+            { who: "hero", type: "walk", direction: "down" },
+            { who: "hero", type: "stand", direction: "left", time: 300 },
+            { who: "console", type: "takeOffFive" },
+            { who: "hero", type: "stand", direction: "left", time: 200 },
+            { who: "hero", type: "walk", direction: "down" },
             { who: "hero", type: "walk", direction: "down" },
             { who: "hero", type: "walk", direction: "down" },
             { who: "hero", type: "stand", direction: "left", time: 700 },
             { who: "hero", type: "walk", direction: "down" },
-            { who: "hero", type: "walk", direction: "down" },
-            { who: "hero", type: "walk", direction: "down" },
             { who: "hero", type: "walk", direction: "left" },
             { who: "hero", type: "walk", direction: "left" },
             { who: "hero", type: "walk", direction: "left" },
-            { who: "hero", type: "stand", direction: "up", time: 700 },
+            { who: "hero", type: "walk", direction: "left" },
+            { who: "hero", type: "walk", direction: "left" },
+            { who: "hero", type: "walk", direction: "up" },
+            { who: "hero", type: "walk", direction: "up" },
+            { who: "hero", type: "stand", direction: "right", time: 700 },
+            { who: "console", type: "consoleStart" },
+
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "stand", direction: "left", time: 700 },
+            // { who: "console", type: "takeOffFive" },
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "walk", direction: "down" },
+            //{ who: "hero", type: "walk", direction: "left" },
+            //{ who: "hero", type: "walk", direction: "left" },
+            //{ who: "hero", type: "walk", direction: "left" },
+            //{ who: "hero", type: "stand", direction: "up", time: 700 },
           ],
         },
       ],
