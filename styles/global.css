@@ -71,7 +71,7 @@ body {
     height: auto; /* Adjust height based on aspect ratio */
     padding-top: 0;
     aspect-ratio: 352 / 198; /* Maintain aspect ratio */
-    margin-bottom: 30vh; /* Move the game container closer to the top */
+    margin-bottom: 40vh; /* Move the game container closer to the top */
   }
 
   .control-button {

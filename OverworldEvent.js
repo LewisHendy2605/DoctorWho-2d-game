@@ -72,7 +72,9 @@ class OverworldEvent {
     if (this.event.audioSrc) {
       this.audioManager = new AudioManager();
       // Play audio effect without blocking other actions
-      this.audioManager.playBackground(this.event.audioSrc);
+      this.audioManager.playBackground(
+        utils.setDynamicPath(this.event.audioSrc)
+      );
     }
     // Resolve immediately if no further action is needed
     resolve();
