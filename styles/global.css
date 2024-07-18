@@ -20,22 +20,17 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 100svh;
+  flex-direction: column; /* Column direction for vertical alignment */
+  height: 100vh;
 }
 
 .game-container {
   position: relative;
-  width: 70vw; /* Default width based on viewport */
-  max-width: 800px; /* Maximum width */
-  min-width: 352px; /* Minimum width to match original size */
-  height: 50vh; /* Default height based on viewport */
-  max-height: 450px; /* Maximum height */
-  min-height: 198px; /* Minimum height to match original size */
-  padding-top: 0; /* Reset padding-top as height is now used */
+  width: 352px; /* Original width */
+  height: 198px; /* Original height */
+  margin: 0 auto;
   outline: 1px solid #fff;
-  aspect-ratio: 352 / 198; /* Maintain aspect ratio */
-  margin-bottom: 20vh;
+  transform: scale(3);
 }
 
 .game-container canvas {
@@ -67,11 +62,11 @@ body {
   }
 
   .game-container {
-    width: 90vw;
+    width: 90vw; /* Adjust width to 90% of viewport width */
     height: auto; /* Adjust height based on aspect ratio */
-    padding-top: 0;
     aspect-ratio: 352 / 198; /* Maintain aspect ratio */
-    margin-bottom: 40vh; /* Move the game container closer to the top */
+    margin-bottom: 30vh; /* Move the game container closer to the top */
+    transform: scale(1) translateY(0); /* Reset scaling and translation */
   }
 
   .control-button {

@@ -79,7 +79,7 @@ class OverWorld {
     this.startGameLoop();
 
     this.map.startCutscene([
-      //{ type: "battle" },
+      { type: "battle" },
       //{ type: "changeMap", map: "DemoRoom" },
       //{ type: "textMessage", text: "Hello Buddy, your in the kitchen now !!" },
     ]);
