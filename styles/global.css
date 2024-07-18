@@ -17,43 +17,35 @@ body {
   padding: 0;
   margin: 0;
   overflow: hidden;
-}
-
-.game-container {
-  position: relative;
-  width: 352px;
-  height: 198px;
-  margin: 0 auto;
-  outline: 1px solid #fff;
-
-  transform: scale(3) translateY(50%);
-}
-
-/*
-.game-container {
-  position: relative;
-  width: 85svw;  
-  height: 60svh;
-  margin: 2% auto;
-  outline: 1px solid #fff;
-
   display: flex;
   justify-content: center;
   align-items: center;
-}
-  */
-
-.game-container canvas {
-  image-rendering: pixelated;
+  flex-direction: column;
+  height: 100svh;
 }
 
-/*
+.game-container {
+  position: relative;
+  width: 70vw; /* Default width based on viewport */
+  max-width: 800px; /* Maximum width */
+  min-width: 352px; /* Minimum width to match original size */
+  height: 50vh; /* Default height based on viewport */
+  max-height: 450px; /* Maximum height */
+  min-height: 198px; /* Minimum height to match original size */
+  padding-top: 0; /* Reset padding-top as height is now used */
+  outline: 1px solid #fff;
+  aspect-ratio: 352 / 198; /* Maintain aspect ratio */
+  margin-bottom: 20vh;
+}
+
 .game-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 90%;
+  height: 100%;
   image-rendering: pixelated;
 }
-  */
 
 .controls-container {
   position: absolute;
@@ -69,21 +61,24 @@ body {
 }
 
 /* Show controls-container on mobile devices */
-body.mobile-device .controls-container {
-  display: grid;
-}
+@media (max-width: 768px) {
+  .controls-container {
+    display: grid;
+  }
 
-/*
-body.mobile-device .game-container {
-  width: 98svw;
-  height: 30svh;
-}
-  */
+  .game-container {
+    width: 90vw;
+    height: auto; /* Adjust height based on aspect ratio */
+    padding-top: 0;
+    aspect-ratio: 352 / 198; /* Maintain aspect ratio */
+    margin-bottom: 30vh; /* Move the game container closer to the top */
+  }
 
-body.mobile-device .control-button {
-  width: 100px;
-  height: 100px;
-  font-size: 30px;
+  .control-button {
+    width: 80px;
+    height: 80px;
+    font-size: 20px;
+  }
 }
 
 .control {
@@ -109,8 +104,6 @@ body.mobile-device .control-button {
 }
 
 .control-button {
-  width: 130px;
-  height: 130px;
   background: #fff;
   border: none;
   outline: none;
