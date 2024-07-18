@@ -30,7 +30,8 @@ body {
   height: 198px; /* Original height */
   margin: 0 auto;
   outline: 1px solid #fff;
-  transform: scale(3);
+  transform: scale(3) translateY(-50%);
+  transform-origin: top;
 }
 
 .game-container canvas {
@@ -62,11 +63,8 @@ body {
   }
 
   .game-container {
-    width: 90vw; /* Adjust width to 90% of viewport width */
-    height: auto; /* Adjust height based on aspect ratio */
-    aspect-ratio: 352 / 198; /* Maintain aspect ratio */
-    margin-bottom: 30vh; /* Move the game container closer to the top */
-    transform: scale(1) translateY(0); /* Reset scaling and translation */
+    transform: scale(1.5) translateY(-60%); /* Adjust the scale for mobile */
+    margin-top: 5vh; /* Move the game container closer to the top */
   }
 
   .control-button {
