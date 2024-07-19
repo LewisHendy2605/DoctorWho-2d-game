@@ -345,6 +345,7 @@ window.OverworldMaps = {
       //// RAILS
 
       // Top rail
+      [utils.asGridCoord(47, 41)]: true,
       [utils.asGridCoord(48, 41)]: true,
       [utils.asGridCoord(49, 41)]: true,
       [utils.asGridCoord(50, 41)]: true,
@@ -367,24 +368,49 @@ window.OverworldMaps = {
       [utils.asGridCoord(59, 51)]: true,
 
       // Bottom right rail
-      [utils.asGridCoord(57, 55)]: true,
-      [utils.asGridCoord(55, 56)]: true,
-      [utils.asGridCoord(54, 57)]: true,
-
-      // Bottom rail
-      [utils.asGridCoord(53, 58)]: true,
+      [utils.asGridCoord(58, 52)]: true,
+      [utils.asGridCoord(57, 53)]: true,
+      [utils.asGridCoord(56, 54)]: true,
+      [utils.asGridCoord(55, 55)]: true,
+      [utils.asGridCoord(54, 56)]: true,
+      [utils.asGridCoord(53, 57)]: true,
       [utils.asGridCoord(52, 58)]: true,
+      // Bottom rail
       [utils.asGridCoord(51, 58)]: true,
       [utils.asGridCoord(50, 58)]: true,
       [utils.asGridCoord(49, 58)]: true,
-
+      [utils.asGridCoord(48, 58)]: true,
       // Bottom left rail
+      [utils.asGridCoord(46, 57)]: true,
+      [utils.asGridCoord(45, 56)]: true,
+      [utils.asGridCoord(44, 55)]: true,
+      [utils.asGridCoord(43, 54)]: true,
+      [utils.asGridCoord(42, 53)]: true,
+      [utils.asGridCoord(41, 52)]: true,
+      [utils.asGridCoord(40, 51)]: true,
 
       // top left rail
+      [utils.asGridCoord(46, 42)]: true,
+      [utils.asGridCoord(45, 43)]: true,
+      [utils.asGridCoord(44, 44)]: true,
+      [utils.asGridCoord(43, 45)]: true,
+      [utils.asGridCoord(42, 46)]: true,
+      [utils.asGridCoord(41, 47)]: true,
+      [utils.asGridCoord(40, 47)]: true,
 
       // entry right rail
+      [utils.asGridCoord(40, 47)]: true,
+      [utils.asGridCoord(39, 47)]: true,
+      [utils.asGridCoord(38, 47)]: true,
+      [utils.asGridCoord(37, 47)]: true,
+      [utils.asGridCoord(36, 47)]: true,
 
       // entry left rail
+      [utils.asGridCoord(40, 51)]: true,
+      [utils.asGridCoord(39, 51)]: true,
+      [utils.asGridCoord(38, 51)]: true,
+      [utils.asGridCoord(37, 51)]: true,
+      [utils.asGridCoord(36, 51)]: true,
     },
   },
   Outside_tardis: {
