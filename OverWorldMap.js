@@ -222,7 +222,7 @@ window.OverworldMaps = {
     },
   },
   Tardis: {
-    lowerSrc: "/images/tardis/Tardis-map-v10.png",
+    lowerSrc: "/images/tardis/Tardis-map-v12.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {
       hero: new Person({
@@ -357,20 +357,14 @@ window.OverworldMaps = {
       [utils.asGridCoord(55, 43)]: true,
       [utils.asGridCoord(56, 44)]: true,
       [utils.asGridCoord(57, 45)]: true,
+      [utils.asGridCoord(58, 46)]: true,
 
       // Right rail
-      [utils.asGridCoord(57, 43)]: true,
-      [utils.asGridCoord(57, 44)]: true,
-      [utils.asGridCoord(57, 45)]: true,
-      [utils.asGridCoord(57, 46)]: true,
-      [utils.asGridCoord(57, 47)]: true,
-      [utils.asGridCoord(57, 48)]: true,
-      [utils.asGridCoord(57, 49)]: true,
-      [utils.asGridCoord(57, 50)]: true,
-      [utils.asGridCoord(57, 51)]: true,
-      [utils.asGridCoord(57, 52)]: true,
-      [utils.asGridCoord(57, 53)]: true,
-      [utils.asGridCoord(57, 54)]: true,
+      [utils.asGridCoord(59, 47)]: true,
+      [utils.asGridCoord(59, 48)]: true,
+      [utils.asGridCoord(59, 49)]: true,
+      [utils.asGridCoord(59, 50)]: true,
+      [utils.asGridCoord(59, 51)]: true,
 
       // Bottom right rail
       [utils.asGridCoord(57, 55)]: true,
