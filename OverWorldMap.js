@@ -420,9 +420,9 @@ window.OverworldMaps = {
           events: [{ type: "changeMap", map: "Tardis" }],
         },
       ],
-      [utils.asGridCoord(31, 49)]: [
+      [utils.asGridCoord(47, 39)]: [
         {
-          events: [{ type: "changeMap", map: "Outside_tardis" }],
+          events: [{ type: "changeMap", map: "Tardis" }],
         },
       ],
     },
