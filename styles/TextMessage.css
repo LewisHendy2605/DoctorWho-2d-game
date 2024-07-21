@@ -26,8 +26,9 @@
 
 .TextMessage_button {
   margin: 0;
-  font-size: 1rem;
-  padding: 0.5rem;
+  height: 70%;
+  font-size: 0.6rem;
+  padding: 0.1rem;
   background: var(--menu-background);
   --webkit-appearance: none;
   background: none;
