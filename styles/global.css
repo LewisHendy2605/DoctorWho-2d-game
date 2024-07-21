@@ -3,6 +3,7 @@
   --dialog-background: #291d4d;
 
   --menu-background: #ffe8d2;
+  --menu-background-dark: #e6d0c0;
   --menu-border-color: #a48465;
   --menu-font-color: #3a160d;
   --menu-selected-background: #7fc2ff;
@@ -109,6 +110,6 @@ body {
   -ms-user-select: none; /* Prevent text selection for IE */
 }
 
-button:hover {
+.control-button:hover {
   background: #ddd;
 }

@@ -3,9 +3,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 20%;
-  font-size: 12px;
-  padding: 4px;
+  height: 5svh;
+  font-size: 1rem;
+  padding: 0.5rem;
   background: var(--menu-background);
   border-top: 1px solid var(--menu-border-color);
   color: var(--menu-font-color);
@@ -13,7 +13,7 @@
 
 .TextMessage_p {
   margin: 0;
-  font-size: 35px;
+  font-size: 1rem;
 }
 
 .TextMessage span {
@@ -26,16 +26,18 @@
 
 .TextMessage_button {
   margin: 0;
-  font-size: 35px;
-  padding: 9px;
-  --webkit-apperance: none;
+  font-size: 1rem;
+  padding: 0.5rem;
+  background: var(--menu-background);
+  --webkit-appearance: none;
   background: none;
-  border: 5px solid black;
-  border-radius: 10px;
   font-family: inherit;
   cursor: pointer;
-
+  border-radius: 0.3rem;
   position: absolute;
-  right: 2px;
+  right: 0.5rem;
   bottom: 0;
+}
+.TextMessage_button:hover {
+  background: var(--menu-background-dark);
 }

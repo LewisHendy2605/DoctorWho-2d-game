@@ -44,6 +44,15 @@ const utils = {
     }
     return "up";
   },
+
+  wait(ms) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, ms);
+    });
+  },
+
   emeitEvent(name, detail) {
     const event = new CustomEvent(name, {
       detail,
