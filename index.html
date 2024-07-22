@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>Doctor Who 2d</title>
+    <!--  CSS links -->
     <link id="global" type="text/css" rel="stylesheet" />
     <link id="TextMessage" type="text/css" rel="stylesheet" />
     <link id="SceneTransition" type="text/css" rel="stylesheet" />
@@ -9,6 +10,8 @@
     <link id="Combatant" type="text/css" rel="stylesheet" />
     <link id="Team" type="text/css" rel="stylesheet" />
     <link id="SubmissionMenu" type="text/css" rel="stylesheet" />
+    <link id="KeyboardMenu" type="text/css" rel="stylesheet" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
@@ -77,6 +80,13 @@
         } else {
           console.error("Style link not found");
         }
+        //
+        const keyboardMenuLink = document.getElementById("KeyboardMenu");
+        if (keyboardMenuLink) {
+          keyboardMenuLink.href = `${basePath}/styles/KeyboardMenu.css`;
+        } else {
+          console.error("Style link not found");
+        }
 
         // Scripts to load in order
         const scripts = [
@@ -100,6 +110,7 @@
           "KeyPressListener.js",
           "RevealingText.js",
           "SceneTransition.js",
+          "KeyboardMenu.js",
 
           // Battle scripts
           "Battle/Battle.js",
