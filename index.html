@@ -11,6 +11,7 @@
     <link id="Team" type="text/css" rel="stylesheet" />
     <link id="SubmissionMenu" type="text/css" rel="stylesheet" />
     <link id="KeyboardMenu" type="text/css" rel="stylesheet" />
+    <link id="ConsoleScreen" type="text/css" rel="stylesheet" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
@@ -48,6 +49,14 @@
         const styleLinkST = document.getElementById("SceneTransition");
         if (styleLinkST) {
           styleLinkST.href = `${basePath}/styles/SceneTransition.css`;
+        } else {
+          console.error("Style link not found");
+        }
+
+        // Tardis css
+        const consoleScreenLink = document.getElementById("ConsoleScreen");
+        if (consoleScreenLink) {
+          consoleScreenLink.href = `${basePath}/styles/ConsoleScreen.css`;
         } else {
           console.error("Style link not found");
         }
@@ -94,14 +103,17 @@
           "Content/pizzas.js",
           "Content/actions.js",
 
+          // Tardis Scripts
+          "Console/ConsoleScreen.js",
+
           // Scripts
           "utils.js",
           "AudioManager.js",
           "DirectionInput.js",
           "Overworld.js",
           "GameObject.js",
-          "Person.js",
           "Console.js",
+          "Person.js",
           "Sprite.js",
           "ConsoleSprite.js",
           "OverWorldMap.js",

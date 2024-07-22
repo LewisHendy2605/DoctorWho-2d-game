@@ -61,3 +61,20 @@
   bottom: 0;
   width: 140px;
 }
+
+/*  Tardis specific */
+.ConsoleScreen .KeyboardMenu {
+  left: 0;
+  top: 0;
+}
+
+.ConsoleScreen .KeyboardMenu .back-button {
+  font-size: 0.5rem;
+  padding-left: 0;
+  padding: 0.3rem;
+  background-color: red;
+}
+
+.ConsoleScreen .DescriptionBox {
+  display: none;
+}

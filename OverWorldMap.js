@@ -222,7 +222,7 @@ window.OverworldMaps = {
     },
   },
   Tardis: {
-    lowerSrc: "/images/tardis/Tardis-map-v12.png",
+    lowerSrc: "/images/tardis/Tardis-map-v13.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {
       hero: new Person({
@@ -230,22 +230,6 @@ window.OverworldMaps = {
         x: utils.withGrid(45),
         y: utils.withGrid(50),
         src: "/images/characters-doctor-who/doctor-11.png",
-      }),
-      npcA: new Person({
-        x: utils.withGrid(48),
-        y: utils.withGrid(53),
-        src: "/images/characters/people/npc1.png",
-        talking: [
-          {
-            events: [
-              {
-                type: "textMessage",
-                text: "Hey, you made it",
-                faceHero: ["npcA"],
-              },
-            ],
-          },
-        ],
       }),
       console: new Console({
         x: utils.withGrid(47.5),
@@ -271,7 +255,7 @@ window.OverworldMaps = {
       ],
     },
     interavtives: {
-      // Console
+      // Console taek off
       [utils.asGridCoord(47, 50)]: [
         {
           events: [
@@ -309,17 +293,16 @@ window.OverworldMaps = {
             { who: "hero", type: "walk", direction: "up" },
             { who: "hero", type: "stand", direction: "right", time: 700 },
             { who: "console", type: "consoleStart" },
+          ],
+        },
+      ],
 
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "stand", direction: "left", time: 700 },
-            // { who: "console", type: "takeOffFive" },
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "walk", direction: "down" },
-            //{ who: "hero", type: "walk", direction: "left" },
-            //{ who: "hero", type: "walk", direction: "left" },
-            //{ who: "hero", type: "walk", direction: "left" },
-            //{ who: "hero", type: "stand", direction: "up", time: 700 },
+      // Console screen
+      [utils.asGridCoord(52, 51)]: [
+        {
+          events: [
+            { type: "textMessage", text: "Press Enter to use console" },
+            { type: "useConsoleScreen" },
           ],
         },
       ],
