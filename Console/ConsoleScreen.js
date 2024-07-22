@@ -6,11 +6,15 @@ class ConsoleScreen {
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("ConsoleScreen");
-    //this.element.innerHTML = `
-    //       <div class="Battle_hero">
-    //<img src="${"/images/tardis/tardis-screen.png"}" alt="ConsoleScreenImg"/>
-    //      </div>
-    //          `;
+    this.element.innerHTML = `
+        <div class="tardis_status">
+            <h3>Tardis Status</h3>
+            <p>Status: Landed</p>
+            <p>Engines: On</p>
+            <p>Eye of Harmony: Stable</p>
+            <p>Shields: On</p>
+        </div>
+             `;
   }
 
   end() {
@@ -26,8 +30,17 @@ class ConsoleScreen {
           label: "Back",
           class: "back-button",
           handler: () => {
-            // Clsoe console Screen
+            // Close console screen
             this.onComplete();
+          },
+        },
+
+        {
+          label: "Choose Destination",
+          class: "choose-dest",
+          handler: () => {
+            // TODO
+            console.log("Select tardis destination");
           },
         },
       ],

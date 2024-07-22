@@ -8,3 +8,11 @@
   background-size: cover;
   image-rendering: pixelated;
 }
+
+.tardis_status {
+  color: gold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(10%, -60%);
+}
