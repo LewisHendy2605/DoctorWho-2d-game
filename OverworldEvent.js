@@ -100,6 +100,18 @@ class OverworldEvent {
     battle.init(document.querySelector(".game-container"));
   }
 
+  pause(resolve) {
+    this.map.isPaused = true;
+    const menu = new PauseMenu({
+      onComplete: () => {
+        resolve();
+        this.map.isPaused = false;
+        this.map.overworld.startGameLoop();
+      },
+    });
+    menu.init(document.querySelector(".game-container"));
+  }
+
   useConsoleScreen(resolve) {
     const consoleScreen = new ConsoleScreen({
       onComplete: () => {

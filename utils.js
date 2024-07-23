@@ -57,7 +57,7 @@ const utils = {
     return array[Math.floor(Math.random() * array.length)];
   },
 
-  emeitEvent(name, detail) {
+  emitEvent(name, detail) {
     const event = new CustomEvent(name, {
       detail,
     });

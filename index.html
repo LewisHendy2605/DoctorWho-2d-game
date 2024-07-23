@@ -12,6 +12,8 @@
     <link id="SubmissionMenu" type="text/css" rel="stylesheet" />
     <link id="KeyboardMenu" type="text/css" rel="stylesheet" />
     <link id="ConsoleScreen" type="text/css" rel="stylesheet" />
+    <link id="Hud" type="text/css" rel="stylesheet" />
+    <link id="Menus" type="text/css" rel="stylesheet" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -28,80 +30,41 @@
     />
 
     <script>
-      // Determine the base path based on hostname
-      const basePath =
-        window.location.hostname.includes("localhost") ||
-        window.location.hostname.includes("127.0.0.1")
-          ? ""
-          : "/DoctorWho-2d-game";
-
       document.addEventListener("DOMContentLoaded", function () {
-        // Set the stylesheet href
-        //global
-        const styleLink = document.getElementById("global");
-        if (styleLink) {
-          styleLink.href = `${basePath}/styles/global.css`;
-        } else {
-          console.error("Style link not found");
-        }
-        //text message
-        const styleLinkTM = document.getElementById("TextMessage");
-        if (styleLinkTM) {
-          styleLinkTM.href = `${basePath}/styles/TextMessage.css`;
-        } else {
-          console.error("Style link not found");
-        }
-        //scene transition
-        const styleLinkST = document.getElementById("SceneTransition");
-        if (styleLinkST) {
-          styleLinkST.href = `${basePath}/styles/SceneTransition.css`;
-        } else {
-          console.error("Style link not found");
+        // Determine the base path based on hostname
+        const basePath =
+          window.location.hostname.includes("localhost") ||
+          window.location.hostname.includes("127.0.0.1")
+            ? ""
+            : "/DoctorWho-2d-game";
+
+        // Function to set stylesheet href
+        function setStylesheet(id, path) {
+          const linkElement = document.getElementById(id);
+          if (linkElement) {
+            linkElement.href = `${basePath}/styles/${path}`;
+          } else {
+            console.error(`Style link with id ${id} not found`);
+          }
         }
 
-        // Tardis css
-        const consoleScreenLink = document.getElementById("ConsoleScreen");
-        if (consoleScreenLink) {
-          consoleScreenLink.href = `${basePath}/styles/ConsoleScreen.css`;
-        } else {
-          console.error("Style link not found");
-        }
+        // List of stylesheets to load
+        const stylesheets = [
+          { id: "global", path: "global.css" },
+          { id: "TextMessage", path: "TextMessage.css" },
+          { id: "SceneTransition", path: "SceneTransition.css" },
+          { id: "Battle", path: "Battle.css" },
+          { id: "Combatant", path: "Combatant.css" },
+          { id: "Team", path: "Team.css" },
+          { id: "SubmissionMenu", path: "SubmissionMenu.css" },
+          { id: "KeyboardMenu", path: "KeyboardMenu.css" },
+          { id: "ConsoleScreen", path: "ConsoleScreen.css" },
+          { id: "Hud", path: "Hud.css" },
+          { id: "Menus", path: "Menus.css" },
+        ];
 
-        // Battle css
-        const battleLink = document.getElementById("Battle");
-        if (battleLink) {
-          battleLink.href = `${basePath}/styles/Battle.css`;
-        } else {
-          console.error("Style link not found");
-        }
-        //
-        const combatantLink = document.getElementById("Combatant");
-        if (combatantLink) {
-          combatantLink.href = `${basePath}/styles/Combatant.css`;
-        } else {
-          console.error("Style link not found");
-        }
-        //
-        const teamLink = document.getElementById("Team");
-        if (teamLink) {
-          teamLink.href = `${basePath}/styles/Team.css`;
-        } else {
-          console.error("Style link not found");
-        }
-        //
-        const submissionMenuLink = document.getElementById("SubmissionMenu");
-        if (submissionMenuLink) {
-          submissionMenuLink.href = `${basePath}/styles/SubmissionMenu.css`;
-        } else {
-          console.error("Style link not found");
-        }
-        //
-        const keyboardMenuLink = document.getElementById("KeyboardMenu");
-        if (keyboardMenuLink) {
-          keyboardMenuLink.href = `${basePath}/styles/KeyboardMenu.css`;
-        } else {
-          console.error("Style link not found");
-        }
+        // Load all stylesheets
+        stylesheets.forEach((style) => setStylesheet(style.id, style.path));
 
         // Scripts to load in order
         const scripts = [
@@ -133,6 +96,8 @@
           "RevealingText.js",
           "SceneTransition.js",
           "KeyboardMenu.js",
+          "Hud.js",
+          "PauseMenu.js",
 
           // Battle scripts
           "Battle/Battle.js",
@@ -161,10 +126,8 @@
 
         // Start loading scripts
         loadScriptsSequentially(0);
-      });
 
-      // Detect mobile device and add a class to body
-      document.addEventListener("DOMContentLoaded", function () {
+        // Detect mobile device and add a class to body
         if (/Mobi|Android/i.test(navigator.userAgent)) {
           console.log("Mobile device detected");
           document.body.classList.add("mobile-device");

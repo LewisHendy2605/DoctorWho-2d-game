@@ -53,7 +53,7 @@ class Person extends GameObject {
 
       // Ready to walk
       state.map.moveWall(this.x, this.y, this.direction);
-      utils.emeitEvent("PersonStartWalk", {
+      utils.emitEvent("PersonStartWalk", {
         whoId: this.id,
       });
       this.movingProgressRemaining = 16;
@@ -63,7 +63,7 @@ class Person extends GameObject {
     if (behavior.type === "stand") {
       this.isStanding = true;
       setTimeout(() => {
-        utils.emeitEvent("PersonStandComplete", {
+        utils.emitEvent("PersonStandComplete", {
           whoId: this.id,
         });
         this.isStanding = false;
@@ -78,7 +78,7 @@ class Person extends GameObject {
 
     if (this.movingProgressRemaining === 0) {
       // We finished the walk
-      utils.emeitEvent("PersonWalkComplete", {
+      utils.emitEvent("PersonWalkComplete", {
         whoId: this.id,
       });
     }

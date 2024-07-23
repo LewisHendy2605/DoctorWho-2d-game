@@ -14,6 +14,7 @@ class OverWorldMap {
     //console.log("Config src: ", this.dynamicPath(config.lowerSrc));
 
     this.isCutScenePlaying = false;
+    this.isPaused = false;
   }
 
   drawLowerImage(ctx, cameraPerson) {
