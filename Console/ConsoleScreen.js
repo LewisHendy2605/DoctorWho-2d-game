@@ -16,6 +16,13 @@ class ConsoleScreen {
             <p>Shields: On</p>
         </div>
              `;
+
+    // Set the image to dynamic path fro live version of game
+    const dynamicUrl = utils.setDynamicPath("/images/tardis/tardis-screen.png");
+    const consoleScreenElements = document.querySelectorAll(".ConsoleScreen");
+    consoleScreenElements.forEach((element) => {
+      element.style.backgroundImage = `url(${dynamicUrl})`;
+    });
   }
 
   end() {
