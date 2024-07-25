@@ -16,13 +16,13 @@ class ConsoleScreen {
             <p>Shields: On</p>
         </div>
              `;
+  }
 
+  addBackgroundImage() {
     // Set the image to dynamic path fro live version of game
     const dynamicUrl = utils.setDynamicPath("/images/tardis/tardis-screen.png");
-    const consoleScreenElements = document.querySelectorAll(".ConsoleScreen");
-    consoleScreenElements.forEach((element) => {
-      element.style.backgroundImage = `url(${dynamicUrl})`;
-    });
+    const consoleScreenElement = document.querySelector(".ConsoleScreen");
+    consoleScreenElement.style.backgroundImage = `url(${dynamicUrl})`;
   }
 
   end() {
@@ -44,13 +44,26 @@ class ConsoleScreen {
         },
 
         {
-          label: "Choose Destination",
+          label: "Change Destination to Demo Room",
           class: "choose-dest",
           handler: () => {
             // Change tardis outside map
             const event = new OverworldEvent({
               map: this.map,
               event: { type: "changeTardisDest", map: "DemoRoom" },
+            });
+            event.init();
+          },
+        },
+
+        {
+          label: "Change Destination to Street",
+          class: "choose-dest",
+          handler: () => {
+            // Change tardis outside map
+            const event = new OverworldEvent({
+              map: this.map,
+              event: { type: "changeTardisDest", map: "Outside_tardis" },
             });
             event.init();
           },
@@ -68,6 +81,7 @@ class ConsoleScreen {
   init(container) {
     this.createElement();
     container.appendChild(this.element);
+    this.addBackgroundImage();
     this.showMenu(this.element);
   }
 }

@@ -4,7 +4,7 @@
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url(/images/tardis/tardis-screen.png);
+
   background-size: cover;
   image-rendering: pixelated;
 }
@@ -15,4 +15,48 @@
   top: 50%;
   left: 50%;
   transform: translate(10%, -60%);
+}
+
+/*  Custom fonts */
+@font-face {
+  font-family: "DoctorWho";
+  src: url("/fonts/Drwho42.ttf") format("truetype");
+}
+@font-face {
+  font-family: "DoctorWho2";
+  src: url("/fonts/dr2.ttf") format("truetype");
+}
+
+/*  Tardis specific */
+.ConsoleScreen .KeyboardMenu {
+  border: none;
+  background: none;
+  left: 0;
+  top: 0;
+  font-family: "DoctorWho2", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.ConsoleScreen .KeyboardMenu .back-button {
+  font-size: 0.5rem;
+  padding-left: 0;
+  padding: 0.3rem;
+  background-color: red;
+}
+
+.ConsoleScreen .KeyboardMenu .choose-dest {
+  width: auto;
+  height: auto;
+  font-size: 0.9rem;
+  padding-left: 0;
+  padding: 0.3rem;
+  background-color: green;
+  margin: 0.6em;
+}
+
+.ConsoleScreen .DescriptionBox {
+  display: none;
 }
