@@ -106,5 +106,16 @@ class PauseMenu {
     this.esc = new KeyPressListener("Escape", () => {
       this.close();
     });
+
+    // Add touch event listener to menu options
+    this.element.addEventListener("touchstart", (event) => {
+      const optionElement = event.target.closest(".option-button");
+      if (optionElement) {
+        const index = Array.from(
+          this.element.querySelectorAll(".option-button")
+        ).indexOf(optionElement);
+        this.keyboardMenu.selectOption(index);
+      }
+    });
   }
 }

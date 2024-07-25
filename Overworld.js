@@ -47,16 +47,40 @@ class OverWorld {
   }
 
   bindActionInput() {
-    new KeyPressListener("Enter", () => {
-      // Is there a person here to talk to ?
-      this.map.checkForActionCutscene();
-    });
+    // Check if on mobile
+    if (document.body.classList.contains("mobile-device")) {
+      console.log("MOBILE LISTERNERS BEING SET");
+      // Touch event listeners for mobile
+      //const actionButton = document.getElementById("actionButton");
+      const pauseButton = document.getElementById("pauseButton");
 
-    new KeyPressListener("Escape", () => {
-      if (!this.map.isCutscenePlaying) {
-        this.map.startCutscene([{ type: "pause" }]);
+      // if (actionButton) {
+      //   actionButton.addEventListener("touchstart", (event) => {
+      //     event.preventDefault(); // Prevent default touch action
+      //     this.map.checkForActionCutscene();
+      //   });
+      // }
+
+      if (pauseButton) {
+        pauseButton.addEventListener("touchstart", (event) => {
+          event.preventDefault(); // Prevent default touch action
+          if (!this.map.isCutscenePlaying) {
+            this.map.startCutscene([{ type: "pause" }]);
+          }
+        });
       }
-    });
+    } else {
+      new KeyPressListener("Enter", () => {
+        // Is there a person here to talk to ?
+        this.map.checkForActionCutscene();
+      });
+
+      new KeyPressListener("Escape", () => {
+        if (!this.map.isCutscenePlaying) {
+          this.map.startCutscene([{ type: "pause" }]);
+        }
+      });
+    }
   }
 
   bindHeroPositionCheck() {

@@ -44,6 +44,32 @@ body {
   image-rendering: pixelated;
 }
 
+.options-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-top: 7em;
+}
+
+/* Option button styling */
+.option-button {
+  background-color: #007bff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.option-button button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
 .controls-container {
   position: absolute;
   bottom: 10px;

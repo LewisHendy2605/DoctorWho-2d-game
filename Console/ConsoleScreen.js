@@ -77,7 +77,10 @@ class ConsoleScreen {
             // Tell palyer theve aarived
             const textEvent = new OverworldEvent({
               map: this.map,
-              event: { type: "textMessage", text: "Tardis Landed" },
+              event: {
+                type: "textMessage",
+                text: "Tardis Landed! WHooosh Whoosh",
+              },
             });
             textEvent.init();
             // Close console screen
