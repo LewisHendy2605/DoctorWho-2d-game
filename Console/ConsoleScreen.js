@@ -25,6 +25,27 @@ class ConsoleScreen {
     consoleScreenElement.style.backgroundImage = `url(${dynamicUrl})`;
   }
 
+  addFonts() {
+    const doctorWhoFontUrl = utils.setDynamicPath("/fonts/Drwho42.ttf");
+    const doctorWho2FontUrl = utils.setDynamicPath("/fonts/dr2.ttf");
+
+    const style = document.createElement("style");
+    style.innerHTML = `
+        @font-face {
+          font-family: "DoctorWho";
+          src: url(${doctorWhoFontUrl}) format("truetype");
+        }
+        @font-face {
+          font-family: "DoctorWho2";
+          src: url(${doctorWho2FontUrl}) format("truetype");
+        }
+        .ConsoleScreen {
+          font-family: "DoctorWho";
+        }
+      `;
+    document.head.appendChild(style);
+  }
+
   end() {
     // End keyboard menu
     this.keyboardMenu.end();
@@ -82,6 +103,7 @@ class ConsoleScreen {
     this.createElement();
     container.appendChild(this.element);
     this.addBackgroundImage();
+    this.addFonts();
     this.showMenu(this.element);
   }
 }

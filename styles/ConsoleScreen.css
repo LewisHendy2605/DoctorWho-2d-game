@@ -18,6 +18,7 @@
 }
 
 /*  Custom fonts */
+/*
 @font-face {
   font-family: "DoctorWho";
   src: url("/fonts/Drwho42.ttf") format("truetype");
@@ -26,6 +27,7 @@
   font-family: "DoctorWho2";
   src: url("/fonts/dr2.ttf") format("truetype");
 }
+  */
 
 /*  Tardis specific */
 .ConsoleScreen .KeyboardMenu {
