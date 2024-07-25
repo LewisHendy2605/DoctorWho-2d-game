@@ -57,13 +57,22 @@ class OverWorldMap {
         event: events[i],
         map: this,
       });
-      await eventHandler.init();
+      const result = await eventHandler.init();
+      if (result === "LOST_BATTLE") {
+        break;
+      }
     }
 
     this.isCutScenePlaying = false;
 
     // Reset NPCs to do their idle behavior
-    Object.values(this.gameObjects).forEach((object) => object.doBehavior());
+    if (this.gameObjects.length) {
+      Object.values(this.gameObjects).forEach((object) => {
+        if (object) {
+          object.doBehavior();
+        }
+      });
+    }
   }
 
   async startInteractive(events) {
@@ -90,7 +99,13 @@ class OverWorldMap {
       return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`;
     });
     if (!this.isCutScenePlaying && match && match.talking.length) {
-      this.startCutscene(match.talking[0].events);
+      const relevantScenario = match.talking.find((scenario) => {
+        return (scenario.required || []).every((sf) => {
+          return playerState.storyFlags[sf];
+        });
+      });
+
+      relevantScenario && this.startCutscene(relevantScenario.events);
     }
   }
 
@@ -147,9 +162,29 @@ window.OverworldMaps = {
         ],
         talking: [
           {
+            required: ["TALKED_TO_ERIO"],
             events: [
-              { type: "textMessage", text: "Hello Buddy", faceHero: "npcA" },
+              {
+                type: "textMessage",
+                text: "Erio is a bit of a dick right?",
+                faceHero: "npcA",
+              },
+            ],
+          },
+          {
+            events: [
+              {
+                type: "textMessage",
+                text: "I wanna scrap",
+                faceHero: "npcA",
+              },
               { type: "battle", enemyId: "beth" },
+              { type: "addStoryFlag", flag: "DEFEATED_BETH" },
+              {
+                type: "textMessage",
+                text: "Fair play, you won",
+                faceHero: "npcA",
+              },
               //{ type: "textMessage", text: "Who tf are you .." },
               //{ who: "hero", type: "walk", direction: "up" },
             ],
@@ -164,7 +199,8 @@ window.OverworldMaps = {
           {
             events: [
               { type: "textMessage", text: "Fight me", faceHero: "npcB" },
-              { type: "battle", enemyId: "erio" },
+              { type: "addStoryFlag", flag: "TALKED_TO_ERIO" },
+              //{ type: "battle", enemyId: "erio" },
               //{ type: "textMessage", text: "Who tf are you .." },
               //{ who: "hero", type: "walk", direction: "up" },
             ],
@@ -178,6 +214,12 @@ window.OverworldMaps = {
         //  { type: "walk", direction: "right" },
         //  { type: "walk", direction: "down" },
         //],
+      }),
+      pizzaStone: new PizzaStone({
+        x: utils.withGrid(4),
+        y: utils.withGrid(7),
+        storyFlag: "USED_PIZZA_STONE",
+        pizzas: ["v001", "f001"],
       }),
     },
     walls: {
