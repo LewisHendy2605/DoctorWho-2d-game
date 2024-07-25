@@ -89,8 +89,6 @@ class OverWorld {
     //this.directionInput.direction;
     this.startGameLoop();
 
-    console.log(this.map);
-
     this.map.startCutscene([
       //{ type: "changeTardisDest", map: "DemoRoom" },
       //{ type: "battle", enemyId: "beth" },

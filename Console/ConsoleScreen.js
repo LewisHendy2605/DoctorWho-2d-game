@@ -74,6 +74,14 @@ class ConsoleScreen {
               event: { type: "changeTardisDest", map: "DemoRoom" },
             });
             event.init();
+            // Tell palyer theve aarived
+            const textEvent = new OverworldEvent({
+              map: this.map,
+              event: { type: "textMessage", text: "Tardis Landed" },
+            });
+            textEvent.init();
+            // Close console screen
+            this.onComplete();
           },
         },
 
@@ -87,6 +95,14 @@ class ConsoleScreen {
               event: { type: "changeTardisDest", map: "Outside_tardis" },
             });
             event.init();
+            // Tell palyer theve aarived
+            const textEvent = new OverworldEvent({
+              map: this.map,
+              event: { type: "textMessage", text: "Tardis Landed" },
+            });
+            textEvent.init();
+            // Close console screen
+            this.onComplete();
           },
         },
       ],

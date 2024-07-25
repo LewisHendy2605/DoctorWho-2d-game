@@ -133,8 +133,6 @@ class OverworldEvent {
   }
 
   changeTardisDest(resolve) {
-    console.log(this.event.map);
-    console.log(this.map);
     this.map.outsideMap = this.event.map;
     resolve();
   }
