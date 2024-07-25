@@ -15,6 +15,7 @@ class OverWorldMap {
 
     this.isCutScenePlaying = false;
     this.isPaused = false;
+    this.outsideMap = config.outsideMap || null;
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -278,6 +279,7 @@ window.OverworldMaps = {
   Tardis: {
     lowerSrc: "/images/tardis/Tardis-map-v13.png",
     upperSrc: "/images/maps/KitchenUpper.png",
+    outsideMap: "Outside_tardis",
     gameObjects: {
       hero: new Person({
         isPlayerControlled: true,
@@ -297,14 +299,19 @@ window.OverworldMaps = {
     },
     cutsceneSpaces: {
       // Exit
-      [utils.asGridCoord(35, 50)]: [
+      [utils.asGridCoord(35, 48)]: [
         {
-          events: [{ type: "changeMap", map: "Outside_tardis" }],
+          events: [{ type: "leaveTardis" }],
         },
       ],
       [utils.asGridCoord(35, 49)]: [
         {
-          events: [{ type: "changeMap", map: "Outside_tardis" }],
+          events: [{ type: "leaveTardis" }],
+        },
+      ],
+      [utils.asGridCoord(35, 50)]: [
+        {
+          events: [{ type: "leaveTardis" }],
         },
       ],
     },
@@ -451,6 +458,46 @@ window.OverworldMaps = {
     },
   },
   Outside_tardis: {
+    lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
+    upperSrc: "/images/maps/KitchenUpper.png",
+    gameObjects: {
+      hero: new Person({
+        isPlayerControlled: true,
+        x: utils.withGrid(48),
+        y: utils.withGrid(40),
+        src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      npcB: new Person({
+        x: utils.withGrid(10),
+        y: utils.withGrid(8),
+        src: "/images/characters/people/npc3.png",
+        talking: [
+          {
+            events: [
+              {
+                type: "textMessage",
+                text: "Hey, you made it",
+                faceHero: ["npcB"],
+              },
+            ],
+          },
+        ],
+      }),
+    },
+    cutsceneSpaces: {
+      [utils.asGridCoord(48, 39)]: [
+        {
+          events: [{ type: "changeMap", map: "Tardis" }],
+        },
+      ],
+      [utils.asGridCoord(47, 39)]: [
+        {
+          events: [{ type: "changeMap", map: "Tardis" }],
+        },
+      ],
+    },
+  },
+  Outside_tardis2: {
     lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {

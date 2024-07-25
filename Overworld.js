@@ -76,10 +76,10 @@ class OverWorld {
   }
 
   init() {
-    this.hud = new Hud();
-    this.hud.init(document.querySelector(".game-container"));
+    //this.hud = new Hud();
+    //this.hud.init(document.querySelector(".game-container"));
 
-    this.startMap(window.OverworldMaps.DemoRoom);
+    this.startMap(window.OverworldMaps.Tardis);
 
     this.bindActionInput();
     this.bindHeroPositionCheck();
@@ -89,7 +89,10 @@ class OverWorld {
     //this.directionInput.direction;
     this.startGameLoop();
 
+    console.log(this.map);
+
     this.map.startCutscene([
+      //{ type: "changeTardisDest", map: "DemoRoom" },
       //{ type: "battle", enemyId: "beth" },
       //{ type: "useConsoleScreen" },
       //{ type: "changeMap", map: "DemoRoom" },

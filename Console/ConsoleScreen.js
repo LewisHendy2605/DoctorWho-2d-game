@@ -1,5 +1,6 @@
 class ConsoleScreen {
-  constructor({ onComplete }) {
+  constructor({ map, onComplete }) {
+    this.map = map;
     this.onComplete = onComplete;
   }
 
@@ -39,8 +40,12 @@ class ConsoleScreen {
           label: "Choose Destination",
           class: "choose-dest",
           handler: () => {
-            // TODO
-            console.log("Select tardis destination");
+            // Change tardis outside map
+            const event = new OverworldEvent({
+              map: this.map,
+              event: { type: "changeTardisDest", map: "DemoRoom" },
+            });
+            event.init();
           },
         },
       ],

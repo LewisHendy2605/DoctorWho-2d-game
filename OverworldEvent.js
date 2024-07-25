@@ -127,8 +127,21 @@ class OverworldEvent {
     menu.init(document.querySelector(".game-container"));
   }
 
+  leaveTardis(resolve) {
+    this.event.map = this.map.outsideMap;
+    this.changeMap(resolve);
+  }
+
+  changeTardisDest(resolve) {
+    console.log(this.event.map);
+    console.log(this.map);
+    this.map.outsideMap = this.event.map;
+    resolve();
+  }
+
   useConsoleScreen(resolve) {
     const consoleScreen = new ConsoleScreen({
+      map: this.map,
       onComplete: () => {
         consoleScreen.end();
         resolve();
