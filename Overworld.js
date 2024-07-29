@@ -49,26 +49,6 @@ class OverWorld {
   bindActionInput() {
     // Check if on mobile
     if (document.body.classList.contains("mobile-device")) {
-      console.log("MOBILE LISTERNERS BEING SET");
-      // Touch event listeners for mobile
-      //const actionButton = document.getElementById("actionButton");
-      const pauseButton = document.getElementById("pauseButton");
-
-      // if (actionButton) {
-      //   actionButton.addEventListener("touchstart", (event) => {
-      //     event.preventDefault(); // Prevent default touch action
-      //     this.map.checkForActionCutscene();
-      //   });
-      // }
-
-      if (pauseButton) {
-        pauseButton.addEventListener("touchstart", (event) => {
-          event.preventDefault(); // Prevent default touch action
-          if (!this.map.isCutscenePlaying) {
-            this.map.startCutscene([{ type: "pause" }]);
-          }
-        });
-      }
     } else {
       new KeyPressListener("Enter", () => {
         // Is there a person here to talk to ?
@@ -76,6 +56,35 @@ class OverWorld {
       });
 
       new KeyPressListener("Escape", () => {
+        if (!this.map.isCutscenePlaying) {
+          this.map.startCutscene([{ type: "pause" }]);
+        }
+      });
+    }
+
+    console.log("MOBILE LISTERNERS BEING SET");
+    // Touch event listeners for mobile
+    //const actionButton = document.getElementById("actionButton");
+    const pauseButton = document.getElementById("pauseButton");
+
+    // if (actionButton) {
+    //   actionButton.addEventListener("touchstart", (event) => {
+    //     event.preventDefault(); // Prevent default touch action
+    //     this.map.checkForActionCutscene();
+    //   });
+    // }
+
+    if (pauseButton) {
+      pauseButton.addEventListener("touchstart", (event) => {
+        console.log("pressded pause");
+        event.preventDefault(); // Prevent default touch action
+        if (!this.map.isCutscenePlaying) {
+          this.map.startCutscene([{ type: "pause" }]);
+        }
+      });
+      pauseButton.addEventListener("click", (event) => {
+        console.log("pressded pause, click");
+        event.preventDefault(); // Prevent default touch action
         if (!this.map.isCutscenePlaying) {
           this.map.startCutscene([{ type: "pause" }]);
         }

@@ -45,10 +45,7 @@ body {
 }
 
 .options-container {
-  display: flex;
-  flex-direction: column;
   padding: 20px;
-  margin-top: 7em;
 }
 
 /* Option button styling */
@@ -57,6 +54,19 @@ body {
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+}
+
+.pauseButton {
+  position: absolute;
+  left: 1em;
+  bottom: 4em;
+  background-color: blue;
+}
+.actionButton {
+  position: absolute;
+  right: 1em;
+  bottom: 13em;
+  background-color: green;
 }
 
 .option-button button {
@@ -72,14 +82,14 @@ body {
 
 .controls-container {
   position: absolute;
-  bottom: 10px;
+  bottom: 7px;
   left: 50%;
   transform: translateX(-50%);
   display: none;
   grid-template-areas:
-    " .  up  . "
+    " .  up   . "
     "left  .  right"
-    " . down  . ";
+    " .  down   . ";
   gap: 10px;
 }
 
@@ -98,6 +108,12 @@ body {
     width: 80px;
     height: 80px;
     font-size: 20px;
+  }
+  .pauseButton {
+    bottom: 13em;
+  }
+  .actionButton {
+    bottom: 13em;
   }
 }
 

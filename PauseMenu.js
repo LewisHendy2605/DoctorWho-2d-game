@@ -94,12 +94,17 @@ class PauseMenu {
   }
 
   init(container) {
+    console.log("Container: ", container);
     this.createElement();
     this.keyboardMenu = new KeyboardMenu({
       descriptionContainer: container,
     });
+    console.log("this.element", this.element);
     this.keyboardMenu.init(this.element);
     this.keyboardMenu.setOptions(this.getOptions("root"));
+
+    console.log("keyboardmenu: ", this.keyboardMenu);
+    console.log("element: ", this.element);
 
     container.appendChild(this.element);
 

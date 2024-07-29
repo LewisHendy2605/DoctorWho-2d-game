@@ -71,6 +71,8 @@ class KeyboardMenu {
     (this.descriptionContainer || container).appendChild(
       this.descriptionElement
     );
+    console.log("KeyboardMenu eleemnt: ", this.element);
+    console.log("KeyboardMenu conatiner: ", container);
     container.appendChild(this.element);
 
     this.up = new KeyPressListener("ArrowUp", () => {
