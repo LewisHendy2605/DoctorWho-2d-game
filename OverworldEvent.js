@@ -217,6 +217,17 @@ class OverworldEvent {
     consoleScreen.init(document.querySelector(".game-container"));
   }
 
+  useChangeDestScreen(resolve) {
+    const consoleScreen = new ChangeDestScreen({
+      map: this.map,
+      onComplete: () => {
+        consoleScreen.end();
+        resolve();
+      },
+    });
+    consoleScreen.init(document.querySelector(".game-container"));
+  }
+
   circleLeverDown(resolve) {
     const who = this.map.gameObjects[this.event.who];
     setTimeout(function () {

@@ -65,45 +65,16 @@ class ConsoleScreen {
         },
 
         {
-          label: "Change Destination to Demo Room",
+          label: "Change Destination",
           class: "choose-dest",
           handler: () => {
             // Change tardis outside map
             const event = new OverworldEvent({
               map: this.map,
-              event: { type: "changeTardisDest", map: "DemoRoom" },
+              event: { type: "useChangeDestScreen" },
             });
             event.init();
-            // Tell palyer theve aarived
-            const textEvent = new OverworldEvent({
-              map: this.map,
-              event: {
-                type: "textMessage",
-                text: "Tardis Landed! WHooosh Whoosh",
-              },
-            });
-            textEvent.init();
-            // Close console screen
-            this.onComplete();
-          },
-        },
 
-        {
-          label: "Change Destination to Street",
-          class: "choose-dest",
-          handler: () => {
-            // Change tardis outside map
-            const event = new OverworldEvent({
-              map: this.map,
-              event: { type: "changeTardisDest", map: "Outside_tardis" },
-            });
-            event.init();
-            // Tell palyer theve aarived
-            const textEvent = new OverworldEvent({
-              map: this.map,
-              event: { type: "textMessage", text: "Tardis Landed" },
-            });
-            textEvent.init();
             // Close console screen
             this.onComplete();
           },

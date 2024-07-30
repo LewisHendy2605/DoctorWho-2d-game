@@ -101,7 +101,7 @@ body {
 
   .game-container {
     transform: scale(1.5) translateY(-60%); /* Adjust the scale for mobile */
-    margin-top: 5vh; /* Move the game container closer to the top */
+    margin-top: 5svh; /* Move the game container closer to the top */
   }
 
   .control-button {

@@ -159,6 +159,7 @@ class OverWorld {
       //{ type: "changeTardisDest", map: "DemoRoom" },
       //{ type: "battle", enemyId: "beth" },
       //{ type: "useConsoleScreen" },
+      //{ type: "useChangeDestScreen" },
       //{ type: "changeMap", map: "DemoRoom" },
       //{ type: "textMessage", text: "Hello Buddy, your in the kitchen now !!" },
     ]);
