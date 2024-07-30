@@ -1,5 +1,6 @@
 class OverWorldMap {
   constructor(config) {
+    this.id = config.id || null;
     this.overworld = null;
     this.gameObjects = config.gameObjects;
     this.cutsceneSpaces = config.cutsceneSpaces || {};
@@ -16,6 +17,7 @@ class OverWorldMap {
     this.isCutScenePlaying = false;
     this.isPaused = false;
     this.outsideMap = config.outsideMap || null;
+    this.tardisLanded = config.tardisLanded || null;
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -113,7 +115,19 @@ class OverWorldMap {
   checkForFootstepCutscene() {
     const hero = this.gameObjects["hero"];
     const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
-    if (!this.isCutScenePlaying && match) {
+
+    if (this.isCutScenePlaying || !match) {
+      return;
+    }
+
+    if (this.id !== "Tardis") {
+      this.startCutscene(match[0].events);
+      return;
+    }
+
+    const isLeaveTardisEvent = match[0].events[0].type === "leaveTardis";
+
+    if (this.tardisLanded && isLeaveTardisEvent) {
       this.startCutscene(match[0].events);
     }
   }
@@ -306,6 +320,7 @@ window.OverworldMaps = {
     lowerSrc: "/images/tardis/Tardis-map-v13.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     outsideMap: "Outside_tardis",
+    tardisLanded: true,
     gameObjects: {
       hero: new Person({
         isPlayerControlled: true,
@@ -367,40 +382,47 @@ window.OverworldMaps = {
       [utils.asGridCoord(47, 50)]: [
         {
           events: [
-            { type: "textMessage", text: "Press Enter to Takeoff" },
-            { type: "playAudio", audioSrc: "/audio/tardis_takeoff_2014.mp3" },
-            { who: "console", type: "takeOffOne" },
-            { who: "console", type: "takeOffTwo" },
-            { who: "hero", type: "walk", direction: "up" },
-            { who: "hero", type: "walk", direction: "up" },
-            { who: "hero", type: "stand", direction: "right", time: 600 },
-            { who: "console", type: "takeOffThree" },
-            { who: "console", type: "takeOffFour" },
-            { who: "hero", type: "walk", direction: "up" },
-            { who: "hero", type: "walk", direction: "right" },
-            { who: "hero", type: "walk", direction: "right" },
-            { who: "hero", type: "stand", direction: "down", time: 700 },
-            { who: "hero", type: "walk", direction: "right" },
-            { who: "hero", type: "walk", direction: "right" },
-            { who: "hero", type: "walk", direction: "right" },
-            { who: "hero", type: "walk", direction: "down" },
-            { who: "hero", type: "stand", direction: "left", time: 300 },
-            { who: "console", type: "takeOffFive" },
-            { who: "hero", type: "stand", direction: "left", time: 200 },
-            { who: "hero", type: "walk", direction: "down" },
-            { who: "hero", type: "walk", direction: "down" },
-            { who: "hero", type: "walk", direction: "down" },
-            { who: "hero", type: "stand", direction: "left", time: 700 },
-            { who: "hero", type: "walk", direction: "down" },
-            { who: "hero", type: "walk", direction: "left" },
-            { who: "hero", type: "walk", direction: "left" },
-            { who: "hero", type: "walk", direction: "left" },
-            { who: "hero", type: "walk", direction: "left" },
-            { who: "hero", type: "walk", direction: "left" },
-            { who: "hero", type: "walk", direction: "up" },
-            { who: "hero", type: "walk", direction: "up" },
-            { who: "hero", type: "stand", direction: "right", time: 700 },
-            { who: "console", type: "consoleStart" },
+            { type: "tardisLandOrFly" },
+            // { type: "textMessage", text: "Press Enter to Takeoff" },
+            // { type: "playAudio", audioSrc: "/audio/tardis_takeoff_2014.mp3" },
+            // { who: "console", type: "takeOffOne" },
+            // { who: "console", type: "takeOffTwo" },
+            // { who: "console", type: "takeOffThree" },
+            // { who: "hero", type: "stand", direction: "right", time: 1000 },
+            // { type: "tardisMaterialseChange" },
+
+            //  ------------------
+            // { who: "console", type: "takeOffFour" }
+            // { who: "hero", type: "walk", direction: "up" },
+            // { who: "hero", type: "walk", direction: "up" },
+            // { who: "hero", type: "stand", direction: "right", time: 600 },
+            // { who: "console", type: "takeOffThree" },
+            // { who: "console", type: "takeOffFour" },
+            // { who: "hero", type: "walk", direction: "up" },
+            // { who: "hero", type: "walk", direction: "right" },
+            // { who: "hero", type: "walk", direction: "right" },
+            // { who: "hero", type: "stand", direction: "down", time: 700 },
+            // { who: "hero", type: "walk", direction: "right" },
+            // { who: "hero", type: "walk", direction: "right" },
+            // { who: "hero", type: "walk", direction: "right" },
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "stand", direction: "left", time: 300 },
+            // { who: "console", type: "takeOffFive" },
+            // { who: "hero", type: "stand", direction: "left", time: 200 },
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "stand", direction: "left", time: 700 },
+            // { who: "hero", type: "walk", direction: "down" },
+            // { who: "hero", type: "walk", direction: "left" },
+            // { who: "hero", type: "walk", direction: "left" },
+            // { who: "hero", type: "walk", direction: "left" },
+            // { who: "hero", type: "walk", direction: "left" },
+            // { who: "hero", type: "walk", direction: "left" },
+            // { who: "hero", type: "walk", direction: "up" },
+            // { who: "hero", type: "walk", direction: "up" },
+            // { who: "hero", type: "stand", direction: "right", time: 700 },
+            //{ who: "console", type: "consoleStart" },
           ],
         },
       ],
@@ -495,6 +517,7 @@ window.OverworldMaps = {
       [utils.asGridCoord(38, 47)]: true,
       [utils.asGridCoord(37, 47)]: true,
       [utils.asGridCoord(36, 47)]: true,
+      [utils.asGridCoord(35, 47)]: true,
 
       // entry left rail
       [utils.asGridCoord(40, 51)]: true,
@@ -502,9 +525,17 @@ window.OverworldMaps = {
       [utils.asGridCoord(38, 51)]: true,
       [utils.asGridCoord(37, 51)]: true,
       [utils.asGridCoord(36, 51)]: true,
+      [utils.asGridCoord(35, 51)]: true,
+
+      // Behind door
+      // Exit
+      [utils.asGridCoord(34, 48)]: true,
+      [utils.asGridCoord(34, 49)]: true,
+      [utils.asGridCoord(34, 50)]: true,
     },
   },
   Outside_tardis: {
+    id: "Street",
     lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {

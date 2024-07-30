@@ -138,6 +138,69 @@ class OverworldEvent {
     this.changeMap(resolve);
   }
 
+  tardisLandOrFly(resolve) {
+    const sequence = async () => {
+      if (this.map.tardisLanded) {
+        // Show text message for interactive
+        this.event.text = "Press Enter to Takeoff";
+        await new Promise((res) => this.textMessage(res));
+
+        // Play audio
+        this.event.audioSrc = "/audio/tardis_takeoff_2014.mp3";
+        await new Promise((res) => this.playAudio(res));
+
+        // Run takeoff animations in sequence
+        this.event.who = "console"; // Set appropriate who ID
+        await new Promise((res) => this.takeOffOne(res));
+        await new Promise((res) => this.takeOffTwo(res));
+        await new Promise((res) => this.takeOffThree(res));
+        await new Promise((res) => this.takeOffFour(res));
+        await new Promise((res) => this.takeOffFive(res));
+
+        // Update tardis landed flag
+        this.map.tardisLanded = false;
+
+        // Mesage to inform user
+        this.event.text = "Tardis has enterd the vortex";
+        await new Promise((res) => this.textMessage(res));
+      } else {
+        // Show text message
+        this.event.text = "Press Enter to Land";
+        await new Promise((res) => this.textMessage(res));
+
+        // Play audio
+        this.event.audioSrc = "/audio/tardis_takeoff_2014.mp3";
+        await new Promise((res) => this.playAudio(res));
+
+        // Run takeoff animations in sequence
+        this.event.who = "console"; // Set appropriate who ID
+        await new Promise((res) => this.consoleStart(res));
+
+        // Update tardis landed flag
+        this.map.tardisLanded = true;
+
+        const destName = window.OverworldMaps[this.map.outsideMap].id;
+
+        // Mesage to inform user
+        this.event.text = "Tardis has landed at " + destName;
+        await new Promise((res) => this.textMessage(res));
+      }
+
+      resolve();
+    };
+
+    sequence();
+  }
+
+  tardisMaterialseChange(resolve) {
+    if (!this.map.tardisLanded) {
+      this.map.tardisLanded = true;
+    } else if (this.map.tardisLanded) {
+      this.map.tardisLanded = false;
+    }
+    resolve();
+  }
+
   changeTardisDest(resolve) {
     this.map.outsideMap = this.event.map;
     resolve();
