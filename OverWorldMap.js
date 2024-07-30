@@ -143,6 +143,7 @@ class OverWorldMap {
 
 window.OverworldMaps = {
   DemoRoom: {
+    id: "DemoRoom",
     lowerSrc: "/images/maps/DemoLower.png",
     upperSrc: "/images/maps/DemoUpper.png",
     gameObjects: {
@@ -244,12 +245,21 @@ window.OverworldMaps = {
       ],
       [utils.asGridCoord(5, 10)]: [
         {
-          events: [{ type: "changeMap", map: "Kitchen" }],
+          events: [
+            {
+              type: "changeMap",
+              map: "Kitchen",
+              x: utils.withGrid(2),
+              y: utils.withGrid(2),
+              direction: "down",
+            },
+          ],
         },
       ],
     },
   },
   Kitchen: {
+    id: "Kitchen",
     lowerSrc: "/images/maps/KitchenLower.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {
@@ -275,8 +285,24 @@ window.OverworldMaps = {
         ],
       }),
     },
+    cutsceneSpaces: {
+      [utils.asGridCoord(5, 10)]: [
+        {
+          events: [
+            {
+              type: "changeMap",
+              map: "Street",
+              x: utils.withGrid(29),
+              y: utils.withGrid(9),
+              direction: "down",
+            },
+          ],
+        },
+      ],
+    },
   },
   Tardis: {
+    id: "Tardis",
     lowerSrc: "/images/tardis/Tardis-map-v13.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     outsideMap: "Outside_tardis",
@@ -301,17 +327,38 @@ window.OverworldMaps = {
       // Exit
       [utils.asGridCoord(35, 48)]: [
         {
-          events: [{ type: "leaveTardis" }],
+          events: [
+            {
+              type: "leaveTardis",
+              x: utils.withGrid(47),
+              y: utils.withGrid(40),
+              direction: "down",
+            },
+          ],
         },
       ],
       [utils.asGridCoord(35, 49)]: [
         {
-          events: [{ type: "leaveTardis" }],
+          events: [
+            {
+              type: "leaveTardis",
+              x: utils.withGrid(47),
+              y: utils.withGrid(40),
+              direction: "down",
+            },
+          ],
         },
       ],
       [utils.asGridCoord(35, 50)]: [
         {
-          events: [{ type: "leaveTardis" }],
+          events: [
+            {
+              type: "leaveTardis",
+              x: utils.withGrid(48),
+              y: utils.withGrid(40),
+              direction: "down",
+            },
+          ],
         },
       ],
     },
@@ -487,12 +534,28 @@ window.OverworldMaps = {
     cutsceneSpaces: {
       [utils.asGridCoord(48, 39)]: [
         {
-          events: [{ type: "changeMap", map: "Tardis" }],
+          events: [
+            {
+              type: "changeMap",
+              map: "Tardis",
+              x: utils.withGrid(36),
+              y: utils.withGrid(50),
+              direction: "right",
+            },
+          ],
         },
       ],
       [utils.asGridCoord(47, 39)]: [
         {
-          events: [{ type: "changeMap", map: "Tardis" }],
+          events: [
+            {
+              type: "changeMap",
+              map: "Tardis",
+              x: utils.withGrid(36),
+              y: utils.withGrid(49),
+              direction: "right",
+            },
+          ],
         },
       ],
     },
@@ -533,6 +596,33 @@ window.OverworldMaps = {
       [utils.asGridCoord(47, 39)]: [
         {
           events: [{ type: "changeMap", map: "Tardis" }],
+        },
+      ],
+    },
+  },
+  Street: {
+    id: "Street",
+    lowerSrc: "/images/maps/StreetLower.png",
+    upperSrc: "/images/maps/StreetUpper.png",
+    gameObjects: {
+      hero: new Person({
+        isPlayerControlled: true,
+        x: utils.withGrid(30),
+        y: utils.withGrid(10),
+      }),
+    },
+    cutsceneSpaces: {
+      [utils.asGridCoord(29, 9)]: [
+        {
+          events: [
+            {
+              type: "changeMap",
+              map: "Kitchen",
+              x: utils.withGrid(5),
+              y: utils.withGrid(10),
+              direction: "up",
+            },
+          ],
         },
       ],
     },

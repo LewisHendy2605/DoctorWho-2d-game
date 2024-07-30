@@ -102,24 +102,57 @@ class OverWorld {
     });
   }
 
-  startMap(mapConfig) {
+  startMap(mapConfig, heroInitialState = null) {
     this.map = new OverWorldMap(mapConfig);
     this.map.overworld = this;
     this.map.mountObjects();
+
+    if (heroInitialState) {
+      const { hero } = this.map.gameObjects;
+      this.map.removeWall(hero.x, hero.y);
+      this.map.gameObjects.hero.x = heroInitialState.x;
+      this.map.gameObjects.hero.y = heroInitialState.y;
+      this.map.gameObjects.hero.direction = heroInitialState.direction;
+      this.map.addWall(hero.x, hero.y);
+    }
+
+    this.progress.mapId = mapConfig.id;
+    this.progress.startingHeroX = this.map.gameObjects.hero.x;
+    this.progress.startingHeroY = this.map.gameObjects.hero.y;
+    this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
   }
 
   init() {
-    //this.hud = new Hud();
-    //this.hud.init(document.querySelector(".game-container"));
+    // Craete a new progress tracker
+    this.progress = new Progress();
 
-    this.startMap(window.OverworldMaps.Tardis);
+    //Potentially load saved data
+    let initialHeroState = null;
+    const saveFile = this.progress.getSaveFile();
+    if (saveFile) {
+      // this.progress.load();
+      // initialHeroState = {
+      //   x: this.progress.startingHeroX,
+      //   y: this.progress.startingHeroY,
+      //   direction: this.progress.startingHeroDirection,
+      // };
+    }
 
+    // Load the hud
+    this.hud = new Hud();
+    this.hud.init(document.querySelector(".game-container"));
+
+    // this.startMap(window.OverworldMaps[this.progress.mapId], initialHeroState);
+    this.startMap(window.OverworldMaps.Tardis, initialHeroState);
+
+    // Create COntrols
     this.bindActionInput();
     this.bindHeroPositionCheck();
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();
-    //this.directionInput.direction;
+
+    // Kick off the game
     this.startGameLoop();
 
     this.map.startCutscene([
