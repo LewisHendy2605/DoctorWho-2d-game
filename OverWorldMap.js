@@ -591,35 +591,19 @@ window.OverworldMaps = {
       ],
     },
   },
-  Outside_tardis2: {
-    lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
+  Mars: {
+    lowerSrc: "/images/maps/Mars.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     gameObjects: {
       hero: new Person({
         isPlayerControlled: true,
-        x: utils.withGrid(48),
-        y: utils.withGrid(40),
+        x: utils.withGrid(79),
+        y: utils.withGrid(80),
         src: "/images/characters-doctor-who/doctor-11.png",
-      }),
-      npcB: new Person({
-        x: utils.withGrid(10),
-        y: utils.withGrid(8),
-        src: "/images/characters/people/npc3.png",
-        talking: [
-          {
-            events: [
-              {
-                type: "textMessage",
-                text: "Hey, you made it",
-                faceHero: ["npcB"],
-              },
-            ],
-          },
-        ],
       }),
     },
     cutsceneSpaces: {
-      [utils.asGridCoord(48, 39)]: [
+      [utils.asGridCoord(80, 80)]: [
         {
           events: [{ type: "changeMap", map: "Tardis" }],
         },

@@ -101,6 +101,30 @@ class ChangeDestScreen {
             this.onComplete();
           },
         },
+        {
+          label: "Mars",
+          class: "dest-button",
+          map: "Mars",
+          handler: () => {
+            // Change tardis outside map
+            const event = new OverworldEvent({
+              map: this.map,
+              event: { type: "changeTardisDest", map: "Mars" },
+            });
+            event.init();
+            // Tell palyer theve aarived
+            const textEvent = new OverworldEvent({
+              map: this.map,
+              event: {
+                type: "textMessage",
+                text: "Tardis Landed! WHooosh Whoosh",
+              },
+            });
+            textEvent.init();
+            // Close console screen
+            this.onComplete();
+          },
+        },
       ],
     };
   }
