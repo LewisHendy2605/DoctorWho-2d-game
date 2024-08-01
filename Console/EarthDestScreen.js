@@ -1,4 +1,4 @@
-class ChangeDestScreen {
+class EarthDestScreen {
   constructor({ map, onComplete }) {
     this.map = map;
     this.onComplete = onComplete;
@@ -11,8 +11,10 @@ class ChangeDestScreen {
 
   addBackgroundImage() {
     // Set the image to dynamic path fro live version of game
-    const dynamicUrl = utils.setDynamicPath("/images/planets/stars.png");
-    const consoleScreenElement = document.querySelector(".ChangeDestScreen");
+    const dynamicUrl = utils.setDynamicPath("/images/planets/earth.png");
+    const consoleScreenElement =
+      document.querySelectorAll(".ChangeDestScreen")[1];
+    consoleScreenElement.style.backgroundColor = "black";
     consoleScreenElement.style.backgroundImage = `url(${dynamicUrl})`;
   }
 
@@ -22,18 +24,18 @@ class ChangeDestScreen {
 
     const style = document.createElement("style");
     style.innerHTML = `
-          @font-face {
-            font-family: "DoctorWho";
-            src: url(${doctorWhoFontUrl}) format("truetype");
-          }
-          @font-face {
-            font-family: "DoctorWho2";
-            src: url(${doctorWho2FontUrl}) format("truetype");
-          }
-          .ConsoleScreen {
-            font-family: "DoctorWho";
-          }
-        `;
+            @font-face {
+              font-family: "DoctorWho";
+              src: url(${doctorWhoFontUrl}) format("truetype");
+            }
+            @font-face {
+              font-family: "DoctorWho2";
+              src: url(${doctorWho2FontUrl}) format("truetype");
+            }
+            .ConsoleScreen {
+              font-family: "DoctorWho";
+            }
+          `;
     document.head.appendChild(style);
   }
 
@@ -56,32 +58,22 @@ class ChangeDestScreen {
         },
 
         {
-          label: "Earth",
+          label: "Street",
           class: "dest-button",
-          imgSrc: "/images/planets/earth.png",
+          map: "Outside_tardis",
           handler: () => {
             // Change tardis outside map
             const event = new OverworldEvent({
               map: this.map,
-              event: { type: "useEarthDestScreen" },
+              event: { type: "changeTardisDest", map: "Outside_tardis" },
             });
             event.init();
-
-            // Close console screen
-            this.onComplete();
-          },
-        },
-        {
-          label: "Mars",
-          class: "dest-button",
-          imgSrc: "/images/planets/mars.png",
-          handler: () => {
-            // Change tardis outside map
-            const event = new OverworldEvent({
+            // Tell palyer theve aarived
+            const textEvent = new OverworldEvent({
               map: this.map,
-              event: { type: "useMarsDestScreen" },
+              event: { type: "textMessage", text: "Tardis Landed" },
             });
-            event.init();
+            textEvent.init();
             // Close console screen
             this.onComplete();
           },
@@ -118,16 +110,21 @@ class ChangeDestScreen {
 
         // Graps the map image src from the overworldMaps json
         const options = this.getPages();
-        const imgSrc = options.root[index].imgSrc;
-        console.log(imgSrc);
+        const mapId = options.root[index].map;
+        const imgSrc = window.OverworldMaps[mapId];
 
         if (imgSrc) {
-          const dynamicUrl = utils.setDynamicPath(imgSrc);
+          const lowerSrc = imgSrc.lowerSrc;
+
+          const dynamicUrl = utils.setDynamicPath(lowerSrc);
 
           const button = option.querySelector("button");
 
           if (button.classList.contains("dest-button")) {
             button.style.backgroundImage = `url(${dynamicUrl})`;
+            button.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Add desired background color
+            button.style.border = "7px solid blue";
+            button.style.borderRadius = "15%";
           }
         }
       });

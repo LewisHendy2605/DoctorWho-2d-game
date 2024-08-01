@@ -538,6 +538,8 @@ window.OverworldMaps = {
     id: "Street",
     lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
     upperSrc: "/images/maps/KitchenUpper.png",
+    tardisDoorX: utils.withGrid(48),
+    tardisDoorY: utils.withGrid(40),
     gameObjects: {
       hero: new Person({
         isPlayerControlled: true,
@@ -594,6 +596,8 @@ window.OverworldMaps = {
   Mars: {
     lowerSrc: "/images/maps/Mars.png",
     upperSrc: "/images/maps/KitchenUpper.png",
+    tardisDoorX: utils.withGrid(79),
+    tardisDoorY: utils.withGrid(80),
     gameObjects: {
       hero: new Person({
         isPlayerControlled: true,
