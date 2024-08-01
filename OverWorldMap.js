@@ -150,7 +150,6 @@ class OverWorldMap {
       const { x, y } = utils.tardisCoordsOffset(tardis.x, tardis.y);
       // add checks for either side of door
       if (hero.x === x && hero.y === y) {
-        console.log("Enter tardis");
         const event = [
           {
             type: "changeMap",
@@ -160,7 +159,6 @@ class OverWorldMap {
             direction: "right",
           },
         ];
-        console.log(event);
         this.startCutscene(event);
       }
     }
