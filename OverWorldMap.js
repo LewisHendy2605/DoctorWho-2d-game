@@ -656,18 +656,11 @@ window.OverworldMaps = {
         y: utils.withGrid(80),
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
-    },
-    cutsceneSpaces: {
-      [utils.asGridCoord(80, 80)]: [
-        {
-          events: [{ type: "changeMap", map: "Tardis" }],
-        },
-      ],
-      [utils.asGridCoord(47, 39)]: [
-        {
-          events: [{ type: "changeMap", map: "Tardis" }],
-        },
-      ],
+      tardis: new Tardis({
+        x: utils.withGrid(78),
+        y: utils.withGrid(78),
+        src: "/images/tardis/tardis-light-blue.png",
+      }),
     },
   },
   Street: {
