@@ -1,6 +1,6 @@
 class Console extends GameObject {
   constructor(config) {
-    super(config);
+    super(config, "console");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
 

@@ -1,6 +1,6 @@
-class Person extends GameObject {
+class Tardis extends GameObject {
   constructor(config) {
-    super(config, "person");
+    super(config, "tardis");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
 

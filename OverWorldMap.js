@@ -121,6 +121,7 @@ class OverWorldMap {
     }
 
     if (this.id !== "Tardis") {
+      console.log(match[0].events);
       this.startCutscene(match[0].events);
       return;
     }
@@ -138,6 +139,49 @@ class OverWorldMap {
     if (!this.isCutScenePlaying && match) {
       this.startInteractive(match[0].events);
     }
+  }
+
+  // Need to implement a way to check if hero stemsp on tardis
+  checkForFootstepEnterTardis() {
+    const hero = this.gameObjects["hero"];
+    const tardis = this.gameObjects["tardis"];
+
+    if (tardis) {
+      const { x, y } = utils.tardisCoordsOffset(tardis.x, tardis.y);
+      // add checks for either side of door
+      if (hero.x === x && hero.y === y) {
+        console.log("Enter tardis");
+        const event = [
+          {
+            type: "changeMap",
+            map: "Tardis",
+            x: utils.withGrid(36),
+            y: utils.withGrid(50),
+            direction: "right",
+          },
+        ];
+        console.log(event);
+        this.startCutscene(event);
+      }
+    }
+
+    //console.log(tardis);
+    // const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
+
+    // if (this.isCutScenePlaying || !match) {
+    //   return;
+    // }
+
+    // if (this.id !== "Tardis") {
+    //   this.startCutscene(match[0].events);
+    //   return;
+    // }
+
+    // const isLeaveTardisEvent = match[0].events[0].type === "leaveTardis";
+
+    // if (this.tardisLanded && isLeaveTardisEvent) {
+    //   this.startCutscene(match[0].events);
+    // }
   }
 
   addWall(x, y) {
@@ -547,50 +591,57 @@ window.OverworldMaps = {
         y: utils.withGrid(40),
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
-      npcB: new Person({
-        x: utils.withGrid(10),
-        y: utils.withGrid(8),
-        src: "/images/characters/people/npc3.png",
-        talking: [
-          {
-            events: [
-              {
-                type: "textMessage",
-                text: "Hey, you made it",
-                faceHero: ["npcB"],
-              },
-            ],
-          },
-        ],
+      tardis: new Tardis({
+        x: utils.withGrid(45),
+        y: utils.withGrid(25),
+        src: "/images/tardis/tardis-light-blue.png",
+        //src: "/images/characters-doctor-who/doctor-11.png",
       }),
+
+      // npcB: new Person({
+      //   x: utils.withGrid(10),
+      //   y: utils.withGrid(8),
+      //   src: "/images/characters/people/npc3.png",
+      //   talking: [
+      //     {
+      //       events: [
+      //         {
+      //           type: "textMessage",
+      //           text: "Hey, you made it",
+      //           faceHero: ["npcB"],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // }),
     },
     cutsceneSpaces: {
-      [utils.asGridCoord(48, 39)]: [
-        {
-          events: [
-            {
-              type: "changeMap",
-              map: "Tardis",
-              x: utils.withGrid(36),
-              y: utils.withGrid(50),
-              direction: "right",
-            },
-          ],
-        },
-      ],
-      [utils.asGridCoord(47, 39)]: [
-        {
-          events: [
-            {
-              type: "changeMap",
-              map: "Tardis",
-              x: utils.withGrid(36),
-              y: utils.withGrid(49),
-              direction: "right",
-            },
-          ],
-        },
-      ],
+      // [utils.asGridCoord(48, 39)]: [
+      //   {
+      //     events: [
+      //       {
+      //         type: "changeMap",
+      //         map: "Tardis",
+      //         x: utils.withGrid(36),
+      //         y: utils.withGrid(50),
+      //         direction: "right",
+      //       },
+      //     ],
+      //   },
+      // ],
+      // [utils.asGridCoord(47, 39)]: [
+      //   {
+      //     events: [
+      //       {
+      //         type: "changeMap",
+      //         map: "Tardis",
+      //         x: utils.withGrid(36),
+      //         y: utils.withGrid(49),
+      //         direction: "right",
+      //       },
+      //     ],
+      //   },
+      // ],
     },
   },
   Mars: {

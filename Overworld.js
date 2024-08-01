@@ -98,6 +98,7 @@ class OverWorld {
         // Heros position has chaged
         this.map.checkForFootstepCutscene();
         this.map.checkForFootstepInteractive();
+        this.map.checkForFootstepEnterTardis();
       }
     });
   }
@@ -120,6 +121,26 @@ class OverWorld {
     this.progress.startingHeroX = this.map.gameObjects.hero.x;
     this.progress.startingHeroY = this.map.gameObjects.hero.y;
     this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
+  }
+
+  startMapAsFlyTardis(mapConfig, heroInitialState = null) {
+    this.map = new OverWorldMap(mapConfig);
+    this.map.overworld = this;
+    this.map.mountObjects();
+
+    // if (heroInitialState) {
+    //   const { tardis } = this.map.gameObjects;
+    //   this.map.removeWall(hero.x, hero.y);
+    //   this.map.gameObjects.hero.x = heroInitialState.x;
+    //   this.map.gameObjects.hero.y = heroInitialState.y;
+    //   this.map.gameObjects.hero.direction = heroInitialState.direction;
+    //   this.map.addWall(hero.x, hero.y);
+    // }
+
+    // this.progress.mapId = mapConfig.id;
+    // this.progress.startingHeroX = this.map.gameObjects.hero.x;
+    // this.progress.startingHeroY = this.map.gameObjects.hero.y;
+    // this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
   }
 
   init() {

@@ -79,6 +79,24 @@ class ConsoleScreen {
             this.onComplete();
           },
         },
+        {
+          label: "------Fly------",
+          class: "choose-dest",
+          handler: () => {
+            // Change tardis outside map
+            const event = new OverworldEvent({
+              map: this.map,
+              event: {
+                type: "FlyTarids",
+                map: "Outside_tardis",
+              },
+            });
+            event.init();
+
+            // Close console screen
+            this.onComplete();
+          },
+        },
       ],
     };
   }

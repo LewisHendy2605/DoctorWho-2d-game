@@ -135,6 +135,21 @@ class OverworldEvent {
   leaveTardis(resolve) {
     this.event.map = this.map.outsideMap;
 
+    //console.log(window.OverworldMaps[this.event.map]);
+    const gameObjects = window.OverworldMaps[this.event.map].gameObjects;
+    //console.log(gameObjects);
+
+    Object.values(gameObjects).forEach((go) => {
+      if (go.type === "tardis") {
+        const { x, y } = utils.tardisCoordsOffset(go.x, go.y);
+        this.event.x = x;
+        this.event.y = y;
+      }
+    });
+
+    // Set hero spawn poin t to tardis doors
+    //this.event.x =
+
     this.changeMap(resolve);
   }
 
@@ -224,6 +239,24 @@ class OverworldEvent {
     resolve();
   }
 
+  FlyTarids(resolve) {
+    //const cutsceneSpaces = this.map.cutsceneSpaces;
+
+    // Get the x, y for the tardis door on the new map
+    //const doorX = window.OverworldMaps[this.event.map].tardisDoorX;
+    //const doorY = window.OverworldMaps[this.event.map].tardisDoorY;
+
+    // Change what map is ouside tardis
+    //this.map.outsideMap = this.event.map;
+
+    //this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
+    this.map.overworld.startMapAsFlyTardis(
+      window.OverworldMaps[this.event.map]
+    );
+
+    resolve();
+  }
+
   useConsoleScreen(resolve) {
     const consoleScreen = new ConsoleScreen({
       map: this.map,
@@ -237,6 +270,17 @@ class OverworldEvent {
 
   useChangeDestScreen(resolve) {
     const consoleScreen = new ChangeDestScreen({
+      map: this.map,
+      onComplete: () => {
+        consoleScreen.end();
+        resolve();
+      },
+    });
+    consoleScreen.init(document.querySelector(".game-container"));
+  }
+
+  useFlyTardisScreen(resolve) {
+    const consoleScreen = new FlyTardisScreen({
       map: this.map,
       onComplete: () => {
         consoleScreen.end();

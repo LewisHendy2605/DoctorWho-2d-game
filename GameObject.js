@@ -1,5 +1,5 @@
 class GameObject {
-  constructor(config) {
+  constructor(config, type) {
     this.id = null;
     this.isMounted = false;
     this.x = config.x || 0;
@@ -7,9 +7,24 @@ class GameObject {
     this.direction = config.direction || "down";
 
     this.isConsole = config.isConsole || false;
+    this.type = type || null;
 
-    if (this.isConsole) {
+    this.setSprite(config);
+
+    this.behaviorLoop = config.behaviorLoop || [];
+    this.behaviorLoopIndex = 0;
+
+    this.talking = config.talking || [];
+  }
+
+  setSprite(config) {
+    if (this.type === "console") {
       this.sprite = new ConsoleSprite({
+        gameObject: this,
+        src: config.src || "/images/characters/people/hero.png",
+      });
+    } else if (this.type === "tardis") {
+      this.sprite = new TardisSprite({
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
@@ -19,11 +34,6 @@ class GameObject {
         src: config.src || "/images/characters/people/hero.png",
       });
     }
-
-    this.behaviorLoop = config.behaviorLoop || [];
-    this.behaviorLoopIndex = 0;
-
-    this.talking = config.talking || [];
   }
 
   mount(map) {

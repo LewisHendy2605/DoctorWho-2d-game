@@ -5,6 +5,9 @@ const utils = {
   asGridCoord(x, y) {
     return `${x * 16},${y * 16}`;
   },
+  tardisCoordsOffset(x, y) {
+    return { x: x + this.withGrid(2), y: y + this.withGrid(4) };
+  },
   nextPosition(initialX, initialY, direction) {
     let x = initialX;
     let y = initialY;
