@@ -103,7 +103,6 @@ class MarsDestScreen {
       const options = keyboardMenuElement.querySelectorAll(".option");
 
       options.forEach((option, index) => {
-        console.log(option);
         // remove span elemenst
         const span = option.querySelector(".right");
         if (span) {

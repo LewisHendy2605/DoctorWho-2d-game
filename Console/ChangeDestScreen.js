@@ -119,7 +119,6 @@ class ChangeDestScreen {
         // Graps the map image src from the overworldMaps json
         const options = this.getPages();
         const imgSrc = options.root[index].imgSrc;
-        console.log(imgSrc);
 
         if (imgSrc) {
           const dynamicUrl = utils.setDynamicPath(imgSrc);

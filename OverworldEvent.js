@@ -133,7 +133,7 @@ class OverworldEvent {
   }
 
   leaveTardis(resolve) {
-    this.event.map = this.map.outsideMap;
+    this.event.map = window.tardisState.destination;
 
     //console.log(window.OverworldMaps[this.event.map]);
     const gameObjects = window.OverworldMaps[this.event.map].gameObjects;
@@ -217,24 +217,25 @@ class OverworldEvent {
   }
 
   changeTardisDest(resolve) {
-    const cutsceneSpaces = this.map.cutsceneSpaces;
+    //const cutsceneSpaces = this.map.cutsceneSpaces;
 
     // get the x, y for the tardis door on the new map
-    const doorX = window.OverworldMaps[this.event.map].tardisDoorX;
-    const doorY = window.OverworldMaps[this.event.map].tardisDoorY;
+    // const doorX = window.OverworldMaps[this.event.map].tardisDoorX;
+    // const doorY = window.OverworldMaps[this.event.map].tardisDoorY;
 
-    // Update the cutscene spces new x, y when map changes
-    Object.keys(cutsceneSpaces).forEach((key) => {
-      const events = cutsceneSpaces[key];
-      //console.log(`Key: ${key}`);
-      events.forEach((event) => {
-        event.events[0].x = doorX;
-        event.events[0].y = doorY;
-      });
-    });
+    // // Update the cutscene spces new x, y when map changes
+    // Object.keys(cutsceneSpaces).forEach((key) => {
+    //   const events = cutsceneSpaces[key];
+    //   //console.log(`Key: ${key}`);
+    //   events.forEach((event) => {
+    //     event.events[0].x = doorX;
+    //     event.events[0].y = doorY;
+    //   });
+    // });
 
     // Change what map is ouside tardis
-    this.map.outsideMap = this.event.map;
+    //this.map.outsideMap = this.event.map;
+    window.tardisState.destination = this.event.map;
 
     resolve();
   }

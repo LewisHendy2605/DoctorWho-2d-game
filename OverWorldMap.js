@@ -147,6 +147,7 @@ class OverWorldMap {
     const tardis = this.gameObjects["tardis"];
 
     if (tardis) {
+      // offest the coords to spawn at the door
       const { x, y } = utils.tardisCoordsOffset(tardis.x, tardis.y);
       // add checks for either side of door
       if (hero.x === x && hero.y === y) {
@@ -162,24 +163,6 @@ class OverWorldMap {
         this.startCutscene(event);
       }
     }
-
-    //console.log(tardis);
-    // const match = this.cutsceneSpaces[`${hero.x},${hero.y}`];
-
-    // if (this.isCutScenePlaying || !match) {
-    //   return;
-    // }
-
-    // if (this.id !== "Tardis") {
-    //   this.startCutscene(match[0].events);
-    //   return;
-    // }
-
-    // const isLeaveTardisEvent = match[0].events[0].type === "leaveTardis";
-
-    // if (this.tardisLanded && isLeaveTardisEvent) {
-    //   this.startCutscene(match[0].events);
-    // }
   }
 
   addWall(x, y) {
@@ -643,6 +626,7 @@ window.OverworldMaps = {
     },
   },
   Mars: {
+    id: "Mars",
     lowerSrc: "/images/maps/Mars.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     tardisDoorX: utils.withGrid(79),
@@ -655,8 +639,8 @@ window.OverworldMaps = {
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
       tardis: new Tardis({
-        x: utils.withGrid(78),
-        y: utils.withGrid(78),
+        x: utils.withGrid(80),
+        y: utils.withGrid(80),
         src: "/images/tardis/tardis-light-blue.png",
       }),
     },
