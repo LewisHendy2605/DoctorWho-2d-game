@@ -5,6 +5,9 @@ class OverWorld {
     this.ctx = this.canvas.getContext("2d");
     this.map = null;
     this.flyTardis = false;
+    this.escapeListener = null;
+    this.touchStartHandler = null;
+    this.clickHandler = null;
   }
 
   startGameLoop() {
@@ -16,6 +19,10 @@ class OverWorld {
       const cameraPerson = this.flyTardis
         ? this.map.gameObjects.tardis
         : this.map.gameObjects.hero;
+
+      // if (this.flyTardis) {
+      //   console.log(this.map.gameObjects.hero);
+      // }
 
       // Update all objects
       Object.values(this.map.gameObjects).forEach((object) => {
@@ -127,6 +134,15 @@ class OverWorld {
     this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
   }
 
+  unbindMobileListeners(actionButton) {
+    if (this.touchStartHandler && this.clickHandler) {
+      actionButton.removeEventListener("touchstart", this.touchStartHandler);
+      actionButton.removeEventListener("click", this.clickHandler);
+      this.touchStartHandler = null;
+      this.clickHandler = null;
+    }
+  }
+
   startMapAsFlyTardis(newMapConfig, oldMapConfig, heroInitialState = null) {
     this.map = new OverWorldMap(newMapConfig);
     this.map.overworld = this;
@@ -135,34 +151,41 @@ class OverWorld {
     this.map.gameObjects.tardis.isPlayerControlled = true;
     this.map.gameObjects.hero.isPlayerControlled = false;
 
-    // add a button to escape
-    this.escapeListener = new KeyPressListener("KeyE", () => {
-      // Is there a person here to talk to ?
-      //console.log("starting new map: ", oldMapConfig);
-      this.flyTardis = false;
-      this.map.gameObjects.tardis.isPlayerControlled = false;
-      this.map.gameObjects.hero.isPlayerControlled = true;
-      this.startMap(oldMapConfig);
-      this.escapeListener.unbind();
-    });
+    // Add a button to escape
+    if (document.body.classList.contains("mobile-device")) {
+      const actionButton = document.getElementById("actionButton");
+      actionButton.innerText = "Exit Flying";
 
-    //console.log(this.map.gameObjects.tardis);
-    //console.log(this.map);
-    //window.OverworldMaps[]
+      if (actionButton) {
+        this.touchStartHandler = (event) => {
+          this.flyTardis = false;
+          this.map.gameObjects.tardis.isPlayerControlled = false;
+          this.map.gameObjects.hero.isPlayerControlled = true;
+          this.startMap(oldMapConfig);
+          actionButton.innerText = "Action";
+          this.unbindMobileListeners(actionButton);
+        };
 
-    // if (heroInitialState) {
-    //   const { tardis } = this.map.gameObjects;
-    //   this.map.removeWall(hero.x, hero.y);
-    //   this.map.gameObjects.hero.x = heroInitialState.x;
-    //   this.map.gameObjects.hero.y = heroInitialState.y;
-    //   this.map.gameObjects.hero.direction = heroInitialState.direction;
-    //   this.map.addWall(hero.x, hero.y);
-    // }
+        this.clickHandler = (event) => {
+          this.flyTardis = false;
+          this.map.gameObjects.tardis.isPlayerControlled = false;
+          this.map.gameObjects.hero.isPlayerControlled = true;
+          this.startMap(oldMapConfig);
+          this.unbindMobileListeners(actionButton);
+        };
 
-    // this.progress.mapId = mapConfig.id;
-    // this.progress.startingHeroX = this.map.gameObjects.hero.x;
-    // this.progress.startingHeroY = this.map.gameObjects.hero.y;
-    // this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
+        actionButton.addEventListener("touchstart", this.touchStartHandler);
+        actionButton.addEventListener("click", this.clickHandler);
+      }
+    } else {
+      this.escapeListener = new KeyPressListener("KeyE", () => {
+        this.flyTardis = false;
+        this.map.gameObjects.tardis.isPlayerControlled = false;
+        this.map.gameObjects.hero.isPlayerControlled = true;
+        this.startMap(oldMapConfig);
+        this.escapeListener.unbind();
+      });
+    }
   }
 
   init() {

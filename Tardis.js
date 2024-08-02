@@ -29,6 +29,7 @@ class Tardis extends GameObject {
         this.isPlayerControlled &&
         state.arrow
       ) {
+        console.log(state.arrow);
         this.startBehavior(state, {
           type: "walk",
           direction: state.arrow,
