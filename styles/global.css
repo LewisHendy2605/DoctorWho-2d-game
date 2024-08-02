@@ -100,7 +100,8 @@ body {
   }
 
   .game-container {
-    transform: scale(1.5) translateY(-60%); /* Adjust the scale for mobile */
+    width: 90svw;
+    transform: scale(1.1) translateY(-60%); /* Adjust the scale for mobile */
     margin-top: 5svh; /* Move the game container closer to the top */
   }
 
