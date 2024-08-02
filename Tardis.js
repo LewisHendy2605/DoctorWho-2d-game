@@ -6,6 +6,8 @@ class Tardis extends GameObject {
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
+    this.speedMultiplier = 3;
+
     this.directionUpdate = {
       up: ["y", -1],
       down: ["y", 1],
@@ -75,8 +77,8 @@ class Tardis extends GameObject {
 
   updatePosition() {
     const [property, change] = this.directionUpdate[this.direction];
-    this[property] += change;
-    this.movingProgressRemaining -= 1;
+    this[property] += change * this.speedMultiplier;
+    this.movingProgressRemaining -= this.speedMultiplier;
 
     if (this.movingProgressRemaining === 0) {
       // We finished the walk
