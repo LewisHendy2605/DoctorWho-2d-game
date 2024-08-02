@@ -251,8 +251,11 @@ class OverworldEvent {
     //this.map.outsideMap = this.event.map;
 
     //this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
+    //console.log("new map config", this.event.map);
+    //console.log("old map config", this.map);
     this.map.overworld.startMapAsFlyTardis(
-      window.OverworldMaps[this.event.map]
+      window.OverworldMaps[this.event.map],
+      window.OverworldMaps["Tardis"]
     );
 
     resolve();

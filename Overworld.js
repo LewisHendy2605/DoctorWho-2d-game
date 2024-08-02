@@ -4,6 +4,7 @@ class OverWorld {
     this.canvas = this.element.querySelector(".game-canvas");
     this.ctx = this.canvas.getContext("2d");
     this.map = null;
+    this.flyTardis = false;
   }
 
   startGameLoop() {
@@ -12,7 +13,9 @@ class OverWorld {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       //Establish the camera person
-      const cameraPerson = this.map.gameObjects.hero;
+      const cameraPerson = this.flyTardis
+        ? this.map.gameObjects.tardis
+        : this.map.gameObjects.hero;
 
       // Update all objects
       Object.values(this.map.gameObjects).forEach((object) => {
@@ -31,6 +34,7 @@ class OverWorld {
           return a.y - b.y;
         })
         .forEach((object) => {
+          //console.log("Drawing: ", object);
           object.sprite.draw(this.ctx, cameraPerson);
         });
 
@@ -123,10 +127,28 @@ class OverWorld {
     this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
   }
 
-  startMapAsFlyTardis(mapConfig, heroInitialState = null) {
-    this.map = new OverWorldMap(mapConfig);
+  startMapAsFlyTardis(newMapConfig, oldMapConfig, heroInitialState = null) {
+    this.map = new OverWorldMap(newMapConfig);
     this.map.overworld = this;
     this.map.mountObjects();
+    this.flyTardis = true;
+    this.map.gameObjects.tardis.isPlayerControlled = true;
+    this.map.gameObjects.hero.isPlayerControlled = false;
+
+    // add a button to escape
+    this.escapeListener = new KeyPressListener("KeyE", () => {
+      // Is there a person here to talk to ?
+      //console.log("starting new map: ", oldMapConfig);
+      this.flyTardis = false;
+      this.map.gameObjects.tardis.isPlayerControlled = false;
+      this.map.gameObjects.hero.isPlayerControlled = true;
+      this.startMap(oldMapConfig);
+      this.escapeListener.unbind();
+    });
+
+    //console.log(this.map.gameObjects.tardis);
+    //console.log(this.map);
+    //window.OverworldMaps[]
 
     // if (heroInitialState) {
     //   const { tardis } = this.map.gameObjects;

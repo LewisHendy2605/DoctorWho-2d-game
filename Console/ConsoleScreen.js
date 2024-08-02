@@ -88,7 +88,7 @@ class ConsoleScreen {
               map: this.map,
               event: {
                 type: "FlyTarids",
-                map: "Outside_tardis",
+                map: window.tardisState.destination,
               },
             });
             event.init();

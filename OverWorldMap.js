@@ -573,6 +573,7 @@ window.OverworldMaps = {
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
       tardis: new Tardis({
+        isPlayerControlled: false,
         x: utils.withGrid(45),
         y: utils.withGrid(25),
         src: "/images/tardis/tardis-light-blue.png",

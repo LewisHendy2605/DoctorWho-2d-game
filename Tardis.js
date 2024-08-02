@@ -15,6 +15,7 @@ class Tardis extends GameObject {
   }
 
   update(state) {
+    //console.log(this);
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
@@ -86,9 +87,9 @@ class Tardis extends GameObject {
 
   updateSprite() {
     if (this.movingProgressRemaining > 0) {
-      this.sprite.setAnimation("walk-" + this.direction);
+      this.sprite.setAnimation(this.direction);
       return;
     }
-    this.sprite.setAnimation("idle-" + this.direction);
+    this.sprite.setAnimation(this.direction);
   }
 }

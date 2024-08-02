@@ -22,10 +22,10 @@ class TardisSprite {
     //console.log("config a: ", config.animations);
     this.animations = config.animations || {
       start: [[0, 0]],
-      "idle-down": [[0, 0]],
-      "take-off-one": [[1, 0]],
-      "take-off-two": [[2, 0]],
-      "take-off-three": [[0, 1]],
+      down: [[0, 0]],
+      up: [[0, 0]],
+      right: [[0, 0]],
+      left: [[0, 0]],
       "take-off-four": [[1, 1]],
       "take-off-five": [[2, 1]],
     };
