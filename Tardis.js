@@ -16,6 +16,32 @@ class Tardis extends GameObject {
     };
   }
 
+  mount(map) {
+    //console.log("Tardis mounted");
+    this.isMounted = true;
+
+    // Add walls for the larger Tardis sprite
+    map.addWall(this.x + utils.withGrid(1), this.y);
+    map.addWall(this.x + utils.withGrid(2), this.y);
+    map.addWall(this.x + utils.withGrid(3), this.y);
+    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
+    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
+    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(3));
+    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(4));
+    map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(1));
+    map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(2));
+    map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(3));
+    map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(1));
+    map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(2));
+    map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(3));
+    map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(4));
+
+    // If we have a behavior, kick off after a short delay
+    setTimeout(() => {
+      this.deBehaviorEvent(map);
+    }, 10);
+  }
+
   update(state) {
     //console.log(this);
     if (this.movingProgressRemaining > 0) {

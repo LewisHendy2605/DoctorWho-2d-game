@@ -120,17 +120,19 @@ class OverWorldMap {
       return;
     }
 
-    if (this.id !== "Tardis") {
-      console.log(match[0].events);
-      this.startCutscene(match[0].events);
-      return;
-    }
+    this.startCutscene(match[0].events);
 
-    const isLeaveTardisEvent = match[0].events[0].type === "leaveTardis";
+    // if (this.id !== "Tardis") {
+    //   console.log(match[0].events);
+    //   this.startCutscene(match[0].events);
+    //   return;
+    // }
 
-    if (this.tardisLanded && isLeaveTardisEvent) {
-      this.startCutscene(match[0].events);
-    }
+    // const isLeaveTardisEvent = match[0].events[0].type === "leaveTardis";
+
+    // if (this.tardisLanded && isLeaveTardisEvent) {
+    //   this.startCutscene(match[0].events);
+    // }
   }
 
   checkForFootstepInteractive() {
@@ -406,54 +408,41 @@ window.OverworldMaps = {
       // Console taek off
       [utils.asGridCoord(47, 50)]: [
         {
-          events: [
-            { type: "tardisLandOrFly" },
-            // { type: "textMessage", text: "Press Enter to Takeoff" },
-            // { type: "playAudio", audioSrc: "/audio/tardis_takeoff_2014.mp3" },
-            // { who: "console", type: "takeOffOne" },
-            // { who: "console", type: "takeOffTwo" },
-            // { who: "console", type: "takeOffThree" },
-            // { who: "hero", type: "stand", direction: "right", time: 1000 },
-            // { type: "tardisMaterialseChange" },
-
-            //  ------------------
-            // { who: "console", type: "takeOffFour" }
-            // { who: "hero", type: "walk", direction: "up" },
-            // { who: "hero", type: "walk", direction: "up" },
-            // { who: "hero", type: "stand", direction: "right", time: 600 },
-            // { who: "console", type: "takeOffThree" },
-            // { who: "console", type: "takeOffFour" },
-            // { who: "hero", type: "walk", direction: "up" },
-            // { who: "hero", type: "walk", direction: "right" },
-            // { who: "hero", type: "walk", direction: "right" },
-            // { who: "hero", type: "stand", direction: "down", time: 700 },
-            // { who: "hero", type: "walk", direction: "right" },
-            // { who: "hero", type: "walk", direction: "right" },
-            // { who: "hero", type: "walk", direction: "right" },
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "stand", direction: "left", time: 300 },
-            // { who: "console", type: "takeOffFive" },
-            // { who: "hero", type: "stand", direction: "left", time: 200 },
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "stand", direction: "left", time: 700 },
-            // { who: "hero", type: "walk", direction: "down" },
-            // { who: "hero", type: "walk", direction: "left" },
-            // { who: "hero", type: "walk", direction: "left" },
-            // { who: "hero", type: "walk", direction: "left" },
-            // { who: "hero", type: "walk", direction: "left" },
-            // { who: "hero", type: "walk", direction: "left" },
-            // { who: "hero", type: "walk", direction: "up" },
-            // { who: "hero", type: "walk", direction: "up" },
-            // { who: "hero", type: "stand", direction: "right", time: 700 },
-            //{ who: "console", type: "consoleStart" },
-          ],
+          events: [{ type: "tardisLandOrFly" }],
+        },
+      ],
+      [utils.asGridCoord(47, 51)]: [
+        {
+          events: [{ type: "tardisLandOrFly" }],
         },
       ],
 
       // Console screen
+      [utils.asGridCoord(52, 50)]: [
+        {
+          events: [
+            { type: "textMessage", text: "Press Enter to use console" },
+            { type: "useConsoleScreen" },
+          ],
+        },
+      ],
       [utils.asGridCoord(52, 51)]: [
+        {
+          events: [
+            { type: "textMessage", text: "Press Enter to use console" },
+            { type: "useConsoleScreen" },
+          ],
+        },
+      ],
+      [utils.asGridCoord(52, 52)]: [
+        {
+          events: [
+            { type: "textMessage", text: "Press Enter to use console" },
+            { type: "useConsoleScreen" },
+          ],
+        },
+      ],
+      [utils.asGridCoord(51, 52)]: [
         {
           events: [
             { type: "textMessage", text: "Press Enter to use console" },

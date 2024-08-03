@@ -133,24 +133,29 @@ class OverworldEvent {
   }
 
   leaveTardis(resolve) {
-    this.event.map = window.tardisState.destination;
+    if (this.map.tardisLanded) {
+      this.event.map = window.tardisState.destination;
 
-    //console.log(window.OverworldMaps[this.event.map]);
-    const gameObjects = window.OverworldMaps[this.event.map].gameObjects;
-    //console.log(gameObjects);
+      //console.log(window.OverworldMaps[this.event.map]);
+      const gameObjects = window.OverworldMaps[this.event.map].gameObjects;
+      //console.log(gameObjects);
 
-    Object.values(gameObjects).forEach((go) => {
-      if (go.type === "tardis") {
-        const { x, y } = utils.tardisCoordsOffset(go.x, go.y);
-        this.event.x = x;
-        this.event.y = y;
-      }
-    });
-
-    // Set hero spawn poin t to tardis doors
-    //this.event.x =
-
-    this.changeMap(resolve);
+      Object.values(gameObjects).forEach((go) => {
+        if (go.type === "tardis") {
+          const { x, y } = utils.tardisCoordsOffset(go.x, go.y);
+          this.event.x = x;
+          this.event.y = y;
+        }
+      });
+      this.changeMap(resolve);
+    } else {
+      const setTextMessage = async () => {
+        this.event.text = "Tardis Not Landed";
+        await new Promise((res) => this.textMessage(res));
+      };
+      setTextMessage();
+      resolve();
+    }
   }
 
   tardisLandOrFly(resolve) {
@@ -241,22 +246,19 @@ class OverworldEvent {
   }
 
   FlyTarids(resolve) {
-    //const cutsceneSpaces = this.map.cutsceneSpaces;
-
-    // Get the x, y for the tardis door on the new map
-    //const doorX = window.OverworldMaps[this.event.map].tardisDoorX;
-    //const doorY = window.OverworldMaps[this.event.map].tardisDoorY;
-
-    // Change what map is ouside tardis
-    //this.map.outsideMap = this.event.map;
-
-    //this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
-    //console.log("new map config", this.event.map);
-    //console.log("old map config", this.map);
-    this.map.overworld.startMapAsFlyTardis(
-      window.OverworldMaps[this.event.map],
-      window.OverworldMaps["Tardis"]
-    );
+    const setTextMessage = async () => {
+      this.event.text = "Tardis has not landed";
+      new Promise((res) => this.textMessage(res));
+    };
+    if (this.map.tardisLanded) {
+      // If landed show outside map
+      this.map.overworld.startMapAsFlyTardis(
+        window.OverworldMaps[this.event.map],
+        window.OverworldMaps["Tardis"]
+      );
+    } else {
+      setTextMessage();
+    }
 
     resolve();
   }

@@ -42,6 +42,10 @@ class OverWorld {
         })
         .forEach((object) => {
           //console.log("Drawing: ", object);
+          // Skip drawing the hero if flying the Tardis
+          if (this.flyTardis && object === this.map.gameObjects.hero) {
+            return;
+          }
           object.sprite.draw(this.ctx, cameraPerson);
         });
 
