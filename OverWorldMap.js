@@ -344,7 +344,7 @@ window.OverworldMaps = {
   },
   Tardis: {
     id: "Tardis",
-    lowerSrc: "/images/tardis/Tardis-map-v13.png",
+    lowerSrc: "/images/tardis/Tardis-map-v6.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     outsideMap: "Outside_tardis",
     tardisLanded: true,
@@ -474,9 +474,9 @@ window.OverworldMaps = {
       // Top rail
       [utils.asGridCoord(47, 41)]: true,
       [utils.asGridCoord(48, 41)]: true,
-      [utils.asGridCoord(49, 41)]: true,
-      [utils.asGridCoord(50, 41)]: true,
-      [utils.asGridCoord(51, 41)]: true,
+      // [utils.asGridCoord(49, 41)]: true,
+      // [utils.asGridCoord(50, 41)]: true,
+      // [utils.asGridCoord(51, 41)]: true,
       [utils.asGridCoord(52, 41)]: true,
       [utils.asGridCoord(53, 41)]: true,
 
@@ -489,9 +489,9 @@ window.OverworldMaps = {
 
       // Right rail
       [utils.asGridCoord(59, 47)]: true,
-      [utils.asGridCoord(59, 48)]: true,
-      [utils.asGridCoord(59, 49)]: true,
-      [utils.asGridCoord(59, 50)]: true,
+      // [utils.asGridCoord(59, 48)]: true,
+      // [utils.asGridCoord(59, 49)]: true,
+      // [utils.asGridCoord(59, 50)]: true,
       [utils.asGridCoord(59, 51)]: true,
 
       // Bottom right rail
