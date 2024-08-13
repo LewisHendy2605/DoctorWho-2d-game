@@ -489,9 +489,9 @@ window.OverworldMaps = {
 
       // Right rail
       [utils.asGridCoord(59, 47)]: true,
-      // [utils.asGridCoord(59, 48)]: true,
-      // [utils.asGridCoord(59, 49)]: true,
-      // [utils.asGridCoord(59, 50)]: true,
+      [utils.asGridCoord(59, 48)]: true,
+      [utils.asGridCoord(59, 49)]: true,
+      [utils.asGridCoord(59, 50)]: true,
       [utils.asGridCoord(59, 51)]: true,
 
       // Bottom right rail
