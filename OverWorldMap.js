@@ -1,5 +1,6 @@
 class OverWorldMap {
   constructor(config) {
+    pauseButton;
     this.id = config.id || null;
     this.overworld = null;
     this.gameObjects = config.gameObjects;
@@ -349,7 +350,7 @@ window.OverworldMaps = {
     outsideMap: "Outside_tardis",
     tardisLanded: true,
     gameObjects: {
-      hero: new Person({
+      hero: new Doctor({
         isPlayerControlled: true,
         x: utils.withGrid(45),
         y: utils.withGrid(50),
@@ -555,7 +556,7 @@ window.OverworldMaps = {
     tardisDoorX: utils.withGrid(48),
     tardisDoorY: utils.withGrid(40),
     gameObjects: {
-      hero: new Person({
+      hero: new Doctor({
         isPlayerControlled: true,
         x: utils.withGrid(48),
         y: utils.withGrid(40),
@@ -622,7 +623,7 @@ window.OverworldMaps = {
     tardisDoorX: utils.withGrid(79),
     tardisDoorY: utils.withGrid(80),
     gameObjects: {
-      hero: new Person({
+      hero: new Doctor({
         isPlayerControlled: true,
         x: utils.withGrid(79),
         y: utils.withGrid(80),

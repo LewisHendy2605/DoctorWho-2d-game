@@ -28,14 +28,14 @@ class KeyPressListener {
 
     document.addEventListener("keydown", this.keydownFunction);
     document.addEventListener("keyup", this.keyupFunction);
-    document.addEventListener("touchstart", this.touchstartFunction);
-    document.addEventListener("touchend", this.touchendFunction);
+    // document.addEventListener("touchstart", this.touchstartFunction);
+    // document.addEventListener("touchend", this.touchendFunction);
   }
 
   unbind() {
     document.removeEventListener("keydown", this.keydownFunction);
     document.removeEventListener("keyup", this.keyupFunction);
-    document.removeEventListener("touchstart", this.touchstartFunction);
-    document.removeEventListener("touchend", this.touchendFunction);
+    // document.removeEventListener("touchstart", this.touchstartFunction);
+    // document.removeEventListener("touchend", this.touchendFunction);
   }
 }

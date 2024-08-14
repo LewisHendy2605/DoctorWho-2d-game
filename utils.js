@@ -8,6 +8,45 @@ const utils = {
   tardisCoordsOffset(x, y) {
     return { x: x + this.withGrid(2), y: y + this.withGrid(4) };
   },
+  getMapCoordsFromMouse(hero, event) {
+    const canvas = document.getElementById("gameCanvas");
+    const rect = canvas.getBoundingClientRect();
+
+    // Step 1: Get mouse coordinates relative to the canvas
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    // Step 2: Calculate scaling factor
+    const scaleFactor = 3; // The scaling factor applied to the canvas
+
+    // Adjust for scaling to get the true canvas coordinates
+    const unscaledMouseX = mouseX / scaleFactor;
+    const unscaledMouseY = mouseY / scaleFactor;
+
+    // Step 3: Get hero position in unscaled canvas coordinates
+    // The hero's position in the canvas needs to be adjusted based on scaling
+    const heroCanvasX = canvas.width / 2;
+    const heroCanvasY = canvas.height / 2;
+
+    // Step 4: Calculate relative mouse position compared to hero
+    const relativeX = unscaledMouseX - heroCanvasX;
+    const relativeY = unscaledMouseY - heroCanvasY;
+
+    // Step 5: Adjust for any drawing offsets
+    const heroDrawOffsetX = 8; // Example offset
+    const heroDrawOffsetY = 18; // Example offset
+
+    const mapX = hero.x + relativeX + heroDrawOffsetX;
+    const mapY = hero.y + relativeY + heroDrawOffsetY;
+
+    // Step 6: Convert to grid coordinates (16x16 pixels per grid cell)
+    const gridSize = 16;
+    const mouseGridX = Math.floor(mapX / gridSize);
+    const mouseGridY = Math.floor(mapY / gridSize);
+
+    return { mouseGridX, mouseGridY };
+  },
+
   nextPosition(initialX, initialY, direction) {
     let x = initialX;
     let y = initialY;
