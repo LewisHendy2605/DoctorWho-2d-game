@@ -87,20 +87,20 @@
           // Scripts
           "utils.js",
           "AudioManager.js",
+          "KeyPressListener.js",
           "DirectionInput.js",
           "Overworld.js",
-          "GameObject.js",
-          "Console.js",
-          "Person.js",
-          "Tardis.js",
-          "PizzaStone.js",
-          "Sprite.js",
-          "ConsoleSprite.js",
-          "TardisSprite.js",
+          "Objects/GameObject.js",
+          "Objects/Console.js",
+          "Objects/Person.js",
+          "Objects/Tardis.js",
+          "Objects/PizzaStone.js",
+          "Sprites/Sprite.js",
+          "Sprites/ConsoleSprite.js",
+          "Sprites/TardisSprite.js",
           "OverWorldMap.js",
           "OverworldEvent.js",
           "TextMessage.js",
-          "KeyPressListener.js",
           "RevealingText.js",
           "SceneTransition.js",
           "KeyboardMenu.js",
@@ -157,7 +157,12 @@
   </head>
   <body>
     <div class="game-container">
-      <canvas class="game-canvas" width="352" height="198"></canvas>
+      <canvas
+        id="gameCanvas"
+        class="game-canvas"
+        width="352"
+        height="198"
+      ></canvas>
     </div>
 
     <div class="options-container">

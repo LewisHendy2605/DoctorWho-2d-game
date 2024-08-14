@@ -15,6 +15,9 @@ class GameObject {
     this.behaviorLoopIndex = 0;
 
     this.talking = config.talking || [];
+
+    // store map for sonic behaviour
+    this.map = null;
   }
 
   setSprite(config) {
@@ -40,6 +43,8 @@ class GameObject {
     console.log("mounted");
     this.isMounted = true;
     map.addWall(this.x, this.y);
+
+    this.map = map;
 
     // If we have a behaiior, kick off after a short delay
     setTimeout(() => {
