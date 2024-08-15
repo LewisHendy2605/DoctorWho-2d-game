@@ -80,7 +80,7 @@ class Doctor extends GameObject {
           if (this.sonicAudio) {
             this.sonicAudio.pause(); // Ensure any previous audio is paused
           }
-          this.sonicAudio = new Audio("/audio/sonic.mp3");
+          this.sonicAudio = new Audio(utils.setDynamicPath("/audio/sonic.mp3"));
           this.sonicAudio.currentTime = 1;
           try {
             await this.sonicAudio.play();
