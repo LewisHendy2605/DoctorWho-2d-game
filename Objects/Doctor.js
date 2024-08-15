@@ -27,9 +27,18 @@ class Doctor extends GameObject {
   bindSonicListener() {
     // Using arrow function instead of directly passing method so i can use "this" keyword
     //document.addEventListener("click", (event) => this.handleSonicEvent(event));
-    this.sonicListener = new KeyPressListener("KeyE", () =>
-      this.handleSonicEvent()
-    );
+
+    if (document.body.classList.contains("mobile-device")) {
+      if (this.sonicButton) {
+        this.sonicButton.addEventListener("click", () =>
+          this.handleSonicEvent()
+        );
+      }
+    } else {
+      this.sonicListener = new KeyPressListener("KeyE", () =>
+        this.handleSonicEvent()
+      );
+    }
   }
 
   unbindSonicListener() {
@@ -37,8 +46,14 @@ class Doctor extends GameObject {
     // document.removeEventListener("click", (event) =>
     //   this.handleSonicEvent(event)
     // );
-    if (this.sonicListener) {
-      this.sonicListener.unbind();
+    if (document.body.classList.contains("mobile-device")) {
+      this.sonicButton.removeEventListener("click", () =>
+        this.handleSonicEvent()
+      );
+    } else {
+      if (this.sonicListener) {
+        this.sonicListener.unbind();
+      }
     }
   }
 
@@ -115,22 +130,65 @@ class Doctor extends GameObject {
   bindScrewdriverEquiperListener() {
     // Only set listener if it is the doctor as only doctor can use sonic (for now)
     if (this.isDoctor) {
-      this.screwdriverEquipListener = new KeyPressListener("KeyQ", () => {
-        // Update sprite src to one with sonic in hand
-        if (this.isSonicEquipped) {
-          this.sprite.image.src = utils.setDynamicPath(
-            "/images/characters-doctor-who/doctor-11.png"
-          );
-          this.isSonicEquipped = false;
-          this.unbindSonicListener();
-        } else {
-          this.sprite.image.src = utils.setDynamicPath(
-            "/images/characters-doctor-who/doctor-11-screwdriver.png"
-          );
-          this.isSonicEquipped = true;
-          this.bindSonicListener();
+      if (document.body.classList.contains("mobile-device")) {
+        // equip for mobile
+        this.actionButton = document.getElementById("actionButton");
+        this.sonicButton = document.getElementById("sonicButton");
+
+        this.updateSonicButtons();
+
+        if (actionButton) {
+          actionButton.addEventListener("click", () => {
+            // Update sprite src to one with sonic in hand
+            if (this.isSonicEquipped) {
+              this.sprite.image.src = utils.setDynamicPath(
+                "/images/characters-doctor-who/doctor-11.png"
+              );
+              this.isSonicEquipped = false;
+              this.updateSonicButtons();
+            } else {
+              this.sprite.image.src = utils.setDynamicPath(
+                "/images/characters-doctor-who/doctor-11-screwdriver.png"
+              );
+              this.isSonicEquipped = true;
+              this.updateSonicButtons();
+              this.bindSonicListener();
+            }
+          });
         }
-      });
+      } else {
+        // set key listeners for dektop
+        this.screwdriverEquipListener = new KeyPressListener("KeyQ", () =>
+          this.handleSonicEquip()
+        );
+      }
+    }
+  }
+
+  updateSonicButtons() {
+    if (this.isSonicEquipped) {
+      actionButton.innerText = "Unequip Sonic";
+      sonicButton.style.display = "block";
+    } else {
+      actionButton.innerText = "Equip Sonic";
+      sonicButton.style.display = "none";
+    }
+  }
+
+  handleSonicEquip() {
+    // Update sprite src to one with sonic in hand
+    if (this.isSonicEquipped) {
+      this.sprite.image.src = utils.setDynamicPath(
+        "/images/characters-doctor-who/doctor-11.png"
+      );
+      this.isSonicEquipped = false;
+      this.unbindSonicListener();
+    } else {
+      this.sprite.image.src = utils.setDynamicPath(
+        "/images/characters-doctor-who/doctor-11-screwdriver.png"
+      );
+      this.isSonicEquipped = true;
+      this.bindSonicListener();
     }
   }
 

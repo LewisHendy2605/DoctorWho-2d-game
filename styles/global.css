@@ -54,29 +54,32 @@ body {
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  touch-action: none; /* Prevent double-tap zoom */
+  user-select: none; /* Prevent text selection */
+  -webkit-user-select: none; /* Prevent text selection for Safari */
+  -moz-user-select: none; /* Prevent text selection for Firefox */
+  -ms-user-select: none; /* Prevent text selection for IE */
 }
 
 .pauseButton {
   position: absolute;
   left: 1em;
   bottom: 4em;
-  background-color: blue;
-  touch-action: none; /* Prevent double-tap zoom */
-  user-select: none; /* Prevent text selection */
-  -webkit-user-select: none; /* Prevent text selection for Safari */
-  -moz-user-select: none; /* Prevent text selection for Firefox */
-  -ms-user-select: none; /* Prevent text selection for IE */
+  background-color: rgb(255, 0, 234);
 }
 .actionButton {
   position: absolute;
   right: 1em;
   bottom: 13em;
   background-color: green;
-  touch-action: none; /* Prevent double-tap zoom */
-  user-select: none; /* Prevent text selection */
-  -webkit-user-select: none; /* Prevent text selection for Safari */
-  -moz-user-select: none; /* Prevent text selection for Firefox */
-  -ms-user-select: none; /* Prevent text selection for IE */
+}
+
+.sonicButton {
+  position: absolute;
+  right: 1em;
+  bottom: 9em;
+  background-color: blue;
+  display: block;
 }
 
 .option-button button {
@@ -116,8 +119,8 @@ body {
   }
 
   .control-button {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     font-size: 20px;
   }
   .pauseButton {
