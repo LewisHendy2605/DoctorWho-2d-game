@@ -70,14 +70,14 @@ body {
 .actionButton {
   position: absolute;
   right: 1em;
-  bottom: 13em;
+  bottom: 15em;
   background-color: green;
 }
 
 .sonicButton {
   position: absolute;
   right: 1em;
-  bottom: 9em;
+  bottom: 11em;
   background-color: blue;
   display: block;
 }
