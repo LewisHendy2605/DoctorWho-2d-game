@@ -96,7 +96,7 @@ class Doctor extends GameObject {
   }
 
   checkForInteractive() {
-    const interactives = this.map.interavtives; // fix miss spelling
+    //const interactives = this.map.interavtives; // fix miss spelling
     let sonicRayX = this.x;
     let sonicRayY = this.y;
 
@@ -105,7 +105,7 @@ class Doctor extends GameObject {
       //console.log(`Sonic X: ${sonicRayX}, Sonic Y:`, sonicRayY);
 
       // Check for interactive usins g sonic x,y
-      const match = this.map.interavtives[`${sonicRayX},${sonicRayY}`];
+      const match = this.map.sonicspaces[`${sonicRayX},${sonicRayY}`];
 
       if (match && !this.map.isCutScenePlaying) {
         console.log("Found match");

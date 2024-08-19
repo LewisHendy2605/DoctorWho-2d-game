@@ -158,6 +158,10 @@ class OverworldEvent {
     }
   }
 
+  tardisConsoleSonicEvent(resolve) {
+    // TO DO
+  }
+
   tardisLandOrFly(resolve) {
     const sequence = async () => {
       if (this.map.tardisLanded) {

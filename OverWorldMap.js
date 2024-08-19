@@ -452,6 +452,14 @@ window.OverworldMaps = {
         },
       ],
     },
+    sonicspaces: {
+      // Console sonic controls
+      [utils.asGridCoord(47, 50)]: [
+        {
+          events: [{ type: "tardisConsoleSonicEvent" }],
+        },
+      ],
+    },
     walls: {
       // Console
       [utils.asGridCoord(48, 48)]: true,
