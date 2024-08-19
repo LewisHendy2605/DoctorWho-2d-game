@@ -177,22 +177,24 @@ class OverworldEvent {
           label: "Land / Take Off",
           class: "choose-dest",
           handler: () => {
-            // Change TARDIS outside map
+            // Close menu scrren
+            this.sonicMenu.end();
+
+            // Initiate tardis event
             const event = new OverworldEvent({
               map: this.map,
               event: { type: "tardisLandOrFly" },
             });
             event.init();
-
-            // Close console screen
-            console.log("Trying to close menu: ", this);
-            this.sonicMenu.end();
           },
         },
         {
           label: "Use Console Screen",
           class: "choose-dest",
           handler: () => {
+            // Close menu scrren
+            this.sonicMenu.end();
+
             const event = new OverworldEvent({
               map: this.map,
               event: {
@@ -200,9 +202,6 @@ class OverworldEvent {
               },
             });
             event.init();
-
-            // Close console screen
-            this.onComplete();
           },
         },
       ];

@@ -20,11 +20,12 @@ class Doctor extends GameObject {
     this.sonicActive = false;
     this.sonicAudio = null;
     this.sonicListener = null;
+    this.sonicFinishedListener = null;
 
     this.bindScrewdriverEquiperListener();
   }
 
-  bindSonicListener() {
+  bindSonicListeners() {
     // Using arrow function instead of directly passing method so i can use "this" keyword
     //document.addEventListener("click", (event) => this.handleSonicEvent(event));
 
@@ -39,6 +40,8 @@ class Doctor extends GameObject {
         this.handleSonicEvent()
       );
     }
+
+    document.addEventListener("FinishedSonic");
   }
 
   unbindSonicListener() {
@@ -187,13 +190,13 @@ class Doctor extends GameObject {
         "/images/characters-doctor-who/doctor-11.png"
       );
       this.isSonicEquipped = false;
-      this.unbindSonicListener();
+      this.unbindSonicListeners();
     } else {
       this.sprite.image.src = utils.setDynamicPath(
         "/images/characters-doctor-who/doctor-11-screwdriver.png"
       );
       this.isSonicEquipped = true;
-      this.bindSonicListener();
+      this.bindSonicListeners();
     }
   }
 
