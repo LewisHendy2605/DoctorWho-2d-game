@@ -159,7 +159,74 @@ class OverworldEvent {
   }
 
   tardisConsoleSonicEvent(resolve) {
-    // TO DO
+    // Create asyncronous function to show console options in sonic menu
+    const sequence = async () => {
+      //this.options = ["tardisLandOrFly", "useConsoleScreen"];
+      this.options = [
+        {
+          label: "Back",
+          class: "back-button",
+          description: "TEST",
+          handler: () => {
+            // Close console screen
+            this.onComplete();
+          },
+        },
+
+        {
+          label: "Land / Take Off",
+          class: "choose-dest",
+          handler: () => {
+            // Change TARDIS outside map
+            const event = new OverworldEvent({
+              map: this.map,
+              event: { type: "tardisLandOrFly" },
+            });
+            event.init();
+
+            // Close console screen
+            console.log("Trying to close menu: ", this);
+            this.sonicMenu.end();
+          },
+        },
+        {
+          label: "Use Console Screen",
+          class: "choose-dest",
+          handler: () => {
+            const event = new OverworldEvent({
+              map: this.map,
+              event: {
+                type: "useConsoleScreen",
+              },
+            });
+            event.init();
+
+            // Close console screen
+            this.onComplete();
+          },
+        },
+      ];
+      await new Promise((res) => this.showSonicMenu(res));
+    };
+    sequence();
+    resolve();
+  }
+
+  showSonicMenu(resolve) {
+    // Takes options and shows them around the object (maybe)
+    //const options =
+    console.log("event", this.event);
+    console.log("options", this.options);
+
+    this.sonicMenu = new SonicMenu({
+      map: this.map,
+      onComplete: () => {
+        this.sonicMenu.end();
+        resolve();
+      },
+      options: this.options,
+    });
+    this.sonicMenu.init(document.querySelector(".game-container"));
   }
 
   tardisLandOrFly(resolve) {

@@ -6,6 +6,7 @@ class OverWorldMap {
     this.gameObjects = config.gameObjects;
     this.cutsceneSpaces = config.cutsceneSpaces || {};
     this.interavtives = config.interavtives || {};
+    this.sonicspaces = config.sonicspaces || {};
     this.walls = config.walls || {};
 
     this.lowerImage = new Image();
@@ -457,6 +458,11 @@ window.OverworldMaps = {
       [utils.asGridCoord(47, 50)]: [
         {
           events: [{ type: "tardisConsoleSonicEvent" }],
+        },
+      ],
+      [utils.asGridCoord(47, 51)]: [
+        {
+          events: [{ type: "tardisLandOrFly" }],
         },
       ],
     },

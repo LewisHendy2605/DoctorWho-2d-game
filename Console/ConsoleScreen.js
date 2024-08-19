@@ -104,6 +104,7 @@ class ConsoleScreen {
   showMenu(container) {
     this.keyboardMenu = new KeyboardMenu();
     this.keyboardMenu.init(container);
+    console.log(this.getPages().root);
     this.keyboardMenu.setOptions(this.getPages().root);
   }
 

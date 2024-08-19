@@ -35,6 +35,8 @@ class KeyboardMenu {
       });
       button.addEventListener("focus", () => {
         this.prevfocus = button;
+        // console.log("setting inner text of de: ", button.dataset.description);
+        // console.log(button);
         this.descriptionElementText.innerText = button.dataset.description;
       });
     });

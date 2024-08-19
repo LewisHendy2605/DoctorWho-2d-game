@@ -69,6 +69,10 @@ class Doctor extends GameObject {
         if (this.sonicActive) {
           // Update flag
           this.sonicActive = false;
+          // emit event for sonic menu
+          utils.emitEvent("SonicFinished", {
+            whoId: this.id,
+          });
           // Stop audio
           if (this.sonicAudio) {
             this.sonicAudio.pause();
@@ -82,6 +86,7 @@ class Doctor extends GameObject {
           }
           this.sonicAudio = new Audio(utils.setDynamicPath("/audio/sonic.mp3"));
           this.sonicAudio.currentTime = 1;
+
           try {
             await this.sonicAudio.play();
           } catch (error) {
