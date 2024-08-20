@@ -62,9 +62,11 @@ class SonicMenu {
   }
 
   showMenu(container) {
-    this.keyboardMenu = new KeyboardMenu();
-    this.keyboardMenu.init(container);
-    this.keyboardMenu.setOptions(this.options);
+    this.menu = new Menu({
+      title: "Sonic Options",
+    });
+    this.menu.init(container);
+    this.menu.setOptions(this.options);
   }
 
   init(container) {

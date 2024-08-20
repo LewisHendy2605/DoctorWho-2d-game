@@ -96,7 +96,7 @@ body {
 .controls-container {
   position: absolute;
   bottom: 7px;
-  left: 50%;
+  left: 45%;
   transform: translateX(-50%);
   display: none;
   grid-template-areas:

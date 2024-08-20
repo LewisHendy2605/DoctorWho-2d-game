@@ -164,16 +164,6 @@ class OverworldEvent {
       //this.options = ["tardisLandOrFly", "useConsoleScreen"];
       this.options = [
         {
-          label: "Back",
-          class: "back-button",
-          description: "TEST",
-          handler: () => {
-            // Close console screen
-            this.onComplete();
-          },
-        },
-
-        {
           label: "Land / Take Off",
           class: "choose-dest",
           handler: () => {

@@ -61,3 +61,42 @@
   bottom: 0;
   width: 140px;
 }
+/* Repeated css for non keyboard controoled menu   */
+.Menu {
+  position: absolute;
+}
+.Menu button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  -webkit-appearance: none;
+  border: 0;
+  background: none;
+  height: 20px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  padding-left: 1em;
+  font-size: 10px;
+}
+
+.Menu button:focus {
+  background: var(--menu-selected-background);
+  outline: 0;
+}
+
+.Menu .option {
+  position: relative;
+}
+
+.Menu .option .right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  padding-right: 3px;
+}
