@@ -61,12 +61,48 @@ class SonicMenu {
     document.removeEventListener("SonicFinished", this.handleSonicFinished);
   }
 
+  addFonts() {
+    const doctorWhoFontUrl = utils.setDynamicPath("/fonts/Drwho42.ttf");
+    const doctorWho2FontUrl = utils.setDynamicPath("/fonts/dr2.ttf");
+
+    const style = document.createElement("style");
+    style.innerHTML = `
+          @font-face {
+            font-family: "DoctorWho";
+            src: url(${doctorWhoFontUrl}) format("truetype");
+          }
+          @font-face {
+            font-family: "DoctorWho2";
+            src: url(${doctorWho2FontUrl}) format("truetype");
+          }
+          .ConsoleScreen {
+            font-family: "DoctorWho";
+          }
+        `;
+    document.head.appendChild(style);
+  }
+
   showMenu(container) {
+    this.container = container;
     this.menu = new Menu({
       title: "Sonic Options",
     });
     this.menu.init(container);
+    console.log("sonic menu options: ", this.options);
+    this.addFonts();
+
     this.menu.setOptions(this.options);
+  }
+
+  showData(data) {
+    console.log("Show data callsed");
+    console.log(data);
+    this.dataScreenMenu = new Menu({
+      title: "Scan results for: " + data.type,
+    });
+    this.menu.hide();
+    this.dataScreenMenu.init(this.container);
+    this.dataScreenMenu.setDataElement(data);
   }
 
   init(container) {

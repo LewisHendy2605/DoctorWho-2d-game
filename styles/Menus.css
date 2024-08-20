@@ -28,9 +28,9 @@
 
 .SonicMenu {
   position: absolute;
-  left: 4.5em;
+  left: 3em;
   top: 1em;
-  right: 4.5em;
+  right: 1em;
   color: var(--menu-font-color);
   z-index: 2;
   padding-left: 4px;
@@ -44,12 +44,57 @@
   border: none;
 }
 
-.SonicMenu button {
-  background-color: greenyellow;
+.SonicMenu .optionButton {
+  font-family: "DoctorWho2", sans-serif;
+  font-size: 13px;
   margin-bottom: 10px;
   border-radius: 10px;
   transition: background-color 0.3s;
 }
-.SonicMenu button:hover {
+.SonicMenu .optionButton:hover {
   background-color: green;
+}
+
+.sonic-menu-data-header {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  border-bottom: 3px solid black;
+  border-radius: 5px;
+  padding: 3px;
+  background-color: beige;
+}
+
+.sonic-menu-data-header-backBtn {
+  height: 10%;
+  font-family: "DoctorWho2", sans-serif;
+  font-size: 5px;
+  background-color: red;
+  padding: 2px;
+  margin-right: 20%;
+}
+
+.menu-data-title {
+  font-family: "DoctorWho2", sans-serif;
+  font-size: 15px;
+  color: goldenrod;
+  margin: 0;
+  text-align: center;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.sonic-menu-data-container {
+  height: 100%;
+  border: 1px solid black;
+  border-top: 3px solid black;
+  border-radius: 5px;
+  padding: 3px;
+  background-color: beige;
+}
+
+.sonicDataElement {
+  font-family: "DoctorWho2", sans-serif;
+  font-size: 0.6rem;
+  color: goldenrod;
 }

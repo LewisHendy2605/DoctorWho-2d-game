@@ -65,7 +65,13 @@
 .Menu {
   position: absolute;
 }
-.Menu button {
+
+.Menu .menu-title {
+  margin: 0;
+  margin-bottom: 9px;
+}
+
+.Menu .optionButton {
   display: flex;
   align-items: center;
   width: 100%;

@@ -16,6 +16,7 @@ class ChangeDestScreen {
     consoleScreenElement.style.backgroundImage = `url(${dynamicUrl})`;
   }
 
+  // need to optimise for whole game - used elsewhere
   addFonts() {
     const doctorWhoFontUrl = utils.setDynamicPath("/fonts/Drwho42.ttf");
     const doctorWho2FontUrl = utils.setDynamicPath("/fonts/dr2.ttf");

@@ -26,8 +26,7 @@ class SonicScrewdriver {
       );
     }
   }
-
-  unbindSonicListener() {
+  unbindSonicListeners() {
     //console.log("unbinded mouse listerner");
     // document.removeEventListener("click", (event) =>
     //   this.handleSonicEvent(event)
@@ -87,8 +86,81 @@ class SonicScrewdriver {
 
           // Handle sonic event
           this.checkForInteractive();
+          // wave prorpogation scan for game objets + can start interactives
+          this.scanObjects();
         }
       }
+    }
+  }
+
+  async scanObjects() {
+    let sonicScanRayX = this.user.x;
+    let sonicScanRayY = this.user.y;
+
+    // Define the initial range of the wave (starting from 1)
+    let waveRange = 1;
+
+    // Search 10 steps ahead of the player
+    for (let j = 0; j < 300; j++) {
+      //   console.log(
+      //     `Sonic X: ${sonicScanRayX}, Sonic Y: ${sonicScanRayY}, Wave Range: ${waveRange}`
+      //   );
+
+      // Check for interactive objects within the current wave range
+      for (let dx = -waveRange; dx <= waveRange; dx++) {
+        for (let dy = -waveRange; dy <= waveRange; dy++) {
+          let checkX = sonicScanRayX + dx;
+          let checkY = sonicScanRayY + dy;
+
+          for (let key in this.user.map.gameObjects) {
+            //console.log(this.user.map.gameObjects[key]);
+            if (
+              this.user.map.gameObjects[key].x === checkX &&
+              this.user.map.gameObjects[key].y === checkY &&
+              key !== "hero"
+            ) {
+              //console.log("found match !!!!!");
+              const match = this.user.map.gameObjects[key];
+              // Display objects to user
+              console.log(match);
+              if (this.user.map.isEventHappening) {
+                // add object data to existing menu
+                console.log("menu is active");
+                const sonicMenu = document.querySelector(".SonicMenu");
+                console.log("sonic menu from sonic", sonicMenu);
+              } else {
+                console.log("no menu");
+                // start a menu up with data
+                // Start sonic menu
+                const event = new OverworldEvent({
+                  map: this.user.map,
+                  event: {
+                    type: "showSonicMenu",
+                    options: this.user.map.gameObjects[key].interactiveOptions,
+                  },
+                });
+                await event.init();
+              }
+              //this.menuEvent
+              return;
+            }
+          }
+        }
+      }
+
+      // Increment sonic ray x or y based on player direction
+      if (this.user.direction === "down") {
+        sonicScanRayY += 1;
+      } else if (this.user.direction == "right") {
+        sonicScanRayX += 1;
+      } else if (this.user.direction == "up") {
+        sonicScanRayY -= 1;
+      } else if (this.user.direction == "left") {
+        sonicScanRayX -= 1;
+      }
+
+      // Increase the wave range as the ray moves outward
+      waveRange += 1;
     }
   }
 
@@ -107,6 +179,7 @@ class SonicScrewdriver {
       if (match && !this.user.map.isCutScenePlaying) {
         console.log("Found match");
         console.log(match[0].events);
+        //this.user.map.startInteractive(match[0].events);
         this.user.map.startInteractive(match[0].events);
         return;
       }

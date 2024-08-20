@@ -3,6 +3,7 @@ class OverworldEvent {
     this.map = map;
     this.event = event;
     //this.audioManager = new AudioManager();
+    this.options = [];
   }
 
   stand(resolve) {
@@ -158,6 +159,7 @@ class OverworldEvent {
     }
   }
 
+  // Currently two options to find interactives
   tardisConsoleSonicEvent(resolve) {
     // Create asyncronous function to show console options in sonic menu
     const sequence = async () => {
@@ -204,18 +206,25 @@ class OverworldEvent {
   showSonicMenu(resolve) {
     // Takes options and shows them around the object (maybe)
     //const options =
-    console.log("event", this.event);
-    console.log("options", this.options);
+    //console.log("event", this.event);
+    //console.log("options", this.options);
+
+    const options = this.options ? this.options : this.event.options;
+
+    //console.log("this.options: ", this.options);
+    //console.log("this.event.options: ", this.event.options);
 
     this.sonicMenu = new SonicMenu({
       map: this.map,
+      event: this,
       onComplete: () => {
         this.sonicMenu.end();
         resolve();
       },
-      options: this.options,
+      options: this.event.options ? this.event.options : this.options,
     });
     this.sonicMenu.init(document.querySelector(".game-container"));
+    this.map.sonicMenu = this.sonicMenu;
   }
 
   tardisLandOrFly(resolve) {

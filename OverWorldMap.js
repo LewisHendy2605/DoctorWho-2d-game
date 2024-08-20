@@ -17,9 +17,12 @@ class OverWorldMap {
     //console.log("Config src: ", this.dynamicPath(config.lowerSrc));
 
     this.isCutScenePlaying = false;
+    this.isEventHappening = false;
     this.isPaused = false;
     this.outsideMap = config.outsideMap || null;
     this.tardisLanded = config.tardisLanded || null;
+
+    this.sonicMenu = null;
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -81,6 +84,7 @@ class OverWorldMap {
   }
 
   async startInteractive(events) {
+    this.isEventHappening = true;
     //Start a loop of async events, await each one
     for (let i = 0; i < events.length; i++) {
       const eventHandler = new OverworldEvent({
@@ -89,6 +93,7 @@ class OverWorldMap {
       });
       await eventHandler.init();
     }
+    this.isEventHappening = false;
     // Reset NPCs to do their idle behavior
     Object.values(this.gameObjects).forEach((object) => {
       if (object) {

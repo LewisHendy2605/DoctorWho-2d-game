@@ -16,6 +16,15 @@ class Doctor extends GameObject {
     };
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.sonicScrewdriver = new SonicScrewdriver(this);
+
+    this.initialseControlsDisplay();
+  }
+
+  initialseControlsDisplay() {
+    if (this) {
+      console.log(this);
+      console.log(this.map);
+    }
   }
 
   update(state) {

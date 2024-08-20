@@ -17,7 +17,9 @@ class Menu {
         ${this.options
           .map((option, index) => {
             const disabledAttr = option.disabled ? "disabled" : "";
-            const className = option.class ? `class="${option.class}"` : "";
+            const className = option.class
+              ? `class="${option.class} optionButton"`
+              : "";
             return `
               <div class="option">
                   <button ${className} ${disabledAttr} data-button="${index}">
@@ -41,9 +43,42 @@ class Menu {
     });
   }
 
+  setDataElement(data, backButtonFunc) {
+    // this.element.innerHTML = `
+    //     <p>${data}</p>
+    //   `;
+
+    ///<h3 class="menu-title">Title</h3>
+
+    // TO DO make back button go back
+    this.element.innerHTML = `
+      <div class="sonic-menu-data-header">
+        <button class="sonic-menu-data-header-backBtn">Back</button>
+        <h3 class="menu-data-title">Scan Results</h3>
+      </div>
+      <div class="sonic-menu-data-container">
+      ${data
+        .map((option, index) => {
+          return `
+            <div class="sonicDataElement">
+               <p>${option.type}: ${option.data}</p>
+            </div>`;
+        })
+        .join("")}
+        </div>
+    `;
+  }
+
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("Menu");
+  }
+
+  hide() {
+    this.element.style.display = "none";
+  }
+  unhide() {
+    this.element.style.display = "block";
   }
 
   end() {
