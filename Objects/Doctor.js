@@ -71,8 +71,8 @@ class Doctor extends GameObject {
           // Update flag
           this.sonicActive = false;
 
-          //change buton text
-          this.sonicButton.innerText = "Sonic";
+          //change buton text   / need only for mobiole otherwise bug
+          //this.sonicButton.innerText = "Sonic";
           // emit event for sonic menu
           utils.emitEvent("SonicFinished", {
             whoId: this.id,
@@ -85,8 +85,8 @@ class Doctor extends GameObject {
           // update flag
           this.sonicActive = true;
 
-          //change buton text
-          this.sonicButton.innerText = "Stop Sonic";
+          //change buton text  / need only for mobiole otherwise bug
+          //this.sonicButton.innerText = "Stop Sonic";
           // Handele audio
           if (this.sonicAudio) {
             this.sonicAudio.pause(); // Ensure any previous audio is paused

@@ -48,9 +48,8 @@
   background-color: greenyellow;
   margin-bottom: 10px;
   border-radius: 10px;
-  transition: background-color 0.3s, border-radius 0.3s;
+  transition: background-color 0.3s;
 }
 .SonicMenu button:hover {
   background-color: green;
-  border-radius: 50%;
 }
