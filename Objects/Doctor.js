@@ -18,7 +18,7 @@ class Doctor extends GameObject {
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.isSonicEquipped = false;
     this.sonicActive = false;
-    this.sonicAudio = null;
+    this.sonicAudio = new Audio(utils.setDynamicPath("/audio/sonic.mp3"));
     this.sonicListener = null;
     this.sonicFinishedListener = null;
 
@@ -91,7 +91,7 @@ class Doctor extends GameObject {
           if (this.sonicAudio) {
             this.sonicAudio.pause(); // Ensure any previous audio is paused
           }
-          this.sonicAudio = new Audio(utils.setDynamicPath("/audio/sonic.mp3"));
+
           this.sonicAudio.currentTime = 1;
 
           try {
