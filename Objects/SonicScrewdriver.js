@@ -125,17 +125,18 @@ class SonicScrewdriver {
   }
 
   bindScrewdriverEquiperListener() {
+    // Grab buttons for the sonic use on mobile
+    this.actionButton = document.getElementById("actionButton");
+    this.sonicButton = document.getElementById("sonicButton");
+
     // Only set listener if it is the doctor as only doctor can use sonic (for now)
     if (this.user.isDoctor) {
       if (document.body.classList.contains("mobile-device")) {
-        // equip for mobile
-        this.actionButton = document.getElementById("actionButton");
-        this.sonicButton = document.getElementById("sonicButton");
+        // Initialse the sonic buttons
+        this.updateSonicButtons();
 
-        //this.updateSonicButtons();
-
-        if (actionButton) {
-          actionButton.addEventListener("click", () => {
+        if (this.actionButton) {
+          this.actionButton.addEventListener("click", () => {
             // Update sprite src to one with sonic in hand
             if (this.isSonicEquipped) {
               this.user.sprite.image.src = utils.setDynamicPath(
@@ -158,17 +159,21 @@ class SonicScrewdriver {
         this.screwdriverEquipListener = new KeyPressListener("KeyQ", () =>
           this.handleSonicEquip()
         );
+
+        // Hide buttons if desktop
+        this.actionButton.style.display = "none";
+        this.sonicButton.style.display = "none";
       }
     }
   }
 
   updateSonicButtons() {
     if (this.isSonicEquipped) {
-      actionButton.innerText = "Unequip Sonic";
-      sonicButton.style.display = "block";
+      this.actionButton.innerText = "Unequip Sonic";
+      this.sonicButton.style.display = "block";
     } else {
-      actionButton.innerText = "Equip Sonic";
-      sonicButton.style.display = "none";
+      this.actionButton.innerText = "Equip Sonic";
+      this.sonicButton.style.display = "none";
     }
   }
 
