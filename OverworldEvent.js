@@ -137,7 +137,7 @@ class OverworldEvent {
     if (this.map.tardisLanded) {
       this.event.map = window.tardisState.destination;
       // test
-      //console.log(window.OverworldMaps[this.event.map]);
+      console.log(window.OverworldMaps[this.event.map]);
       const gameObjects = window.OverworldMaps[this.event.map].gameObjects;
       //console.log(gameObjects);
 

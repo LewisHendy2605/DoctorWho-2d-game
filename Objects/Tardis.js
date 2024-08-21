@@ -14,6 +14,57 @@ class Tardis extends GameObject {
       left: ["x", -1],
       right: ["x", 1],
     };
+
+    this.data = [
+      { type: "Type", data: "Tardis" },
+      { type: "Age", data: "99999999" },
+      { type: "Origin", data: "Galifray" },
+      { type: "Description", data: "Tardis MK1, " },
+      { type: "Magnatism Field Strength", data: "987892 H" },
+      { type: "Electromagnatism Field Strength", data: "756 H" },
+      { type: "Radiation", data: "5000J Bqv" },
+      { type: "Temporal Field", data: "Very Active" },
+      { type: "Temporal Radiation", data: "Low" },
+    ];
+
+    this.interactiveOptions = [
+      {
+        label: "Scan Results from " + this.type,
+        class: "choose-dest",
+        handler: () => {
+          // // Close menu scrren
+          // this.map.sonicMenu.end();
+
+          console.log(this);
+
+          this.map.sonicMenu.showData(this.data);
+
+          // Show data about object
+
+          // Initiate tardis event
+          // const event = new OverworldEvent({
+          //   map: this.map,
+          //   event: { type: "tardisLandOrFly" },
+          // });
+          // event.init();
+        },
+      },
+      {
+        label: "Land / Take Off",
+        class: "choose-dest",
+        handler: () => {
+          // Close menu scrren
+          this.map.sonicMenu.end();
+
+          // Initiate tardis event
+          // const event = new OverworldEvent({
+          //   map: this.map,
+          //   event: { type: "tardisLandOrFly" },
+          // });
+          // event.init();
+        },
+      },
+    ];
   }
 
   mount(map) {
@@ -35,6 +86,8 @@ class Tardis extends GameObject {
     map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(2));
     map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(3));
     map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(4));
+
+    this.map = map;
 
     // If we have a behavior, kick off after a short delay
     setTimeout(() => {

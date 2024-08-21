@@ -102,7 +102,12 @@ class SonicMenu {
     });
     this.menu.hide();
     this.dataScreenMenu.init(this.container);
-    this.dataScreenMenu.setDataElement(data);
+    const backButtonFunc = () => {
+      console.log("back button pressed");
+      this.menu.unhide();
+      this.dataScreenMenu.end();
+    };
+    this.dataScreenMenu.setDataElement(data, backButtonFunc);
   }
 
   init(container) {

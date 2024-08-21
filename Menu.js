@@ -44,6 +44,7 @@ class Menu {
   }
 
   setDataElement(data, backButtonFunc) {
+    this.backButtonFunc = backButtonFunc;
     // this.element.innerHTML = `
     //     <p>${data}</p>
     //   `;
@@ -67,6 +68,12 @@ class Menu {
         .join("")}
         </div>
     `;
+
+    // Attach event listener for the back button
+    this.backButton = this.element.querySelector(
+      ".sonic-menu-data-header-backBtn"
+    );
+    this.backButton.addEventListener("click", this.backButtonFunc);
   }
 
   createElement() {

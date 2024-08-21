@@ -132,14 +132,17 @@ class SonicScrewdriver {
                 console.log("no menu");
                 // start a menu up with data
                 // Start sonic menu
-                const event = new OverworldEvent({
-                  map: this.user.map,
-                  event: {
-                    type: "showSonicMenu",
-                    options: this.user.map.gameObjects[key].interactiveOptions,
-                  },
-                });
-                await event.init();
+                if (this.user.map.gameObjects[key].interactiveOptions !== 0) {
+                  const event = new OverworldEvent({
+                    map: this.user.map,
+                    event: {
+                      type: "showSonicMenu",
+                      options:
+                        this.user.map.gameObjects[key].interactiveOptions,
+                    },
+                  });
+                  await event.init();
+                }
               }
               //this.menuEvent
               return;
