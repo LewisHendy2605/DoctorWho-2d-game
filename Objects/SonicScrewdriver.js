@@ -91,7 +91,7 @@ class SonicScrewdriver {
     let waveRange = 1;
 
     // Search 10 steps ahead of the player
-    for (let j = 0; j < 50; j++) {
+    for (let j = 0; j < 200; j++) {
       //   console.log(
       //     `Sonic X: ${sonicScanRayX}, Sonic Y: ${sonicScanRayY}, Wave Range: ${waveRange}`
       //   );

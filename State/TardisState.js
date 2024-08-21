@@ -1,7 +1,7 @@
 class TardisState {
   constructor() {
     this.landed = false;
-    this.destination = "Outside_tardis";
+    this.destination = "DarlekBaseInterior";
     this.oldDestination = null;
     //   this.lineup = ["p1"];
     //   this.items = [

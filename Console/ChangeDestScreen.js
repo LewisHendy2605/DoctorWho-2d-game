@@ -87,6 +87,27 @@ class ChangeDestScreen {
             this.onComplete();
           },
         },
+        {
+          label: "Skaro",
+          class: "dest-button",
+          imgSrc: "/images/planets/Skaro.png",
+          handler: () => {
+            // Change tardis outside map
+            const event = new OverworldEvent({
+              map: this.map,
+              event: { type: "changeTardisDest", map: "DarlekBaseInterior" },
+            });
+            event.init();
+            // Tell palyer theve aarived
+            const textEvent = new OverworldEvent({
+              map: this.map,
+              event: { type: "textMessage", text: "Tardis Landed" },
+            });
+            textEvent.init();
+            // Close console screen
+            this.onComplete();
+          },
+        },
       ],
     };
   }

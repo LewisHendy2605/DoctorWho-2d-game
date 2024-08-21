@@ -682,4 +682,71 @@ window.OverworldMaps = {
       ],
     },
   },
+  DarlekBaseInterior: {
+    id: "DarlekBaseInterior",
+    lowerSrc: "/images/maps/DarlekBase-v1.png",
+    upperSrc: "/images/maps/KitchenUpper.png",
+    tardisDoorX: utils.withGrid(48),
+    tardisDoorY: utils.withGrid(30),
+    gameObjects: {
+      hero: new Doctor({
+        isPlayerControlled: true,
+        x: utils.withGrid(48),
+        y: utils.withGrid(40),
+        src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      tardis: new Tardis({
+        isPlayerControlled: false,
+        x: utils.withGrid(44),
+        y: utils.withGrid(4),
+        src: "/images/tardis/tardis-light-blue.png",
+        //src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+
+      // npcB: new Person({
+      //   x: utils.withGrid(10),
+      //   y: utils.withGrid(8),
+      //   src: "/images/characters/people/npc3.png",
+      //   talking: [
+      //     {
+      //       events: [
+      //         {
+      //           type: "textMessage",
+      //           text: "Hey, you made it",
+      //           faceHero: ["npcB"],
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // }),
+    },
+    cutsceneSpaces: {
+      // [utils.asGridCoord(48, 39)]: [
+      //   {
+      //     events: [
+      //       {
+      //         type: "changeMap",
+      //         map: "Tardis",
+      //         x: utils.withGrid(36),
+      //         y: utils.withGrid(50),
+      //         direction: "right",
+      //       },
+      //     ],
+      //   },
+      // ],
+      // [utils.asGridCoord(47, 39)]: [
+      //   {
+      //     events: [
+      //       {
+      //         type: "changeMap",
+      //         map: "Tardis",
+      //         x: utils.withGrid(36),
+      //         y: utils.withGrid(49),
+      //         direction: "right",
+      //       },
+      //     ],
+      //   },
+      // ],
+    },
+  },
 };
