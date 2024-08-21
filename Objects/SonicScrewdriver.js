@@ -44,49 +44,39 @@ class SonicScrewdriver {
 
   async handleSonicEvent() {
     if (this.isSonicEquipped) {
-      // need to proply unbind
       if (this.user.map) {
-        // const { mouseGridX, mouseGridY } = utils.getMapCoordsFromMouse(
-        //   this.map.gameObjects.hero,
-        //   event
-        // );
-        // Need to implement time for sonic instead
         if (this.sonicActive) {
-          // Update flag
           this.sonicActive = false;
 
-          //change buton text   / need only for mobiole otherwise bug
-          //this.sonicButton.innerText = "Sonic";
-          // emit event for sonic menu
+          // Emit event for Sonic finished
           utils.emitEvent("SonicFinished", {
             whoId: this.user.id,
           });
+
           // Stop audio
-          if (this.sonicAudio) {
+          if (this.sonicAudio && !this.sonicAudio.paused) {
             this.sonicAudio.pause();
+            this.sonicAudio.currentTime = 0; // Reset to the start
           }
         } else {
-          // update flag
           this.sonicActive = true;
 
-          //change buton text  / need only for mobiole otherwise bug
-          //this.sonicButton.innerText = "Stop Sonic";
-          // Handele audio
+          // Handle audio playback
           if (this.sonicAudio) {
-            this.sonicAudio.pause(); // Ensure any previous audio is paused
-          }
+            if (!this.sonicAudio.paused) {
+              this.sonicAudio.pause(); // Pause if already playing
+            }
+            this.sonicAudio.currentTime = 0; // Reset to the start
 
-          this.sonicAudio.currentTime = 1;
-
-          try {
-            await this.sonicAudio.play();
-          } catch (error) {
-            console.error("Audio playback failed:", error);
+            try {
+              await this.sonicAudio.play();
+            } catch (error) {
+              console.error("Audio playback failed:", error);
+            }
           }
 
           // Handle sonic event
           this.checkForInteractive();
-          // wave prorpogation scan for game objets + can start interactives
           this.scanObjects();
         }
       }
@@ -101,7 +91,7 @@ class SonicScrewdriver {
     let waveRange = 1;
 
     // Search 10 steps ahead of the player
-    for (let j = 0; j < 300; j++) {
+    for (let j = 0; j < 50; j++) {
       //   console.log(
       //     `Sonic X: ${sonicScanRayX}, Sonic Y: ${sonicScanRayY}, Wave Range: ${waveRange}`
       //   );
@@ -162,8 +152,10 @@ class SonicScrewdriver {
         sonicScanRayX -= 1;
       }
 
-      // Increase the wave range as the ray moves outward
-      waveRange += 1;
+      // Increase the wave range every two steps
+      if (j > 1) {
+        waveRange += 1;
+      }
     }
   }
 
@@ -173,7 +165,7 @@ class SonicScrewdriver {
     let sonicRayY = this.user.y;
 
     // Search 300 pixels infront of player
-    for (let j = 0; j < 300; j++) {
+    for (let j = 0; j < 50; j++) {
       //console.log(`Sonic X: ${sonicRayX}, Sonic Y:`, sonicRayY);
 
       // Check for interactive usins g sonic x,y
