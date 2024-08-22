@@ -702,6 +702,13 @@ window.OverworldMaps = {
         src: "/images/tardis/tardis-light-blue.png",
         //src: "/images/characters-doctor-who/doctor-11.png",
       }),
+      darlek: new Darlek({
+        isPlayerControlled: false,
+        x: utils.withGrid(46),
+        y: utils.withGrid(13),
+        src: "/images/characters-doctor-who/darlek.png",
+        //src: "/images/characters-doctor-who/doctor-11.png",
+      }),
 
       // npcB: new Person({
       //   x: utils.withGrid(10),

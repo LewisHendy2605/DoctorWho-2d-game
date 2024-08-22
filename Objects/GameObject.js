@@ -36,6 +36,11 @@ class GameObject {
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
+    } else if (this.type === "darlek") {
+      this.sprite = new DarlekSprite({
+        gameObject: this,
+        src: config.src || "/images/characters/people/hero.png",
+      });
     } else {
       this.sprite = new Sprite({
         gameObject: this,

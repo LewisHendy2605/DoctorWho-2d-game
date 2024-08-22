@@ -1,12 +1,12 @@
-class Doctor extends GameObject {
+class Darlek extends GameObject {
   constructor(config) {
-    super(config, "doctor");
+    super(config, "darlek");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
-    this.speedMultiplier = 1.5;
+    this.speedMultiplier = 3;
 
     this.directionUpdate = {
       up: ["y", -1],
@@ -14,20 +14,54 @@ class Doctor extends GameObject {
       left: ["x", -1],
       right: ["x", 1],
     };
-    this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
-    this.sonicScrewdriver = new SonicScrewdriver(this);
 
-    //this.initialseControlsDisplay();
-  }
+    this.data = [
+      { type: "Type", data: "Darlek" },
+      { type: "Age", data: "200" },
+    ];
 
-  initialseControlsDisplay() {
-    // if (this) {
-    //   console.log(this);
-    //   console.log(this.map);
-    // }
+    this.interactiveOptions = [
+      {
+        label: "Scan Results from " + this.type,
+        class: "choose-dest",
+        handler: () => {
+          // // Close menu scrren
+          // this.map.sonicMenu.end();
+
+          console.log(this);
+
+          this.map.sonicMenu.showData(this.data);
+
+          // Show data about object
+
+          // Initiate tardis event
+          // const event = new OverworldEvent({
+          //   map: this.map,
+          //   event: { type: "tardisLandOrFly" },
+          // });
+          // event.init();
+        },
+      },
+      {
+        label: "Land / Take Off",
+        class: "choose-dest",
+        handler: () => {
+          // Close menu scrren
+          this.map.sonicMenu.end();
+
+          // Initiate tardis event
+          // const event = new OverworldEvent({
+          //   map: this.map,
+          //   event: { type: "tardisLandOrFly" },
+          // });
+          // event.init();
+        },
+      },
+    ];
   }
 
   update(state) {
+    //console.log(this);
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
@@ -41,6 +75,7 @@ class Doctor extends GameObject {
         this.isPlayerControlled &&
         state.arrow
       ) {
+        console.log(state.arrow);
         this.startBehavior(state, {
           type: "walk",
           direction: state.arrow,
@@ -86,8 +121,8 @@ class Doctor extends GameObject {
 
   updatePosition() {
     const [property, change] = this.directionUpdate[this.direction];
-    this[property] += change;
-    this.movingProgressRemaining -= 1;
+    this[property] += change * this.speedMultiplier;
+    this.movingProgressRemaining -= this.speedMultiplier;
 
     if (this.movingProgressRemaining === 0) {
       // We finished the walk
@@ -102,10 +137,6 @@ class Doctor extends GameObject {
       this.sprite.setAnimation("walk-" + this.direction);
       return;
     }
-    if (this.sonicScrewdriver.sonicActive) {
-      this.sprite.setAnimation("sonic-" + this.direction);
-    } else {
-      this.sprite.setAnimation("idle-" + this.direction);
-    }
+    this.sprite.setAnimation("idle-" + this.direction);
   }
 }
