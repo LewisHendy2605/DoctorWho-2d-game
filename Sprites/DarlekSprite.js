@@ -25,11 +25,6 @@ class DarlekSprite {
       "idle-up": [[0, 2]],
       "idle-left": [[0, 3]],
 
-      "sonic-down": [[4, 0]],
-      "sonic-right": [[4, 1]],
-      "sonic-up": [[4, 2]],
-      "sonic-left": [[4, 3]],
-
       "walk-down": [
         [1, 0],
         [0, 0],
@@ -67,14 +62,25 @@ class DarlekSprite {
   }
 
   get frame() {
+    // console.log(
+    //   "Getting frame",
+    //   this.animations[this.currentAnimation][this.currentAnimationFrame]
+    // );
     return this.animations[this.currentAnimation][this.currentAnimationFrame];
   }
 
   setAnimation(key) {
     if (this.currentAnimation !== key) {
+      console.log("Setting darlek animation from ", this.currentAnimation);
       this.currentAnimation = key;
+      console.log("Sett to: ", key, ", ", this.currentAnimation);
       this.currentAnimationFrame = 0;
       this.animationFrameProgress = this.animationFrameLimit;
+      console.log(
+        this.currentAnimationFrame,
+        ", ",
+        this.animationFrameProgress
+      );
     }
   }
 

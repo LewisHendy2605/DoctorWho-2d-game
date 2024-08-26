@@ -8,6 +8,7 @@ class OverworldEvent {
 
   stand(resolve) {
     const who = this.map.gameObjects[this.event.who];
+    console.log("Satring stand event ", this.event);
     who.startBehavior(
       { map: this.map },
       {
@@ -30,6 +31,7 @@ class OverworldEvent {
 
   walk(resolve) {
     const who = this.map.gameObjects[this.event.who];
+    console.log("Satring walk event ", this.event);
     who.startBehavior(
       { map: this.map },
       {
@@ -43,6 +45,7 @@ class OverworldEvent {
     const completeHandler = (e) => {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonWalkComplete", completeHandler);
+        console.log("Resolving walk complete ", this.event.who);
         resolve();
       }
     };

@@ -705,9 +705,49 @@ window.OverworldMaps = {
       darlek: new Darlek({
         isPlayerControlled: false,
         x: utils.withGrid(46),
-        y: utils.withGrid(13),
+        y: utils.withGrid(18),
         src: "/images/characters-doctor-who/darlek.png",
-        //src: "/images/characters-doctor-who/doctor-11.png",
+        behaviorLoop: [
+          { type: "stand", direction: "left", time: 3000 },
+          { type: "stand", direction: "up", time: 1200 },
+          { type: "stand", direction: "right", time: 1200 },
+          { type: "stand", direction: "down", time: 1200 },
+          //{ type: "walk", direction: "left" },
+          //{ type: "stand", direction: "down", time: 1200 },
+          //{ type: "walk", direction: "left" },
+          // { type: "walk", direction: "right" },
+          // { type: "walk", direction: "right" },
+          // { type: "walk", direction: "right" },
+          // { type: "stand", direction: "right", time: 1200 },
+          // { type: "stand", direction: "down", time: 1200 },
+          // { type: "walk", direction: "left" },
+          // { type: "walk", direction: "left" },
+          // { type: "walk", direction: "left" },
+          // { type: "walk", direction: "left" },
+          // { type: "stand", direction: "left", time: 1200 },
+          // { type: "stand", direction: "down", time: 3000 },
+          // { type: "stand", direction: "up", time: 3000 },
+        ],
+        talking: [
+          {
+            events: [
+              {
+                type: "textMessage",
+                text: "Exterminate",
+                faceHero: "darlek",
+              },
+              // { type: "battle", enemyId: "beth" },
+              // { type: "addStoryFlag", flag: "DEFEATED_BETH" },
+              // {
+              //   type: "textMessage",
+              //   text: "Fair play, you won",
+              //   faceHero: "npcA",
+              // },
+              //{ type: "textMessage", text: "Who tf are you .." },
+              //{ who: "hero", type: "walk", direction: "up" },
+            ],
+          },
+        ],
       }),
 
       // npcB: new Person({

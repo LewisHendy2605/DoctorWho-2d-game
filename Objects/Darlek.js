@@ -86,6 +86,7 @@ class Darlek extends GameObject {
   }
 
   startBehavior(state, behavior) {
+    console.log("Starting darlek behavior: ", behavior);
     // Setting character direction to whatever behavior has
     this.direction = behavior.direction;
 
@@ -126,6 +127,7 @@ class Darlek extends GameObject {
 
     if (this.movingProgressRemaining === 0) {
       // We finished the walk
+      console.log("darlek walk complete");
       utils.emitEvent("PersonWalkComplete", {
         whoId: this.id,
       });
@@ -137,6 +139,7 @@ class Darlek extends GameObject {
       this.sprite.setAnimation("walk-" + this.direction);
       return;
     }
+    //console.log("this.currentAnimation < 0");
     this.sprite.setAnimation("idle-" + this.direction);
   }
 }
