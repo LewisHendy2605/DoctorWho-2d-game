@@ -6,7 +6,7 @@ class Darlek extends GameObject {
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
-    this.speedMultiplier = 3;
+    this.speedMultiplier = 1.5;
 
     this.directionUpdate = {
       up: ["y", -1],
@@ -42,26 +42,10 @@ class Darlek extends GameObject {
           // event.init();
         },
       },
-      {
-        label: "Land / Take Off",
-        class: "choose-dest",
-        handler: () => {
-          // Close menu scrren
-          this.map.sonicMenu.end();
-
-          // Initiate tardis event
-          // const event = new OverworldEvent({
-          //   map: this.map,
-          //   event: { type: "tardisLandOrFly" },
-          // });
-          // event.init();
-        },
-      },
     ];
   }
 
   update(state) {
-    //console.log(this);
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
@@ -75,7 +59,6 @@ class Darlek extends GameObject {
         this.isPlayerControlled &&
         state.arrow
       ) {
-        console.log(state.arrow);
         this.startBehavior(state, {
           type: "walk",
           direction: state.arrow,
@@ -86,7 +69,6 @@ class Darlek extends GameObject {
   }
 
   startBehavior(state, behavior) {
-    console.log("Starting darlek behavior: ", behavior);
     // Setting character direction to whatever behavior has
     this.direction = behavior.direction;
 
@@ -122,12 +104,11 @@ class Darlek extends GameObject {
 
   updatePosition() {
     const [property, change] = this.directionUpdate[this.direction];
-    this[property] += change * this.speedMultiplier;
-    this.movingProgressRemaining -= this.speedMultiplier;
+    this[property] += change;
+    this.movingProgressRemaining -= 1;
 
     if (this.movingProgressRemaining === 0) {
       // We finished the walk
-      console.log("darlek walk complete");
       utils.emitEvent("PersonWalkComplete", {
         whoId: this.id,
       });
@@ -139,7 +120,6 @@ class Darlek extends GameObject {
       this.sprite.setAnimation("walk-" + this.direction);
       return;
     }
-    //console.log("this.currentAnimation < 0");
     this.sprite.setAnimation("idle-" + this.direction);
   }
 }

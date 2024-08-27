@@ -71,16 +71,11 @@ class DarlekSprite {
 
   setAnimation(key) {
     if (this.currentAnimation !== key) {
-      console.log("Setting darlek animation from ", this.currentAnimation);
+      //console.log("Setting darlek animation from ", this.currentAnimation);
       this.currentAnimation = key;
-      console.log("Sett to: ", key, ", ", this.currentAnimation);
+      //console.log("Sett to: ", key, ", ", this.currentAnimation);
       this.currentAnimationFrame = 0;
       this.animationFrameProgress = this.animationFrameLimit;
-      console.log(
-        this.currentAnimationFrame,
-        ", ",
-        this.animationFrameProgress
-      );
     }
   }
 
