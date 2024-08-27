@@ -39,7 +39,7 @@ class Projectile {
 
     // TO DO: Redo check for canvas boundry with camera person offest
     // Deactivate the projectile if it goes off screen (example for an 800x600 game area)
-    if (this.x < 0 || this.x > 800 || this.y < 0 || this.y > 600) {
+    if (this.x < 0 || this.x > 1500 || this.y < 0 || this.y > 600) {
       this.isActive = false;
     }
   }
