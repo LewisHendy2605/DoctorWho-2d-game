@@ -87,6 +87,23 @@ const utils = {
     return "up";
   },
 
+  // Faces obj1 towards obj2
+  faceObjToOtherObj(obj1, obj2) {
+    const { x: x1, y: y1 } = obj1;
+    const { x: x2, y: y2 } = obj2;
+
+    const deltaX = x2 - x1;
+    const deltaY = y2 - y1;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      obj1.direction = deltaX > 0 ? "right" : "left";
+    } else {
+      obj1.direction = deltaY > 0 ? "down" : "up";
+    }
+
+    console.log(`obj1 is now facing ${obj1.direction}`);
+  },
+
   wait(ms) {
     return new Promise((resolve) => {
       setTimeout(() => {

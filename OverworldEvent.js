@@ -50,6 +50,59 @@ class OverworldEvent {
     document.addEventListener("PersonWalkComplete", completeHandler);
   }
 
+  walkFoward(resolve) {
+    const who = this.map.gameObjects[this.event.who];
+    who.startBehavior(
+      { map: this.map },
+      {
+        type: "walk",
+        direction: who.direction,
+        retry: true,
+      }
+    );
+
+    // Set up handler to comlete when the correct person is done walking, then resolve event
+    const completeHandler = (e) => {
+      if (e.detail.whoId === this.event.who) {
+        document.removeEventListener("PersonWalkComplete", completeHandler);
+        resolve();
+      }
+    };
+
+    document.addEventListener("PersonWalkComplete", completeHandler);
+  }
+
+  async faceHero(resolve) {
+    try {
+      await utils.wait(900);
+      const obj = this.map.gameObjects[this.event.who];
+      // obj.direction = utils.oppositeDirection(
+      //   this.map.gameObjects["hero"].direction
+      // );
+      utils.faceObjToOtherObj(obj, this.map.gameObjects["hero"]);
+      await new Promise((res) => {
+        this.walkFoward(res);
+      });
+      //console.log("Set to faceHero", obj);
+      resolve();
+    } catch (err) {
+      console.error("Error in faceHero:", err);
+      resolve();
+    }
+  }
+
+  followHero(resolve) {
+    console.log("Darlek following hero, event: ", this.event);
+    const obj = this.map.gameObjects[this.event.who];
+    console.log("follow event obj: ", obj);
+    obj.direction = utils.oppositeDirection(
+      this.map.gameObjects["hero"].direction
+    );
+    console.log("obj direction after: ", obj.direction);
+    utils.wait(2000);
+    resolve();
+  }
+
   textMessage(resolve) {
     if (this.event.faceHero) {
       const obj = this.map.gameObjects[this.event.faceHero];
@@ -137,7 +190,7 @@ class OverworldEvent {
     if (this.map.tardisLanded) {
       this.event.map = window.tardisState.destination;
       // test
-      console.log(window.OverworldMaps[this.event.map]);
+      //console.log(window.OverworldMaps[this.event.map]);
       const gameObjects = window.OverworldMaps[this.event.map].gameObjects;
       //console.log(gameObjects);
 
