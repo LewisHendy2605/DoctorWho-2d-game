@@ -8,6 +8,8 @@ class Darlek extends GameObject {
 
     this.speedMultiplier = 1.5;
 
+    this.projectiles = [];
+
     this.directionUpdate = {
       up: ["y", -1],
       down: ["y", 1],
@@ -66,6 +68,15 @@ class Darlek extends GameObject {
       }
       this.updateSprite(state);
     }
+
+    // Update all projectiles
+    // console.log("updating projectiles, ", this.projectiles);
+    this.projectiles.forEach((projectile) => projectile.update());
+
+    // // Remove inactive projectiles
+    this.projectiles = this.projectiles.filter(
+      (projectile) => projectile.isActive
+    );
   }
 
   startBehavior(state, behavior) {
@@ -113,6 +124,37 @@ class Darlek extends GameObject {
         whoId: this.id,
       });
     }
+  }
+
+  shoot() {
+    let x = this.x;
+    let y = this.y;
+
+    // switch (this.direction) {
+    //   case "up":
+    //     y -= 16; // Adjust starting position for "up"
+    //     break;
+    //   case "down":
+    //     y += 16; // Adjust starting position for "down"
+    //     break;
+    //   case "left":
+    //     x -= 16; // Adjust starting position for "left"
+    //     break;
+    //   case "right":
+    //     x += 16; // Adjust starting position for "right"
+    //     break;
+    // }
+
+    const projectile = new Projectile({
+      x,
+      y,
+      direction: this.direction,
+      speed: 1,
+      imageSrc: utils.setDynamicPath("images/misc/darlek-laser.png"),
+    });
+    // utils.setDynamicPath("images/misc/darlek-laser.png")
+    // utils.setDynamicPath("images/characters-doctor-who/doctor-11.png"),
+    this.projectiles.push(projectile);
   }
 
   updateSprite() {

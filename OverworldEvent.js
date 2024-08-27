@@ -72,17 +72,22 @@ class OverworldEvent {
     document.addEventListener("PersonWalkComplete", completeHandler);
   }
 
-  async faceHero(resolve) {
+  async followHero(resolve) {
     try {
-      await utils.wait(900);
+      await utils.wait(800); // wait is to slow darleks down
+      await new Promise((res) => this.faceHero(res));
+      await new Promise((res) => this.walkFoward(res));
+      resolve();
+    } catch (err) {
+      console.error("Error in faceHero:", err);
+      resolve();
+    }
+  }
+
+  faceHero(resolve) {
+    try {
       const obj = this.map.gameObjects[this.event.who];
-      // obj.direction = utils.oppositeDirection(
-      //   this.map.gameObjects["hero"].direction
-      // );
       utils.faceObjToOtherObj(obj, this.map.gameObjects["hero"]);
-      await new Promise((res) => {
-        this.walkFoward(res);
-      });
       //console.log("Set to faceHero", obj);
       resolve();
     } catch (err) {
@@ -91,16 +96,17 @@ class OverworldEvent {
     }
   }
 
-  followHero(resolve) {
-    console.log("Darlek following hero, event: ", this.event);
-    const obj = this.map.gameObjects[this.event.who];
-    console.log("follow event obj: ", obj);
-    obj.direction = utils.oppositeDirection(
-      this.map.gameObjects["hero"].direction
-    );
-    console.log("obj direction after: ", obj.direction);
-    utils.wait(2000);
-    resolve();
+  speak(resolve) {
+    const message = new SpeechBox({
+      text: this.event.text,
+      who: this.event.who,
+      onComplete: (interrupted) => {
+        if (!interrupted) {
+          resolve();
+        }
+      },
+    });
+    message.init(document.querySelector(".game-container"));
   }
 
   textMessage(resolve) {
@@ -146,6 +152,15 @@ class OverworldEvent {
 
       sceneTransition.fadeOut();
     });
+  }
+
+  shoot(resolve) {
+    if (this.event.who === "darlek") {
+      const darlek = this.map.gameObjects[this.event.who];
+      darlek.shoot();
+    }
+
+    resolve();
   }
 
   battle(resolve) {

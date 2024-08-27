@@ -1,0 +1,48 @@
+.SpeechBox {
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  bottom: 0;
+  height: 4svh;
+  width: 14svw;
+  border: 1px solid black;
+  border-radius: 9px;
+  font-size: 1rem;
+  padding: 0.5rem;
+  background: var(--menu-background);
+  border-top: 1px solid var(--menu-border-color);
+  color: var(--menu-font-color);
+}
+
+.SpeechBox_p {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.SpeechBox span {
+  opacity: 0;
+}
+
+.SpeechBox span.revealed {
+  opacity: 1;
+}
+
+.SpeechBox_button {
+  margin: 0;
+  height: 70%;
+  font-size: 0.6rem;
+  padding: 0.1rem;
+  background: var(--menu-background);
+  --webkit-appearance: none;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0;
+}
+.SpeechBox_button:hover {
+  background: var(--menu-background-dark);
+}

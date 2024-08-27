@@ -708,20 +708,9 @@ window.OverworldMaps = {
         y: utils.withGrid(18),
         src: "/images/characters-doctor-who/darlek.png",
         behaviorLoop: [
-          { type: "faceHero" },
-          //{ type: "stand", direction: "down", time: 1200 },
-          //{ type: "followHero" },
-          //{ type: "stand", direction: "down", time: 1200 },
-          // { type: "walk", direction: "left" },
-          // { type: "walk", direction: "left" },
-          // { type: "walk", direction: "left" },
-          // { type: "stand", direction: "down", time: 1200 },
-          // { type: "stand", direction: "up", time: 2000 },
-          // { type: "walk", direction: "right" },
-          // { type: "walk", direction: "right" },
-          // { type: "walk", direction: "right" },
-          // { type: "stand", direction: "down", time: 1200 },
-          // { type: "stand", direction: "up", time: 2000 },
+          { type: "followHero" },
+          { type: "speak", text: "Exterminate !" },
+          { type: "shoot" },
         ],
         talking: [
           {
@@ -735,6 +724,42 @@ window.OverworldMaps = {
           },
         ],
       }),
+      // darlek2: new Darlek({
+      //   isPlayerControlled: false,
+      //   x: utils.withGrid(44),
+      //   y: utils.withGrid(19),
+      //   src: "/images/characters-doctor-who/darlek.png",
+      //   behaviorLoop: [{ type: "followHero" }],
+      //   talking: [
+      //     {
+      //       events: [
+      //         {
+      //           type: "textMessage",
+      //           text: "Exterminate",
+      //           faceHero: "darlek",
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // }),
+      // darlek3: new Darlek({
+      //   isPlayerControlled: false,
+      //   x: utils.withGrid(49),
+      //   y: utils.withGrid(16),
+      //   src: "/images/characters-doctor-who/darlek.png",
+      //   behaviorLoop: [{ type: "followHero" }],
+      //   talking: [
+      //     {
+      //       events: [
+      //         {
+      //           type: "textMessage",
+      //           text: "Exterminate",
+      //           faceHero: "darlek",
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // }),
       // npcA: new Person({
       //   x: utils.withGrid(40),
       //   y: utils.withGrid(18),
