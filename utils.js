@@ -101,7 +101,7 @@ const utils = {
       obj1.direction = deltaY > 0 ? "down" : "up";
     }
 
-    console.log(`obj1 is now facing ${obj1.direction}`);
+    //console.log(`obj1 is now facing ${obj1.direction}`);
   },
 
   wait(ms) {
