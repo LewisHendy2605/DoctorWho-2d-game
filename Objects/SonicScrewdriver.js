@@ -43,151 +43,138 @@ class SonicScrewdriver {
   }
 
   async handleSonicEvent() {
-    if (this.isSonicEquipped) {
-      if (this.user.map) {
-        if (this.sonicActive) {
-          this.sonicActive = false;
+    if (this.isSonicEquipped && this.user.map) {
+      if (this.sonicActive) {
+        this.sonicActive = false;
 
-          // Emit event for Sonic finished
-          utils.emitEvent("SonicFinished", {
-            whoId: this.user.id,
-          });
+        utils.emitEvent("SonicFinished", { whoId: this.user.id });
 
-          // Stop audio
-          if (this.sonicAudio && !this.sonicAudio.paused) {
-            this.sonicAudio.pause();
-            this.sonicAudio.currentTime = 0; // Reset to the start
-          }
-        } else {
-          this.sonicActive = true;
-
-          // Handle audio playback
-          if (this.sonicAudio) {
-            if (!this.sonicAudio.paused) {
-              this.sonicAudio.pause(); // Pause if already playing
-            }
-            this.sonicAudio.currentTime = 0; // Reset to the start
-
-            try {
-              await this.sonicAudio.play();
-            } catch (error) {
-              console.error("Audio playback failed:", error);
-            }
-          }
-
-          // Handle sonic event
-          this.checkForInteractive();
-          this.scanObjects();
+        if (this.sonicAudio && !this.sonicAudio.paused) {
+          this.sonicAudio.pause();
+          this.sonicAudio.currentTime = 1; // Reset to the start
         }
+      } else {
+        this.sonicActive = true;
+
+        if (this.sonicAudio) {
+          this.sonicAudio.pause();
+          this.sonicAudio.currentTime = 1; // Reset to the start
+
+          try {
+            await this.sonicAudio.play();
+          } catch (error) {
+            console.error("Audio playback failed:", error);
+          }
+        }
+
+        // Optimize this method further if needed
+        this.checkForInteractive();
+        this.scanObjects();
       }
     }
   }
 
   async scanObjects() {
-    let sonicScanRayX = this.user.x;
-    let sonicScanRayY = this.user.y;
+    // Destructure the user's current position and direction
+    const { x: userX, y: userY, direction } = this.user;
 
-    // Define the initial range of the wave (starting from 1)
-    let waveRange = 1;
+    // Define the maximum range to scan for objects
+    const maxRange = 10; // Reduced from 200 to improve performance
 
-    // Search 10 steps ahead of the player
-    for (let j = 0; j < 200; j++) {
-      //   console.log(
-      //     `Sonic X: ${sonicScanRayX}, Sonic Y: ${sonicScanRayY}, Wave Range: ${waveRange}`
-      //   );
+    // The initial wave range is reduced since the scanning is directional
+    let range = 1;
 
-      // Check for interactive objects within the current wave range
-      for (let dx = -waveRange; dx <= waveRange; dx++) {
-        for (let dy = -waveRange; dy <= waveRange; dy++) {
-          let checkX = sonicScanRayX + dx;
-          let checkY = sonicScanRayY + dy;
+    // Define the directional increments based on the user's direction
+    const directions = {
+      down: { dx: 0, dy: 1 }, // Move downward (y+)
+      right: { dx: 1, dy: 0 }, // Move rightward (x+)
+      up: { dx: 0, dy: -1 }, // Move upward (y-)
+      left: { dx: -1, dy: 0 }, // Move leftward (x-)
+    };
 
-          for (let key in this.user.map.gameObjects) {
-            //console.log(this.user.map.gameObjects[key]);
-            if (
-              this.user.map.gameObjects[key].x === checkX &&
-              this.user.map.gameObjects[key].y === checkY &&
-              key !== "hero"
-            ) {
-              //console.log("found match !!!!!");
-              const match = this.user.map.gameObjects[key];
-              // Display objects to user
-              console.log(match);
-              if (this.user.map.isEventHappening) {
-                // add object data to existing menu
-                console.log("menu is active");
-                const sonicMenu = document.querySelector(".SonicMenu");
-                console.log("sonic menu from sonic", sonicMenu);
-              } else {
-                console.log("no menu");
-                // start a menu up with data
-                // Start sonic menu
-                if (this.user.map.gameObjects[key].interactiveOptions !== 0) {
-                  const event = new OverworldEvent({
-                    map: this.user.map,
-                    event: {
-                      type: "showSonicMenu",
-                      options:
-                        this.user.map.gameObjects[key].interactiveOptions,
-                    },
-                  });
-                  await event.init();
-                }
-              }
-              //this.menuEvent
-              return;
+    // Get the correct increment values (dx, dy) based on the user's direction
+    const { dx, dy } = directions[direction];
+
+    // Loop over the defined range to scan in the player's direction
+    for (let j = 0; j < maxRange; j++) {
+      // Calculate the current scanning position based on the player's direction
+      const scanX = userX + j * dx;
+      const scanY = userY + j * dy;
+
+      // Check all game objects to see if any are at the scanning position
+      for (let key in this.user.map.gameObjects) {
+        const gameObject = this.user.map.gameObjects[key];
+
+        // If an interactive object is found at the scanning position
+        if (
+          gameObject.x === scanX &&
+          gameObject.y === scanY &&
+          key !== "hero"
+        ) {
+          console.log(gameObject);
+
+          // If an event is currently happening, update the Sonic menu
+          if (this.user.map.isEventHappening) {
+            const sonicMenu = document.querySelector(".SonicMenu");
+            if (sonicMenu) {
+              console.log("menu is active", sonicMenu);
+            }
+          } else {
+            // If no event is happening, start a new event
+            if (gameObject.interactiveOptions !== 0) {
+              const event = new OverworldEvent({
+                map: this.user.map,
+                event: {
+                  type: "showSonicMenu",
+                  options: gameObject.interactiveOptions,
+                },
+              });
+              await event.init();
             }
           }
+          // Exit the function early after finding an interactive object
+          return;
         }
-      }
-
-      // Increment sonic ray x or y based on player direction
-      if (this.user.direction === "down") {
-        sonicScanRayY += 1;
-      } else if (this.user.direction == "right") {
-        sonicScanRayX += 1;
-      } else if (this.user.direction == "up") {
-        sonicScanRayY -= 1;
-      } else if (this.user.direction == "left") {
-        sonicScanRayX -= 1;
-      }
-
-      // Increase the wave range every two steps
-      if (j > 1) {
-        waveRange += 1;
       }
     }
   }
 
   checkForInteractive() {
-    //const interactives = this.map.interavtives; // fix miss spelling
-    let sonicRayX = this.user.x;
-    let sonicRayY = this.user.y;
+    // Destructure the user's current position and direction
+    const { x: userX, y: userY, direction } = this.user;
 
-    // Search 300 pixels infront of player
-    for (let j = 0; j < 50; j++) {
-      //console.log(`Sonic X: ${sonicRayX}, Sonic Y:`, sonicRayY);
+    // Define the directional increments based on the user's direction
+    const directions = {
+      down: { dx: 0, dy: 1 }, // Move downward (y+)
+      right: { dx: 1, dy: 0 }, // Move rightward (x+)
+      up: { dx: 0, dy: -1 }, // Move upward (y-)
+      left: { dx: -1, dy: 0 }, // Move leftward (x-)
+    };
 
-      // Check for interactive usins g sonic x,y
-      const match = this.user.map.sonicspaces[`${sonicRayX},${sonicRayY}`];
+    // Get the correct increment values (dx, dy) based on the user's direction
+    const { dx, dy } = directions[direction];
 
+    // Define how far ahead to check for interactive objects
+    const maxSteps = 50; // Reduced from 300 pixels for better performance
+
+    // Loop over the defined range to check in the player's direction
+    for (let i = 0; i < maxSteps; i++) {
+      // Calculate the current scanning position based on the player's direction
+      const checkX = userX + i * dx;
+      const checkY = userY + i * dy;
+
+      // Check if there's an interactive object at the current scanning position
+      const match = this.user.map.sonicspaces[`${checkX},${checkY}`];
+
+      // If an interactive object is found and no cutscene is playing
       if (match && !this.user.map.isCutScenePlaying) {
-        console.log("Found match");
-        console.log(match[0].events);
-        //this.user.map.startInteractive(match[0].events);
-        this.user.map.startInteractive(match[0].events);
-        return;
-      }
+        console.log("Found match", match[0].events);
 
-      // Increment sonic ray x or y otherwise absed on player direction
-      if (this.user.direction === "down") {
-        sonicRayY += 1;
-      } else if (this.user.direction == "right") {
-        sonicRayX += 1;
-      } else if (this.user.direction == "up") {
-        sonicRayY -= 1;
-      } else if (this.user.direction == "left") {
-        sonicRayX -= 1;
+        // Start the interactive event
+        this.user.map.startInteractive(match[0].events);
+
+        // Exit the function early after finding an interactive object
+        return;
       }
     }
   }
