@@ -75,66 +75,69 @@ class SonicScrewdriver {
   }
 
   async scanObjects() {
-    // Destructure the user's current position and direction
-    const { x: userX, y: userY, direction } = this.user;
+    let sonicScanRayX = this.user.x;
+    let sonicScanRayY = this.user.y;
 
-    // Define the maximum range to scan for objects
-    const maxRange = 10; // Reduced from 200 to improve performance
+    // Define the initial range of the wave (starting from 1)
+    let waveRange = 1;
 
-    // The initial wave range is reduced since the scanning is directional
-    let range = 1;
+    // Search 10 steps ahead of the player
+    for (let j = 0; j < 200; j++) {
+      // Check for interactive objects within the current wave range
+      for (let dx = -waveRange; dx <= waveRange; dx++) {
+        for (let dy = -waveRange; dy <= waveRange; dy++) {
+          let checkX = sonicScanRayX + dx;
+          let checkY = sonicScanRayY + dy;
 
-    // Define the directional increments based on the user's direction
-    const directions = {
-      down: { dx: 0, dy: 1 }, // Move downward (y+)
-      right: { dx: 1, dy: 0 }, // Move rightward (x+)
-      up: { dx: 0, dy: -1 }, // Move upward (y-)
-      left: { dx: -1, dy: 0 }, // Move leftward (x-)
-    };
+          for (let key in this.user.map.gameObjects) {
+            if (
+              this.user.map.gameObjects[key].x === checkX &&
+              this.user.map.gameObjects[key].y === checkY &&
+              key !== "hero"
+            ) {
+              const match = this.user.map.gameObjects[key];
+              console.log(match); // Display objects to user
 
-    // Get the correct increment values (dx, dy) based on the user's direction
-    const { dx, dy } = directions[direction];
-
-    // Loop over the defined range to scan in the player's direction
-    for (let j = 0; j < maxRange; j++) {
-      // Calculate the current scanning position based on the player's direction
-      const scanX = userX + j * dx;
-      const scanY = userY + j * dy;
-
-      // Check all game objects to see if any are at the scanning position
-      for (let key in this.user.map.gameObjects) {
-        const gameObject = this.user.map.gameObjects[key];
-
-        // If an interactive object is found at the scanning position
-        if (
-          gameObject.x === scanX &&
-          gameObject.y === scanY &&
-          key !== "hero"
-        ) {
-          console.log(gameObject);
-
-          // If an event is currently happening, update the Sonic menu
-          if (this.user.map.isEventHappening) {
-            const sonicMenu = document.querySelector(".SonicMenu");
-            if (sonicMenu) {
-              console.log("menu is active", sonicMenu);
-            }
-          } else {
-            // If no event is happening, start a new event
-            if (gameObject.interactiveOptions !== 0) {
-              const event = new OverworldEvent({
-                map: this.user.map,
-                event: {
-                  type: "showSonicMenu",
-                  options: gameObject.interactiveOptions,
-                },
-              });
-              await event.init();
+              if (this.user.map.isEventHappening) {
+                console.log("menu is active");
+                const sonicMenu = document.querySelector(".SonicMenu");
+                console.log("sonic menu from sonic", sonicMenu);
+              } else {
+                console.log("no menu");
+                // Start a menu with data
+                if (this.user.map.gameObjects[key].interactiveOptions !== 0) {
+                  const event = new OverworldEvent({
+                    map: this.user.map,
+                    event: {
+                      type: "showSonicMenu",
+                      options:
+                        this.user.map.gameObjects[key].interactiveOptions,
+                    },
+                  });
+                  await event.init();
+                }
+              }
+              // Return after finding the first match
+              return;
             }
           }
-          // Exit the function early after finding an interactive object
-          return;
         }
+      }
+
+      // Increment sonic ray x or y based on player direction
+      if (this.user.direction === "down") {
+        sonicScanRayY += 1;
+      } else if (this.user.direction == "right") {
+        sonicScanRayX += 1;
+      } else if (this.user.direction == "up") {
+        sonicScanRayY -= 1;
+      } else if (this.user.direction == "left") {
+        sonicScanRayX -= 1;
+      }
+
+      // Increase the wave range every two steps
+      if (j > 1) {
+        waveRange += 1;
       }
     }
   }
