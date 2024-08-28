@@ -30,6 +30,7 @@ body {
   width: 352px; /* Original width */
   height: 198px; /* Original height */
   margin: 0 auto;
+  top: 0;
   outline: 1px solid #fff;
   transform: scale(3) translateY(-50%);
   transform-origin: top;
@@ -108,6 +109,9 @@ body {
 
 /* Show controls-container on mobile devices */
 @media (max-width: 768px) {
+  .keyboard-display {
+    display: none !important;
+  }
   .controls-container {
     display: grid;
   }
@@ -115,7 +119,7 @@ body {
   .game-container {
     width: 90svw;
     transform: scale(1.1) translateY(-60%); /* Adjust the scale for mobile */
-    margin-top: 5svh; /* Move the game container closer to the top */
+    margin-top: 4svh; /* Move the game container closer to the top */
   }
 
   .control-button {
@@ -128,6 +132,13 @@ body {
   }
   .actionButton {
     bottom: 13em;
+  }
+}
+
+/*  Hide keboard controls if it gets too small vertically */
+@media (max-height: 600px) {
+  .keyboard-display {
+    display: none !important;
   }
 }
 
@@ -168,4 +179,68 @@ body {
 
 .control-button:hover {
   background: #ddd;
+}
+
+.keyboard-display {
+  position: absolute;
+  top: 75svh;
+  height: 20svh;
+  display: grid;
+  grid-template-columns: repeat(5, 50px);
+  grid-template-rows: 50px 50px;
+  justify-content: center;
+  gap: 30px;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.keyboard-display .key {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.keyboard-display .key .key-label {
+  font-family: "Roboto Mono", monospace;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; /* White text for contrast */
+}
+
+.keyboard-display .key .key-description {
+  font-size: 12px;
+  color: #ddd; /* Light gray text for description */
+}
+
+/* Specific positioning for the keys */
+.key-w {
+  grid-column: 3;
+  grid-row: 1;
+}
+.key-a {
+  grid-column: 2;
+  grid-row: 2;
+}
+.key-s {
+  grid-column: 3;
+  grid-row: 2;
+}
+.key-d {
+  grid-column: 4;
+  grid-row: 2;
+}
+.key-q {
+  grid-column: 2;
+  grid-row: 1;
+}
+.key-e {
+  grid-column: 4;
+  grid-row: 1;
 }
