@@ -77,9 +77,19 @@ body {
 
 .sonicButton {
   position: absolute;
-  right: 1em;
-  bottom: 9em;
+  left: 10svw;
+  bottom: 40svh;
+  padding: 15px;
   background-color: blue;
+  display: block;
+}
+
+.sonicShootButton {
+  position: absolute;
+  right: 10svw;
+  bottom: 40svh;
+  padding: 15px;
+  background-color: darkcyan;
   display: block;
 }
 
@@ -128,10 +138,10 @@ body {
     font-size: 20px;
   }
   .pauseButton {
-    bottom: 13em;
+    bottom: 25svh;
   }
   .actionButton {
-    bottom: 13em;
+    bottom: 25svh;
   }
 }
 

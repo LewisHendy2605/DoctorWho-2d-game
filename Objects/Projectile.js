@@ -10,7 +10,7 @@ class Projectile {
     this.height = 16;
     this.isActive = true;
 
-    console.log("making projectile: ", x, " ", y);
+    //console.log("making projectile: ", x, " ", y);
 
     // Animations
     this.animations = {

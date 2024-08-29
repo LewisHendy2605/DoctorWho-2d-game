@@ -19,6 +19,9 @@ class SonicScrewdriver {
         this.sonicButton.addEventListener("click", () =>
           this.handleSonicEvent()
         );
+        this.sonicShootButton.addEventListener("click", () =>
+          this.handleSonicShoot()
+        );
       }
     } else {
       this.sonicListener = new KeyPressListener("KeyE", () =>
@@ -37,6 +40,9 @@ class SonicScrewdriver {
     if (document.body.classList.contains("mobile-device")) {
       this.sonicButton.removeEventListener("click", () =>
         this.handleSonicEvent()
+      );
+      this.sonicShootButton.removeEventListener("click", () =>
+        this.handleSonicShoot()
       );
     } else {
       // probs should be seperate
@@ -90,7 +96,7 @@ class SonicScrewdriver {
           this.sonicAudio.currentTime = 1; // Reset to the start
           try {
             await this.sonicAudio.play();
-            await utils.wait(900);
+            await utils.wait(600);
             this.sonicAudio.pause();
             this.sonicActive = false;
           } catch (error) {
@@ -103,8 +109,7 @@ class SonicScrewdriver {
 
   handleSonicShoot() {
     if (this.user.isMounted) {
-      console.log(this.user);
-      console.log("Sonic shooting");
+      //console.log("Sonic shooting");
       this.sonicForTime();
       this.shoot();
     }
@@ -253,7 +258,9 @@ class SonicScrewdriver {
   bindScrewdriverEquiperListener() {
     // Grab buttons for the sonic use on mobile
     this.actionButton = document.getElementById("actionButton");
-    this.sonicButton = document.getElementById("sonicButton");
+    //this.sonicButton = document.getElementById("sonicButton"); / using id and class name cause weird thinsg
+    this.sonicButton = document.querySelector(".sonicButton");
+    this.sonicShootButton = document.querySelector(".sonicShootButton");
 
     // Only set listener if it is the doctor as only doctor can use sonic (for now)
     if (this.user.isDoctor) {
@@ -289,6 +296,7 @@ class SonicScrewdriver {
         // Hide buttons if desktop
         this.actionButton.style.display = "none";
         this.sonicButton.style.display = "none";
+        this.sonicShootButton.style.display = "none";
       }
     }
   }
@@ -297,9 +305,11 @@ class SonicScrewdriver {
     if (this.isSonicEquipped) {
       this.actionButton.innerText = "Unequip Sonic";
       this.sonicButton.style.display = "block";
+      this.sonicShootButton.style.display = "block";
     } else {
       this.actionButton.innerText = "Equip Sonic";
       this.sonicButton.style.display = "none";
+      this.sonicShootButton.style.display = "none";
     }
   }
 
