@@ -130,21 +130,6 @@ class Darlek extends GameObject {
     let x = this.x;
     let y = this.y;
 
-    // switch (this.direction) {
-    //   case "up":
-    //     y -= 16; // Adjust starting position for "up"
-    //     break;
-    //   case "down":
-    //     y += 16; // Adjust starting position for "down"
-    //     break;
-    //   case "left":
-    //     x -= 16; // Adjust starting position for "left"
-    //     break;
-    //   case "right":
-    //     x += 16; // Adjust starting position for "right"
-    //     break;
-    // }
-
     const projectile = new Projectile({
       x,
       y,
@@ -152,8 +137,6 @@ class Darlek extends GameObject {
       speed: 1,
       imageSrc: utils.setDynamicPath("/images/misc/darlek-laser.png"),
     });
-    // utils.setDynamicPath("images/misc/darlek-laser.png")
-    // utils.setDynamicPath("images/characters-doctor-who/doctor-11.png"),
     this.projectiles.push(projectile);
   }
 
