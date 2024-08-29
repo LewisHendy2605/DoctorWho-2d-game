@@ -74,7 +74,6 @@ class SonicScrewdriver {
     }
   }
 
-  // Freezes darlek
   async scanObjects() {
     let sonicScanRayX = this.user.x;
     let sonicScanRayY = this.user.y;
@@ -82,64 +81,82 @@ class SonicScrewdriver {
     // Define the initial range of the wave (starting from 1)
     let waveRange = 1;
 
-    // Search 10 steps ahead of the player
-    for (let j = 0; j < 200; j++) {
-      // Check for interactive objects within the current wave range
+    // Precompute the direction deltas
+    const directionDeltas = {
+      down: { x: 0, y: 1 },
+      up: { x: 0, y: -1 },
+      right: { x: 1, y: 0 },
+      left: { x: -1, y: 0 },
+    };
+
+    const delta = directionDeltas[this.user.direction];
+
+    // Precompute and cache gameObjects to avoid looking up values multiple times
+    const gameObjects = Object.values(this.user.map.gameObjects).filter(
+      (obj) => obj.id !== "hero"
+    );
+
+    // Helper function to process a single step asynchronously
+    const processStep = async (sonicScanRayX, sonicScanRayY, waveRange) => {
       for (let dx = -waveRange; dx <= waveRange; dx++) {
         for (let dy = -waveRange; dy <= waveRange; dy++) {
           let checkX = sonicScanRayX + dx;
           let checkY = sonicScanRayY + dy;
 
-          for (let key in this.user.map.gameObjects) {
-            if (
-              this.user.map.gameObjects[key].x === checkX &&
-              this.user.map.gameObjects[key].y === checkY &&
-              key !== "hero"
-            ) {
-              const match = this.user.map.gameObjects[key];
-              console.log(match); // Display objects to user
+          // Find the matching object within the current coordinates
+          const match = gameObjects.find(
+            (obj) => obj.x === checkX && obj.y === checkY
+          );
 
-              if (this.user.map.isEventHappening) {
-                console.log("menu is active");
-                const sonicMenu = document.querySelector(".SonicMenu");
-                console.log("sonic menu from sonic", sonicMenu);
-              } else {
-                console.log("no menu");
-                // Start a menu with data
-                if (this.user.map.gameObjects[key].interactiveOptions !== 0) {
-                  const event = new OverworldEvent({
-                    map: this.user.map,
-                    event: {
-                      type: "showSonicMenu",
-                      options:
-                        this.user.map.gameObjects[key].interactiveOptions,
-                    },
-                  });
-                  await event.init();
-                }
+          if (match) {
+            console.log(match); // Display objects to user
+
+            if (this.user.map.isEventHappening) {
+              console.log("menu is active");
+              const sonicMenu = document.querySelector(".SonicMenu");
+              console.log("sonic menu from sonic", sonicMenu);
+            } else {
+              console.log("no menu");
+              // Start a menu with data
+              if (match.interactiveOptions !== 0) {
+                const event = new OverworldEvent({
+                  map: this.user.map,
+                  event: {
+                    type: "showSonicMenu",
+                    options: match.interactiveOptions,
+                  },
+                });
+                await event.init();
               }
-              // Return after finding the first match
-              return;
             }
+            return true; // Return true if a match is found
           }
         }
       }
+      return false; // Return false if no match is found
+    };
 
-      // Increment sonic ray x or y based on player direction
-      if (this.user.direction === "down") {
-        sonicScanRayY += 1;
-      } else if (this.user.direction == "right") {
-        sonicScanRayX += 1;
-      } else if (this.user.direction == "up") {
-        sonicScanRayY -= 1;
-      } else if (this.user.direction == "left") {
-        sonicScanRayX -= 1;
-      }
+    // Iterate through 200 steps asynchronously
+    for (let j = 0; j < 200; j++) {
+      // Process the current step asynchronously
+      const foundMatch = await processStep(
+        sonicScanRayX,
+        sonicScanRayY,
+        waveRange
+      );
+      if (foundMatch) return;
+
+      // Increment sonic ray position based on player direction
+      sonicScanRayX += delta.x;
+      sonicScanRayY += delta.y;
 
       // Increase the wave range every two steps
       if (j > 1) {
         waveRange += 1;
       }
+
+      // Pause briefly to allow other tasks to execute, reducing freezing
+      await new Promise((resolve) => setTimeout(resolve, 0)); // Use 0ms to yield to the event loop
     }
   }
 
