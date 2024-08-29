@@ -126,5 +126,11 @@ class DoctorSprite {
       ctx.drawImage(this.image, frameX * 32, frameY * 32, 32, 32, x, y, 32, 32);
 
     this.updateAnimationProgress();
+
+    //console.log("Drawing Projetiles: ", this.gameObject);
+    // Draw all active projectiles
+    this.gameObject.sonicProjectiles.forEach((projectile) =>
+      projectile.draw(ctx, cameraPerson)
+    );
   }
 }

@@ -70,7 +70,6 @@ class Darlek extends GameObject {
     }
 
     // Update all projectiles
-    // console.log("updating projectiles, ", this.projectiles);
     this.projectiles.forEach((projectile) => projectile.update());
 
     // // Remove inactive projectiles

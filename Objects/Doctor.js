@@ -16,6 +16,7 @@ class Doctor extends GameObject {
     };
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.sonicScrewdriver = new SonicScrewdriver(this);
+    this.sonicProjectiles = [];
 
     //this.initialseControlsDisplay();
   }
@@ -28,6 +29,7 @@ class Doctor extends GameObject {
   }
 
   update(state) {
+    //console.log("Doctor update !!: ", this, state);
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
@@ -48,6 +50,14 @@ class Doctor extends GameObject {
       }
       this.updateSprite(state);
     }
+
+    // Update all projectiles
+    this.sonicProjectiles.forEach((projectile) => projectile.update());
+
+    // // Remove inactive projectiles
+    this.sonicProjectiles = this.sonicProjectiles.filter(
+      (projectile) => projectile.isActive
+    );
   }
 
   startBehavior(state, behavior) {

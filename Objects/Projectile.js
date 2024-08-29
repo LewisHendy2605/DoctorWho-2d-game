@@ -10,7 +10,7 @@ class Projectile {
     this.height = 16;
     this.isActive = true;
 
-    //console.log("making projectile: ", x, " ", y);
+    console.log("making projectile: ", x, " ", y);
 
     // Animations
     this.animations = {
@@ -36,10 +36,9 @@ class Projectile {
         this.x += this.speed;
         break;
     }
-
-    // TO DO: Redo check for canvas boundry with camera person offest
-    // Deactivate the projectile if it goes off screen (example for an 800x600 game area)
-    if (this.x < 0 || this.x > 1500 || this.y < 0 || this.y > 600) {
+    // // TO DO: Redo check for canvas boundry with camera person offest
+    // // Deactivate the projectile if it goes off screen (example for an 800x600 game area)
+    if (this.x < 0 || this.x > 1500 || this.y < 0 || this.y > 1500) {
       this.isActive = false;
     }
   }

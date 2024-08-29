@@ -39,8 +39,10 @@ class SonicScrewdriver {
         this.handleSonicEvent()
       );
     } else {
-      if (this.sonicListener) {
+      // probs should be seperate
+      if (this.sonicListener && this.sonicShootListener) {
         this.sonicListener.unbind();
+        this.sonicShootListener.unbind();
       }
     }
   }
@@ -77,8 +79,49 @@ class SonicScrewdriver {
     }
   }
 
+  // TO DO
+  async sonicForTime() {
+    if (this.isSonicEquipped && this.user.map) {
+      if (!this.sonicActive) {
+        this.sonicActive = true;
+
+        if (this.sonicAudio) {
+          this.sonicAudio.pause();
+          this.sonicAudio.currentTime = 1; // Reset to the start
+          try {
+            await this.sonicAudio.play();
+            await utils.wait(900);
+            this.sonicAudio.pause();
+            this.sonicActive = false;
+          } catch (error) {
+            console.error("Audio playback failed:", error);
+          }
+        }
+      }
+    }
+  }
+
   handleSonicShoot() {
-    console.log("Sonic shooting");
+    if (this.user.isMounted) {
+      console.log(this.user);
+      console.log("Sonic shooting");
+      this.sonicForTime();
+      this.shoot();
+    }
+  }
+
+  shoot() {
+    let x = this.user.x;
+    let y = this.user.y;
+
+    const projectile = new Projectile({
+      x,
+      y,
+      direction: this.user.direction,
+      speed: 1,
+      imageSrc: utils.setDynamicPath("/images/misc/darlek-laser.png"),
+    });
+    this.user.sonicProjectiles.push(projectile);
   }
 
   async scanObjects() {
