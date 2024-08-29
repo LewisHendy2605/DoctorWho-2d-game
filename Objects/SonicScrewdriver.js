@@ -24,6 +24,9 @@ class SonicScrewdriver {
       this.sonicListener = new KeyPressListener("KeyE", () =>
         this.handleSonicEvent()
       );
+      this.sonicShootListener = new KeyPressListener("Space", () =>
+        this.handleSonicShoot()
+      );
     }
   }
   unbindSonicListeners() {
@@ -72,6 +75,10 @@ class SonicScrewdriver {
         this.scanObjects();
       }
     }
+  }
+
+  handleSonicShoot() {
+    console.log("Sonic shooting");
   }
 
   async scanObjects() {

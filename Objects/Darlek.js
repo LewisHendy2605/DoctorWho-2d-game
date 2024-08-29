@@ -150,7 +150,7 @@ class Darlek extends GameObject {
       y,
       direction: this.direction,
       speed: 1,
-      imageSrc: utils.setDynamicPath("images/misc/darlek-laser.png"),
+      imageSrc: utils.setDynamicPath("/images/misc/darlek-laser.png"),
     });
     // utils.setDynamicPath("images/misc/darlek-laser.png")
     // utils.setDynamicPath("images/characters-doctor-who/doctor-11.png"),
