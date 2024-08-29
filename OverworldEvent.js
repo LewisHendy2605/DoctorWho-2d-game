@@ -100,10 +100,8 @@ class OverworldEvent {
     const message = new SpeechBox({
       text: this.event.text,
       who: this.event.who,
-      onComplete: (interrupted) => {
-        if (!interrupted) {
-          resolve();
-        }
+      onComplete: () => {
+        resolve();
       },
     });
     message.init(document.querySelector(".game-container"));

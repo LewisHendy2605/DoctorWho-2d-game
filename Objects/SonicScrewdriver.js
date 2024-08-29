@@ -74,6 +74,7 @@ class SonicScrewdriver {
     }
   }
 
+  // Freezes darlek
   async scanObjects() {
     let sonicScanRayX = this.user.x;
     let sonicScanRayY = this.user.y;

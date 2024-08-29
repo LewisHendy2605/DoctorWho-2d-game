@@ -24,16 +24,18 @@ class SpeechBox {
   }
 
   done() {
-    if (this.revealingText.isDone) {
-      if (this.element) {
-        this.element.remove();
-        this.element = null;
-        //this.actionListener.unbind();
-      }
-      this.onComplete(this.interrupted); // Pass the interrupted flag to the callback
-    } else {
+    // Finish type writing
+    if (!this.revealingText.isDone) {
       this.revealingText.warpToDone();
     }
+
+    // Remove element and resove event with callback
+    if (this.element) {
+      this.element.remove();
+      this.element = null;
+      //this.actionListener.unbind();
+    }
+    this.onComplete();
   }
 
   async init(container) {
