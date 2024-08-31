@@ -8,7 +8,10 @@ class SonicScrewdriver {
     this.sonicFinishedListener = null;
 
     this.bindScrewdriverEquiperListener();
+    this.createSonicMenu();
   }
+
+  createSonicMenu() {}
 
   bindSonicListeners() {
     // Using arrow function instead of directly passing method so i can use "this" keyword
@@ -85,7 +88,6 @@ class SonicScrewdriver {
     }
   }
 
-  // TO DO
   async sonicForTime() {
     if (this.isSonicEquipped && this.user.map) {
       if (!this.sonicActive) {
@@ -124,7 +126,7 @@ class SonicScrewdriver {
       y,
       direction: this.user.direction,
       speed: 1,
-      imageSrc: utils.setDynamicPath("/images/misc/darlek-laser.png"),
+      imageSrc: utils.setDynamicPath("/images/misc/sonic-projectile.png"),
     });
     this.user.sonicProjectiles.push(projectile);
   }
@@ -270,27 +272,13 @@ class SonicScrewdriver {
 
         if (this.actionButton) {
           this.actionButton.addEventListener("click", () => {
-            // Update sprite src to one with sonic in hand
-            if (this.isSonicEquipped) {
-              this.user.sprite.image.src = utils.setDynamicPath(
-                "/images/characters-doctor-who/doctor-11.png"
-              );
-              this.isSonicEquipped = false;
-              this.updateSonicButtons();
-            } else {
-              this.user.sprite.image.src = utils.setDynamicPath(
-                "/images/characters-doctor-who/doctor-11-screwdriver.png"
-              );
-              this.isSonicEquipped = true;
-              this.updateSonicButtons();
-              this.bindSonicListeners();
-            }
+            this.handleSonicEquipMobile();
           });
         }
       } else {
         // set key listeners for dektop
         this.screwdriverEquipListener = new KeyPressListener("KeyQ", () =>
-          this.handleSonicEquip()
+          this.handleSonicEquipDesktop()
         );
 
         // Hide buttons if desktop
@@ -313,7 +301,28 @@ class SonicScrewdriver {
     }
   }
 
-  handleSonicEquip() {
+  handleSonicEquipMobile() {
+    // Update sprite src to one with sonic in hand
+    if (this.isSonicEquipped) {
+      this.user.sprite.image.src = utils.setDynamicPath(
+        "/images/characters-doctor-who/doctor-11.png"
+      );
+      this.isSonicEquipped = false;
+      this.updateSonicButtons();
+      this.user.map.overworld.hud.toggleSonicVisibility();
+    } else {
+      this.user.sprite.image.src = utils.setDynamicPath(
+        "/images/characters-doctor-who/doctor-11-screwdriver.png"
+      );
+      this.isSonicEquipped = true;
+      this.updateSonicButtons();
+      this.bindSonicListeners();
+      this.user.map.overworld.hud.toggleSonicVisibility();
+    }
+  }
+
+  handleSonicEquipDesktop() {
+    //console.log("Sonic equiq event, HUD: ", this.user.map.overworld.hud);
     // Update sprite src to one with sonic in hand
     if (this.isSonicEquipped) {
       this.user.sprite.image.src = utils.setDynamicPath(
@@ -321,12 +330,14 @@ class SonicScrewdriver {
       );
       this.isSonicEquipped = false;
       this.unbindSonicListeners();
+      this.user.map.overworld.hud.toggleSonicVisibility();
     } else {
       this.user.sprite.image.src = utils.setDynamicPath(
         "/images/characters-doctor-who/doctor-11-screwdriver.png"
       );
       this.isSonicEquipped = true;
       this.bindSonicListeners();
+      this.user.map.overworld.hud.toggleSonicVisibility();
     }
   }
 }

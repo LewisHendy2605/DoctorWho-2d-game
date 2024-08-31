@@ -8,6 +8,7 @@ class OverWorld {
     this.escapeListener = null;
     this.touchStartHandler = null;
     this.clickHandler = null;
+    this.hud = null;
   }
 
   startGameLoop() {

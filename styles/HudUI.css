@@ -1,0 +1,90 @@
+.HudUI {
+  position: relative;
+  width: 15svw;
+  height: 5svh;
+  border: 1px solid black;
+  margin: 2px;
+}
+
+.HudUI p {
+  margin: 0;
+}
+
+.HudUI_p_name {
+  position: absolute;
+  font-family: "DoctorWho2", sans-serif;
+  font-size: x-small;
+  left: 2%;
+}
+
+.HudUI_p {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+
+.HudUI canvas {
+  image-rendering: pixelated; /* Ensure sharp pixel rendering */
+  image-rendering: crisp-edges; /* Safari */
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -webkit-optimize-contrast; /* Chrome, Safari */
+  image-rendering: -o-crisp-edges; /* Opera */
+  image-rendering: optimize-contrast; /* CSS3 Draft */
+}
+.HudUI_img {
+  image-rendering: pixelated; /* Most browsers */
+  image-rendering: crisp-edges; /* Safari and some older browsers */
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -webkit-optimize-contrast; /* Chrome, Safari, Opera */
+  image-rendering: -o-crisp-edges; /* Opera */
+  image-rendering: optimize-contrast; /* CSS3 Draft */
+  -ms-interpolation-mode: nearest-neighbor; /* IE */
+  position: absolute;
+  margin-top: 6%;
+  left: 2%;
+  width: 16px;
+  height: 16px;
+  border: 1px solid gray;
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the area */
+}
+
+.HudUI_sonic_img {
+  image-rendering: pixelated; /* Most browsers */
+  image-rendering: crisp-edges; /* Safari and some older browsers */
+  image-rendering: -moz-crisp-edges; /* Firefox */
+  image-rendering: -webkit-optimize-contrast; /* Chrome, Safari, Opera */
+  image-rendering: -o-crisp-edges; /* Opera */
+  image-rendering: optimize-contrast; /* CSS3 Draft */
+  -ms-interpolation-mode: nearest-neighbor; /* IE */
+  position: absolute;
+  margin-top: 6%;
+  left: 15%;
+  width: 16px;
+  height: 16px;
+  border: 1px solid gray;
+  border-radius: 50%; /* Make the image circular */
+  object-fit: cover; /* Ensure the image covers the area */
+}
+
+@media (max-width: 700px) {
+  .HudUI {
+    width: 20svw;
+  }
+  .HudUI_img {
+    margin-top: 15%;
+    left: 2%;
+  }
+  .HudUI_sonic_img {
+    margin-top: 15%;
+    left: 25%;
+  }
+}
+
+.hidden {
+  display: none; /* Hide the element */
+}
+
+.visible {
+  display: block; /* Show the element */
+}

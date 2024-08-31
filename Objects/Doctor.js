@@ -1,5 +1,6 @@
 class Doctor extends GameObject {
   constructor(config) {
+    console.log("creating Doctor");
     super(config, "doctor");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
@@ -17,15 +18,36 @@ class Doctor extends GameObject {
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.sonicScrewdriver = new SonicScrewdriver(this);
     this.sonicProjectiles = [];
+    //this.hud = null;
 
-    //this.initialseControlsDisplay();
+    //this.waitForMount();
   }
 
-  initialseControlsDisplay() {
-    // if (this) {
-    //   console.log(this);
-    //   console.log(this.map);
-    // }
+  mount(map) {
+    super.mount(map);
+    // Remove Hud if map change
+    if (this.map.overworld.hud) {
+      this.map.overworld.hud.done;
+    }
+    this.createHud();
+  }
+
+  waitForMount() {
+    const intervalId = setInterval(() => {
+      //console.log("creating interval");
+      if (this.isMounted) {
+        this.createHud();
+        clearInterval(intervalId); // Stop checking once mounted
+        //console.log("interval destryoed");
+      }
+    }, 100); // Check every 100ms
+  }
+
+  createHud() {
+    if (!this.map.overworld.hud) {
+      this.map.overworld.hud = new HudUI(this, "/images/ui/doctor-11-head.png");
+      this.map.overworld.hud.init();
+    }
   }
 
   update(state) {

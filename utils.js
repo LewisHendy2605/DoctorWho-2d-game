@@ -1,4 +1,12 @@
 const utils = {
+  capitalizeFirstLetter(str) {
+    if (typeof str !== "string" || str.length === 0) {
+      return str; // Return the input if it's not a string or is empty
+    }
+
+    // Capitalize the first letter and concatenate with the rest of the string
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  },
   withGrid(n) {
     return n * 16;
   },
