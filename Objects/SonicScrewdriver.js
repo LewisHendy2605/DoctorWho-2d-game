@@ -17,6 +17,9 @@ class SonicScrewdriver {
     ];
     this.activeMode = this.modes[0];
 
+    // Bind methods
+    this.handleSonicEquipMobileBound = this.handleSonicEquipMobile.bind(this);
+
     this.bindScrewdriverEquiperListener();
     this.createSonicMenu();
   }
@@ -24,12 +27,15 @@ class SonicScrewdriver {
   done() {
     this.unbindSonicListeners();
     if (this.screwdriverEquipListener) {
+      console.log("TEST");
       this.screwdriverEquipListener.unbind();
     }
     if (this.actionButton) {
-      this.actionButton.removeEventListener("click", () => {
-        this.handleSonicEquipMobile();
-      });
+      console.log("Removing mobile listeners", this.actionButton);
+      this.actionButton.removeEventListener(
+        "click",
+        this.handleSonicEquipMobileBound
+      );
     }
   }
 
@@ -282,6 +288,7 @@ class SonicScrewdriver {
   bindScrewdriverEquiperListener() {
     // Grab buttons for the sonic use on mobile
     this.actionButton = document.getElementById("actionButton");
+    //this.actionButton = document.querySelector(".actionButton");
     //this.sonicButton = document.getElementById("sonicButton"); / using id and class name cause weird thinsg
     this.sonicButton = document.querySelector(".sonicButton");
     this.sonicShootButton = document.querySelector(".sonicShootButton");
@@ -293,9 +300,10 @@ class SonicScrewdriver {
         this.updateSonicButtons();
 
         if (this.actionButton) {
-          this.actionButton.addEventListener("click", () => {
-            this.handleSonicEquipMobile();
-          });
+          this.actionButton.addEventListener(
+            "click",
+            this.handleSonicEquipMobileBound
+          );
         }
       } else {
         // set key listeners for dektop
@@ -324,6 +332,7 @@ class SonicScrewdriver {
   }
 
   handleSonicEquipMobile() {
+    console.log("Equp pressed: ", this);
     // Update sprite src to one with sonic in hand
     if (this.isSonicEquipped) {
       this.user.sprite.image.src = utils.setDynamicPath(
@@ -331,7 +340,10 @@ class SonicScrewdriver {
       );
       this.isSonicEquipped = false;
       this.updateSonicButtons();
-      this.user.map.overworld.hud.toggleSonicVisibility();
+      if (this.user.map) {
+        console.log("1: ", this);
+        this.user.map.overworld.hud.toggleSonicVisibility(this);
+      }
     } else {
       this.user.sprite.image.src = utils.setDynamicPath(
         "/images/characters-doctor-who/doctor-11-screwdriver.png"
@@ -339,7 +351,10 @@ class SonicScrewdriver {
       this.isSonicEquipped = true;
       this.updateSonicButtons();
       this.bindSonicListeners();
-      this.user.map.overworld.hud.toggleSonicVisibility();
+      if (this.user.map) {
+        console.log("2: ", this);
+        this.user.map.overworld.hud.toggleSonicVisibility(this);
+      }
     }
   }
 

@@ -24,6 +24,7 @@ class Doctor extends GameObject {
   }
 
   done() {
+    console.log("Doctor done called: ", this.sonicScrewdriver);
     this.sonicScrewdriver.done();
   }
 

@@ -40,6 +40,7 @@ class HudUI {
 
   sonicClicked() {
     console.log("sonic clicked");
+    //toggleSonic;
     // if active hide menu
     if (this.isSonicMenuActive) {
       this.sonicHudMenu.remove();
@@ -87,7 +88,7 @@ class HudUI {
 
   toggleSonicVisibility() {
     // Toggle the 'hidden' class to show or hide the images
-    //console.log("Toggle called");
+    console.log("Toggle called: ", this.sonicHud);
     //console.log(this.element.innerHTML);
     this.sonicHud.classList.toggle("hidden");
   }
