@@ -23,7 +23,14 @@ class SonicScrewdriver {
 
   done() {
     this.unbindSonicListeners();
-    this.screwdriverEquipListener.unbind();
+    if (this.screwdriverEquipListener) {
+      this.screwdriverEquipListener.unbind();
+    }
+    if (this.actionButton) {
+      this.actionButton.removeEventListener("click", () => {
+        this.handleSonicEquipMobile();
+      });
+    }
   }
 
   createSonicMenu() {}
