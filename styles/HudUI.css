@@ -32,14 +32,16 @@
   image-rendering: -o-crisp-edges; /* Opera */
   image-rendering: optimize-contrast; /* CSS3 Draft */
 }
-.HudUI_img {
-  image-rendering: pixelated; /* Most browsers */
+.HudUI img {
+  image-rendering: pixelated !important; /* Most browsers */
   image-rendering: crisp-edges; /* Safari and some older browsers */
   image-rendering: -moz-crisp-edges; /* Firefox */
   image-rendering: -webkit-optimize-contrast; /* Chrome, Safari, Opera */
   image-rendering: -o-crisp-edges; /* Opera */
   image-rendering: optimize-contrast; /* CSS3 Draft */
   -ms-interpolation-mode: nearest-neighbor; /* IE */
+}
+.HudUI_img {
   position: absolute;
   margin-top: 6%;
   left: 2%;
@@ -57,13 +59,6 @@
 }
 
 .HudUI_sonic_img {
-  image-rendering: pixelated; /* Most browsers */
-  image-rendering: crisp-edges; /* Safari and some older browsers */
-  image-rendering: -moz-crisp-edges; /* Firefox */
-  image-rendering: -webkit-optimize-contrast; /* Chrome, Safari, Opera */
-  image-rendering: -o-crisp-edges; /* Opera */
-  image-rendering: optimize-contrast; /* CSS3 Draft */
-  -ms-interpolation-mode: nearest-neighbor; /* IE */
   position: relative;
   width: 16px;
   height: 16px;
@@ -98,9 +93,8 @@
   }
 
   .SonicHudUI {
-    width: 20svw;
-    margin-top: 15%;
-    left: 25%;
+    width: 20svw !important;
+    left: 25% !important;
   }
 }
 
