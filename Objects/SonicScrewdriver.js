@@ -11,6 +11,11 @@ class SonicScrewdriver {
     this.createSonicMenu();
   }
 
+  done() {
+    this.unbindSonicListeners();
+    this.screwdriverEquipListener.unbind();
+  }
+
   createSonicMenu() {}
 
   bindSonicListeners() {
@@ -277,9 +282,9 @@ class SonicScrewdriver {
         }
       } else {
         // set key listeners for dektop
-        this.screwdriverEquipListener = new KeyPressListener("KeyQ", () =>
-          this.handleSonicEquipDesktop()
-        );
+        this.screwdriverEquipListener = new KeyPressListener("KeyQ", () => {
+          this.handleSonicEquipDesktop();
+        });
 
         // Hide buttons if desktop
         this.actionButton.style.display = "none";
@@ -330,14 +335,18 @@ class SonicScrewdriver {
       );
       this.isSonicEquipped = false;
       this.unbindSonicListeners();
-      this.user.map.overworld.hud.toggleSonicVisibility();
+      if (this.user.map) {
+        this.user.map.overworld.hud.toggleSonicVisibility();
+      }
     } else {
       this.user.sprite.image.src = utils.setDynamicPath(
         "/images/characters-doctor-who/doctor-11-screwdriver.png"
       );
       this.isSonicEquipped = true;
       this.bindSonicListeners();
-      this.user.map.overworld.hud.toggleSonicVisibility();
+      if (this.user.map) {
+        this.user.map.overworld.hud.toggleSonicVisibility();
+      }
     }
   }
 }

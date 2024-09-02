@@ -16,19 +16,24 @@ class Doctor extends GameObject {
       right: ["x", 1],
     };
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
-    this.sonicScrewdriver = new SonicScrewdriver(this);
     this.sonicProjectiles = [];
+    //this.sonicScrewdriver = null;
     //this.hud = null;
 
     //this.waitForMount();
   }
 
+  done() {
+    this.sonicScrewdriver.done();
+  }
+
   mount(map) {
     super.mount(map);
-    // Remove Hud if map change
+    // Remove Hud if map change + remove old sonic
     if (this.map.overworld.hud) {
-      this.map.overworld.hud.done;
+      this.map.overworld.hud.done();
     }
+    this.sonicScrewdriver = new SonicScrewdriver(this);
     this.createHud();
   }
 
@@ -44,10 +49,9 @@ class Doctor extends GameObject {
   }
 
   createHud() {
-    if (!this.map.overworld.hud) {
-      this.map.overworld.hud = new HudUI(this, "/images/ui/doctor-11-head.png");
-      this.map.overworld.hud.init();
-    }
+    //console.log("new hud");
+    this.map.overworld.hud = new HudUI(this, "/images/ui/doctor-11-head.png");
+    this.map.overworld.hud.init();
   }
 
   update(state) {

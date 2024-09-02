@@ -120,6 +120,12 @@ class OverWorld {
   }
 
   startMap(mapConfig, heroInitialState = null) {
+    // if map is being changed, then call objects done func
+    // mainly this is to complete sonic lifecysle between maps for consistent hud updates
+    if (this.map) {
+      this.map.demountObjects();
+    }
+
     this.map = new OverWorldMap(mapConfig);
     this.map.overworld = this;
     this.map.mountObjects();

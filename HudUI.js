@@ -25,7 +25,9 @@ class HudUI {
   }
 
   toggleSonicVisibility() {
-    // Toggle the 'hidden' class to show or hide the images
+    // Toggle the 'hidden' class to show or hide the imagesq
+    //console.log("Toggle called");
+    //console.log(this.element.innerHTML);
     this.sonicImage.classList.toggle("hidden");
   }
 

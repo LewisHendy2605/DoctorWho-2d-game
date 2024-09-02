@@ -56,6 +56,17 @@ class OverWorldMap {
     });
   }
 
+  demountObjects() {
+    Object.keys(this.gameObjects).forEach((key) => {
+      let object = this.gameObjects[key];
+      object.id = key;
+      // Complete lifecycle of Objects
+      if (object.done) {
+        object.done();
+      }
+    });
+  }
+
   async startCutscene(events) {
     this.isCutScenePlaying = true;
 
