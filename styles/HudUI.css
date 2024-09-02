@@ -15,6 +15,7 @@
   font-family: "DoctorWho2", sans-serif;
   font-size: x-small;
   left: 2%;
+  margin: 0;
 }
 
 .HudUI_p {
@@ -44,9 +45,15 @@
   left: 2%;
   width: 16px;
   height: 16px;
-  border: 1px solid gray;
+  border: 1px solid goldenrod;
   border-radius: 50%; /* Make the image circular */
   object-fit: cover; /* Ensure the image covers the area */
+}
+
+.HudUI_sonic {
+  position: absolute;
+  margin-top: 6%;
+  left: 15%;
 }
 
 .HudUI_sonic_img {
@@ -57,14 +64,24 @@
   image-rendering: -o-crisp-edges; /* Opera */
   image-rendering: optimize-contrast; /* CSS3 Draft */
   -ms-interpolation-mode: nearest-neighbor; /* IE */
-  position: absolute;
-  margin-top: 6%;
-  left: 15%;
+  position: relative;
   width: 16px;
   height: 16px;
-  border: 1px solid gray;
+  border: 1px solid green;
   border-radius: 50%; /* Make the image circular */
   object-fit: cover; /* Ensure the image covers the area */
+  z-index: 20;
+}
+
+.HudUI_sonic_img:hover {
+  border: 1px solid lightgreen;
+}
+
+.HudUI_sonic_mode_p {
+  position: relative;
+  font-family: "DoctorWho2", sans-serif;
+  font-size: 0.2em;
+  font-weight: bold;
 }
 
 @media (max-width: 700px) {
@@ -79,6 +96,52 @@
     margin-top: 15%;
     left: 25%;
   }
+
+  .SonicHudUI {
+    width: 20svw;
+    margin-top: 15%;
+    left: 25%;
+  }
+}
+
+.SonicHudUI {
+  position: absolute;
+  background-color: antiquewhite;
+  opacity: 0.7; /* 50% opacity for the entire element */
+  width: 45%;
+  height: auto;
+  margin-top: 6%;
+  left: 15%;
+  border: 1px solid greenyellow;
+  border-radius: 10px;
+  font-family: "DoctorWho2", sans-serif;
+  font-size: x-small;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 15px;
+}
+
+.SonicHudUI p {
+  margin-left: 10%;
+  margin-bottom: 10%;
+}
+.SonicHudUI p:hover {
+  background-color: lightgreen;
+}
+
+.SonicHudUI_title {
+  border-bottom: 1px solid black;
+  width: 100%;
+}
+
+.SonicHudUI_option {
+  font-size: xx-small;
+  border-left: 1px solid black;
+  border-radius: 2px;
+}
+.SonicHudUI_option:hover {
+  border-left: 2px solid purple;
+  border-radius: 5px;
 }
 
 .hidden {

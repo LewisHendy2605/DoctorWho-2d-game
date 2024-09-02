@@ -4,31 +4,92 @@ class HudUI {
     this.imgPath = utils.setDynamicPath(imgPath);
     this.sonicImgPath = utils.setDynamicPath("/images/ui/sonic-ui.png");
     this.container = document.querySelector(".game-container");
+    this.isSonicMenuActive = false;
+    this.sonic - null;
   }
 
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("HudUI");
     this.element.innerHTML = `
-    <p class="HudUI_p_name">${utils.capitalizeFirstLetter(
+    <h3 class="HudUI_p_name">${utils.capitalizeFirstLetter(
       this.character.type
-    )}</p>
-      <img src="${this.imgPath}" class="HudUI_img" />
-      <div class="HudUI_sonic">
-      <img src="${this.sonicImgPath}" class="HudUI_sonic_img hidden" />
+    )}</h3>
+      <img src="${this.imgPath}" class="HudUI_img " />
+      <div class="HudUI_sonic hidden">
+      <img src="${this.sonicImgPath}" class="HudUI_sonic_img" />
+      <p class="HudUI_sonic_mode_p"> Mode: ${
+        this.character.sonicScrewdriver.activeMode.name
+      } </p>
       </div>
     `;
+
+    //<p class="HudUI_sonic_img"> Mode: ${
+    //  this.character.sonicScrewdriver.activeMode.name
+    // } </p>
 
     // Store references to the images for later manipulation
     this.image = this.element.querySelector(".HudUI_img");
     this.sonicImage = this.element.querySelector(".HudUI_sonic_img");
+    this.sonicHud = this.element.querySelector(".HudUI_sonic");
+
+    // amke sonic element interactibale
+    //this.sonicElement = this.element.querySelector(".HudUI_sonic_img");
+    this.sonicHud.addEventListener("click", () => this.sonicClicked());
+  }
+
+  sonicClicked() {
+    console.log("sonic clicked");
+    // if active hide menu
+    if (this.isSonicMenuActive) {
+      this.sonicHudMenu.remove();
+      this.isSonicMenuActive = false;
+    } else {
+      // else add it to hud
+      this.sonicHudMenu = document.createElement("div");
+      this.sonicHudMenu.classList.add("SonicHudUI");
+      this.sonicHudMenu.innerHTML = `
+      <h3 class="SonicHudUI_title">${"Sonic Modes"}</h3>
+    
+  
+      `;
+      // <p class="SonicHudUI_option"> Settings </p>
+
+      // Set up conrtrols for sonic
+      //console.log("Sonic: ", this.sonic.modes);
+      let tempElement = null;
+      this.character.sonicScrewdriver.modes.forEach((element) => {
+        tempElement = document.createElement("p");
+        tempElement.classList.add("SonicHudUI_option");
+        tempElement.innerText = element.name;
+        tempElement.addEventListener("click", () =>
+          this.sonicModeOptionClicked(element)
+        );
+        this.sonicHudMenu.appendChild(tempElement);
+      });
+
+      // add elemet to game container
+      this.element.appendChild(this.sonicHudMenu);
+      this.isSonicMenuActive = true;
+    }
+  }
+
+  sonicModeOptionClicked(elem) {
+    this.character.sonicScrewdriver.activeMode = elem;
+
+    // Update the text of the sonic mode paragraph
+    const modeParagraph = this.element.querySelector(".HudUI_sonic_mode_p");
+    modeParagraph.textContent = `Mode: ${elem.name}`;
+
+    // Close sonic menu after selection
+    this.sonicClicked();
   }
 
   toggleSonicVisibility() {
-    // Toggle the 'hidden' class to show or hide the imagesq
+    // Toggle the 'hidden' class to show or hide the images
     //console.log("Toggle called");
     //console.log(this.element.innerHTML);
-    this.sonicImage.classList.toggle("hidden");
+    this.sonicHud.classList.toggle("hidden");
   }
 
   createElementCanvas() {

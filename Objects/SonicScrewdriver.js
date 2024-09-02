@@ -7,6 +7,16 @@ class SonicScrewdriver {
     this.sonicListener = null;
     this.sonicFinishedListener = null;
 
+    this.modes = [
+      { name: "Electrical Magnetic Pulse", strength: 20 },
+      { name: "Electrical Field Pulse", strength: 20 },
+      { name: "Sonic Field Pulse", strength: 20 },
+      { name: "Magnetic Field Pulse", strength: 20 },
+      { name: "X-Ray Pulse", strength: 20 },
+      { name: "Gamma-Ray Pulse", strength: 20 },
+    ];
+    this.activeMode = this.modes[0];
+
     this.bindScrewdriverEquiperListener();
     this.createSonicMenu();
   }
@@ -336,7 +346,7 @@ class SonicScrewdriver {
       this.isSonicEquipped = false;
       this.unbindSonicListeners();
       if (this.user.map) {
-        this.user.map.overworld.hud.toggleSonicVisibility();
+        this.user.map.overworld.hud.toggleSonicVisibility(this);
       }
     } else {
       this.user.sprite.image.src = utils.setDynamicPath(
@@ -345,7 +355,7 @@ class SonicScrewdriver {
       this.isSonicEquipped = true;
       this.bindSonicListeners();
       if (this.user.map) {
-        this.user.map.overworld.hud.toggleSonicVisibility();
+        this.user.map.overworld.hud.toggleSonicVisibility(this);
       }
     }
   }
