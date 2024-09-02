@@ -31,7 +31,7 @@ class SonicScrewdriver {
       this.screwdriverEquipListener.unbind();
     }
     if (this.actionButton) {
-      console.log("Removing mobile listeners", this.actionButton);
+      //console.log("Removing mobile listeners", this.actionButton);
       this.actionButton.removeEventListener(
         "click",
         this.handleSonicEquipMobileBound
@@ -332,7 +332,7 @@ class SonicScrewdriver {
   }
 
   handleSonicEquipMobile() {
-    console.log("Equp pressed: ", this);
+    //console.log("Equp pressed: ", this);
     // Update sprite src to one with sonic in hand
     if (this.isSonicEquipped) {
       this.user.sprite.image.src = utils.setDynamicPath(
@@ -341,7 +341,6 @@ class SonicScrewdriver {
       this.isSonicEquipped = false;
       this.updateSonicButtons();
       if (this.user.map) {
-        console.log("1: ", this);
         this.user.map.overworld.hud.toggleSonicVisibility(this);
       }
     } else {
@@ -352,7 +351,6 @@ class SonicScrewdriver {
       this.updateSonicButtons();
       this.bindSonicListeners();
       if (this.user.map) {
-        console.log("2: ", this);
         this.user.map.overworld.hud.toggleSonicVisibility(this);
       }
     }
