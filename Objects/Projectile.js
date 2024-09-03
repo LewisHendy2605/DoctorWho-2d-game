@@ -1,7 +1,9 @@
 class Projectile {
-  constructor({ x, y, direction, speed, imageSrc }) {
+  constructor({ x, y, user, type, direction, speed, imageSrc }) {
     this.x = x;
     this.y = y;
+    this.user = user;
+    this.type = type;
     this.direction = direction;
     this.speed = speed;
     this.image = new Image();
@@ -36,6 +38,37 @@ class Projectile {
         this.x += this.speed;
         break;
     }
+
+    // Check if projectile has collided with a object
+    // Precompute and cache gameObjects to avoid looking up values multiple times
+    const gameObjects = Object.values(this.user.map.gameObjects).filter(
+      (obj) => obj.type !== this.user.type
+    );
+    // Find the matching object within the current coordinates
+    const match = gameObjects.find(
+      (obj) => obj.x === this.x && obj.y === this.y
+    );
+
+    if (match) {
+      if (match.projectilePerceptibles) {
+        (obj) => obj.name === this.activeMode;
+        // Check if any object in the array has a name that matches the active mode
+        const matchingObjects = match.projectilePerceptibles.filter(
+          (obj) => obj.name === this.type.name
+        );
+        if (matchingObjects.length > 0) {
+          const match = matchingObjects[0];
+
+          if (typeof match.effect === "function") {
+            match.effect(); // Call the function
+          } else {
+            console.log("The effect is not a function:", match.effect);
+            // Handle cases where effect is not a function, if needed
+          }
+        }
+      }
+    }
+
     // // TO DO: Redo check for canvas boundry with camera person offest
     // // Deactivate the projectile if it goes off screen (example for an 800x600 game area)
     if (this.x < 0 || this.x > 1500 || this.y < 0 || this.y > 1500) {

@@ -15,7 +15,7 @@ class SonicScrewdriver {
       { name: "X-Ray Pulse", strength: 20 },
       { name: "Gamma-Ray Pulse", strength: 20 },
     ];
-    this.activeMode = this.modes[0];
+    this.activeMode = this.modes[1];
 
     // Bind methods
     this.handleSonicEquipMobileBound = this.handleSonicEquipMobile.bind(this);
@@ -153,6 +153,8 @@ class SonicScrewdriver {
       x,
       y,
       direction: this.user.direction,
+      type: this.activeMode,
+      user: this.user,
       speed: 1,
       imageSrc: utils.setDynamicPath("/images/misc/sonic-projectile.png"),
     });

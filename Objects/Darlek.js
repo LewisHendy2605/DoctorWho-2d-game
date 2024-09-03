@@ -3,12 +3,39 @@ class Darlek extends GameObject {
     super(config, "darlek");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
+    this.isAlive = true;
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
     this.speedMultiplier = 1.5;
 
     this.projectiles = [];
+
+    this.projectileModes = [
+      { name: "Gamma-Ray Pulse", strength: 20 },
+      { name: "Electrical Magnetic Pulse", strength: 20 },
+      { name: "Electrical Field Pulse", strength: 20 },
+      { name: "Sonic Field Pulse", strength: 20 },
+      { name: "Magnetic Field Pulse", strength: 20 },
+      { name: "X-Ray Pulse", strength: 20 },
+      { name: "Gamma-Ray Pulse", strength: 20 },
+    ];
+    this.activeProjectileMode = this.projectileModes[0];
+
+    // Bind the kill method to the current instance
+    this.kill = this.kill.bind(this);
+    this.reinstateElectricalSystems =
+      this.reinstateElectricalSystems.bind(this);
+
+    this.projectilePerceptibles = [
+      { name: "Gamma-Ray Pulse", effect: this.kill }, // chaneg to method calls
+      { name: "Electrical Magnetic Pulse", effect: this.kill },
+      { name: "Electrical Field Pulse", effect: 20 },
+      { name: "Sonic Field Pulse", effect: this.reinstateElectricalSystems },
+      { name: "Magnetic Field Pulse", effect: 20 },
+      { name: "X-Ray Pulse", effect: 20 },
+      { name: "Gamma-Ray Pulse", effect: 20 },
+    ];
 
     this.directionUpdate = {
       up: ["y", -1],
@@ -47,26 +74,41 @@ class Darlek extends GameObject {
     ];
   }
 
-  update(state) {
-    if (this.movingProgressRemaining > 0) {
-      this.updatePosition();
-    } else {
-      // More cases for starting to walk will come here
-      //
-      //
+  kill() {
+    console.log("Darlek killed", this);
+    this.isAlive = false;
+    //console.log(this);
+  }
 
-      // Case: Were keyboard ready and have an arrow presed
-      if (
-        !state.map.isCutScenePlaying &&
-        this.isPlayerControlled &&
-        state.arrow
-      ) {
-        this.startBehavior(state, {
-          type: "walk",
-          direction: state.arrow,
-        });
+  reinstateElectricalSystems() {
+    console.log("Darlek Alived");
+    this.isAlive = true;
+    //this.startBehavior();
+    console.log(this);
+  }
+
+  update(state) {
+    if (this.isAlive) {
+      if (this.movingProgressRemaining > 0) {
+        this.updatePosition();
+      } else {
+        // More cases for starting to walk will come here
+        //
+        //
+
+        // Case: Were keyboard ready and have an arrow presed
+        if (
+          !state.map.isCutScenePlaying &&
+          this.isPlayerControlled &&
+          state.arrow
+        ) {
+          this.startBehavior(state, {
+            type: "walk",
+            direction: state.arrow,
+          });
+        }
+        this.updateSprite(state);
       }
-      this.updateSprite(state);
     }
 
     // Update all projectiles
@@ -79,6 +121,7 @@ class Darlek extends GameObject {
   }
 
   startBehavior(state, behavior) {
+    //if (this.isAlive) {
     // Setting character direction to whatever behavior has
     this.direction = behavior.direction;
 
@@ -110,6 +153,7 @@ class Darlek extends GameObject {
         this.isStanding = false;
       }, behavior.time);
     }
+    //}
   }
 
   updatePosition() {
@@ -126,17 +170,21 @@ class Darlek extends GameObject {
   }
 
   shoot() {
-    let x = this.x;
-    let y = this.y;
+    if (this.isAlive) {
+      let x = this.x;
+      let y = this.y;
 
-    const projectile = new Projectile({
-      x,
-      y,
-      direction: this.direction,
-      speed: 1,
-      imageSrc: utils.setDynamicPath("/images/misc/darlek-laser.png"),
-    });
-    this.projectiles.push(projectile);
+      const projectile = new Projectile({
+        x,
+        y,
+        user: this,
+        type: this.activeProjectileMode,
+        direction: this.direction,
+        speed: 1,
+        imageSrc: utils.setDynamicPath("/images/misc/darlek-laser.png"),
+      });
+      this.projectiles.push(projectile);
+    }
   }
 
   updateSprite() {
