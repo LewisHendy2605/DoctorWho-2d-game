@@ -35,10 +35,15 @@ class HudUI {
 
     // amke sonic element interactibale
     //this.sonicElement = this.element.querySelector(".HudUI_sonic_img");
-    this.sonicHud.addEventListener("click", () => this.sonicClicked());
+    this.sonicHud.addEventListener("click", () => this.addOrRemoveSonicHUD());
+
+    this.image.addEventListener("click", () => this.addOrRemoveDoctorHUD());
+  }
+  addOrRemoveDoctorHUD() {
+    console.log("Doctor clicked");
   }
 
-  sonicClicked() {
+  addOrRemoveSonicHUD() {
     console.log("sonic clicked");
     //toggleSonic;
     // if active hide menu
@@ -83,7 +88,7 @@ class HudUI {
     modeParagraph.textContent = `Mode: ${elem.name}`;
 
     // Close sonic menu after selection
-    this.sonicClicked();
+    this.addOrRemoveSonicHUD();
   }
 
   toggleSonicVisibility() {
