@@ -9,6 +9,7 @@ class HudUI {
   }
 
   createElement() {
+    // creaet hud HTML
     this.element = document.createElement("div");
     this.element.classList.add("HudUI");
     this.element.innerHTML = `
@@ -38,6 +39,11 @@ class HudUI {
     this.sonicHud.addEventListener("click", () => this.addOrRemoveSonicHUD());
 
     this.image.addEventListener("click", () => this.addOrRemoveDoctorHUD());
+
+    // Show sonic hud if we have to
+    if (this.character.sonicScrewdriver.isSonicEquipped) {
+      this.toggleSonicVisibility();
+    }
   }
   addOrRemoveDoctorHUD() {
     console.log("Doctor clicked");

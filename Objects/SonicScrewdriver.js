@@ -1,5 +1,6 @@
 class SonicScrewdriver {
   constructor(user) {
+    console.log("Sonic created");
     this.user = user;
     this.isSonicEquipped = false;
     this.sonicActive = false;
@@ -19,15 +20,21 @@ class SonicScrewdriver {
 
     // Bind methods
     this.handleSonicEquipMobileBound = this.handleSonicEquipMobile.bind(this);
+  }
 
+  init() {
+    console.log("sonic init");
     this.bindScrewdriverEquiperListener();
-    this.createSonicMenu();
+    if (this.isSonicEquipped) {
+      this.bindSonicListeners();
+    }
   }
 
   done() {
+    console.log("sonic done");
     this.unbindSonicListeners();
     if (this.screwdriverEquipListener) {
-      console.log("TEST");
+      console.log("unbinding q key");
       this.screwdriverEquipListener.unbind();
     }
     if (this.actionButton) {
@@ -38,8 +45,6 @@ class SonicScrewdriver {
       );
     }
   }
-
-  createSonicMenu() {}
 
   bindSonicListeners() {
     // Using arrow function instead of directly passing method so i can use "this" keyword
@@ -64,7 +69,6 @@ class SonicScrewdriver {
     }
   }
   unbindSonicListeners() {
-    //console.log("unbinded mouse listerner");
     // document.removeEventListener("click", (event) =>
     //   this.handleSonicEvent(event)
     // );

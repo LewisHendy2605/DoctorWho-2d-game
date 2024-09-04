@@ -13,6 +13,7 @@ class Projectile {
     this.isActive = true;
 
     //console.log("making projectile: ", x, " ", y);
+    console.log("Projectile type: ", this.type, this.user);
 
     // Animations
     this.animations = {

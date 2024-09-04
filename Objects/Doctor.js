@@ -17,6 +17,7 @@ class Doctor extends GameObject {
     };
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.sonicProjectiles = [];
+    this.sonicScrewdriver = new SonicScrewdriver(this);
     //this.sonicScrewdriver = null;
     //this.hud = null;
 
@@ -34,7 +35,9 @@ class Doctor extends GameObject {
     if (this.map.overworld.hud) {
       this.map.overworld.hud.done();
     }
-    this.sonicScrewdriver = new SonicScrewdriver(this);
+
+    this.sonicScrewdriver.init();
+
     this.createHud();
   }
 
