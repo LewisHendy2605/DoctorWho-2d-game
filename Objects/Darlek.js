@@ -4,6 +4,7 @@ class Darlek extends GameObject {
     this.movingProgressRemaining = 0;
     this.isStanding = false;
     this.isAlive = true;
+    this.canMove = true;
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
@@ -22,14 +23,18 @@ class Darlek extends GameObject {
     ];
     this.activeProjectileMode = this.projectileModes[0];
 
-    // Bind the kill method to the current instance
+    // Bind the methods that will be called by projectie
     this.kill = this.kill.bind(this);
     this.reinstateElectricalSystems =
       this.reinstateElectricalSystems.bind(this);
+    this.overloadElectricalSystems = this.overloadElectricalSystems.bind(this);
 
     this.projectilePerceptibles = [
       { name: "Gamma-Ray Pulse", effect: this.kill }, // chaneg to method calls
-      { name: "Electrical Magnetic Pulse", effect: this.kill },
+      {
+        name: "Electrical Magnetic Pulse",
+        effect: this.overloadElectricalSystems,
+      },
       { name: "Electrical Field Pulse", effect: 20 },
       { name: "Sonic Field Pulse", effect: this.reinstateElectricalSystems },
       { name: "Magnetic Field Pulse", effect: 20 },
@@ -44,9 +49,12 @@ class Darlek extends GameObject {
       right: ["x", 1],
     };
 
+    this.electricalSystems = { isActive: true, state: "Acive" };
+
     this.data = [
       { type: "Type", data: "Darlek" },
       { type: "Age", data: "200" },
+      { type: "Electrical Systems", data: this.electricalSystems.state },
     ];
 
     this.interactiveOptions = [
@@ -54,21 +62,9 @@ class Darlek extends GameObject {
         label: "Scan Results from " + this.type,
         class: "choose-dest",
         handler: () => {
-          // // Close menu scrren
-          // this.map.sonicMenu.end();
-
-          console.log(this);
-
+          // Show sonic menu with darlek data
+          //console.log("showData menu called !!!: ", this.electricalSystems);
           this.map.sonicMenu.showData(this.data);
-
-          // Show data about object
-
-          // Initiate tardis event
-          // const event = new OverworldEvent({
-          //   map: this.map,
-          //   event: { type: "tardisLandOrFly" },
-          // });
-          // event.init();
         },
       },
     ];
@@ -80,15 +76,33 @@ class Darlek extends GameObject {
     //console.log(this);
   }
 
+  overloadElectricalSystems() {
+    this.canMove = false;
+    this.electricalSystems.state = "Inactive";
+    // Find the Electrical Systems data entry and update it
+    const electricalData = this.data.find(
+      (item) => item.type === "Electrical Systems"
+    );
+    if (electricalData) {
+      electricalData.data = this.electricalSystems.state;
+    }
+  }
+
   reinstateElectricalSystems() {
-    console.log("Darlek Alived");
-    this.isAlive = true;
-    //this.startBehavior();
-    console.log(this);
+    this.canMove = true;
+    // need to abstarct
+    this.electricalSystems.state = "Active";
+    // Find the Electrical Systems data entry and update it
+    const electricalData = this.data.find(
+      (item) => item.type === "Electrical Systems"
+    );
+    if (electricalData) {
+      electricalData.data = this.electricalSystems.state;
+    }
   }
 
   update(state) {
-    if (this.isAlive) {
+    if (this.canMove) {
       if (this.movingProgressRemaining > 0) {
         this.updatePosition();
       } else {
@@ -127,7 +141,10 @@ class Darlek extends GameObject {
 
     if (behavior.type === "walk") {
       // Stop here if space is not free
-      if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+      if (
+        state.map.isSpaceTaken(this.x, this.y, this.direction) ||
+        !this.canMove
+      ) {
         behavior.retry &&
           setTimeout(() => {
             this.startBehavior(state, behavior);
@@ -137,6 +154,7 @@ class Darlek extends GameObject {
 
       // Ready to walk
       state.map.moveWall(this.x, this.y, this.direction);
+      //console.log("moving darlek wall", this.x, this.y);
       utils.emitEvent("PersonStartWalk", {
         whoId: this.id,
       });
@@ -170,7 +188,7 @@ class Darlek extends GameObject {
   }
 
   shoot() {
-    if (this.isAlive) {
+    if (this.canMove) {
       let x = this.x;
       let y = this.y;
 
