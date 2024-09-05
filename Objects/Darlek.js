@@ -13,13 +13,13 @@ class Darlek extends GameObject {
     this.projectiles = [];
 
     this.projectileModes = [
+      { name: "Focused Photon Beam", strength: 20 },
       { name: "Gamma-Ray Pulse", strength: 20 },
       { name: "Electrical Magnetic Pulse", strength: 20 },
       { name: "Electrical Field Pulse", strength: 20 },
       { name: "Sonic Field Pulse", strength: 20 },
       { name: "Magnetic Field Pulse", strength: 20 },
       { name: "X-Ray Pulse", strength: 20 },
-      { name: "Gamma-Ray Pulse", strength: 20 },
     ];
     this.activeProjectileMode = this.projectileModes[0];
 
@@ -68,6 +68,10 @@ class Darlek extends GameObject {
         },
       },
     ];
+  }
+
+  done() {
+    console.log("Darlek done called: ", this);
   }
 
   kill() {

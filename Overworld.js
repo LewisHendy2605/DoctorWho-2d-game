@@ -1,5 +1,6 @@
 class OverWorld {
   constructor(config) {
+    console.log("new overworld");
     this.element = config.element;
     this.canvas = this.element.querySelector(".game-canvas");
     this.ctx = this.canvas.getContext("2d");
@@ -12,6 +13,7 @@ class OverWorld {
   }
 
   startGameLoop() {
+    console.log("new game loop");
     const step = () => {
       // Clear canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -132,6 +134,7 @@ class OverWorld {
 
     if (heroInitialState) {
       const { hero } = this.map.gameObjects;
+      //console.log("start map hero state change", hero, heroInitialState);
       this.map.removeWall(hero.x, hero.y);
       this.map.gameObjects.hero.x = heroInitialState.x;
       this.map.gameObjects.hero.y = heroInitialState.y;

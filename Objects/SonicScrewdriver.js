@@ -1,6 +1,6 @@
 class SonicScrewdriver {
   constructor(user) {
-    console.log("Sonic created");
+    //console.log("Sonic created");
     this.user = user;
     this.isSonicEquipped = false;
     this.sonicActive = false;
@@ -23,7 +23,6 @@ class SonicScrewdriver {
   }
 
   init() {
-    console.log("sonic init");
     this.bindScrewdriverEquiperListener();
     if (this.isSonicEquipped) {
       this.bindSonicListeners();
@@ -31,10 +30,10 @@ class SonicScrewdriver {
   }
 
   done() {
-    console.log("sonic done");
+    //console.log("sonic done");
     this.unbindSonicListeners();
     if (this.screwdriverEquipListener) {
-      console.log("unbinding q key");
+      //console.log("unbinding q key");
       this.screwdriverEquipListener.unbind();
     }
     if (this.actionButton) {

@@ -1,0 +1,47 @@
+.KillScreen {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: red;
+  opacity: 0;
+  animation: scene-transition-fade-in 1.2s forwards;
+}
+
+.KillScreen.fade-out {
+  animation: scene-transition-fade-out 1.2s forwards;
+}
+
+.KillScreen_textContainer {
+  position: absolute;
+  left: 40%;
+  top: 15%;
+}
+
+.KillScreen_h3 {
+  font-family: "DoctorWho2", sans-serif;
+  font-size: xx-large;
+}
+.KillScreen_p {
+  font-family: "DoctorWho2", sans-serif;
+  font-size: large;
+}
+
+@keyframes scene-transition-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scene-transition-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

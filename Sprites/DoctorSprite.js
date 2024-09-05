@@ -67,11 +67,13 @@ class DoctorSprite {
   }
 
   get frame() {
+    //console.log("get frame called: ", this.currentAnimationFrame, this);
     return this.animations[this.currentAnimation][this.currentAnimationFrame];
   }
 
   setAnimation(key) {
     if (this.currentAnimation !== key) {
+      //console.log("seeing animation to :", key, this);
       this.currentAnimation = key;
       this.currentAnimationFrame = 0;
       this.animationFrameProgress = this.animationFrameLimit;

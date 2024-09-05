@@ -74,6 +74,7 @@ class GameObject {
       return;
     }
 
+    console.log("doing object behavior");
     //Setting up out event with relevant info
     let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
     eventConfig.who = this.id;

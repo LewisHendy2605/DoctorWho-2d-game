@@ -3,6 +3,8 @@ class TardisState {
     this.landed = false;
     this.destination = "DarlekBaseInterior";
     this.oldDestination = null;
+    this.heroX;
+    this.heroY;
     //   this.lineup = ["p1"];
     //   this.items = [
     //     { actionId: "item_recoverHp", instanceId: "item1" },

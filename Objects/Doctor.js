@@ -1,6 +1,5 @@
 class Doctor extends GameObject {
   constructor(config) {
-    console.log("creating Doctor");
     super(config, "doctor");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
@@ -18,14 +17,32 @@ class Doctor extends GameObject {
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.sonicProjectiles = [];
     this.sonicScrewdriver = new SonicScrewdriver(this);
-    //this.sonicScrewdriver = null;
-    //this.hud = null;
 
-    //this.waitForMount();
+    this.isAlive = true;
+
+    // Bind methods to be called by projectile
+    this.kill = this.kill.bind(this);
+
+    this.projectilePerceptibles = [
+      { name: "Focused Photon Beam", effect: this.kill },
+    ];
+  }
+
+  kill() {
+    console.log("doctor killed", this);
+    this.isAlive = false;
+
+    const killevent = new OverworldEvent({
+      map: this.map,
+      event: { type: "heroKilled" },
+      direction: this.direction,
+    });
+
+    killevent.init();
   }
 
   done() {
-    //console.log("Doctor done called: ", this.sonicScrewdriver);
+    console.log("Doctor done called: ", this);
     this.sonicScrewdriver.done();
   }
 
@@ -138,6 +155,7 @@ class Doctor extends GameObject {
   }
 
   updateSprite() {
+    //console.log("updating doctor sprite: ", this.direction, this);
     if (this.movingProgressRemaining > 0) {
       this.sprite.setAnimation("walk-" + this.direction);
       return;

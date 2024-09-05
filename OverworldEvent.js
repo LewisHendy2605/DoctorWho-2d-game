@@ -139,6 +139,12 @@ class OverworldEvent {
   }
 
   changeMap(resolve) {
+    // console.log(
+    //   "chnagemap called",
+    //   this.event.x,
+    //   this.event.y,
+    //   this.event.direction
+    // );
     const sceneTransition = new SceneTransition();
     sceneTransition.init(document.querySelector(".game-container"), () => {
       this.map.overworld.startMap(window.OverworldMaps[this.event.map], {
@@ -542,6 +548,20 @@ class OverworldEvent {
       );
       resolve();
     }, 100);
+  }
+
+  heroKilled(resolve) {
+    console.log("heroKilled event: ", this);
+
+    // Change back to tardis map
+    this.event.map = "Tardis"; // TODO better way of setting map
+    const killScreen = new KillScreen();
+    killScreen.init(document.querySelector(".game-container"), () => {
+      this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
+      resolve();
+
+      killScreen.fadeOut();
+    });
   }
 
   init() {

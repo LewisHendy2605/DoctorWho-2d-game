@@ -1,6 +1,6 @@
 class OverWorldMap {
   constructor(config) {
-    pauseButton;
+    console.log("new overworldMap");
     this.id = config.id || null;
     this.overworld = null;
     this.gameObjects = config.gameObjects;
@@ -715,7 +715,7 @@ window.OverworldMaps = {
       }),
       darlek: new Darlek({
         isPlayerControlled: false,
-        x: utils.withGrid(46),
+        x: utils.withGrid(30),
         y: utils.withGrid(18),
         src: "/images/characters-doctor-who/darlek.png",
         behaviorLoop: [
