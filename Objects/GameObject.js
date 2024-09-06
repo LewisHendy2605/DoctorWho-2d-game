@@ -71,10 +71,16 @@ class GameObject {
       this.behaviorLoop.length === 0 ||
       this.isStanding
     ) {
+      // console.log("stoppign behavior loop", this);
+      // console.log(
+      //   map.isCutScenePlaying,
+      //   this.behaviorLoop.length,
+      //   this.isStanding
+      // );
       return;
     }
 
-    console.log("doing object behavior");
+    //console.log("doing object behavior", this);
     //Setting up out event with relevant info
     let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
     eventConfig.who = this.id;

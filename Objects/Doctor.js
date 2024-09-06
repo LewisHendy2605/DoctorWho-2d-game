@@ -18,7 +18,7 @@ class Doctor extends GameObject {
     this.sonicProjectiles = [];
     this.sonicScrewdriver = new SonicScrewdriver(this);
 
-    this.isAlive = true;
+    this.isAlive = null;
 
     // Bind methods to be called by projectile
     this.kill = this.kill.bind(this);
@@ -29,16 +29,26 @@ class Doctor extends GameObject {
   }
 
   kill() {
+    if (!this.isAlive) return; // Prevent re-killing the doctor
+
     console.log("doctor killed", this);
     this.isAlive = false;
 
-    const killevent = new OverworldEvent({
-      map: this.map,
-      event: { type: "heroKilled" },
-      direction: this.direction,
-    });
+    const event = [
+      {
+        type: "heroKilled",
+        map: "Tardis",
+      },
+    ];
+    this.map.startCutscene(event);
 
-    killevent.init();
+    // const killevent = new OverworldEvent({
+    //   map: this.map,
+    //   event: { type: "heroKilled" },
+    //   direction: this.direction,
+    // });
+
+    // killevent.init();
   }
 
   done() {
@@ -48,6 +58,7 @@ class Doctor extends GameObject {
 
   mount(map) {
     super.mount(map);
+    this.isAlive = true;
     // Remove Hud if map change + remove old sonic
     if (this.map.overworld.hud) {
       this.map.overworld.hud.done();

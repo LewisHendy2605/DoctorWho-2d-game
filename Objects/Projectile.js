@@ -51,6 +51,7 @@ class Projectile {
     );
 
     if (match) {
+      //console.log("Hitt somthing", match, this);
       if (match.projectilePerceptibles) {
         (obj) => obj.name === this.activeMode;
         // Check if any object in the array has a name that matches the active mode

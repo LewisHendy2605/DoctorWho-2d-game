@@ -1,6 +1,5 @@
 class OverWorld {
   constructor(config) {
-    console.log("new overworld");
     this.element = config.element;
     this.canvas = this.element.querySelector(".game-canvas");
     this.ctx = this.canvas.getContext("2d");
@@ -13,7 +12,6 @@ class OverWorld {
   }
 
   startGameLoop() {
-    console.log("new game loop");
     const step = () => {
       // Clear canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -24,7 +22,7 @@ class OverWorld {
         : this.map.gameObjects.hero;
 
       // if (this.flyTardis) {
-      //   console.log(this.map.gameObjects.hero);
+      //   console.log(this.map.gameObjects.he
       // }
 
       // Update all objects
@@ -125,6 +123,7 @@ class OverWorld {
     // if map is being changed, then call objects done func
     // mainly this is to complete sonic lifecysle between maps for consistent hud updates
     if (this.map) {
+      console.log("demonting objects", this);
       this.map.demountObjects();
     }
 

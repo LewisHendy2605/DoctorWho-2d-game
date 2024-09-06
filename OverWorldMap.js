@@ -1,6 +1,5 @@
 class OverWorldMap {
   constructor(config) {
-    console.log("new overworldMap");
     this.id = config.id || null;
     this.overworld = null;
     this.gameObjects = config.gameObjects;
@@ -23,6 +22,7 @@ class OverWorldMap {
     this.tardisLanded = config.tardisLanded || null;
 
     this.sonicMenu = null;
+    //console.log("new overworldMap", this.gameObjects);
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -68,6 +68,7 @@ class OverWorldMap {
   }
 
   async startCutscene(events) {
+    console.log("starting cutscene");
     this.isCutScenePlaying = true;
 
     //Start a loop of async events, await each one
@@ -161,7 +162,6 @@ class OverWorldMap {
     }
   }
 
-  // Need to implement a way to check if hero stemsp on tardis
   checkForFootstepEnterTardis() {
     const hero = this.gameObjects["hero"];
     const tardis = this.gameObjects["tardis"];
@@ -171,6 +171,13 @@ class OverWorldMap {
       const { x, y } = utils.tardisCoordsOffset(tardis.x, tardis.y);
       // add checks for either side of door
       if (hero.x === x && hero.y === y) {
+        // const event = new OverworldEvent({
+        //   map: this,
+        //   event: { type: "changeMap" },
+        // });
+
+        // event.init();
+
         const event = [
           {
             type: "changeMap",

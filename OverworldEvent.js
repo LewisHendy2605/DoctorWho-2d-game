@@ -73,6 +73,7 @@ class OverworldEvent {
   }
 
   async followHero(resolve) {
+    //console.log("follow hero called");
     try {
       await utils.wait(800); // wait is to slow darleks down
       await new Promise((res) => this.faceHero(res));
@@ -97,6 +98,7 @@ class OverworldEvent {
   }
 
   speak(resolve) {
+    //console.log("speak called");
     const message = new SpeechBox({
       text: this.event.text,
       who: this.event.who,
@@ -159,6 +161,7 @@ class OverworldEvent {
   }
 
   shoot(resolve) {
+    //console.log("shoot called", this, "gameobjects: ", this.map.gameObjects);
     if (this.event.who === "darlek") {
       const darlek = this.map.gameObjects[this.event.who];
       darlek.shoot();
@@ -551,7 +554,7 @@ class OverworldEvent {
   }
 
   heroKilled(resolve) {
-    console.log("heroKilled event: ", this);
+    //console.log("heroKilled event: ", this);
 
     // Change back to tardis map
     this.event.map = "Tardis"; // TODO better way of setting map
