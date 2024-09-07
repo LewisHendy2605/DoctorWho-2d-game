@@ -1,5 +1,6 @@
 class Doctor extends GameObject {
   constructor(config) {
+    console.log("new doctor !!!!");
     super(config, "doctor");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
@@ -16,7 +17,9 @@ class Doctor extends GameObject {
     };
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.sonicProjectiles = [];
+
     this.sonicScrewdriver = new SonicScrewdriver(this);
+    console.log("new sonic created", this.sonicScrewdriver);
 
     this.isAlive = null;
 
@@ -69,16 +72,16 @@ class Doctor extends GameObject {
     this.createHud();
   }
 
-  waitForMount() {
-    const intervalId = setInterval(() => {
-      //console.log("creating interval");
-      if (this.isMounted) {
-        this.createHud();
-        clearInterval(intervalId); // Stop checking once mounted
-        //console.log("interval destryoed");
-      }
-    }, 100); // Check every 100ms
-  }
+  // waitForMount() {
+  //   const intervalId = setInterval(() => {
+  //     //console.log("creating interval");
+  //     if (this.isMounted) {
+  //       this.createHud();
+  //       clearInterval(intervalId); // Stop checking once mounted
+  //       //console.log("interval destryoed");
+  //     }
+  //   }, 100); // Check every 100ms
+  // }
 
   createHud() {
     //console.log("new hud");

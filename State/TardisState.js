@@ -26,7 +26,7 @@ class TardisState {
     if (this.landed === false) {
       this.landed = true;
     } else {
-      this.landed === false;
+      this.landed = false;
     }
   }
 }

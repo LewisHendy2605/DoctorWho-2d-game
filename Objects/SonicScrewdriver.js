@@ -1,6 +1,6 @@
 class SonicScrewdriver {
   constructor(user) {
-    //console.log("Sonic created");
+    console.log("Sonic created");
     this.user = user;
     this.isSonicEquipped = false;
     this.sonicActive = false;
@@ -27,10 +27,22 @@ class SonicScrewdriver {
     if (this.isSonicEquipped) {
       this.bindSonicListeners();
     }
+    console.log("sonic init", this);
+    // Reload some save sate variables
+    const { sonicState } = window;
+    if (sonicState.activeMode) {
+      this.activeMode = sonicState.activeMode;
+    }
+    if (this.isSonicEquipped !== sonicState.isSonicEquipped) {
+      console.log("updating sonic state");
+      this.isSonicEquipped = sonicState.isSonicEquipped;
+      // if updated sate istrue then call equpper to set new sprite sheet
+      this.updateSpriteSheetForSonic();
+      this.updateBindings();
+    }
   }
 
   done() {
-    //console.log("sonic done");
     this.unbindSonicListeners();
     if (this.screwdriverEquipListener) {
       //console.log("unbinding q key");
@@ -43,6 +55,11 @@ class SonicScrewdriver {
         this.handleSonicEquipMobileBound
       );
     }
+    console.log("sonic done", this);
+    // save some staate between map changes
+    const { sonicState } = window;
+    sonicState.isSonicEquipped = this.isSonicEquipped;
+    sonicState.activeMode = this.activeMode;
   }
 
   bindSonicListeners() {
@@ -84,6 +101,14 @@ class SonicScrewdriver {
         this.sonicListener.unbind();
         this.sonicShootListener.unbind();
       }
+    }
+  }
+
+  updateBindings() {
+    if (this.isSonicEquipped) {
+      this.bindSonicListeners();
+    } else {
+      this.unbindSonicListeners();
     }
   }
 
@@ -333,6 +358,18 @@ class SonicScrewdriver {
       this.actionButton.innerText = "Equip Sonic";
       this.sonicButton.style.display = "none";
       this.sonicShootButton.style.display = "none";
+    }
+  }
+
+  updateSpriteSheetForSonic() {
+    if (this.isSonicEquipped) {
+      this.user.sprite.image.src = utils.setDynamicPath(
+        "/images/characters-doctor-who/doctor-11-screwdriver.png"
+      );
+    } else {
+      this.user.sprite.image.src = utils.setDynamicPath(
+        "/images/characters-doctor-who/doctor-11.png"
+      );
     }
   }
 
