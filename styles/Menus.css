@@ -98,3 +98,11 @@
   font-size: 0.6rem;
   color: goldenrod;
 }
+
+@media (max-width: 700px) {
+  .SonicMenu {
+    left: 11em;
+    top: 1em;
+    right: 1em;
+  }
+}

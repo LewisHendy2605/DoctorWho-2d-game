@@ -1,6 +1,5 @@
 class SonicScrewdriver {
   constructor(user) {
-    console.log("Sonic created");
     this.user = user;
     this.isSonicEquipped = false;
     this.sonicActive = false;
@@ -27,7 +26,6 @@ class SonicScrewdriver {
     if (this.isSonicEquipped) {
       this.bindSonicListeners();
     }
-    console.log("sonic init", this);
     // Reload some save sate variables
     const { sonicState } = window;
     if (sonicState.activeMode) {
@@ -56,7 +54,6 @@ class SonicScrewdriver {
         this.handleSonicEquipMobileBound
       );
     }
-    console.log("sonic done", this);
     // save some staate between map changes
     const { sonicState } = window;
     sonicState.isSonicEquipped = this.isSonicEquipped;

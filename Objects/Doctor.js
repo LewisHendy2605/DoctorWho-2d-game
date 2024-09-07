@@ -1,6 +1,5 @@
 class Doctor extends GameObject {
   constructor(config) {
-    console.log("new doctor !!!!");
     super(config, "doctor");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
@@ -19,7 +18,6 @@ class Doctor extends GameObject {
     this.sonicProjectiles = [];
 
     this.sonicScrewdriver = new SonicScrewdriver(this);
-    console.log("new sonic created", this.sonicScrewdriver);
 
     this.isAlive = null;
 
