@@ -36,8 +36,10 @@ class SonicScrewdriver {
       this.isSonicEquipped = sonicState.isSonicEquipped;
       // if updated sate istrue then call equpper to set new sprite sheet
       this.updateSpriteSheetForSonic();
-      this.updateSonicButtons();
       this.updateBindings();
+      if (document.body.classList.contains("mobile-device")) {
+        this.updateSonicButtons();
+      }
     }
   }
 
