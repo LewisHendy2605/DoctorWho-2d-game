@@ -38,6 +38,7 @@ class SonicScrewdriver {
       this.isSonicEquipped = sonicState.isSonicEquipped;
       // if updated sate istrue then call equpper to set new sprite sheet
       this.updateSpriteSheetForSonic();
+      this.updateSonicButtons();
       this.updateBindings();
     }
   }
