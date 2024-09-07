@@ -6,7 +6,14 @@
   bottom: 0;
   background: red;
   opacity: 0;
+  margin: 0;
   animation: scene-transition-fade-in 1.2s forwards;
+}
+
+.KillScreen_img {
+  position: relative;
+  width: 64;
+  height: 64;
 }
 
 .KillScreen.fade-out {
@@ -16,14 +23,16 @@
 .KillScreen_textContainer {
   position: absolute;
   left: 40%;
-  top: 15%;
+  top: 10%;
 }
 
 .KillScreen_h3 {
+  margin: 0;
   font-family: "DoctorWho2", sans-serif;
   font-size: xx-large;
 }
 .KillScreen_p {
+  margin: 0;
   font-family: "DoctorWho2", sans-serif;
   font-size: large;
 }

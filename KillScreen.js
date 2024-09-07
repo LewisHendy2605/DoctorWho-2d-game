@@ -1,6 +1,9 @@
 class KillScreen {
   constructor(config) {
     this.element = null;
+    this.imagePath = utils.setDynamicPath(
+      "/images/characters-doctor-who/doctor-regen.png"
+    );
   }
 
   createElement() {
@@ -9,6 +12,7 @@ class KillScreen {
     this.element.innerHTML = `
     <div class="KillScreen_textContainer">
     <h3 class="KillScreen_h3"> You Died </h3>
+    <img src=${this.imagePath} class="KillScreen_img" />
     <p class="KillScreen_p"> Regenerating .... </p>
     </div>
     `;
