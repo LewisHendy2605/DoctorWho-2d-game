@@ -201,9 +201,28 @@ class OverWorld {
     }
   }
 
-  init() {
+  hideSonicMobileButtons() {
+    // Grab buttons for the sonic use on mobile
+    this.actionButton = document.getElementById("actionButton");
+    this.sonicButton = document.querySelector(".sonicButton");
+    this.sonicShootButton = document.querySelector(".sonicShootButton");
+
+    // Hide buttons if desktop
+    this.actionButton.style.display = "none";
+    this.sonicButton.style.display = "none";
+    this.sonicShootButton.style.display = "none";
+  }
+
+  async init() {
+    const container = document.querySelector(".game-container");
+    this.hideSonicMobileButtons();
+
     // Craete a new progress tracker
     this.progress = new Progress();
+
+    //Show the title screen
+    this.titleScreen = new TitleScreen({ progress: this.progress });
+    await this.titleScreen.init(container);
 
     //Potentially load saved data
     let initialHeroState = null;

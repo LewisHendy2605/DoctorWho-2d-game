@@ -2,23 +2,12 @@
 <html lang="en">
   <head>
     <title>Doctor Who 2d</title>
-    <!--  CSS links -->
-    <link id="global" type="text/css" rel="stylesheet" />
-    <link id="TextMessage" type="text/css" rel="stylesheet" />
-    <link id="SpeechBox" type="text/css" rel="stylesheet" />
-    <link id="KillScreen" type="text/css" rel="stylesheet" />
-    <link id="SceneTransition" type="text/css" rel="stylesheet" />
-    <link id="Battle" type="text/css" rel="stylesheet" />
-    <link id="Combatant" type="text/css" rel="stylesheet" />
-    <link id="Team" type="text/css" rel="stylesheet" />
-    <link id="SubmissionMenu" type="text/css" rel="stylesheet" />
-    <link id="KeyboardMenu" type="text/css" rel="stylesheet" />
-    <link id="ConsoleScreen" type="text/css" rel="stylesheet" />
-    <link id="Hud" type="text/css" rel="stylesheet" />
-    <link id="HudUI" type="text/css" rel="stylesheet" />
-    <link id="Menus" type="text/css" rel="stylesheet" />
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Preconnect to FontAwesome -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
 
     <!--  Fonts -->
     <link
@@ -35,6 +24,30 @@
       href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--  CSS links -->
+    <link id="global" type="text/css" rel="stylesheet" />
+    <link id="TitleScreen" type="text/css" rel="stylesheet" />
+    <link id="TextMessage" type="text/css" rel="stylesheet" />
+    <link id="SpeechBox" type="text/css" rel="stylesheet" />
+    <link id="KillScreen" type="text/css" rel="stylesheet" />
+    <link id="SceneTransition" type="text/css" rel="stylesheet" />
+    <link id="Battle" type="text/css" rel="stylesheet" />
+    <link id="Combatant" type="text/css" rel="stylesheet" />
+    <link id="Team" type="text/css" rel="stylesheet" />
+    <link id="SubmissionMenu" type="text/css" rel="stylesheet" />
+    <link id="KeyboardMenu" type="text/css" rel="stylesheet" />
+    <link id="ConsoleScreen" type="text/css" rel="stylesheet" />
+    <link id="Hud" type="text/css" rel="stylesheet" />
+    <link id="HudUI" type="text/css" rel="stylesheet" />
+    <link id="Menus" type="text/css" rel="stylesheet" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -58,6 +71,7 @@
         // List of stylesheets to load
         const stylesheets = [
           { id: "global", path: "global.css" },
+          { id: "TitleScreen", path: "TitleScreen.css" },
           { id: "TextMessage", path: "TextMessage.css" },
           { id: "SpeechBox", path: "SpeechBox.css" },
           { id: "KillScreen", path: "KillScreen.css" },
@@ -104,6 +118,7 @@
           "AudioManager.js",
           "KeyPressListener.js",
           "DirectionInput.js",
+          "TitleScreen.js",
           "HudUI.js",
           "Overworld.js",
           "Objects/Projectile.js",

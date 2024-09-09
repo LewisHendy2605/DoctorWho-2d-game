@@ -13,7 +13,7 @@ class SpeechBox {
     this.element.classList.add("SpeechBox");
 
     this.element.innerHTML = `
-      <p class="SpeechBox_p">${this.who}: </p>
+      <p class="SpeechBox_p">${utils.capitalizeFirstLetter(this.who)}: </p>
     `;
 
     // Init the typewriter effect

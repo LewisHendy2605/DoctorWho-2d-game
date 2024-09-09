@@ -23,6 +23,7 @@ body {
   align-items: center;
   flex-direction: column; /* Column direction for vertical alignment */
   height: 100vh;
+  font-family: "Ribeye", cursive;
 }
 
 .game-container {
