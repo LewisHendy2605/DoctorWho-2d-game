@@ -139,10 +139,10 @@ body {
     font-size: 20px;
   }
   .pauseButton {
-    bottom: 25svh;
+    bottom: 20svh;
   }
   .actionButton {
-    bottom: 25svh;
+    bottom: 20svh;
   }
 }
 
