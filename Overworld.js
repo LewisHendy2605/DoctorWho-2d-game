@@ -202,15 +202,17 @@ class OverWorld {
   }
 
   hideSonicMobileButtons() {
-    // Grab buttons for the sonic use on mobile
-    this.actionButton = document.getElementById("actionButton");
-    this.sonicButton = document.querySelector(".sonicButton");
-    this.sonicShootButton = document.querySelector(".sonicShootButton");
+    if (!document.body.classList.contains("mobile-device")) {
+      // Grab buttons for the sonic use on mobile
+      this.actionButton = document.getElementById("actionButton");
+      this.sonicButton = document.querySelector(".sonicButton");
+      this.sonicShootButton = document.querySelector(".sonicShootButton");
 
-    // Hide buttons if desktop
-    this.actionButton.style.display = "none";
-    this.sonicButton.style.display = "none";
-    this.sonicShootButton.style.display = "none";
+      // Hide buttons if desktop
+      this.actionButton.style.display = "none";
+      this.sonicButton.style.display = "none";
+      this.sonicShootButton.style.display = "none";
+    }
   }
 
   async init() {
