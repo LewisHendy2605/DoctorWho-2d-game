@@ -7,7 +7,7 @@ class TitleScreen {
     return [
       {
         label: "New Game",
-        description: "Start a New agme as the docotr in the Tardis",
+        description: "Start a New Game as the Doctor in the Tardis",
         handler: () => {
           this.close();
           resolve();
