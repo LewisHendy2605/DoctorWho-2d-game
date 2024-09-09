@@ -119,7 +119,7 @@ class OverWorld {
     });
   }
 
-  startMap(mapConfig, heroInitialState = null) {
+  startMap(mapConfig, heroInitialState = null, sonicInitialState = null) {
     // if map is being changed, then call objects done func
     // mainly this is to complete sonic lifecysle between maps for consistent hud updates
     if (this.map) {
@@ -127,6 +127,14 @@ class OverWorld {
       this.map.demountObjects();
     }
 
+    // update state variabels befoer mounting objects
+    if (sonicInitialState) {
+      const { sonicState } = window;
+      sonicState.isSonicEquipped = sonicInitialState.isSonicEquipped;
+      sonicState.activeMode = sonicInitialState.activeMode;
+    }
+
+    // Start new map + mount objects
     this.map = new OverWorldMap(mapConfig);
     this.map.overworld = this;
     this.map.mountObjects();
@@ -145,6 +153,7 @@ class OverWorld {
     this.progress.startingHeroX = this.map.gameObjects.hero.x;
     this.progress.startingHeroY = this.map.gameObjects.hero.y;
     this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
+    console.log("setting progress values", this.progress);
   }
 
   unbindMobileListeners(actionButton) {
@@ -224,26 +233,40 @@ class OverWorld {
 
     //Show the title screen
     this.titleScreen = new TitleScreen({ progress: this.progress });
-    await this.titleScreen.init(container);
+    const useSaveFile = await this.titleScreen.init(container);
 
     //Potentially load saved data
     let initialHeroState = null;
-    const saveFile = this.progress.getSaveFile();
-    if (saveFile) {
-      // this.progress.load();
-      // initialHeroState = {
-      //   x: this.progress.startingHeroX,
-      //   y: this.progress.startingHeroY,
-      //   direction: this.progress.startingHeroDirection,
-      // };
+    let initialSonicState = null;
+    // const saveFile = this.progress.getSaveFile();
+    if (useSaveFile) {
+      this.progress.load();
+      initialHeroState = {
+        x: this.progress.startingHeroX,
+        y: this.progress.startingHeroY,
+        direction: this.progress.startingHeroDirection,
+      };
+      initialSonicState = {
+        isSonicEquipped: this.progress.sonicState.isSonicEquipped,
+        activeMode: this.progress.sonicState.activeMode,
+      };
+      // console.log(
+      //   "setting objects up for start map",
+      //   initialSonicState,
+      //   this.progress
+      // );
     }
 
     // Load the hud
     // this.hud = new Hud();
     // this.hud.init(document.querySelector(".game-container"));
 
-    // this.startMap(window.OverworldMaps[this.progress.mapId], initialHeroState);
-    this.startMap(window.OverworldMaps.Tardis, initialHeroState);
+    this.startMap(
+      window.OverworldMaps[this.progress.mapId],
+      initialHeroState,
+      initialSonicState
+    );
+    //this.startMap(window.OverworldMaps.Tardis, initialHeroState);
 
     // Create COntrols
     this.bindActionInput();

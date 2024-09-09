@@ -87,7 +87,8 @@ class HudUI {
   }
 
   sonicModeOptionClicked(elem) {
-    this.character.sonicScrewdriver.activeMode = elem;
+    //this.character.sonicScrewdriver.activeMode = elem;
+    this.character.sonicScrewdriver.setActiveMode(elem);
 
     // Update the text of the sonic mode paragraph
     const modeParagraph = this.element.querySelector(".HudUI_sonic_mode_p");

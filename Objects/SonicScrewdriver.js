@@ -62,6 +62,18 @@ class SonicScrewdriver {
     sonicState.activeMode = this.activeMode;
   }
 
+  setActiveMode(mode) {
+    this.activeMode = mode;
+    this.user.map.overworld.progress.sonicState.activeMode = this.activeMode;
+  }
+
+  setIsSonicEquipped(bool) {
+    this.isSonicEquipped = bool;
+
+    this.user.map.overworld.progress.sonicState.isSonicEquipped =
+      this.isSonicEquipped;
+  }
+
   bindSonicListeners() {
     // Using arrow function instead of directly passing method so i can use "this" keyword
     //document.addEventListener("click", (event) => this.handleSonicEvent(event));
@@ -405,7 +417,7 @@ class SonicScrewdriver {
       this.user.sprite.image.src = utils.setDynamicPath(
         "/images/characters-doctor-who/doctor-11.png"
       );
-      this.isSonicEquipped = false;
+      this.setIsSonicEquipped(false);
       this.unbindSonicListeners();
       if (this.user.map) {
         this.user.map.overworld.hud.toggleSonicVisibility(this);
@@ -414,7 +426,7 @@ class SonicScrewdriver {
       this.user.sprite.image.src = utils.setDynamicPath(
         "/images/characters-doctor-who/doctor-11-screwdriver.png"
       );
-      this.isSonicEquipped = true;
+      this.setIsSonicEquipped(true);
       this.bindSonicListeners();
       if (this.user.map) {
         this.user.map.overworld.hud.toggleSonicVisibility(this);

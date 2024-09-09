@@ -7,20 +7,20 @@ class PauseMenu {
   getOptions(pageKey) {
     // Case 1: Show the first page of options
     if (pageKey === "root") {
-      const lineupPizzas = playerState.lineup.map((id) => {
-        const { pizzaId } = playerState.pizzas[id];
-        const base = Pizzas[pizzaId];
-        return {
-          label: base.name,
-          description: base.description,
-          handler: () => {
-            this.keyboardMenu.setOptions(this.getOptions(id));
-          },
-        };
-      });
+      // const lineupPizzas = playerState.lineup.map((id) => {
+      //   const { pizzaId } = playerState.pizzas[id];
+      //   const base = Pizzas[pizzaId];
+      //   return {
+      //     label: base.name,
+      //     description: base.description,
+      //     handler: () => {
+      //       this.keyboardMenu.setOptions(this.getOptions(id));
+      //     },
+      //   };
+      // });
 
       return [
-        ...lineupPizzas,
+        //...lineupPizzas,
         {
           label: "Save",
           description: "Save your progress",
@@ -96,17 +96,17 @@ class PauseMenu {
   }
 
   init(container) {
-    console.log("Container: ", container);
+    //console.log("Container: ", container);
     this.createElement();
     this.keyboardMenu = new KeyboardMenu({
       descriptionContainer: container,
     });
-    console.log("this.element", this.element);
+    //console.log("this.element", this.element);
     this.keyboardMenu.init(this.element);
     this.keyboardMenu.setOptions(this.getOptions("root"));
 
-    console.log("keyboardmenu: ", this.keyboardMenu);
-    console.log("element: ", this.element);
+    //console.log("keyboardmenu: ", this.keyboardMenu);
+    //console.log("element: ", this.element);
 
     container.appendChild(this.element);
 
