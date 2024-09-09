@@ -39,7 +39,9 @@ class TitleScreen {
     this.element = document.createElement("div");
     this.element.classList.add("TitleScreen");
     this.element.innerHTML = `
-    <img class="TitleScreen_logo" src="/images/doctor-who-logo.png" alt="Pizza Legends" />
+    <img class="TitleScreen_logo" src=${utils.setDynamicPath(
+      "/images/doctor-who-logo.png"
+    )} alt="Pizza Legends" />
     `;
   }
 
