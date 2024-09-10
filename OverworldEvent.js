@@ -184,7 +184,7 @@ class OverworldEvent {
     this.map.isPaused = true;
     const menu = new PauseMenu({
       progress: this.map.overworld.progress,
-      overworld: this.map.overworld,
+      map: this.map,
       onComplete: () => {
         resolve();
         this.map.isPaused = false;
@@ -552,6 +552,55 @@ class OverworldEvent {
       );
       resolve();
     }, 100);
+  }
+  async showTitleScreen() {
+    // stop previous map if there is one
+    //this.stopGameLoop();
+    //this.stopMap();
+    this.map.isPaused = true;
+
+    console.log("title screeen: ", this.progress, this.map);
+
+    const container = document.querySelector(".game-container");
+
+    //Show the title screen
+    this.map.overworld.titleScreen = new TitleScreen({
+      progress: this.map.overworld.progress,
+    });
+    const { progress, level } = await this.map.overworld.titleScreen.init(
+      container
+    );
+
+    //Potentially load saved data
+    let initialHeroState = null;
+    let initialSonicState = null;
+    // if progress is returned then start with last saved
+    // else start with level
+    if (progress) {
+      this.map.overworld.progress.load();
+      initialHeroState = {
+        x: this.map.overworld.progress.startingHeroX,
+        y: this.map.overworld.progress.startingHeroY,
+        direction: this.map.overworld.progress.startingHeroDirection,
+      };
+      initialSonicState = {
+        isSonicEquipped: this.map.overworld.progress.sonicState.isSonicEquipped,
+        activeMode: this.map.overworld.progress.sonicState.activeMode,
+      };
+      this.map.overworld.startMap(
+        window.OverworldMaps[this.map.overworld.progress.mapId],
+        initialHeroState,
+        initialSonicState
+      );
+    }
+    if (level) {
+      this.map.overworld.startMap(window.OverworldMaps[level.id]);
+    } else {
+      this.map.overworld.startMap(window.OverworldMaps.Tardis);
+    }
+
+    this.map.isPaused = false;
+    this.map.overworld.startGameLoop();
   }
 
   heroKilled(resolve) {

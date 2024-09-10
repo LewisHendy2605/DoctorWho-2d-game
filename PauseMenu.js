@@ -1,7 +1,7 @@
 class PauseMenu {
-  constructor({ progress, overworld, onComplete }) {
+  constructor({ progress, map, onComplete }) {
     this.onComplete = onComplete;
-    this.overworld = overworld;
+    this.map = map;
     this.progress = progress;
   }
 
@@ -35,7 +35,8 @@ class PauseMenu {
           description: "Exit game and return to title screen",
           handler: () => {
             this.close();
-            this.overworld.showTitleScreen();
+            //this.overworld.showTitleScreen();
+            this.map.startCutscene([{ type: "showTitleScreen" }]);
           },
         },
         {
