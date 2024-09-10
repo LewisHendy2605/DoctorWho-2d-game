@@ -9,21 +9,26 @@ class OverWorld {
     this.touchStartHandler = null;
     this.clickHandler = null;
     this.hud = null;
+    this.isGameRunning = true;
   }
 
   startGameLoop() {
+    // Set the game running flag to true
+    this.isGameRunning = true;
+
     const step = () => {
+      // Exit the loop if the game is no longer running
+      if (!this.isGameRunning) {
+        return;
+      }
+
       // Clear canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-      //Establish the camera person
+      // Establish the camera person
       const cameraPerson = this.flyTardis
         ? this.map.gameObjects.tardis
         : this.map.gameObjects.hero;
-
-      // if (this.flyTardis) {
-      //   console.log(this.map.gameObjects.he
-      // }
 
       // Update all objects
       Object.values(this.map.gameObjects).forEach((object) => {
@@ -36,13 +41,12 @@ class OverWorld {
       // Draw Lower Layer
       this.map.drawLowerImage(this.ctx, cameraPerson);
 
-      //Draw Game Objects
+      // Draw Game Objects
       Object.values(this.map.gameObjects)
         .sort((a, b) => {
           return a.y - b.y;
         })
         .forEach((object) => {
-          //console.log("Drawing: ", object);
           // Skip drawing the hero if flying the Tardis
           if (this.flyTardis && object === this.map.gameObjects.hero) {
             return;
@@ -53,13 +57,17 @@ class OverWorld {
       // Draw Upper Layer
       this.map.drawUpperImage(this.ctx, cameraPerson);
 
+      // Continue the loop if the game is not paused
       if (!this.map.isPaused) {
-        requestAnimationFrame(() => {
-          step();
-        });
+        requestAnimationFrame(step);
       }
     };
+
     step();
+  }
+
+  stopGameLoop() {
+    this.isGameRunning = false;
   }
 
   bindActionInput() {
@@ -120,13 +128,19 @@ class OverWorld {
     });
   }
 
-  startMap(mapConfig, heroInitialState = null, sonicInitialState = null) {
+  stopMap() {
     // if map is being changed, then call objects done func
     // mainly this is to complete sonic lifecysle between maps for consistent hud updates
     if (this.map) {
       console.log("demonting objects", this);
       this.map.demountObjects();
+      //this.map = null;
     }
+  }
+
+  startMap(mapConfig, heroInitialState = null, sonicInitialState = null) {
+    // stop previous map if there is one
+    this.stopMap();
 
     // update state variabels befoer mounting objects
     if (sonicInitialState) {
@@ -139,6 +153,8 @@ class OverWorld {
     this.map = new OverWorldMap(mapConfig);
     this.map.overworld = this;
     this.map.mountObjects();
+
+    console.log("start map:  ", mapConfig, this.progress, this.map);
 
     if (heroInitialState) {
       const { hero } = this.map.gameObjects;
@@ -223,6 +239,52 @@ class OverWorld {
       this.sonicButton.style.display = "none";
       this.sonicShootButton.style.display = "none";
     }
+  }
+
+  async showTitleScreen() {
+    // stop previous map if there is one
+    //this.stopGameLoop();
+    //this.stopMap();
+    this.map.isCutScenePlaying = true;
+
+    console.log("title screeen: ", this.progress, this.map);
+
+    const container = document.querySelector(".game-container");
+
+    //Show the title screen
+    this.titleScreen = new TitleScreen({ progress: this.progress });
+    const { progress, level } = await this.titleScreen.init(container);
+
+    //Potentially load saved data
+    let initialHeroState = null;
+    let initialSonicState = null;
+    // if progress is returned then start with last saved
+    // else start with level
+    if (progress) {
+      this.progress.load();
+      initialHeroState = {
+        x: this.progress.startingHeroX,
+        y: this.progress.startingHeroY,
+        direction: this.progress.startingHeroDirection,
+      };
+      initialSonicState = {
+        isSonicEquipped: this.progress.sonicState.isSonicEquipped,
+        activeMode: this.progress.sonicState.activeMode,
+      };
+      this.startMap(
+        window.OverworldMaps[this.progress.mapId],
+        initialHeroState,
+        initialSonicState
+      );
+    }
+    if (level) {
+      this.startMap(window.OverworldMaps[level.id]);
+    } else {
+      this.startMap(window.OverworldMaps.Tardis);
+    }
+
+    // after resume objects behavuor
+    this.map.isCutScenePlaying = false;
   }
 
   async init() {

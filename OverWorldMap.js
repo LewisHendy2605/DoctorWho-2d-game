@@ -879,6 +879,8 @@ window.OverworldMaps = {
     gameObjects: {
       hero: new Doctor({
         isPlayerControlled: true,
+        //x: utils.withGrid(44),
+        //y: utils.withGrid(10),
         x: utils.withGrid(73),
         y: utils.withGrid(87),
         src: "/images/characters-doctor-who/doctor-11.png",

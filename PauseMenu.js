@@ -1,6 +1,7 @@
 class PauseMenu {
-  constructor({ progress, onComplete }) {
+  constructor({ progress, overworld, onComplete }) {
     this.onComplete = onComplete;
+    this.overworld = overworld;
     this.progress = progress;
   }
 
@@ -27,6 +28,14 @@ class PauseMenu {
           handler: () => {
             this.progress.save();
             this.close();
+          },
+        },
+        {
+          label: "Exit Game",
+          description: "Exit game and return to title screen",
+          handler: () => {
+            this.close();
+            this.overworld.showTitleScreen();
           },
         },
         {
