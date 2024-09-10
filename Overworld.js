@@ -91,13 +91,14 @@ class OverWorld {
     // }
 
     if (pauseButton) {
-      pauseButton.addEventListener("touchstart", (event) => {
-        console.log("pressded pause");
-        event.preventDefault(); // Prevent default touch action
-        if (!this.map.isCutscenePlaying) {
-          this.map.startCutscene([{ type: "pause" }]);
-        }
-      });
+      //console.log("setting pausebutton", pauseButton);
+      // pauseButton.addEventListener("touchstart", (event) => {
+      //   console.log("pressded pause");
+      //   event.preventDefault(); // Prevent default touch action
+      //   if (!this.map.isCutscenePlaying) {
+      //     this.map.startCutscene([{ type: "pause" }]);
+      //   }
+      // });
       pauseButton.addEventListener("click", (event) => {
         console.log("pressded pause, click");
         event.preventDefault(); // Prevent default touch action
