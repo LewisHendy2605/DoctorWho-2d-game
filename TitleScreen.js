@@ -5,30 +5,33 @@ class TitleScreen {
 
   getOptions(resolve) {
     const saveFile = this.progress.getSaveFile();
+    const demoLevel = window.OverworldMaps.DemoLevel;
     return [
       {
         label: "New Game",
         description: "Start a New Game as the Doctor in the Tardis",
         handler: () => {
           this.close();
-          resolve();
+          resolve({ progress: null, level: null });
         },
       },
-      {
-        label: "Demo Level",
-        description: "Learn the basics with instructions",
-        handler: () => {
-          this.close();
-          resolve();
-        },
-      },
+      demoLevel
+        ? {
+            label: "Demo Level",
+            description: "Learn with the Demo Level",
+            handler: () => {
+              this.close();
+              resolve({ progress: null, level: demoLevel });
+            },
+          }
+        : null,
       saveFile
         ? {
             label: "Continue Game",
             description: "Resume your game",
             handler: () => {
               this.close();
-              resolve(saveFile);
+              resolve({ progress: saveFile, level: null });
             },
           }
         : null,
@@ -43,6 +46,9 @@ class TitleScreen {
       "/images/doctor-who-2d-logo.png"
     )} alt="Pizza Legends" />
     `;
+
+    const dynamicUrl = utils.setDynamicPath("/images/planets/stars.png");
+    this.element.style.backgroundImage = `url(${dynamicUrl})`;
   }
 
   close() {

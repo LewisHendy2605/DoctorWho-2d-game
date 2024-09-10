@@ -234,13 +234,15 @@ class OverWorld {
 
     //Show the title screen
     this.titleScreen = new TitleScreen({ progress: this.progress });
-    const useSaveFile = await this.titleScreen.init(container);
+    const { progress, level } = await this.titleScreen.init(container);
 
+    console.log("savefie, demolevel: ", progress, level);
     //Potentially load saved data
     let initialHeroState = null;
     let initialSonicState = null;
-    // const saveFile = this.progress.getSaveFile();
-    if (useSaveFile) {
+    // if progress is returned then start with last saved
+    // else start with level
+    if (progress) {
       this.progress.load();
       initialHeroState = {
         x: this.progress.startingHeroX,
@@ -251,22 +253,22 @@ class OverWorld {
         isSonicEquipped: this.progress.sonicState.isSonicEquipped,
         activeMode: this.progress.sonicState.activeMode,
       };
-      // console.log(
-      //   "setting objects up for start map",
-      //   initialSonicState,
-      //   this.progress
-      // );
+      this.startMap(
+        window.OverworldMaps[this.progress.mapId],
+        initialHeroState,
+        initialSonicState
+      );
+    }
+    if (level) {
+      this.startMap(window.OverworldMaps[level.id]);
+    } else {
+      this.startMap(window.OverworldMaps.Tardis);
     }
 
     // Load the hud
     // this.hud = new Hud();
     // this.hud.init(document.querySelector(".game-container"));
 
-    this.startMap(
-      window.OverworldMaps[this.progress.mapId],
-      initialHeroState,
-      initialSonicState
-    );
     //this.startMap(window.OverworldMaps.Tardis, initialHeroState);
 
     // Create COntrols

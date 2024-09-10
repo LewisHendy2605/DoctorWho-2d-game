@@ -870,4 +870,49 @@ window.OverworldMaps = {
       // ],
     },
   },
+  DemoLevel: {
+    id: "DemoLevel",
+    lowerSrc: "/images/maps/DarlekBase-v1.png",
+    upperSrc: "/images/maps/KitchenUpper.png",
+    tardisDoorX: utils.withGrid(48),
+    tardisDoorY: utils.withGrid(30),
+    gameObjects: {
+      hero: new Doctor({
+        isPlayerControlled: true,
+        x: utils.withGrid(73),
+        y: utils.withGrid(87),
+        src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      tardis: new Tardis({
+        isPlayerControlled: false,
+        x: utils.withGrid(44),
+        y: utils.withGrid(4),
+        src: "/images/tardis/tardis-light-blue.png",
+        //src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      darlek: new Darlek({
+        isPlayerControlled: false,
+        x: utils.withGrid(30),
+        y: utils.withGrid(18),
+        src: "/images/characters-doctor-who/darlek.png",
+        behaviorLoop: [
+          { type: "followHero" },
+          { type: "speak", text: "Exterminate !" },
+          { type: "shoot" },
+        ],
+        talking: [
+          {
+            events: [
+              {
+                type: "textMessage",
+                text: "Exterminate",
+                faceHero: "darlek",
+              },
+            ],
+          },
+        ],
+      }),
+    },
+    cutsceneSpaces: {},
+  },
 };
