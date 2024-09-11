@@ -53,7 +53,8 @@ class Doctor extends GameObject {
     // killevent.init();
   }
 
-  done() {
+  deMount() {
+    super.deMount();
     console.log("Doctor done called: ", this);
     this.sonicScrewdriver.done();
   }

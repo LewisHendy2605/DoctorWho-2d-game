@@ -52,6 +52,10 @@ class GameObject {
     }
   }
 
+  deMount() {
+    this.map.removeWall(this.x, this.y);
+  }
+
   mount(map) {
     console.log("mounted: ", this);
     this.isMounted = true;

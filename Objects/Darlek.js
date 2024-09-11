@@ -70,7 +70,8 @@ class Darlek extends GameObject {
     ];
   }
 
-  done() {
+  deMount() {
+    super.deMount();
     console.log("Darlek done called: ", this);
   }
 

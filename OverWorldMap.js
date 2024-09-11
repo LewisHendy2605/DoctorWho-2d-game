@@ -126,9 +126,7 @@ class OverWorldMap {
       let object = this.gameObjects[key];
       object.id = key;
       // Complete lifecycle of Objects
-      if (object.done) {
-        object.done();
-      }
+      object.deMount();
     });
   }
 
