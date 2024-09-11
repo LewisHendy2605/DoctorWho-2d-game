@@ -75,7 +75,7 @@ class OverworldEvent {
   async followHero(resolve) {
     //console.log("follow hero called");
     try {
-      await utils.wait(800); // wait is to slow darleks down
+      //await utils.wait(800); // wait is to slow darleks down
       await new Promise((res) => this.faceHero(res));
       await new Promise((res) => this.walkFoward(res));
       resolve();
