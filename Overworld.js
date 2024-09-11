@@ -132,7 +132,7 @@ class OverWorld {
     // if map is being changed, then call objects done func
     // mainly this is to complete sonic lifecysle between maps for consistent hud updates
     if (this.map) {
-      console.log("demonting objects", this);
+      console.log("demonting objects", this.map.gameObjects);
       this.map.demountObjects();
       //this.map = null;
     }

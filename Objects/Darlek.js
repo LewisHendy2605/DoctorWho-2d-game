@@ -72,11 +72,11 @@ class Darlek extends GameObject {
 
   deMount() {
     super.deMount();
-    console.log("Darlek done called: ", this);
+    //console.log("Darlek done called: ", this);
   }
 
   kill() {
-    console.log("Darlek killed", this);
+    //console.log("Darlek killed", this);
     this.isAlive = false;
     //console.log(this);
   }

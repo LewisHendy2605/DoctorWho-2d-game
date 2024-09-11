@@ -37,14 +37,12 @@ class OverWorldMap {
 
       // Use the constructor to recreate the object
       if (obj instanceof Doctor) {
-        console.log("copying doctor: ", obj);
         newGameObjects[key] = new Doctor({
           //...obj, // Spread the object properties, passing them to the constructor
           //src: "/images/characters-doctor-who/doctor-11.png",
           src: obj.imageSrc,
           ...obj,
         });
-        console.log("copied doctor: ", newGameObjects[key]);
       } else if (obj instanceof Tardis) {
         newGameObjects[key] = new Tardis({
           src: obj.imageSrc,
@@ -115,7 +113,7 @@ class OverWorldMap {
       let object = this.gameObjects[key];
       object.id = key;
 
-      console.log("mounting called: ", object);
+      //console.log("mounting called: ", object);
       // TODO: determine if this object should actually mount
       object.mount(this);
     });

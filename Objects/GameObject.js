@@ -34,7 +34,6 @@ class GameObject {
         src: config.src || "/images/characters/people/hero.png",
       });
     } else if (this.type === "doctor") {
-      console.log("setting doctor sprite:", config, this);
       this.sprite = new DoctorSprite({
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",

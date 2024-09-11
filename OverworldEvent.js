@@ -559,7 +559,7 @@ class OverworldEvent {
     //this.stopMap();
     this.map.isPaused = true;
 
-    console.log("title screeen: ", this.progress, this.map);
+    //console.log("title screeen: ", this.progress, this.map);
 
     const container = document.querySelector(".game-container");
 

@@ -55,7 +55,7 @@ class Doctor extends GameObject {
 
   deMount() {
     super.deMount();
-    console.log("Doctor done called: ", this);
+    //console.log("Doctor done called: ", this);
     this.sonicScrewdriver.done();
   }
 
