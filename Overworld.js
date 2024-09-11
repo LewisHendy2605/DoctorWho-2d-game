@@ -170,7 +170,7 @@ class OverWorld {
     this.progress.startingHeroX = this.map.gameObjects.hero.x;
     this.progress.startingHeroY = this.map.gameObjects.hero.y;
     this.progress.startingHeroDirection = this.map.gameObjects.hero.direction;
-    console.log("setting progress values", this.progress);
+    //console.log("setting progress values", this.progress);
   }
 
   unbindMobileListeners(actionButton) {

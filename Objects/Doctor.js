@@ -1,5 +1,6 @@
 class Doctor extends GameObject {
   constructor(config) {
+    //console.log("new doctor", config);
     super(config, "doctor");
     this.movingProgressRemaining = 0;
     this.isStanding = false;

@@ -2,18 +2,23 @@ class OverWorldMap {
   constructor(config) {
     this.id = config.id || null;
     this.overworld = null;
-    this.gameObjects = config.gameObjects;
+
+    // Deep copy the gameObjects, cutsceneSpaces, and other objects
+    // Recreate game objects, do not deep copy them directly
+    //console.log("copying gameObjects:", config.gameObjects);
+    this.gameObjects = this.recreateGameObjects(config.gameObjects);
+    //console.log("copied gameObjects:", this.gameObjects, config.gameObjects);
     this.cutsceneSpaces = config.cutsceneSpaces || {};
     this.interavtives = config.interavtives || {};
     this.sonicspaces = config.sonicspaces || {};
     this.walls = config.walls || {};
 
+    // Set images
     this.lowerImage = new Image();
     this.lowerImage.src = utils.setDynamicPath(config.lowerSrc);
 
     this.upperImage = new Image();
     this.upperImage.src = utils.setDynamicPath(config.upperSrc);
-    //console.log("Config src: ", this.dynamicPath(config.lowerSrc));
 
     this.isCutScenePlaying = false;
     this.isEventHappening = false;
@@ -22,7 +27,66 @@ class OverWorldMap {
     this.tardisLanded = config.tardisLanded || null;
 
     this.sonicMenu = null;
-    //console.log("new overworldMap", this.gameObjects);
+  }
+
+  // Method to recreate gameObjects with their class constructors
+  recreateGameObjects(gameObjects) {
+    const newGameObjects = {};
+    Object.keys(gameObjects).forEach((key) => {
+      const obj = gameObjects[key];
+
+      // Use the constructor to recreate the object
+      if (obj instanceof Doctor) {
+        console.log("copying doctor: ", obj);
+        newGameObjects[key] = new Doctor({
+          //...obj, // Spread the object properties, passing them to the constructor
+          //src: "/images/characters-doctor-who/doctor-11.png",
+          src: obj.imageSrc,
+          ...obj,
+        });
+        console.log("copied doctor: ", newGameObjects[key]);
+      } else if (obj instanceof Tardis) {
+        newGameObjects[key] = new Tardis({
+          src: obj.imageSrc,
+          ...obj,
+        });
+      } else if (obj instanceof Console) {
+        newGameObjects[key] = new Console({
+          src: obj.imageSrc,
+          ...obj,
+        });
+      } else if (obj instanceof Darlek) {
+        newGameObjects[key] = new Darlek({
+          src: obj.imageSrc,
+          ...obj,
+        });
+      } else {
+        // Handle other object types similarly
+        newGameObjects[key] = { ...obj }; // If it's a plain object, just copy it
+      }
+    });
+    return newGameObjects;
+  }
+
+  // Helper function to perform deep copy
+  // Custom deep copy to handle circular references
+  deepCopy(obj, seen = new WeakMap()) {
+    if (obj === null || typeof obj !== "object") {
+      return obj; // Return non-object or null values as is
+    }
+
+    if (seen.has(obj)) {
+      return seen.get(obj); // Return already seen objects to prevent circular reference
+    }
+
+    const copy = Array.isArray(obj) ? [] : {};
+    seen.set(obj, copy); // Mark this object as seen
+
+    Object.keys(obj).forEach((key) => {
+      copy[key] = this.deepCopy(obj[key], seen);
+    });
+
+    return copy;
   }
 
   drawLowerImage(ctx, cameraPerson) {
@@ -51,6 +115,7 @@ class OverWorldMap {
       let object = this.gameObjects[key];
       object.id = key;
 
+      console.log("mounting called: ", object);
       // TODO: determine if this object should actually mount
       object.mount(this);
     });
@@ -68,7 +133,7 @@ class OverWorldMap {
   }
 
   async startCutscene(events) {
-    console.log("starting cutscene");
+    //console.log("starting cutscene");
     this.isCutScenePlaying = true;
 
     //Start a loop of async events, await each one

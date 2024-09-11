@@ -6,6 +6,8 @@ class GameObject {
     this.y = config.y || 0;
     this.direction = config.direction || "down";
 
+    this.imageSrc = config.src || "/images/characters/people/hero.png";
+
     this.isConsole = config.isConsole || false;
     this.type = type || null;
 
@@ -32,6 +34,7 @@ class GameObject {
         src: config.src || "/images/characters/people/hero.png",
       });
     } else if (this.type === "doctor") {
+      console.log("setting doctor sprite:", config, this);
       this.sprite = new DoctorSprite({
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
