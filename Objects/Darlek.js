@@ -8,7 +8,7 @@ class Darlek extends GameObject {
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
-    this.speedMultiplier = 1.5;
+    this.speedMultiplier = 0.5;
 
     this.projectiles = [];
 
@@ -181,11 +181,14 @@ class Darlek extends GameObject {
 
   updatePosition() {
     const [property, change] = this.directionUpdate[this.direction];
-    this[property] += change;
-    this.movingProgressRemaining -= 1;
 
-    if (this.movingProgressRemaining === 0) {
+    // Adjust movement speed using speedMultiplier
+    this[property] += change * this.speedMultiplier;
+    this.movingProgressRemaining -= 1 * this.speedMultiplier; // Slow down or speed up based on the multiplier
+
+    if (this.movingProgressRemaining <= 0) {
       // We finished the walk
+      this.movingProgressRemaining = 0; // Ensure it doesn't go below 0
       utils.emitEvent("PersonWalkComplete", {
         whoId: this.id,
       });

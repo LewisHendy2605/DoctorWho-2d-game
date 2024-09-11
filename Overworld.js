@@ -13,15 +13,7 @@ class OverWorld {
   }
 
   startGameLoop() {
-    // Set the game running flag to true
-    this.isGameRunning = true;
-
     const step = () => {
-      // Exit the loop if the game is no longer running
-      if (!this.isGameRunning) {
-        return;
-      }
-
       // Clear canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 

@@ -786,11 +786,7 @@ window.OverworldMaps = {
         x: utils.withGrid(30),
         y: utils.withGrid(18),
         src: "/images/characters-doctor-who/darlek.png",
-        behaviorLoop: [
-          { type: "followHero" },
-          { type: "speak", text: "Exterminate !" },
-          { type: "shoot" },
-        ],
+        behaviorLoop: [{ type: "followHeroAndShoot" }],
         talking: [
           {
             events: [
@@ -963,16 +959,17 @@ window.OverworldMaps = {
           { type: "speak", text: "Exterminate !" },
           { type: "shoot" },
         ],
-        talking: [
-          {
-            events: [
-              {
-                type: "textMessage",
-                text: "Exterminate",
-                faceHero: "darlek",
-              },
-            ],
-          },
+      }),
+      darlekOne: new Darlek({
+        isPlayerControlled: false,
+        x: utils.withGrid(68),
+        y: utils.withGrid(87),
+        src: "/images/characters-doctor-who/darlek.png",
+        behaviorLoop: [
+          { type: "followHero" },
+          //{ type: "wait", length: 900 },
+          // { type: "speak", text: "Exterminate !" },
+          // { type: "shoot" },
         ],
       }),
     },

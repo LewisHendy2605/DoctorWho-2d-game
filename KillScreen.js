@@ -32,6 +32,7 @@ class KillScreen {
 
   init(container, callback) {
     this.createElement();
+
     container.appendChild(this.element);
 
     this.element.addEventListener(

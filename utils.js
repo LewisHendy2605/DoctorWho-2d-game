@@ -96,6 +96,7 @@ const utils = {
   },
 
   // Faces obj1 towards obj2
+  // Faces obj1 towards obj2 and aligns coordinates for shooting
   faceObjToOtherObj(obj1, obj2) {
     const { x: x1, y: y1 } = obj1;
     const { x: x2, y: y2 } = obj2;
@@ -104,14 +105,64 @@ const utils = {
     const deltaY = y2 - y1;
 
     if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      // Determine horizontal direction
       obj1.direction = deltaX > 0 ? "right" : "left";
+      // Align y-coordinate for shooting
+      //obj1.y = y2; // Align y to the hero's y
     } else {
+      // Determine vertical direction
       obj1.direction = deltaY > 0 ? "down" : "up";
+      // Align x-coordinate for shooting
+      //obj1.x = x2; // Align x to the hero's x
     }
 
-    //console.log(`obj1 is now facing ${obj1.direction}`);
+    // Optional: Log the direction and coordinates for debugging
+    // console.log(`obj1 is facing ${obj1.direction}, coordinates set to (${obj1.x}, ${obj1.y})`);
   },
 
+  faceObjToOtherObjAlt(obj1, obj2, minDistance = 1) {
+    const { x: x1, y: y1 } = obj1;
+    const { x: x2, y: y2 } = obj2;
+
+    const deltaX = x2 - x1;
+    const deltaY = y2 - y1;
+
+    // Determine the distance between the two objects
+    const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+    // Check if the distance is greater than the minimum distance
+    if (distance > minDistance) {
+      if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Determine horizontal direction
+        obj1.direction = deltaX > 0 ? "right" : "left";
+        // Align y-coordinate for shooting
+        obj1.y = y2; // Align y to the hero's y
+        // Move obj1 towards obj2
+        obj1.x =
+          x1 +
+          (deltaX > 0
+            ? Math.min(deltaX, minDistance)
+            : Math.max(deltaX, -minDistance));
+      } else {
+        // Determine vertical direction
+        obj1.direction = deltaY > 0 ? "down" : "up";
+        // Align x-coordinate for shooting
+        obj1.x = x2; // Align x to the hero's x
+        // Move obj1 towards obj2
+        obj1.y =
+          y1 +
+          (deltaY > 0
+            ? Math.min(deltaY, minDistance)
+            : Math.max(deltaY, -minDistance));
+      }
+    } else {
+      // Stop moving if within the minimum distance
+      obj1.direction = "none"; // No movement
+    }
+
+    // Optional: Log the direction and coordinates for debugging
+    // console.log(`obj1 is facing ${obj1.direction}, coordinates set to (${obj1.x}, ${obj1.y})`);
+  },
   wait(ms) {
     return new Promise((resolve) => {
       setTimeout(() => {

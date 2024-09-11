@@ -73,14 +73,18 @@ class OverworldEvent {
   }
 
   async followHero(resolve) {
-    //console.log("follow hero called");
     try {
-      //await utils.wait(800); // wait is to slow darleks down
+      // Face the hero
       await new Promise((res) => this.faceHero(res));
+
+      // Walk forward after facing the hero
       await new Promise((res) => this.walkFoward(res));
-      resolve();
+
+      resolve(); // Once everything is done, resolve the main promise
     } catch (err) {
-      console.error("Error in faceHero:", err);
+      console.error("Error in followHero process:", err);
+
+      // Ensure resolve is still called, even in case of an error
       resolve();
     }
   }
@@ -160,14 +164,62 @@ class OverworldEvent {
     });
   }
 
-  shoot(resolve) {
+  async followHeroFiveSteps(resolve) {
+    try {
+      // Move toward the hero and count steps
+      await new Promise((res) => this.faceHero(res));
+
+      for (let i = 0; i < 5; i++) {
+        // Move for 5 steps
+        await new Promise((res) => this.walkFoward(res));
+      }
+
+      resolve(); // Once the movement loop is done, resolve followHero
+    } catch (err) {
+      console.error("Error in followHero:", err);
+      resolve();
+    }
+  }
+
+  shoot() {
     //console.log("shoot called", this, "gameobjects: ", this.map.gameObjects);
     if (this.event.who === "darlek") {
       const darlek = this.map.gameObjects[this.event.who];
       darlek.shoot();
     }
+  }
 
-    resolve();
+  // wont shoot if stopped mid septs
+  async followHeroAndShoot(resolve) {
+    let stepsTaken = 0; // Track steps taken
+    const shootEveryStepsNum = 7;
+
+    try {
+      // Start moving toward the hero and shooting periodically
+      //await new Promise((res) => this.followHero(res));
+
+      // Move in steps and shoot periodically
+      for (let i = 0; i < shootEveryStepsNum; i++) {
+        // Adjust the number of steps as needed
+        //await new Promise((res) => this.faceHero(res));
+        //await new Promise((res) => this.walkFoward(res)); // Move one step
+        await new Promise((res) => this.followHero(res));
+        stepsTaken += 1;
+
+        // Shoot after every shootEveryStepsNum steps
+        if (stepsTaken >= shootEveryStepsNum) {
+          console.log("Shooting after  ", shootEveryStepsNum, " steps");
+          this.shoot();
+          stepsTaken = 0; // Reset step counter
+        }
+      }
+
+      // Resolve when the behavior is done
+      resolve();
+    } catch (err) {
+      console.error("Error in followHeroAndShoot:", err);
+      resolve(); // Always resolve the promise
+    }
   }
 
   battle(resolve) {
@@ -609,11 +661,21 @@ class OverworldEvent {
     // Change back to tardis map
     this.event.map = "Tardis"; // TODO better way of setting map
     const killScreen = new KillScreen();
-    killScreen.init(document.querySelector(".game-container"), () => {
+    killScreen.init(document.querySelector(".game-container"), async () => {
       this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
+      await utils.wait(500);
       resolve();
-
       killScreen.fadeOut();
+    });
+  }
+
+  wait(resolve) {
+    return new Promise((res) => {
+      setTimeout(() => {
+        console.log("Wait complete");
+        res(); // Resolve the wait promise
+        resolve(); // Resolve the outer promise
+      }, this.event.length);
     });
   }
 
