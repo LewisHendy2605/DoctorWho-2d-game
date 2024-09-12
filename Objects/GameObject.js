@@ -43,6 +43,11 @@ class GameObject {
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
+    } else if (this.type === "door64") {
+      this.sprite = new Door64Sprite({
+        gameObject: this,
+        src: config.src || "/images/characters/people/hero.png",
+      });
     } else {
       this.sprite = new Sprite({
         gameObject: this,

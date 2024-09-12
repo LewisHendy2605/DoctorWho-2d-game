@@ -32,37 +32,42 @@ class OverWorldMap {
   // Method to recreate gameObjects with their class constructors
   recreateGameObjects(gameObjects) {
     const newGameObjects = {};
+
     Object.keys(gameObjects).forEach((key) => {
       const obj = gameObjects[key];
 
-      // Use the constructor to recreate the object
+      // Use the constructor to recreate the object based on its type
       if (obj instanceof Doctor) {
         newGameObjects[key] = new Doctor({
-          //...obj, // Spread the object properties, passing them to the constructor
-          //src: "/images/characters-doctor-who/doctor-11.png",
-          src: obj.imageSrc,
-          ...obj,
+          ...obj, // Spread first to keep original properties
+          src: obj.imageSrc || obj.src, // Set src to obj.imageSrc or fallback to original src
         });
       } else if (obj instanceof Tardis) {
         newGameObjects[key] = new Tardis({
-          src: obj.imageSrc,
           ...obj,
+          src: obj.imageSrc || obj.src,
         });
       } else if (obj instanceof Console) {
         newGameObjects[key] = new Console({
-          src: obj.imageSrc,
           ...obj,
+          src: obj.imageSrc || obj.src,
         });
       } else if (obj instanceof Darlek) {
         newGameObjects[key] = new Darlek({
-          src: obj.imageSrc,
           ...obj,
+          src: obj.imageSrc || obj.src,
+        });
+      } else if (obj instanceof Door) {
+        newGameObjects[key] = new Door({
+          ...obj,
+          src: obj.imageSrc || obj.src,
         });
       } else {
-        // Handle other object types similarly
-        newGameObjects[key] = { ...obj }; // If it's a plain object, just copy it
+        // Handle other object types or throw a detailed error
+        throw new Error(`Unknown object type for key: ${key}`);
       }
     });
+
     return newGameObjects;
   }
 
@@ -113,7 +118,7 @@ class OverWorldMap {
       let object = this.gameObjects[key];
       object.id = key;
 
-      //console.log("mounting called: ", object);
+      console.log("mounting called: ", object);
       // TODO: determine if this object should actually mount
       object.mount(this);
     });
@@ -938,8 +943,8 @@ window.OverworldMaps = {
         isPlayerControlled: true,
         //x: utils.withGrid(44),
         //y: utils.withGrid(10),
-        x: utils.withGrid(73),
-        y: utils.withGrid(87),
+        x: utils.withGrid(86),
+        y: utils.withGrid(76),
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
       tardis: new Tardis({
@@ -949,29 +954,36 @@ window.OverworldMaps = {
         src: "/images/tardis/tardis-light-blue.png",
         //src: "/images/characters-doctor-who/doctor-11.png",
       }),
-      darlek: new Darlek({
+      door: new Door({
         isPlayerControlled: false,
-        x: utils.withGrid(30),
-        y: utils.withGrid(18),
-        src: "/images/characters-doctor-who/darlek.png",
-        behaviorLoop: [
-          { type: "followHero" },
-          { type: "speak", text: "Exterminate !" },
-          { type: "shoot" },
-        ],
+        x: utils.withGrid(83),
+        y: utils.withGrid(70),
+        src: "/images/objects/darlek-door.png",
+        //src: "/images/characters-doctor-who/doctor-11.png",
       }),
-      darlekOne: new Darlek({
-        isPlayerControlled: false,
-        x: utils.withGrid(68),
-        y: utils.withGrid(87),
-        src: "/images/characters-doctor-who/darlek.png",
-        behaviorLoop: [
-          { type: "followHero" },
-          //{ type: "wait", length: 900 },
-          // { type: "speak", text: "Exterminate !" },
-          // { type: "shoot" },
-        ],
-      }),
+      // darlek: new Darlek({
+      //   isPlayerControlled: false,
+      //   x: utils.withGrid(30),
+      //   y: utils.withGrid(18),
+      //   src: "/images/characters-doctor-who/darlek.png",
+      //   behaviorLoop: [
+      //     { type: "followHero" },
+      //     { type: "speak", text: "Exterminate !" },
+      //     { type: "shoot" },
+      //   ],
+      // }),
+      // darlekOne: new Darlek({
+      //   isPlayerControlled: false,
+      //   x: utils.withGrid(68),
+      //   y: utils.withGrid(87),
+      //   src: "/images/characters-doctor-who/darlek.png",
+      //   behaviorLoop: [
+      //     { type: "followHero" },
+      //     //{ type: "wait", length: 900 },
+      //     // { type: "speak", text: "Exterminate !" },
+      //     // { type: "shoot" },
+      //   ],
+      // }),
     },
     cutsceneSpaces: {},
   },
