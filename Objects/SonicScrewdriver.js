@@ -206,7 +206,7 @@ class SonicScrewdriver {
     let sonicScanRayY = this.user.y;
 
     // Define the initial range of the wave (starting from 1)
-    let waveRange = 1;
+    let waveRange = 0;
 
     // Precompute the direction deltas
     const directionDeltas = {
@@ -236,16 +236,17 @@ class SonicScrewdriver {
           );
 
           if (match) {
-            console.log(match); // Display objects to user
+            console.log("Sonic found Match", match); // Display objects to user
 
             if (this.user.map.isEventHappening) {
-              console.log("menu is active");
+              //console.log("menu is active");
               const sonicMenu = document.querySelector(".SonicMenu");
-              console.log("sonic menu from sonic", sonicMenu);
+              //console.log("sonic menu from sonic", sonicMenu);
             } else {
-              console.log("no menu");
+              //console.log("no menu");
               // Start a menu with data
               if (match.interactiveOptions !== 0) {
+                // amybe move to here insted of event
                 const event = new OverworldEvent({
                   map: this.user.map,
                   event: {
@@ -264,7 +265,7 @@ class SonicScrewdriver {
     };
 
     // Iterate through 200 steps asynchronously
-    for (let j = 0; j < 200; j++) {
+    for (let j = 0; j < 70; j++) {
       // Process the current step asynchronously
       const foundMatch = await processStep(
         sonicScanRayX,

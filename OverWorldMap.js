@@ -10,6 +10,7 @@ class OverWorldMap {
     //console.log("copied gameObjects:", this.gameObjects, config.gameObjects);
     this.cutsceneSpaces = config.cutsceneSpaces || {};
     this.interavtives = config.interavtives || {};
+    this.mapEvents = config.mapEvents || {};
     this.sonicspaces = config.sonicspaces || {};
     this.walls = config.walls || {};
 
@@ -20,6 +21,7 @@ class OverWorldMap {
     this.upperImage = new Image();
     this.upperImage.src = utils.setDynamicPath(config.upperSrc);
 
+    this.stopObjects = false;
     this.isCutScenePlaying = false;
     this.isEventHappening = false;
     this.isPaused = false;
@@ -256,6 +258,17 @@ class OverWorldMap {
         this.startCutscene(event);
       }
     }
+  }
+
+  async checkForStartEvent() {
+    const match = this.mapEvents[`startEvents`];
+
+    if (this.isCutScenePlaying || !match) {
+      return;
+    }
+
+    console.log("starting map event", match);
+    await this.startCutscene(match);
   }
 
   addWall(x, y) {
@@ -944,7 +957,7 @@ window.OverworldMaps = {
         //x: utils.withGrid(44),
         //y: utils.withGrid(10),
         x: utils.withGrid(86),
-        y: utils.withGrid(76),
+        y: utils.withGrid(80),
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
       tardis: new Tardis({
@@ -984,6 +997,21 @@ window.OverworldMaps = {
       //     // { type: "shoot" },
       //   ],
       // }),
+    },
+    mapEvents: {
+      startEvents: [
+        {
+          type: "textMessage",
+          text: "Look around the room and use the sonic to investigate / interact with objects (Use Q to equip, E to scan, space to fire a burst - Sonic mode can be changed in the HUD)",
+          fontSize: "0.5rem",
+          height: "8svh",
+        },
+        // {
+        //   type: "textMessage",
+        //   text: "Use Q to equip, E to scan and space to fire a burst",
+        //   fontSize: 0.5,
+        // },
+      ],
     },
     cutsceneSpaces: {},
   },

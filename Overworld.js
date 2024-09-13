@@ -335,6 +335,8 @@ class OverWorld {
     // Kick off the game
     this.startGameLoop();
 
+    this.map.checkForStartEvent();
+
     this.map.startCutscene([
       //{ type: "changeTardisDest", map: "DemoRoom" },
       //{ type: "battle", enemyId: "beth" },

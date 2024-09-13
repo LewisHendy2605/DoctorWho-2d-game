@@ -123,9 +123,35 @@ class OverworldEvent {
 
     const message = new TextMessage({
       text: this.event.text,
+      fontSize: this.event.fontSize,
+      height: this.event.height,
       onComplete: (interrupted) => {
         if (!interrupted) {
           resolve();
+        }
+      },
+    });
+    message.init(document.querySelector(".game-container"));
+  }
+
+  textMessageStopObjects(resolve) {
+    this.map.stopObjects = true;
+    console.log("stoppping ojects", this.map);
+    if (this.event.faceHero) {
+      const obj = this.map.gameObjects[this.event.faceHero];
+      obj.direction = utils.oppositeDirection(
+        this.map.gameObjects["hero"].direction
+      );
+    }
+
+    const message = new TextMessage({
+      text: this.event.text,
+      fontSize: this.event.fontSize,
+      height: this.event.height,
+      onComplete: (interrupted) => {
+        if (!interrupted) {
+          resolve();
+          this.map.stopObjects = false;
         }
       },
     });
@@ -341,6 +367,7 @@ class OverworldEvent {
 
     //console.log("this.options: ", this.options);
     //console.log("this.event.options: ", this.event.options);
+    //
 
     this.sonicMenu = new SonicMenu({
       map: this.map,

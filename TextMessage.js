@@ -1,6 +1,8 @@
 class TextMessage {
-  constructor({ text, onComplete }) {
+  constructor({ text, fontSize = null, height = null, onComplete }) {
     this.text = text;
+    this.fontSize = fontSize;
+    this.height = height;
     this.onComplete = onComplete;
     this.element = null;
     this.interrupted = false; // Flag to indicate if the event was interrupted
@@ -15,6 +17,17 @@ class TextMessage {
     <p class="TextMessage_p"></p>
     <button class="TextMessage_button">Next</button>
   `;
+
+    // dynamc adjusting of font from event
+    if (this.fontSize) {
+      const pElement = this.element.querySelector(".TextMessage_p");
+      pElement.style.fontSize = this.fontSize;
+    }
+
+    if (this.height) {
+      console.log("height adjusted", this.fontSize);
+      this.element.style.height = this.height;
+    }
 
     // Init the typewriter effect
     this.revealingText = new RevealingText({

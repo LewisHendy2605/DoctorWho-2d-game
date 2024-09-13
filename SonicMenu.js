@@ -98,7 +98,7 @@ class SonicMenu {
     console.log("Show data callsed");
     console.log(data);
     this.dataScreenMenu = new Menu({
-      title: "Scan results for: " + data.type,
+      title: "Scan results for: " + data.id,
     });
     this.menu.hide();
     this.dataScreenMenu.init(this.container);

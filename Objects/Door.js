@@ -31,7 +31,9 @@ class Door extends GameObject {
 
     this.interactiveOptions = [
       {
-        label: "Scan Results from " + this.type,
+        label:
+          "Scan Results from " +
+          utils.capitalizeFirstLetter(utils.removeNumbersFromString(this.type)),
         class: "choose-dest",
         handler: () => {
           // // Close menu scrren

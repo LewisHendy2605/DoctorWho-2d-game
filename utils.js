@@ -7,6 +7,22 @@ const utils = {
     // Capitalize the first letter and concatenate with the rest of the string
     return str.charAt(0).toUpperCase() + str.slice(1);
   },
+  removeNumbersFromString(str) {
+    if (typeof str !== "string" || str.length === 0) {
+      return str; // Return the input if it's not a string or is empty
+    }
+
+    // Use filter to remove any character that is a number
+    let result = "";
+    for (const char of str) {
+      if (!/\d/.test(char)) {
+        // Check if the character is NOT a digit
+        result += char; // Append non-numeric characters to the result
+      }
+    }
+
+    return result;
+  },
   withGrid(n) {
     return n * 16;
   },

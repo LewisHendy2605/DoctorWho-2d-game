@@ -91,34 +91,38 @@ class Doctor extends GameObject {
 
   update(state) {
     //console.log("Doctor update !!: ", this, state);
-    if (this.movingProgressRemaining > 0) {
-      this.updatePosition();
-    } else {
-      // More cases for starting to walk will come here
-      //
-      //
+    if (!this.map.stopObjects) {
+      if (this.movingProgressRemaining > 0) {
+        this.updatePosition();
+      } else {
+        // More cases for starting to walk will come here
+        //
+        //
 
-      // Case: Were keyboard ready and have an arrow presed
-      if (
-        !state.map.isCutScenePlaying &&
-        this.isPlayerControlled &&
-        state.arrow
-      ) {
-        this.startBehavior(state, {
-          type: "walk",
-          direction: state.arrow,
-        });
+        // Case: Were keyboard ready and have an arrow presed
+        if (
+          !state.map.isCutScenePlaying &&
+          this.isPlayerControlled &&
+          state.arrow
+        ) {
+          this.startBehavior(state, {
+            type: "walk",
+            direction: state.arrow,
+          });
+        }
+        this.updateSprite(state);
       }
-      this.updateSprite(state);
+
+      // Update all projectiles
+      this.sonicProjectiles.forEach((projectile) => projectile.update());
+
+      // // Remove inactive projectiles
+      this.sonicProjectiles = this.sonicProjectiles.filter(
+        (projectile) => projectile.isActive
+      );
+    } else {
+      console.log("stopping objects");
     }
-
-    // Update all projectiles
-    this.sonicProjectiles.forEach((projectile) => projectile.update());
-
-    // // Remove inactive projectiles
-    this.sonicProjectiles = this.sonicProjectiles.filter(
-      (projectile) => projectile.isActive
-    );
   }
 
   startBehavior(state, behavior) {

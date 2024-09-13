@@ -38,6 +38,7 @@
   position: absolute;
   right: 0.5rem;
   bottom: 0;
+  opacity: 0.7;
 }
 .TextMessage_button:hover {
   background: var(--menu-background-dark);
