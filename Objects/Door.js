@@ -5,9 +5,9 @@ class Door extends GameObject {
     this.isStanding = false;
     this.isOpen = false;
 
-    this.isPlayerControlled = config.isPlayerControlled || false;
+    this.isPlayerControlled = false;
 
-    this.speedMultiplier = 3;
+    this.speedMultiplier = 1;
 
     this.directionUpdate = {
       up: ["y", -1],
@@ -22,7 +22,7 @@ class Door extends GameObject {
       { type: "Description", data: "Door inside darlek base" },
       { type: "Electrical Systems", data: "Active" },
       { type: "Status", data: this.isOpen ? "Open" : "Closed" },
-      { type: "Status", data: "Locked" },
+      { type: "Lock Status", data: "Locked" },
       {
         type: "Perceptible to",
         data: "Sonic field pulse to override lock system",
@@ -57,43 +57,58 @@ class Door extends GameObject {
   }
 
   toggleOpenOrCloseDoor() {
-    // Set to open or closed animation
+    // Toggle the door state
+    this.isOpen = !this.isOpen;
+
+    // Update the animation based on the new state
     if (this.isOpen) {
-      this.isOpen = "false";
-      this.sprite.setAnimation("closed");
-    } else {
-      this.isOpen = "true";
       this.sprite.setAnimation("open");
+      // remove walls to walkthrough
+      this.map.removeWall(this.x + utils.withGrid(1), this.y);
+      this.map.removeWall(
+        this.x + utils.withGrid(1),
+        this.y + utils.withGrid(1)
+      );
+      this.map.removeWall(
+        this.x + utils.withGrid(1),
+        this.y + utils.withGrid(2)
+      );
+    } else {
+      this.sprite.setAnimation("closed");
+      // re add waalls
+      this.map.addWall(this.x + utils.withGrid(1), this.y);
+      this.map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
+      this.map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
     }
+
+    // Update the "Status" field in the data dynamically
+    this.data = this.data.map((item) => {
+      if (item.type === "Status") {
+        return {
+          ...item,
+          data: this.isOpen ? "Open" : "Closed",
+        };
+      }
+      return item;
+    });
   }
 
   mount(map) {
     super.mount(map);
-    // //console.log("Tardis mounted");
-    // this.isMounted = true;
 
-    // // Add walls for the larger Tardis sprite
-    // map.addWall(this.x + utils.withGrid(1), this.y);
-    // // map.addWall(this.x + utils.withGrid(2), this.y);
-    // // map.addWall(this.x + utils.withGrid(3), this.y);
-    // // map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
-    // // map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
-    // // map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(3));
-    // // map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(4));
-    // // map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(1));
-    // // map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(2));
-    // // map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(3));
-    // // map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(1));
-    // // map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(2));
-    // // map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(3));
-    // // map.addWall(this.x + utils.withGrid(3), this.y + utils.withGrid(4));
+    // left hoizonal side
+    map.addWall(this.x, this.y + utils.withGrid(1));
+    map.addWall(this.x, this.y + utils.withGrid(2));
 
-    // this.map = map;
+    // middle horizontal
+    map.addWall(this.x + utils.withGrid(1), this.y);
+    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
+    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
 
-    // // If we have a behavior, kick off after a short delay
-    // setTimeout(() => {
-    //   this.deBehaviorEvent(map);
-    // }, 10);
+    // right horizontal side
+    map.addWall(this.x + utils.withGrid(2), this.y);
+    map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(1));
+    map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(2));
   }
 
   update(state) {

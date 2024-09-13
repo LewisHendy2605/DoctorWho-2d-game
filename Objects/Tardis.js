@@ -134,6 +134,8 @@ class Tardis extends GameObject {
         return;
       }
 
+      // need to also move other wallls
+
       // Ready to walk
       state.map.moveWall(this.x, this.y, this.direction);
       utils.emitEvent("PersonStartWalk", {
