@@ -4,6 +4,10 @@ class HudUI {
     this.imgPath = utils.setDynamicPath(imgPath);
     this.sonicImgPath = utils.setDynamicPath("/images/ui/sonic-ui.png");
     this.container = document.querySelector(".game-container");
+
+    this.isPlayerMenuActive = false;
+    this.playerMenuActiveScreen = "";
+
     this.isSonicMenuActive = false;
     this.sonic - null;
   }
@@ -47,6 +51,175 @@ class HudUI {
   }
   addOrRemoveDoctorHUD() {
     console.log("Doctor clicked");
+    //toggleSonic;
+    // if active hide menu
+    if (this.isPlayerMenuActive) {
+      this.clearPlayerMenuScreen();
+      // remove screen + update tracker
+      this.playerHudMenu.remove();
+      this.isPlayerMenuActive = false;
+    } else {
+      // else add it to hud
+      this.playerHudMenu = document.createElement("div");
+      this.playerHudMenu.classList.add("PlayerHudUI");
+      this.playerHudMenu.innerHTML = `
+      
+      <div class="PlayerHudUI_header"> 
+        <p class="PlayerHudUI_header_option invatory">Invatory</p> 
+        <p class="PlayerHudUI_header_option skills">Skills</p> 
+        <p class="PlayerHudUI_header_option crafting">Crafting</p> 
+        <p class="PlayerHudUI_header_option map">Map</p> 
+      </div>
+      `;
+      // <h3 class="PlayerHudUI_title">${"Player Menu"}</h3>
+      // <p class="SonicHudUI_option"> Settings </p>
+
+      // Add listeners to show the relevant screen when header iption is clicked
+      //invatory
+      this.invatoryHeaderElem = this.playerHudMenu.querySelector(
+        ".PlayerHudUI_header_option.invatory"
+      );
+      this.invatoryHeaderElem.addEventListener("click", () =>
+        this.addInvatoryScreen()
+      );
+      //skills
+      this.skillsHeaderElem = this.playerHudMenu.querySelector(
+        ".PlayerHudUI_header_option.skills"
+      );
+      this.skillsHeaderElem.addEventListener("click", () =>
+        this.addSkillsScreen()
+      );
+      // map
+      this.mapHeaderElem = this.playerHudMenu.querySelector(
+        ".PlayerHudUI_header_option.map"
+      );
+      this.mapHeaderElem.addEventListener("click", () => this.addMapScreen());
+
+      // show invatory to start
+      this.addInvatoryScreen();
+
+      // // add elemet to game container
+      this.element.appendChild(this.playerHudMenu);
+      this.isPlayerMenuActive = true;
+    }
+  }
+
+  clearPlayerMenuScreen() {
+    this.removeInvatoryScreen();
+    this.removeSkillsScreen();
+    this.removeMapScreen();
+  }
+
+  addInvatoryScreen() {
+    this.clearPlayerMenuScreen();
+    console.log("invatory clicked");
+    // if (this.playerMenuActiveScreen === "invatory") {
+    //   // active button in header
+    //   //this.invatoryHeaderElem.classList.remove("active");
+    //   //this.playerMenuActiveScreen = "";
+    //   //this.playerHudMenu.remove();
+    //   //this.isPlayerMenuActive = false;
+    // } else {
+    // update trackers + button
+    this.playerMenuActiveScreen = "invatory";
+    if (!this.invatoryHeaderElem.classList.contains("active")) {
+      this.invatoryHeaderElem.classList.add("active");
+    }
+    if (!this.invatoryScreen) {
+      console.log("creating invatorty");
+      // create invatory screen if not created
+      this.invatoryScreen = document.createElement("div");
+      this.invatoryScreen.classList.add("InvatoryScreen");
+
+      let tempElement = null;
+      for (let i = 0; i < this.character.invatory.length; i++) {
+        let item = this.character.invatory[i];
+        tempElement = document.createElement("p");
+        tempElement.classList.add("InvatoryScreen_item");
+        tempElement.innerText =
+          item.type === "collectable"
+            ? item.name + ` - *${item.quantity}`
+            : item.name;
+        this.invatoryScreen.appendChild(tempElement);
+      }
+      // add elemet to game container
+      this.playerHudMenu.appendChild(this.invatoryScreen);
+    }
+
+    //}
+  }
+
+  removeInvatoryScreen() {
+    if (this.invatoryScreen) {
+      this.invatoryScreen.remove();
+    }
+
+    if (this.invatoryHeaderElem.classList.contains("active")) {
+      this.invatoryHeaderElem.classList.remove("active");
+    }
+
+    // reset menu elements
+    //this.invatoryHeaderElem = null;
+    this.invatoryScreen = null;
+  }
+
+  addSkillsScreen() {
+    this.clearPlayerMenuScreen();
+    console.log("skills clicked");
+    this.playerMenuActiveScreen = "skills";
+    if (!this.skillsHeaderElem.classList.contains("active")) {
+      this.skillsHeaderElem.classList.add("active");
+    }
+  }
+
+  removeSkillsScreen() {
+    if (this.skillsScreen) {
+      this.skillsScreen.remove();
+    }
+
+    if (this.skillsHeaderElem.classList.contains("active")) {
+      this.skillsHeaderElem.classList.remove("active");
+    }
+
+    // reset menu elements
+    this.skillsScreen = null;
+  }
+
+  addMapScreen() {
+    this.clearPlayerMenuScreen();
+    console.log("map clicked");
+    if (!this.mapHeaderElem.classList.contains("active")) {
+      this.mapHeaderElem.classList.add("active");
+    }
+    if (!this.mapScreen) {
+      console.log("creating map");
+      // create invatory screen if not created
+      this.mapScreen = document.createElement("div");
+      this.mapScreen.classList.add("MapScreen");
+
+      // create map img
+      this.mapImg = document.createElement("img");
+      this.mapImg.classList.add("MapScreen_img");
+      this.mapImg.src = this.character.map.lowerImage.src;
+      // add to map screen
+      this.mapScreen.appendChild(this.mapImg);
+
+      // add elemet to game container
+      this.playerHudMenu.appendChild(this.mapScreen);
+    }
+  }
+
+  removeMapScreen() {
+    if (this.mapScreen) {
+      this.mapScreen.remove();
+    }
+
+    if (this.mapHeaderElem.classList.contains("active")) {
+      this.mapHeaderElem.classList.remove("active");
+    }
+
+    // reset menu elements
+    this.mapScreen = null;
   }
 
   addOrRemoveSonicHUD() {
@@ -69,6 +242,7 @@ class HudUI {
 
       // Set up conrtrols for sonic
       //console.log("Sonic: ", this.sonic.modes);
+      // create sonic menu options
       let tempElement = null;
       this.character.sonicScrewdriver.modes.forEach((element) => {
         tempElement = document.createElement("p");

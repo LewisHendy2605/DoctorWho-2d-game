@@ -573,6 +573,10 @@ window.OverworldMaps = {
       [utils.asGridCoord(48, 48)]: true,
       [utils.asGridCoord(48, 49)]: true,
       [utils.asGridCoord(48, 50)]: true,
+      [utils.asGridCoord(47, 49)]: true,
+      [utils.asGridCoord(47, 50)]: true,
+      [utils.asGridCoord(52, 50)]: true,
+      [utils.asGridCoord(52, 49)]: true,
       [utils.asGridCoord(48, 51)]: true,
 
       [utils.asGridCoord(49, 51)]: true,

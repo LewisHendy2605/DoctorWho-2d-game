@@ -18,6 +18,7 @@ class Doctor extends GameObject {
     this.isDoctor = this.sprite.image.src.includes("doctor-11.png");
     this.sonicProjectiles = [];
 
+    // move to invatory ?? maybe
     this.sonicScrewdriver = new SonicScrewdriver(this);
 
     this.isAlive = null;
@@ -27,6 +28,12 @@ class Doctor extends GameObject {
 
     this.projectilePerceptibles = [
       { name: "Focused Photon Beam", effect: this.kill },
+    ];
+
+    this.invatory = [
+      { type: "tool", name: "Sonic Screwdriver" },
+      { type: "collectable", name: "Titanium Scrap", quantity: 5 },
+      { type: "collectable", name: "Darlek Metal Scrap", quantity: 2 },
     ];
   }
 
