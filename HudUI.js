@@ -131,6 +131,18 @@ class HudUI {
       this.invatoryScreen = document.createElement("div");
       this.invatoryScreen.classList.add("InvatoryScreen");
 
+      this.playerImg = document.createElement("img");
+      this.playerImg.classList.add("InvatoryScreen_playerImg");
+      this.playerImg.src = utils.setDynamicPath(
+        "/images/characters-doctor-who/doctor-single.png"
+      );
+      this.invatoryScreen.appendChild(this.playerImg);
+
+      // create holder for invatory items
+      this.invatoryContainer = document.createElement("div");
+      this.invatoryContainer.classList.add("InvatoryScreen_container");
+      this.invatoryScreen.appendChild(this.invatoryContainer);
+
       let tempElement = null;
       for (let i = 0; i < this.character.invatory.length; i++) {
         let item = this.character.invatory[i];
@@ -140,7 +152,7 @@ class HudUI {
           item.type === "collectable"
             ? item.name + ` - *${item.quantity}`
             : item.name;
-        this.invatoryScreen.appendChild(tempElement);
+        this.invatoryContainer.appendChild(tempElement);
       }
       // add elemet to game container
       this.playerHudMenu.appendChild(this.invatoryScreen);
