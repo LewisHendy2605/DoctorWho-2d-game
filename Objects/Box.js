@@ -1,6 +1,6 @@
-class Door extends GameObject {
+class Box extends GameObject {
   constructor(config) {
-    super(config, "door64");
+    super(config, "box");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
     this.isOpen = false;
@@ -44,43 +44,89 @@ class Door extends GameObject {
           this.map.sonicMenu.showData(this.data);
         },
       },
-      {
-        label: "Open Door / Close Door ",
-        class: "choose-dest",
-        handler: () => {
-          // open or close door
-          this.toggleOpenOrCloseDoor();
+      //   {
+      //     label: "Open Door / Close Door ",
+      //     class: "choose-dest",
+      //     handler: () => {
+      //       // open or close door
+      //       this.toggleOpenOrCloseDoor();
 
-          // Close menu scrren
-          this.map.sonicMenu.end();
-        },
-      },
+      //       // Close menu scrren
+      //       this.map.sonicMenu.end();
+      //     },
+      //   },
     ];
+
+    this.invatory = [new Titanium({ quantity: 19 })];
   }
 
+  openBox() {
+    console.log("calling open box");
+    //await utils.wait(250);
+
+    // Toggle the door state
+    this.isOpen = true;
+
+    // Update the animation based on the new state
+    this.sprite.setAnimation("open");
+
+    // Update the "Status" field in the data dynamically
+    this.data = this.data.map((item) => {
+      if (item.type === "Status") {
+        return {
+          ...item,
+          data: "Open",
+        };
+      }
+      return item;
+    });
+
+    //const map = this.map;
+    // show box invatory
+    this.boxInvatoryScreen = new InvatoryScreen({
+      map: this.map,
+      invatory: this.invatory,
+    });
+    this.boxInvatoryScreen.init(document.querySelector(".game-container"));
+  }
+  async closeBox() {
+    if (this.boxInvatoryScreen) {
+      this.boxInvatoryScreen.done();
+    }
+
+    // delay animation
+    await utils.wait(400);
+
+    // Toggle the door state
+    this.isOpen = false;
+
+    // Update the animation based on the new state
+    this.sprite.setAnimation("closed");
+
+    // Update the "Status" field in the data dynamically
+    this.data = this.data.map((item) => {
+      if (item.type === "Status") {
+        return {
+          ...item,
+          data: "Closed",
+        };
+      }
+      return item;
+    });
+  }
   toggleOpenOrCloseDoor() {
     // Toggle the door state
     this.isOpen = !this.isOpen;
 
+    // wait before opeing
+    //await utils.wait(200);
+
     // Update the animation based on the new state
     if (this.isOpen) {
       this.sprite.setAnimation("open");
-      // remove walls to walkthrough
-      this.map.removeWall(this.x + utils.withGrid(1), this.y);
-      this.map.removeWall(
-        this.x + utils.withGrid(1),
-        this.y + utils.withGrid(1)
-      );
-      this.map.removeWall(
-        this.x + utils.withGrid(1),
-        this.y + utils.withGrid(2)
-      );
     } else {
       this.sprite.setAnimation("closed");
       // re add waalls
-      this.map.addWall(this.x + utils.withGrid(1), this.y);
-      this.map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
-      this.map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
     }
 
     // Update the "Status" field in the data dynamically
@@ -98,22 +144,58 @@ class Door extends GameObject {
   mount(map) {
     super.mount(map);
 
-    // left hoizonal side
-    map.addWall(this.x, this.y + utils.withGrid(1));
-    map.addWall(this.x, this.y + utils.withGrid(2));
-
-    // middle horizontal
     map.addWall(this.x + utils.withGrid(1), this.y);
-    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
-    map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
+
+    // left hoizonal side
+    //map.addWall(this.x, this.y + utils.withGrid(1));
+    // map.addWall(this.x, this.y + utils.withGrid(2));
+
+    // // middle horizontal
+    // map.addWall(this.x + utils.withGrid(1), this.y);
+    // map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
+    // map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
 
     // right horizontal side
-    map.addWall(this.x + utils.withGrid(2), this.y);
-    map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(1));
-    map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(2));
+    // map.addWall(this.x + utils.withGrid(2), this.y);
+    // map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(1));
+    // map.addWall(this.x + utils.withGrid(2), this.y + utils.withGrid(2));
   }
 
   update(state) {
+    //console.log("Box updated: ", state.map);
+    const gameObject = state.map.gameObjects["hero"];
+    //console.log(gameObject, this);
+    if (!this.isOpen) {
+      // if player is standing infront open box
+      // add direction chek too (&& gameObject.direction === this.direction)
+      if (gameObject.x === this.x + 0 && gameObject.y === this.y + 16) {
+        console.log(
+          "open box ",
+          gameObject.x,
+          gameObject.y,
+          " this; ",
+          this.x,
+          this.y,
+          this.isOpen
+        );
+        this.openBox();
+      }
+    } else {
+      /// if is open then check if player is not infront, close if they arnt
+      if (gameObject.x !== this.x + 0 || gameObject.y !== this.y + 16) {
+        console.log(
+          "close box ",
+          gameObject.x,
+          gameObject.y,
+          " this; ",
+          this.x,
+          this.y,
+          this.isOpen
+        );
+        this.closeBox();
+      }
+    }
+
     //console.log(this);
     // if (this.movingProgressRemaining > 0) {
     //   this.updatePosition();

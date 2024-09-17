@@ -64,6 +64,11 @@ class OverWorldMap {
           ...obj,
           src: obj.imageSrc || obj.src,
         });
+      } else if (obj instanceof Box) {
+        newGameObjects[key] = new Box({
+          ...obj,
+          src: obj.imageSrc || obj.src,
+        });
       } else {
         // Handle other object types or throw a detailed error
         throw new Error(`Unknown object type for key: ${key}`);
@@ -974,8 +979,16 @@ window.OverworldMaps = {
       door: new Door({
         isPlayerControlled: false,
         x: utils.withGrid(83),
+        //y: utils.withGrid(70.2),
         y: utils.withGrid(70),
         src: "/images/objects/darlek-door.png",
+        //src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      box: new Box({
+        isPlayerControlled: false,
+        x: utils.withGrid(95),
+        y: utils.withGrid(74),
+        src: "/images/objects/box-tech.png",
         //src: "/images/characters-doctor-who/doctor-11.png",
       }),
       // darlek: new Darlek({

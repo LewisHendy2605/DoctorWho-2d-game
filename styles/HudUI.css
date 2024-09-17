@@ -177,6 +177,31 @@
   flex-direction: column;
   justify-content: space-around;
 }
+.boxInvatory-cream {
+  position: relative;
+  opacity: 0.7;
+
+  width: 60%;
+  height: 50%;
+  border-radius: 1px;
+  background-color: whitesmoke;
+  border: 5px solid burlywood; /* Cream Border */
+  box-sizing: border-box; /* Ensures padding/border are included in element's total width/height */
+  outline: 2px solid goldenrod; /* Outer Black Border */
+}
+
+.boxInvatory-blue {
+  position: relative;
+  opacity: 0.7;
+  width: 60%;
+  height: 50%;
+  font-family: "DoctorWho", sans-serif;
+  border-radius: 1px;
+  background-color: whitesmoke;
+  border: 3px solid rgb(255, 136, 0); /* Cream Border */
+  box-sizing: border-box; /* Ensures padding/border are included in element's total width/height */
+  outline: 1px solid rgb(56, 56, 255); /* Outer Black Border */
+}
 
 .InvatoryScreen_container {
   padding: 1px;
@@ -216,6 +241,17 @@
 }
 
 @media (max-width: 700px) {
+  .PlayerHudUI {
+    width: 30svh;
+    height: 15svh;
+    margin-top: 10%;
+    left: 25%;
+    border: 1px solid greenyellow;
+    border-radius: 10px;
+    font-size: x-small;
+    flex-direction: column;
+    padding: 5px 15px;
+  }
   .HudUI {
     width: 30svw;
     height: 10svh;
