@@ -49,6 +49,15 @@ class TitleScreen {
 
     const dynamicUrl = utils.setDynamicPath("/images/planets/stars.png");
     this.element.style.backgroundImage = `url(${dynamicUrl})`;
+
+    // add interactivity to logo screen img
+    const logoPlayerImg = this.element.querySelector(".TitleScreen_logo");
+    logoPlayerImg.addEventListener("click", () => this.showPickPlayerScreen());
+  }
+
+  // To Do : finish this, show sceen to see heros, then update yhe logoscreen
+  showPickPlayerScreen() {
+    console.log("logo clicked");
   }
 
   close() {
