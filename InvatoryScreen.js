@@ -9,18 +9,26 @@ class InvatoryScreen {
   }
 
   createElement() {
-    // creaet hud HTML // css in in HudUi folder
+    // Create HUD HTML with CSS classes
     this.element = document.createElement("div");
-    this.element.classList.add("InvatoryScreen");
-    this.element.classList.add("boxInvatory-blue");
+    this.element.classList.add("InvatoryScreen", "boxInvatory-cream");
 
+    // Create grid items for each inventory item or empty slots
     let tempElement = null;
-    for (let i = 0; i < this.invatory.length; i++) {
-      let item = this.invatory[i];
-      console.log(item);
-      tempElement = document.createElement("p");
-      //tempElement.classList.add("InvatoryScreen_item");
-      tempElement.innerText = item.name + ` - × ${item.quantity}`;
+    const maxSlots = 12; // Assuming a 3x4 grid (12 total slots)
+
+    for (let i = 0; i < maxSlots; i++) {
+      tempElement = document.createElement("div");
+      tempElement.classList.add("grid-item");
+
+      if (i < this.invatory.length) {
+        let item = this.invatory[i];
+        //tempElement.classList.add("InvatoryScreen_item");
+        tempElement.innerText = item.name + ` - × ${item.quantity}`;
+      } else {
+        tempElement.classList.add("empty"); // Add empty class for unused slots
+      }
+
       this.element.appendChild(tempElement);
     }
   }

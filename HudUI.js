@@ -98,8 +98,10 @@ class HudUI {
       // show invatory to start
       this.addInvatoryScreen();
 
+      this.gameContainer = document.querySelector(".game-container");
+
       // // add elemet to game container
-      this.element.appendChild(this.playerHudMenu);
+      this.gameContainer.appendChild(this.playerHudMenu);
       this.isPlayerMenuActive = true;
     }
   }
@@ -113,14 +115,7 @@ class HudUI {
   addInvatoryScreen() {
     this.clearPlayerMenuScreen();
     console.log("invatory clicked");
-    // if (this.playerMenuActiveScreen === "invatory") {
-    //   // active button in header
-    //   //this.invatoryHeaderElem.classList.remove("active");
-    //   //this.playerMenuActiveScreen = "";
-    //   //this.playerHudMenu.remove();
-    //   //this.isPlayerMenuActive = false;
-    // } else {
-    // update trackers + button
+
     this.playerMenuActiveScreen = "invatory";
     if (!this.invatoryHeaderElem.classList.contains("active")) {
       this.invatoryHeaderElem.classList.add("active");
@@ -134,24 +129,37 @@ class HudUI {
       this.playerImg = document.createElement("img");
       this.playerImg.classList.add("InvatoryScreen_playerImg");
       this.playerImg.src = utils.setDynamicPath(
-        "/images/characters-doctor-who/doctor-single.png"
+        "/images/characters-doctor-who/doctor-single-16-32.png"
       );
       this.invatoryScreen.appendChild(this.playerImg);
 
       // create holder for invatory items
       this.invatoryContainer = document.createElement("div");
-      this.invatoryContainer.classList.add("InvatoryScreen_container");
+      //this.invatoryContainer.classList.add("InvatoryScreen_container");
+      this.invatoryContainer.classList.add("inventory-box");
       this.invatoryScreen.appendChild(this.invatoryContainer);
 
+      // Define the number of slots (e.g., 12 slots for a 3x4 grid)
+      const maxSlots = 12;
+
       let tempElement = null;
-      for (let i = 0; i < this.character.invatory.length; i++) {
-        let item = this.character.invatory[i];
-        tempElement = document.createElement("p");
-        tempElement.classList.add("InvatoryScreen_item");
-        tempElement.innerText =
-          item.type === "collectable"
-            ? item.name + ` - *${item.quantity}`
-            : item.name;
+      for (let i = 0; i < maxSlots; i++) {
+        tempElement = document.createElement("div");
+        tempElement.classList.add("grid-item");
+
+        // Fill in inventory items, otherwise mark as empty
+        if (i < this.character.invatory.length) {
+          let item = this.character.invatory[i];
+          tempElement.classList.add("InvatoryScreen_item");
+          tempElement.innerText =
+            item.type === "collectable"
+              ? item.name + ` - ×${item.quantity}`
+              : item.name;
+        } else {
+          // If there are no more items, make it an empty slot
+          tempElement.classList.add("empty");
+        }
+
         this.invatoryContainer.appendChild(tempElement);
       }
       // add elemet to game container
