@@ -17,15 +17,15 @@ class Box extends GameObject {
     };
 
     this.data = [
-      { type: "Type", data: "Door" },
-      { type: "Composition", data: "Darlekium, Zinc, Titanium, Copper, Gold" },
-      { type: "Description", data: "Door inside darlek base" },
-      { type: "Electrical Systems", data: "Active" },
+      { type: "Type", data: "Storage Box" },
+      { type: "Composition", data: "Darlekium, Titanium, Copper" },
+      { type: "Description", data: "Metal Box used to store items" },
+      { type: "Electrical Systems", data: "None" },
       { type: "Status", data: this.isOpen ? "Open" : "Closed" },
-      { type: "Lock Status", data: "Locked" },
+      { type: "Lock Status", data: "Unlocked" },
       {
         type: "Perceptible to",
-        data: "Sonic field pulse to override lock system",
+        data: "Opening",
       },
     ];
 
