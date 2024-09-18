@@ -197,4 +197,52 @@ const utils = {
     });
     document.dispatchEvent(event);
   },
+
+  // Function to allow dropping
+  allowDrop(event) {
+    event.preventDefault(); // Necessary to allow dropping
+  },
+
+  // Function to handle the drop
+  drop(event) {
+    event.preventDefault();
+
+    // Get the ID of the dragged item
+    const itemId = event.dataTransfer.getData("text/plain");
+
+    // Find the dragged item using its ID
+    let draggedItem = document.getElementById(itemId);
+
+    // Use event.currentTarget to get the actual drop target
+    let dropTarget = event.currentTarget;
+
+    // Check if the target element is a valid drop target
+    if (dropTarget && dropTarget.classList.contains("grid-item")) {
+      // Get the parent of the target element
+      const parent = dropTarget.parentNode;
+
+      // Check if the drop target contains any child item
+      let targetItem = dropTarget.querySelector(".InvatoryScreen_item");
+
+      // Swap items
+      if (targetItem) {
+        // If the drop target has an item, swap it with the dragged item
+        parent.replaceChild(draggedItem, targetItem);
+        dropTarget.appendChild(targetItem);
+      } else {
+        // If the drop target is empty, just append the dragged item
+        dropTarget.appendChild(draggedItem);
+      }
+
+      // Optional: Log the swap
+      console.log("Swapped items:", {
+        itemId: itemId,
+        draggedItem: draggedItem,
+        dropTarget: dropTarget,
+        targetItem: targetItem,
+      });
+    } else {
+      console.error("Drop target is not a valid grid item.");
+    }
+  },
 };

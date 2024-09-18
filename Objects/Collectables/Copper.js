@@ -1,9 +1,9 @@
-class Titanium {
+class Copper {
   // extends collectable
   constructor({ quantity }) {
-    this.name = "Titanium";
+    this.name = "Copper";
     this.type = "collectable";
     this.quantity = quantity;
-    this.imageSrc = utils.setDynamicPath("/images/objects/titanium.png");
+    this.imageSrc = utils.setDynamicPath("/images/objects/Copper.png");
   }
 }

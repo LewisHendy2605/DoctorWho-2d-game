@@ -55,6 +55,22 @@ class Door extends GameObject {
           this.map.sonicMenu.end();
         },
       },
+      {
+        label: "Disable Electrical Systems",
+        class: "choose-dest",
+        handler: () => {
+          // Close menu scrren
+          this.map.sonicMenu.end();
+        },
+      },
+      {
+        label: "Magnitise",
+        class: "choose-dest",
+        handler: () => {
+          // Close menu scrren
+          this.map.sonicMenu.end();
+        },
+      },
     ];
   }
 

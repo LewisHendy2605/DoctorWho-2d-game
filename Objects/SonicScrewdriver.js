@@ -249,6 +249,7 @@ class SonicScrewdriver {
                 // amybe move to here insted of event
                 const event = new OverworldEvent({
                   map: this.user.map,
+                  user: this.user,
                   event: {
                     type: "showSonicMenu",
                     options: match.interactiveOptions,
@@ -423,6 +424,8 @@ class SonicScrewdriver {
       if (this.user.map) {
         this.user.map.overworld.hud.toggleSonicVisibility(this);
       }
+      // TO DO:  close any active menu + rest sonic active state
+      //this.
     } else {
       this.user.sprite.image.src = utils.setDynamicPath(
         "/images/characters-doctor-who/doctor-11-screwdriver.png"

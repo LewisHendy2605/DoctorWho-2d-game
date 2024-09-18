@@ -1,6 +1,8 @@
 class SonicMenu {
-  constructor({ map, onComplete, options }) {
+  constructor({ map, user, onComplete, options }) {
     this.map = map;
+    // not used yet
+    this.user = user;
     this.onComplete = onComplete;
     this.options = options;
     this.handleSonicFinished = this.handleSonicFinished.bind(this);
@@ -9,6 +11,8 @@ class SonicMenu {
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("SonicMenu");
+    this.element.classList.add("green");
+    //this.element.classList.add("SonicMenu_blue");
     // this.element.innerHTML = `
     //         <div class="sonic_menu">
     //             <h3>Sonic Menu</h3>
@@ -85,7 +89,7 @@ class SonicMenu {
   showMenu(container) {
     this.container = container;
     this.menu = new Menu({
-      title: "Sonic Options",
+      //title: "Sonic Options",
     });
     this.menu.init(container);
     console.log("sonic menu options: ", this.options);

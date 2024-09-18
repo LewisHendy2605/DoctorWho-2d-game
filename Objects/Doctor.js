@@ -30,10 +30,15 @@ class Doctor extends GameObject {
       { name: "Focused Photon Beam", effect: this.kill },
     ];
 
+    // this.invatory = [
+    //   { type: "tool", name: "Sonic Screwdriver" },
+    //   { type: "collectable", name: "Titanium Scrap", quantity: 5 },
+    //   { type: "collectable", name: "Darlek Metal Scrap", quantity: 2 },
+    // ];
+
     this.invatory = [
-      { type: "tool", name: "Sonic Screwdriver" },
-      { type: "collectable", name: "Titanium Scrap", quantity: 5 },
-      { type: "collectable", name: "Darlek Metal Scrap", quantity: 2 },
+      new Titanium({ quantity: 6 }),
+      new Copper({ quantity: 3 }),
     ];
   }
 

@@ -371,6 +371,7 @@ class OverworldEvent {
 
     this.sonicMenu = new SonicMenu({
       map: this.map,
+      user: this.event.user,
       event: this,
       onComplete: () => {
         this.sonicMenu.end();

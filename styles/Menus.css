@@ -27,32 +27,48 @@
 }
 
 .SonicMenu {
-  position: absolute;
-  left: 3em;
-  top: 1em;
-  right: 1em;
-  color: var(--menu-font-color);
-  z-index: 2;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-bottom: 4px;
-  padding-bottom: 4px;
+  padding: 0;
 }
 
 .SonicMenu .Menu {
-  background: none;
-  border: none;
+  position: absolute;
+  left: 20%;
+  top: 40%;
+  width: auto;
+  height: auto;
+  color: var(--menu-font-color);
+  z-index: 2;
+  border-radius: 1.5px;
+  background-color: inherit;
+  border: inherit;
+}
+
+.blue {
+  background-color: rgba(173, 216, 230, 0.7);
+  border: 2px solid green;
+}
+
+.green {
+  background-color: rgba(144, 238, 144, 0.7);
+  border: 2px solid green;
 }
 
 .SonicMenu .optionButton {
   font-family: "DoctorWho2", sans-serif;
-  font-size: 13px;
-  margin-bottom: 10px;
-  border-radius: 10px;
+  font-size: 0.6rem;
+  width: 100%;
+  border: 2px solid black;
+  border-radius: 0px;
+  padding: 0;
+  margin: 0;
   transition: background-color 0.3s;
 }
 .SonicMenu .optionButton:hover {
   background-color: green;
+}
+
+.SonicMenu .menu-title {
+  margin: 0;
 }
 
 .sonic-menu-data-header {
