@@ -39,6 +39,7 @@ class Doctor extends GameObject {
     this.invatory = [
       new Titanium({ quantity: 6 }),
       new Copper({ quantity: 3 }),
+      this.sonicScrewdriver,
     ];
   }
 

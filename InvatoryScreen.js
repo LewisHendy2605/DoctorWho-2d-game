@@ -9,6 +9,9 @@ class InvatoryScreen {
   }
 
   createElement() {
+    this.parentElement = document.createElement("div");
+    this.parentElement.classList.add("ParentInvatoryDiv");
+
     // Create HUD HTML with CSS classes
     this.element = document.createElement("div");
     this.element.classList.add("InvatoryScreen", "boxInvatory-cream");
@@ -29,7 +32,81 @@ class InvatoryScreen {
 
       // Check if there is an item to place in the slot
       if (i < this.invatory.length) {
+        console.log("creating invatory, item: ", this.invatory[i], this);
         let item = this.invatory[i];
+
+        if (item) {
+          // Create a div to contain the item
+          let itemDiv = document.createElement("div");
+          itemDiv.classList.add("InvatoryScreen_item");
+          itemDiv.setAttribute("draggable", "true"); // Make item draggable
+          itemDiv.setAttribute("id", `item-${i}`); // Set unique ID for dragging
+
+          itemDiv.addEventListener("dragstart", (event) => {
+            // Store the item's ID
+            event.dataTransfer.setData("text/plain", event.currentTarget.id);
+          });
+
+          // Append item image if available
+          if (item.imageSrc) {
+            let imageElement = document.createElement("img");
+            imageElement.src = item.imageSrc;
+            imageElement.classList.add("InvatoryScreen_item_img");
+            itemDiv.appendChild(imageElement);
+          }
+
+          // Append item text (e.g., name and quantity)
+          let textElement = document.createElement("p");
+          textElement.classList.add("InvatoryScreen_item_text");
+          textElement.innerText =
+            item.type === "collectable"
+              ? item.name + ` - ×${item.quantity}`
+              : item.name;
+          itemDiv.appendChild(textElement);
+
+          // Add the item div to the slot
+          slotElement.appendChild(itemDiv);
+
+          // add event listener to add to show add to invatory button
+          slotElement.addEventListener("click", () =>
+            this.showAddToInvButton(i, item, itemDiv)
+          ); // or passing item
+        }
+      }
+
+      // Append the slot element to the container
+      this.element.appendChild(slotElement);
+    }
+
+    // after craeting box invatory, create player inv to transfer items to
+    this.createPlayerInvatoryBox();
+
+    // add both invatorys to parent element to be added to game screen
+    this.parentElement.appendChild(this.element);
+    this.parentElement.appendChild(this.playerInvatoryElement);
+  }
+
+  createPlayerInvatoryBox() {
+    this.playerInvatoryElement = document.createElement("div");
+    this.playerInvatoryElement.classList.add("InvatoryScreen_playerInv");
+
+    // Define the number of slots (e.g., 12 slots for a 3x4 grid)
+    const maxSlots = 12;
+    let slotElement = null;
+
+    // Loop to create each grid slot
+    for (let i = 0; i < maxSlots; i++) {
+      // Create a container div for the slot
+      slotElement = document.createElement("div");
+      slotElement.classList.add("grid-item");
+
+      // Add event listeners for drag and drop functionality
+      slotElement.addEventListener("drop", utils.drop);
+      slotElement.addEventListener("dragover", utils.allowDrop);
+
+      // Check if there is an item to place in the slot
+      if (i < this.hero.invatory.length) {
+        let item = this.hero.invatory[i];
 
         // Create a div to contain the item
         let itemDiv = document.createElement("div");
@@ -54,9 +131,7 @@ class InvatoryScreen {
         let textElement = document.createElement("p");
         textElement.classList.add("InvatoryScreen_item_text");
         textElement.innerText =
-          item.type === "collectable"
-            ? item.name + ` - ×${item.quantity}`
-            : item.name;
+          item.type === "collectable" ? ` - ×${item.quantity}` : "";
         itemDiv.appendChild(textElement);
 
         // Add the item div to the slot
@@ -64,143 +139,51 @@ class InvatoryScreen {
       }
 
       // Append the slot element to the container
-      this.element.appendChild(slotElement);
-    }
-  }
-  addOrRemoveDoctorHUD() {
-    console.log("Doctor clicked");
-    //toggleSonic;
-    // if active hide menu
-    if (this.isPlayerMenuActive) {
-      this.clearPlayerMenuScreen();
-      // remove screen + update tracker
-      this.playerHudMenu.remove();
-      this.isPlayerMenuActive = false;
-    } else {
-      // else add it to hud
-      this.playerHudMenu = document.createElement("div");
-      this.playerHudMenu.classList.add("PlayerHudUI");
-      this.playerHudMenu.innerHTML = `
-        
-        <div class="PlayerHudUI_header"> 
-          <p class="PlayerHudUI_header_option invatory">Invatory</p> 
-          <p class="PlayerHudUI_header_option skills">Skills</p> 
-          <p class="PlayerHudUI_header_option crafting">Crafting</p> 
-          <p class="PlayerHudUI_header_option map">Map</p> 
-        </div>
-        `;
-      // <h3 class="PlayerHudUI_title">${"Player Menu"}</h3>
-      // <p class="SonicHudUI_option"> Settings </p>
-
-      // Add listeners to show the relevant screen when header iption is clicked
-      //invatory
-      this.invatoryHeaderElem = this.playerHudMenu.querySelector(
-        ".PlayerHudUI_header_option.invatory"
-      );
-      this.invatoryHeaderElem.addEventListener("click", () =>
-        this.addInvatoryScreen()
-      );
-      //skills
-      this.skillsHeaderElem = this.playerHudMenu.querySelector(
-        ".PlayerHudUI_header_option.skills"
-      );
-      this.skillsHeaderElem.addEventListener("click", () =>
-        this.addSkillsScreen()
-      );
-      // map
-      this.mapHeaderElem = this.playerHudMenu.querySelector(
-        ".PlayerHudUI_header_option.map"
-      );
-      this.mapHeaderElem.addEventListener("click", () => this.addMapScreen());
-
-      // show invatory to start
-      this.addInvatoryScreen();
-
-      // // add elemet to game container
-      this.element.appendChild(this.playerHudMenu);
-      this.isPlayerMenuActive = true;
+      this.playerInvatoryElement.appendChild(slotElement);
     }
   }
 
-  clearPlayerMenuScreen() {
-    this.removeInvatoryScreen();
-    this.removeSkillsScreen();
-    this.removeMapScreen();
-  }
+  showAddToInvButton(i, item, divElement) {
+    console.log(i, item, divElement);
+    const addScreen = document.createElement("div");
+    addScreen.classList.add("InvatoryScreen_addScreen");
+    addScreen.innerText = "Add To Your Invatory ?";
 
-  addInvatoryScreen() {
-    this.clearPlayerMenuScreen();
-    console.log("invatory clicked");
-    // if (this.playerMenuActiveScreen === "invatory") {
-    //   // active button in header
-    //   //this.invatoryHeaderElem.classList.remove("active");
-    //   //this.playerMenuActiveScreen = "";
-    //   //this.playerHudMenu.remove();
-    //   //this.isPlayerMenuActive = false;
-    // } else {
-    // update trackers + button
-    this.playerMenuActiveScreen = "invatory";
-    if (!this.invatoryHeaderElem.classList.contains("active")) {
-      this.invatoryHeaderElem.classList.add("active");
-    }
-    if (!this.invatoryScreen) {
-      //console.log("creating invatorty");
-      // create invatory screen if not created
-      this.invatoryScreen = document.createElement("div");
-      this.invatoryScreen.classList.add("InvatoryScreen");
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("buttonContainer");
 
-      let tempElement = null;
-      for (let i = 0; i < this.character.invatory.length; i++) {
-        let item = this.character.invatory[i];
-        tempElement = document.createElement("p");
-        tempElement.classList.add("InvatoryScreen_item");
-        tempElement.innerText =
-          item.type === "collectable"
-            ? item.name + ` - *${item.quantity}`
-            : item.name;
-        this.invatoryScreen.appendChild(tempElement);
-      }
-      // add elemet to game container
-      this.playerHudMenu.appendChild(this.invatoryScreen);
-    }
+    const noButton = document.createElement("div");
+    noButton.classList.add("InvatoryScreen_noButton");
+    noButton.innerText = "No";
+    noButton.addEventListener("click", () => {
+      addScreen.remove();
+    });
+    buttonContainer.appendChild(noButton);
 
-    //}
-  }
+    const addButton = document.createElement("div");
+    addButton.classList.add("InvatoryScreen_addButton");
+    addButton.innerText = "Add";
+    addButton.addEventListener("click", () => {
+      addScreen.remove();
+      // swap item to hero or user
+      this.invatory[i] = null;
+      this.hero.invatory.push(item);
+      // this.hero.addInvatorItem(item)
+      // reset screen
+      this.done();
+      this.createElement();
+      this.container.appendChild(this.parentElement);
+    });
+    buttonContainer.appendChild(addButton);
 
-  removeInvatoryScreen() {
-    if (this.invatoryScreen) {
-      this.invatoryScreen.remove();
-    }
+    /// add utton conaienr to screen
+    addScreen.appendChild(buttonContainer);
 
-    if (this.invatoryHeaderElem.classList.contains("active")) {
-      this.invatoryHeaderElem.classList.remove("active");
-    }
-
-    // reset menu elements
-    //this.invatoryHeaderElem = null;
-    this.invatoryScreen = null;
-  }
-
-  sonicModeOptionClicked(elem) {
-    //this.character.sonicScrewdriver.activeMode = elem;
-    this.character.sonicScrewdriver.setActiveMode(elem);
-
-    // Update the text of the sonic mode paragraph
-    const modeParagraph = this.element.querySelector(".HudUI_sonic_mode_p");
-    modeParagraph.textContent = `Mode: ${elem.name}`;
-
-    // Close sonic menu after selection
-    this.addOrRemoveSonicHUD();
-  }
-
-  toggleSonicVisibility() {
-    // Toggle the 'hidden' class to show or hide the images
-    //console.log(this.element.innerHTML);
-    this.sonicHud.classList.toggle("hidden");
+    this.element.appendChild(addScreen);
   }
 
   done() {
-    this.element.remove();
+    this.parentElement.remove();
   }
 
   addFonts() {
@@ -225,11 +208,12 @@ class InvatoryScreen {
   }
 
   init(container) {
+    this.container = container;
     this.addFonts();
     this.createElement();
     //this.createElementCanvas();
 
     //console.log("adding to screen", this.element, container);
-    container.appendChild(this.element);
+    container.appendChild(this.parentElement);
   }
 }

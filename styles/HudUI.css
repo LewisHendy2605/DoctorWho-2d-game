@@ -54,6 +54,7 @@
 .HudUI_img:hover {
   border: 1px solid gold;
   transform: scale(1.2);
+  transform-origin: center;
 }
 
 .HudUI_sonic {
@@ -211,10 +212,11 @@
   box-sizing: border-box;
   padding: 1%;
   margin: auto;
+  margin-top: 5%;
   font-size: 0.2em;
   font-weight: bold;
   /*font-family: "DoctorWho" sans-serif;*/
-  font-family: "Roboto Mono", monospace;
+  /*font-family: "Roboto Mono", monospace;*/
 }
 /* Empty grid cell placeholder to keep lines visible */
 .empty {
@@ -307,6 +309,7 @@
   ); /* Light background for grid cells */
   border: 1px solid black; /* Visible black border to simulate inventory grid lines */
   min-height: 5%; /* Set a minimum height for cells */
+  min-width: 2%;
 }
 
 .InvatoryScreen_item:hover {
@@ -318,12 +321,106 @@
   height: auto;
   image-rendering: pixelated !important;
   pointer-events: none;
+  margin: auto;
 }
 .InvatoryScreen_item_text {
   font-family: "DoctorWho2", sans-serif;
   font-size: 0.5rem;
   font-weight: bold;
   margin: auto;
+}
+
+.ParentInvatoryDiv {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.InvatoryScreen_playerInv {
+  position: relative;
+  margin: auto;
+  margin-top: 5%;
+  width: 85%;
+  height: 20%;
+  opacity: 0.7;
+  background-color: aliceblue;
+  border: 2px solid #8b4513; /* #cd853f; */
+  outline: 1px solid black;
+  border-radius: 1px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* Creates 3 columns for items */
+  gap: 2%; /* Space between inventory slots */
+  box-sizing: border-box;
+  padding: 1%;
+  font-size: 0.2em;
+  font-weight: bold;
+  /*font-family: "DoctorWho" sans-serif;*/
+  font-family: "Roboto Mono", monospace;
+}
+
+.InvatoryScreen_playerInv .InvatoryScreen_item {
+  flex-direction: column;
+  padding: 1%;
+}
+
+.InvatoryScreen_addScreen {
+  position: absolute;
+  background-color: #444;
+  top: 10%;
+  left: 20%;
+  width: 60%;
+  height: 60%;
+  border-radius: 2px;
+  border: 1px solid black;
+}
+
+.buttonContainer {
+  position: relative;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  margin: 20% auto;
+  gap: 15%;
+}
+
+.InvatoryScreen_addButton {
+  font-size: 0.3rem;
+  border: 1px solid black;
+  width: 50%;
+  height: auto;
+  background-color: green;
+  /*margin: 20% auto; */
+  border: 1px solid black;
+  text-align: center; /* Center text horizontally */
+  line-height: 100%; /* Adjust to center text vertically */
+  display: flex; /* Flexbox to align content properly */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Ensure no text overflow */
+  text-overflow: ellipsis; /* Ellipsis for overflowing text */
+}
+
+.InvatoryScreen_noButton {
+  font-size: 0.3rem;
+  border: 1px solid black;
+  width: 50%;
+  height: auto;
+  background-color: red;
+  /*margin: 20% auto;*/
+  border: 1px solid black;
+  text-align: center; /* Center text horizontally */
+  line-height: 100%; /* Adjust to center text vertically */
+  display: flex; /* Flexbox to align content properly */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Ensure no text overflow */
+  text-overflow: ellipsis; /* Ellipsis for overflowing text */
 }
 
 /*
@@ -391,8 +488,16 @@
   .HudUI_img {
     margin-top: 20%;
     left: 13%;
-    transform: scale(2); /* Scales the image to 2x its size */
-    transform-origin: center; /* Ensures the scaling happens from the center */
+    /*width: 32px;
+    height: 32px;*/
+    transform: scale(2);
+    transform-origin: center;
+  }
+  /*  Remove effects from desktop */
+  .HudUI_img:hover {
+    border: 1px solid gold;
+    transform: scale(2);
+    transform-origin: center;
   }
 
   .HudUI_sonic_img {

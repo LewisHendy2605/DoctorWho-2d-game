@@ -1,5 +1,11 @@
 class SonicScrewdriver {
+  /// also extends collectable
   constructor(user) {
+    // collectable variables
+    this.name = "Sonic";
+    this.type = "tool";
+    this.imageSrc = utils.setDynamicPath("/images/ui/sonic-ui.png");
+
     this.user = user;
     this.isSonicEquipped = false;
     this.sonicActive = false;
