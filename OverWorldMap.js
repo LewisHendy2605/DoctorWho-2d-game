@@ -32,6 +32,7 @@ class OverWorldMap {
   }
 
   // Method to recreate gameObjects with their class constructors
+  // Needed to create copy to cahnge the objects valus
   recreateGameObjects(gameObjects) {
     const newGameObjects = {};
 
