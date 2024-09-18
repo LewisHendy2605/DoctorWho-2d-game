@@ -320,7 +320,8 @@
   pointer-events: none;
 }
 .InvatoryScreen_item_text {
-  font-size: 0.4rem;
+  font-family: "DoctorWho2", sans-serif;
+  font-size: 0.5rem;
   font-weight: bold;
   margin: auto;
 }

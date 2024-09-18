@@ -61,7 +61,7 @@ class Box extends GameObject {
   }
 
   openBox() {
-    console.log("calling open box");
+    //console.log("calling open box");
     //await utils.wait(250);
 
     // Toggle the door state
@@ -169,29 +169,29 @@ class Box extends GameObject {
       // if player is standing infront open box
       // add direction chek too (&& gameObject.direction === this.direction)
       if (gameObject.x === this.x + 0 && gameObject.y === this.y + 16) {
-        console.log(
-          "open box ",
-          gameObject.x,
-          gameObject.y,
-          " this; ",
-          this.x,
-          this.y,
-          this.isOpen
-        );
+        // console.log(
+        //   "open box ",
+        //   gameObject.x,
+        //   gameObject.y,
+        //   " this; ",
+        //   this.x,
+        //   this.y,
+        //   this.isOpen
+        // );
         this.openBox();
       }
     } else {
       /// if is open then check if player is not infront, close if they arnt
       if (gameObject.x !== this.x + 0 || gameObject.y !== this.y + 16) {
-        console.log(
-          "close box ",
-          gameObject.x,
-          gameObject.y,
-          " this; ",
-          this.x,
-          this.y,
-          this.isOpen
-        );
+        // console.log(
+        //   "close box ",
+        //   gameObject.x,
+        //   gameObject.y,
+        //   " this; ",
+        //   this.x,
+        //   this.y,
+        //   this.isOpen
+        // );
         this.closeBox();
       }
     }

@@ -13,23 +13,58 @@ class InvatoryScreen {
     this.element = document.createElement("div");
     this.element.classList.add("InvatoryScreen", "boxInvatory-cream");
 
-    // Create grid items for each inventory item or empty slots
-    let tempElement = null;
-    const maxSlots = 12; // Assuming a 3x4 grid (12 total slots)
+    // Define the number of slots (e.g., 12 slots for a 3x4 grid)
+    const maxSlots = 12;
+    let slotElement = null;
 
+    // Loop to create each grid slot
     for (let i = 0; i < maxSlots; i++) {
-      tempElement = document.createElement("div");
-      tempElement.classList.add("grid-item");
+      // Create a container div for the slot
+      slotElement = document.createElement("div");
+      slotElement.classList.add("grid-item");
 
+      // Add event listeners for drag and drop functionality
+      slotElement.addEventListener("drop", utils.drop);
+      slotElement.addEventListener("dragover", utils.allowDrop);
+
+      // Check if there is an item to place in the slot
       if (i < this.invatory.length) {
         let item = this.invatory[i];
-        //tempElement.classList.add("InvatoryScreen_item");
-        tempElement.innerText = item.name + ` - × ${item.quantity}`;
-      } else {
-        tempElement.classList.add("empty"); // Add empty class for unused slots
+
+        // Create a div to contain the item
+        let itemDiv = document.createElement("div");
+        itemDiv.classList.add("InvatoryScreen_item");
+        itemDiv.setAttribute("draggable", "true"); // Make item draggable
+        itemDiv.setAttribute("id", `item-${i}`); // Set unique ID for dragging
+
+        itemDiv.addEventListener("dragstart", (event) => {
+          // Store the item's ID
+          event.dataTransfer.setData("text/plain", event.currentTarget.id);
+        });
+
+        // Append item image if available
+        if (item.imageSrc) {
+          let imageElement = document.createElement("img");
+          imageElement.src = item.imageSrc;
+          imageElement.classList.add("InvatoryScreen_item_img");
+          itemDiv.appendChild(imageElement);
+        }
+
+        // Append item text (e.g., name and quantity)
+        let textElement = document.createElement("p");
+        textElement.classList.add("InvatoryScreen_item_text");
+        textElement.innerText =
+          item.type === "collectable"
+            ? item.name + ` - ×${item.quantity}`
+            : item.name;
+        itemDiv.appendChild(textElement);
+
+        // Add the item div to the slot
+        slotElement.appendChild(itemDiv);
       }
 
-      this.element.appendChild(tempElement);
+      // Append the slot element to the container
+      this.element.appendChild(slotElement);
     }
   }
   addOrRemoveDoctorHUD() {
@@ -109,7 +144,7 @@ class InvatoryScreen {
       this.invatoryHeaderElem.classList.add("active");
     }
     if (!this.invatoryScreen) {
-      console.log("creating invatorty");
+      //console.log("creating invatorty");
       // create invatory screen if not created
       this.invatoryScreen = document.createElement("div");
       this.invatoryScreen.classList.add("InvatoryScreen");
@@ -194,7 +229,7 @@ class InvatoryScreen {
     this.createElement();
     //this.createElementCanvas();
 
-    console.log("adding to screen", this.element, container);
+    //console.log("adding to screen", this.element, container);
     container.appendChild(this.element);
   }
 }
