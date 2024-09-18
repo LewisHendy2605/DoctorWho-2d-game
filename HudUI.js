@@ -251,8 +251,8 @@ class HudUI {
           itemDiv.setAttribute("id", `item-${i}`); // Set unique ID for dragging
 
           itemDiv.addEventListener("dragstart", (event) => {
-            console.log("drag start", event.target);
-            event.dataTransfer.setData("text/plain", event.target.id); // Store the item's ID
+            // Store the item's ID
+            event.dataTransfer.setData("text/plain", event.currentTarget.id);
           });
 
           // Append item image if available

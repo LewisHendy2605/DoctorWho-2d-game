@@ -234,13 +234,12 @@ const utils = {
         dropTarget.appendChild(draggedItem);
       }
 
-      // Optional: Log the swap
-      console.log("Swapped items:", {
-        itemId: itemId,
-        draggedItem: draggedItem,
-        dropTarget: dropTarget,
-        targetItem: targetItem,
-      });
+      // console.log("Swapped items:", {
+      //   itemId: itemId,
+      //   draggedItem: draggedItem,
+      //   dropTarget: dropTarget,
+      //   targetItem: targetItem,
+      // });
     } else {
       console.error("Drop target is not a valid grid item.");
     }
