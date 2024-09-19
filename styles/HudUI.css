@@ -310,6 +310,7 @@
   border: 1px solid black; /* Visible black border to simulate inventory grid lines */
   min-height: 5%; /* Set a minimum height for cells */
   min-width: 2%;
+  cursor: pointer;
 }
 
 .InvatoryScreen_item:hover {

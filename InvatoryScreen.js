@@ -166,7 +166,9 @@ class InvatoryScreen {
     addButton.addEventListener("click", () => {
       addScreen.remove();
       // swap item to hero or user
-      this.invatory[i] = null;
+      //this.invatory[i] = null;
+      // Remove item from inventory using splice
+      this.invatory.splice(i, 1);
       this.hero.invatory.push(item);
       // this.hero.addInvatorItem(item)
       // reset screen

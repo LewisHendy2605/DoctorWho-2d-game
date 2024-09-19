@@ -1,0 +1,106 @@
+.InteractiveOptionBox {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  right: 30%;
+  width: 40%;
+  height: 30%;
+  background-color: rgba(250, 235, 215, 0.7);
+  border: 2px solid #9b521f; /* #cd853f; */
+  outline: 1px solid black;
+  border-radius: 1px;
+  font-family: "DoctorWho2", sans-serif;
+  font-size: x-small;
+  text-align: center;
+}
+
+.InteractiveOptionBox .buttonContainer {
+  height: auto;
+}
+
+.menuButton {
+  position: relative;
+  width: 40%;
+  height: 50%;
+  margin: 0px auto;
+}
+
+.EletronicsScreen {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  right: 30%;
+  width: 50%;
+  height: 50%;
+  background-color: rgba(122, 122, 121, 0.705);
+  border: 4px solid #3b3b3b;
+  outline: 2px solid black;
+  border-radius: 0px;
+  font-family: "DoctorWho2", sans-serif;
+  font-size: x-small;
+  text-align: center;
+}
+
+.eletronicsContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr); /* Creates 3 columns for items */
+  grid-template-rows: repeat(2, 1fr); /* Creates 4 rows for items */
+  gap: 5%; /* Space between inventory slots */
+  box-sizing: border-box;
+}
+
+.eletronicsContainer .grid-item {
+  width: 15%;
+  max-height: 50%;
+  margin: 0px auto;
+  margin-top: 5%;
+  padding: 2px;
+}
+
+.eletronicsImg {
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated !important;
+}
+
+.eletronicsText {
+  position: relative;
+  margin: 0;
+  width: 150%;
+  height: auto;
+  font-size: 0.5rem;
+}
+
+/*
+.inventory-box {
+    position: relative;
+    width: 80%;
+    height: 90%;
+    background-color: rgba(
+      245,
+      245,
+      220,
+      0.8
+    ); 
+    border: 2px solid goldenrod;
+    border-radius: 3px;
+    padding: 1% 1%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: repeat(4, 1fr); 
+    gap: 5%; 
+    box-sizing: border-box;
+    margin: 2% auto;
+    margin-left: 15px;
+  }
+  */
+
+.red {
+  background-color: rgba(255, 0, 0, 0.6); /* Red with 0.7 opacity */
+  border: 2px solid red;
+}

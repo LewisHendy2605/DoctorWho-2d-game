@@ -53,6 +53,11 @@ class GameObject {
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
+    } else if (this.type === "wall-screen") {
+      this.sprite = new WallScreenSprite({
+        gameObject: this,
+        src: config.src || "/images/characters/people/hero.png",
+      });
     } else {
       this.sprite = new Sprite({
         gameObject: this,

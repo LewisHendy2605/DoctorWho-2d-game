@@ -72,6 +72,34 @@ class Door extends GameObject {
         },
       },
     ];
+
+    // wait for mount to create wall panel
+    this.waitForMount();
+  }
+
+  waitForMount() {
+    const intervalId = setInterval(() => {
+      //console.log("creating interval");
+      if (this.isMounted) {
+        // Create wall screen next to door
+        this.wallScreen = new WallScreen({
+          isPlayerControlled: false,
+          x: this.x + utils.withGrid(4),
+          y: this.y + utils.withGrid(2),
+          src: "/images/objects/wallscreen.png",
+          //src: "/images/characters-doctor-who/doctor-11.png",
+        });
+        this.wallScreen.mount(this.map);
+        // add wall screen to game objects to enter game loop update + to be demounted
+        this.map.gameObjects["wallScreen"] = this.wallScreen;
+        clearInterval(intervalId); // Stop checking once mounted
+        //console.log("interval destryoed");
+      }
+    }, 100); // Check every 100ms
+  }
+
+  deMount() {
+    super.deMount();
   }
 
   toggleOpenOrCloseDoor() {
