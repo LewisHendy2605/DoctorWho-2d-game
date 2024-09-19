@@ -4,6 +4,7 @@ class Door extends GameObject {
     this.movingProgressRemaining = 0;
     this.isStanding = false;
     this.isOpen = false;
+    this.isElectricalSystemsActive = true;
 
     this.isPlayerControlled = false;
 
@@ -48,11 +49,24 @@ class Door extends GameObject {
         label: "Open Door / Close Door ",
         class: "choose-dest",
         handler: () => {
-          // open or close door
-          this.toggleOpenOrCloseDoor();
-
-          // Close menu scrren
-          this.map.sonicMenu.end();
+          this.electricalSystemsActive = this.checkElectricalSystems();
+          if (this.electricalSystemsActive) {
+            // open or close door
+            this.toggleOpenOrCloseDoor();
+            // Close menu scrren
+            this.map.sonicMenu.end();
+          } else {
+            // Close menu scrren
+            this.map.sonicMenu.end();
+            const textEvent = new OverworldEvent({
+              map: this.map,
+              event: {
+                type: "textMessage",
+                text: "Electrical Systems not active",
+              },
+            });
+            textEvent.init();
+          }
         },
       },
       {
@@ -92,6 +106,10 @@ class Door extends GameObject {
         this.wallScreen.mount(this.map);
         // add wall screen to game objects to enter game loop update + to be demounted
         this.map.gameObjects["wallScreen"] = this.wallScreen;
+
+        // set electrical systems bool
+        this.electricalSystemsActive = this.checkElectricalSystems();
+
         clearInterval(intervalId); // Stop checking once mounted
         //console.log("interval destryoed");
       }
@@ -179,6 +197,17 @@ class Door extends GameObject {
     //   }
     //   this.updateSprite(state);
     // }
+  }
+
+  checkElectricalSystems() {
+    if (
+      this.wallScreen.hasAllElectricalComponents() &&
+      this.isElectricalSystemsActive
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   startBehavior(state, behavior) {

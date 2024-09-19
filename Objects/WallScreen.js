@@ -83,6 +83,15 @@ class WallScreen extends GameObject {
     ];
   }
 
+  hasAllElectricalComponents() {
+    let hasWires = this.invatory.some((item) => item.name === "Wires");
+    let hasCircuitBoard = this.invatory.some(
+      (item) => item.name === "CircuitBoard"
+    );
+
+    return hasWires && hasCircuitBoard;
+  }
+
   toggleOpenOrCloseDoor() {
     // Toggle the door state
     this.isOpen = !this.isOpen;
