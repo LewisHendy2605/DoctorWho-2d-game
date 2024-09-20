@@ -203,15 +203,14 @@ class WallScreen extends GameObject {
       this.buttonContainer = document.createElement("div");
       this.buttonContainer.classList.add("buttonContainer");
 
-      // no point shwoing no as it shos aagin when standing there
-      //   this.noButton = document.createElement("div");
-      //   this.noButton.classList.add("menuButton", "red");
-      //   this.noButton.innerText = "No";
-      //   this.noButton.addEventListener("click", () => {
-      //     console.log("no clicked");
-      //     this.closeInteractiveOption();
-      //   });
-      //   this.buttonContainer.appendChild(this.noButton);
+      this.noButton = document.createElement("div");
+      this.noButton.classList.add("menuButton", "red");
+      this.noButton.innerText = "No";
+      this.noButton.addEventListener("click", () => {
+        console.log("no clicked");
+        this.closeInteractiveOption();
+      });
+      this.buttonContainer.appendChild(this.noButton);
 
       this.yesButton = document.createElement("div");
       this.yesButton.classList.add("menuButton", "green");

@@ -58,14 +58,7 @@ class Door extends GameObject {
           } else {
             // Close menu scrren
             this.map.sonicMenu.end();
-            const textEvent = new OverworldEvent({
-              map: this.map,
-              event: {
-                type: "textMessage",
-                text: "Electrical Systems not active",
-              },
-            });
-            textEvent.init();
+            this.tellPlayerElectricalSystemsNotActive();
           }
         },
       },
@@ -127,33 +120,32 @@ class Door extends GameObject {
     // Update the animation based on the new state
     if (this.isOpen) {
       this.sprite.setAnimation("open");
-      // remove walls to walkthrough
-      this.map.removeWall(this.x + utils.withGrid(1), this.y);
-      this.map.removeWall(
-        this.x + utils.withGrid(1),
-        this.y + utils.withGrid(1)
-      );
-      this.map.removeWall(
-        this.x + utils.withGrid(1),
-        this.y + utils.withGrid(2)
-      );
+      this.updateWalls(false); // Remove walls to allow walk-through
     } else {
       this.sprite.setAnimation("closed");
-      // re add waalls
-      this.map.addWall(this.x + utils.withGrid(1), this.y);
-      this.map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(1));
-      this.map.addWall(this.x + utils.withGrid(1), this.y + utils.withGrid(2));
+      this.updateWalls(true); // Add walls to block the door
     }
 
     // Update the "Status" field in the data dynamically
-    this.data = this.data.map((item) => {
-      if (item.type === "Status") {
-        return {
-          ...item,
-          data: this.isOpen ? "Open" : "Closed",
-        };
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i].type === "Status") {
+        this.data[i].data = this.isOpen ? "Open" : "Closed";
+        break; // No need to continue once the status is updated
       }
-      return item;
+    }
+  }
+
+  // Helper function to add or remove walls around the door
+  updateWalls(addWalls) {
+    const offsets = [0, 1, 2]; // The grid offsets to update
+    offsets.forEach((offset) => {
+      const x = this.x + utils.withGrid(1);
+      const y = this.y + utils.withGrid(offset);
+      if (addWalls) {
+        this.map.addWall(x, y);
+      } else {
+        this.map.removeWall(x, y);
+      }
     });
   }
 
@@ -176,27 +168,56 @@ class Door extends GameObject {
   }
 
   update(state) {
-    //console.log(this);
-    // if (this.movingProgressRemaining > 0) {
-    //   this.updatePosition();
-    // } else {
-    //   // More cases for starting to walk will come here
-    //   //
-    //   //
-    //   // Case: Were keyboard ready and have an arrow presed
-    //   if (
-    //     !state.map.isCutScenePlaying &&
-    //     this.isPlayerControlled &&
-    //     state.arrow
-    //   ) {
-    //     console.log(state.arrow);
-    //     this.startBehavior(state, {
-    //       type: "walk",
-    //       direction: state.arrow,
-    //     });
-    //   }
-    //   this.updateSprite(state);
-    // }
+    const gameObject = state.map.gameObjects["hero"];
+
+    // Check if player's position has changed
+    if (gameObject.x !== this.prevX || gameObject.y !== this.prevY) {
+      this.prevX = gameObject.x;
+      this.prevY = gameObject.y;
+
+      // Check if player is near the door
+      if (this.isHeroInFrontOfDoor(gameObject) && !this.isOpen) {
+        if (this.checkElectricalSystems()) {
+          this.toggleOpenOrCloseDoor(); // Open door if it's closed and electrical systems are active
+        } else {
+          this.tellPlayerElectricalSystemsNotActive();
+        }
+      }
+
+      // Check if player has passed through the door and should close it
+      if (this.isOpen && !this.isHeroInDoorway(gameObject)) {
+        this.toggleOpenOrCloseDoor(); // Close door after the player passes through
+      }
+    }
+  }
+
+  // Helper function to check if hero is standing in front of the door
+  isHeroInFrontOfDoor(gameObject) {
+    return (
+      (gameObject.x === this.x + utils.withGrid(1) &&
+        gameObject.y === this.y + utils.withGrid(3)) ||
+      gameObject.y === this.y - utils.withGrid(1)
+    );
+  }
+
+  // Helper function to check if hero is in the doorway
+  isHeroInDoorway(gameObject) {
+    return (
+      gameObject.x === this.x + utils.withGrid(1) &&
+      gameObject.y >= this.y - utils.withGrid(1) &&
+      gameObject.y <= this.y + utils.withGrid(3)
+    );
+  }
+
+  tellPlayerElectricalSystemsNotActive() {
+    const textEvent = new OverworldEvent({
+      map: this.map,
+      event: {
+        type: "textMessage",
+        text: "Electrical Systems not active",
+      },
+    });
+    textEvent.init();
   }
 
   checkElectricalSystems() {
