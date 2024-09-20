@@ -89,6 +89,13 @@ class HudUI {
       this.skillsHeaderElem.addEventListener("click", () =>
         this.addSkillsScreen()
       );
+      //crafting
+      this.craftingHeaderElem = this.playerHudMenu.querySelector(
+        ".PlayerHudUI_header_option.crafting"
+      );
+      this.craftingHeaderElem.addEventListener("click", () =>
+        this.addCraftingScreen()
+      );
       // map
       this.mapHeaderElem = this.playerHudMenu.querySelector(
         ".PlayerHudUI_header_option.map"
@@ -110,6 +117,7 @@ class HudUI {
     this.removeInvatoryScreen();
     this.removeSkillsScreen();
     this.removeMapScreen();
+    this.removeCraftingScreen();
   }
 
   // addInvatoryScreen() {
@@ -356,6 +364,112 @@ class HudUI {
 
     // reset menu elements
     this.mapScreen = null;
+  }
+
+  addCraftingScreen() {
+    this.clearPlayerMenuScreen();
+    console.log("crafting clicked");
+
+    this.playerMenuActiveScreen = "crafting";
+    if (!this.craftingHeaderElem.classList.contains("active")) {
+      this.craftingHeaderElem.classList.add("active");
+    }
+
+    if (!this.craftingScreen) {
+      console.log("creating invatory");
+
+      // Create invatory screen if not created
+      this.craftingScreen = document.createElement("div");
+      this.craftingScreen.classList.add("CraftingScreen");
+
+      // Create  container
+      this.craftingContainer = document.createElement("div");
+      this.craftingContainer.classList.add("crafting-container");
+      this.craftingScreen.appendChild(this.craftingContainer);
+
+      // Add player image
+      // this.playerImg = document.createElement("img");
+      // this.playerImg.classList.add("InvatoryScreen_playerImg");
+      // this.playerImg.src = utils.setDynamicPath(
+      //   "/images/characters-doctor-who/doctor-single-16-32.png"
+      // );
+      // this.invatoryScreen.appendChild(this.playerImg);
+
+      // // Create inventory container
+      // this.invatoryContainer = document.createElement("div");
+      // this.invatoryContainer.classList.add("inventory-box");
+      // this.invatoryScreen.appendChild(this.invatoryContainer);
+
+      // // Define the number of slots (e.g., 12 slots for a 3x4 grid)
+      // const maxSlots = 12;
+      // let slotElement = null;
+
+      // // Loop to create each grid slot
+      // for (let i = 0; i < maxSlots; i++) {
+      //   // Create a container div for the slot
+      //   slotElement = document.createElement("div");
+      //   slotElement.classList.add("grid-item");
+
+      //   // Add event listeners for drag and drop functionality
+      //   slotElement.addEventListener("drop", utils.drop);
+      //   slotElement.addEventListener("dragover", utils.allowDrop);
+
+      //   // Check if there is an item to place in the slot
+      //   if (i < this.character.invatory.length) {
+      //     let item = this.character.invatory[i];
+
+      //     // Create a div to contain the item
+      //     let itemDiv = document.createElement("div");
+      //     itemDiv.classList.add("InvatoryScreen_item");
+      //     itemDiv.setAttribute("draggable", "true"); // Make item draggable
+      //     itemDiv.setAttribute("id", `item-${i}`); // Set unique ID for dragging
+
+      //     itemDiv.addEventListener("dragstart", (event) => {
+      //       // Store the item's ID
+      //       event.dataTransfer.setData("text/plain", event.currentTarget.id);
+      //     });
+
+      //     // Append item image if available
+      //     if (item.imageSrc) {
+      //       let imageElement = document.createElement("img");
+      //       imageElement.src = item.imageSrc;
+      //       imageElement.classList.add("InvatoryScreen_item_img");
+      //       itemDiv.appendChild(imageElement);
+      //     }
+
+      //     // Append item text (e.g., name and quantity)
+      //     let textElement = document.createElement("p");
+      //     textElement.classList.add("InvatoryScreen_item_text");
+      //     textElement.innerText =
+      //       item.type === "collectable"
+      //         ? item.name + ` - ×${item.quantity}`
+      //         : item.name;
+      //     itemDiv.appendChild(textElement);
+
+      //     // Add the item div to the slot
+      //     slotElement.appendChild(itemDiv);
+      //   }
+
+      //   // Append the slot element to the container
+      //   this.invatoryContainer.appendChild(slotElement);
+      // }
+
+      // Append the entire inventory screen to the HUD
+      this.playerHudMenu.appendChild(this.craftingScreen);
+    }
+  }
+
+  removeCraftingScreen() {
+    if (this.craftingScreen) {
+      this.craftingScreen.remove();
+    }
+
+    if (this.craftingHeaderElem.classList.contains("active")) {
+      this.craftingHeaderElem.classList.remove("active");
+    }
+
+    // reset menu elements
+    this.craftingScreen = null;
   }
 
   addOrRemoveSonicHUD() {
