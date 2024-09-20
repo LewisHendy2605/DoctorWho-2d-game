@@ -48,33 +48,6 @@ class WallScreen extends GameObject {
           this.map.sonicMenu.showData(this.data);
         },
       },
-      {
-        label: "Open Door / Close Door ",
-        class: "choose-dest",
-        handler: () => {
-          // open or close door
-          this.toggleOpenOrCloseDoor();
-
-          // Close menu scrren
-          this.map.sonicMenu.end();
-        },
-      },
-      {
-        label: "Disable Electrical Systems",
-        class: "choose-dest",
-        handler: () => {
-          // Close menu scrren
-          this.map.sonicMenu.end();
-        },
-      },
-      {
-        label: "Magnitise",
-        class: "choose-dest",
-        handler: () => {
-          // Close menu scrren
-          this.map.sonicMenu.end();
-        },
-      },
     ];
 
     this.invatory = [

@@ -7,6 +7,8 @@ class DoctorSprite {
       this.isLoaded = true;
     };
 
+    this.hide = false;
+
     //Shadow
     this.shadow = new Image();
     this.useShadow = true; //config.useShadow || fasle
@@ -119,7 +121,9 @@ class DoctorSprite {
     const x = this.gameObject.x - 8 + utils.withGrid(10.5) - cameraPerson.x;
     const y = this.gameObject.y - 18 + utils.withGrid(6) - cameraPerson.y;
 
-    this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);
+    if (!this.hide) {
+      this.isShadowLoaded && ctx.drawImage(this.shadow, x, y);
+    }
 
     const [frameX, frameY] = this.frame;
 
@@ -143,8 +147,20 @@ class DoctorSprite {
       }
           */
 
-    this.isLoaded &&
-      ctx.drawImage(this.image, frameX * 32, frameY * 32, 32, 32, x, y, 32, 32);
+    if (!this.hide) {
+      this.isLoaded &&
+        ctx.drawImage(
+          this.image,
+          frameX * 32,
+          frameY * 32,
+          32,
+          32,
+          x,
+          y,
+          32,
+          32
+        );
+    }
 
     this.updateAnimationProgress();
 

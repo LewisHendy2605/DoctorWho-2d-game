@@ -184,8 +184,19 @@ class Door extends GameObject {
         }
       }
 
+      // hide player spriet in doorway
+      if (this.isHeroInDoorway(gameObject) && this.isOpen) {
+        gameObject.sprite.hide = true;
+      } else if (!this.isHeroInDoorway(gameObject) && this.isOpen) {
+        gameObject.sprite.hide = false;
+      }
+
       // Check if player has passed through the door and should close it
-      if (this.isOpen && !this.isHeroInDoorway(gameObject)) {
+      if (
+        this.isOpen &&
+        !this.isHeroInDoorway(gameObject) &&
+        !this.isHeroInFrontOfDoor(gameObject)
+      ) {
         this.toggleOpenOrCloseDoor(); // Close door after the player passes through
       }
     }
@@ -195,7 +206,8 @@ class Door extends GameObject {
   isHeroInFrontOfDoor(gameObject) {
     return (
       (gameObject.x === this.x + utils.withGrid(1) &&
-        gameObject.y === this.y + utils.withGrid(3)) ||
+        gameObject.y <= this.y + utils.withGrid(3) &&
+        gameObject.y >= this.y + utils.withGrid(2)) ||
       gameObject.y === this.y - utils.withGrid(1)
     );
   }
@@ -205,7 +217,7 @@ class Door extends GameObject {
     return (
       gameObject.x === this.x + utils.withGrid(1) &&
       gameObject.y >= this.y - utils.withGrid(1) &&
-      gameObject.y <= this.y + utils.withGrid(3)
+      gameObject.y <= this.y + utils.withGrid(2)
     );
   }
 
