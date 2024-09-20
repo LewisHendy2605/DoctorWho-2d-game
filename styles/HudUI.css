@@ -308,7 +308,7 @@
     0.8
   ); /* Light background for grid cells */
   border: 1px solid black; /* Visible black border to simulate inventory grid lines */
-  min-height: 5%; /* Set a minimum height for cells */
+  min-height: 5%;
   min-width: 2%;
   cursor: pointer;
 }

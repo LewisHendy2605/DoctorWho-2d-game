@@ -153,29 +153,35 @@ class WallScreen extends GameObject {
   }
 
   update(state) {
-    //console.log("Wall screen updated: ", state.map);
     const gameObject = state.map.gameObjects["hero"];
-    //console.log(gameObject, this);
-    if (this.electricalSystemsAcessible) {
-      // if player is standing infront open box
-      // add direction chek too (&& gameObject.direction === this.direction)
-      if (gameObject.x === this.x + 0 && gameObject.y === this.y + 16) {
-        if (this.showInteractiveOptionBool) {
-          this.showInteractiveOption();
+
+    // Only check the player's position if it has changed
+    if (gameObject.x !== this.prevX || gameObject.y !== this.prevY) {
+      // Update the previous position for future checks
+      this.prevX = gameObject.x;
+      this.prevY = gameObject.y;
+
+      // Handle interactivity of the panel
+      if (this.electricalSystemsAcessible) {
+        if (gameObject.x === this.x && gameObject.y === this.y + 16) {
+          if (this.showInteractiveOptionBool) {
+            this.showInteractiveOption();
+          }
+        } else {
+          this.closeAllScreens();
+          this.showInteractiveOptionBool = true;
         }
-      } else if (gameObject.x !== this.x + 0 || gameObject.y !== this.y + 16) {
-        // console.log(
-        //   "close box ",
-        //   gameObject.x,
-        //   gameObject.y,
-        //   " this; ",
-        //   this.x,
-        //   this.y,
-        //   this.isOpen
-        // );
-        this.closeAllScreens();
-        // reset ineravtivity option
-        this.showInteractiveOptionBool = true;
+      }
+    }
+
+    // Only update the sprite animation if the electrical component state changes
+    const hasAllComponents = this.hasAllElectricalComponents();
+    if (this.prevComponentState !== hasAllComponents) {
+      this.prevComponentState = hasAllComponents;
+      if (!hasAllComponents) {
+        this.sprite.setAnimation("off");
+      } else {
+        this.sprite.setAnimation("on");
       }
     }
   }
@@ -239,50 +245,90 @@ class WallScreen extends GameObject {
   showElectronicsScreen() {
     this.closeInteractiveOption();
 
-    // creaet box to ask user if they wan to acces inside the panel
+    // Create the main electronics screen
     this.eletronicsScreen = document.createElement("div");
     this.eletronicsScreen.classList.add("EletronicsScreen");
-    //this.eletronicsScreen.innerText = "Access Wall Panel Electronics?";
 
+    // Create the container for the electronics boxes
     this.eletronicsContainer = document.createElement("div");
     this.eletronicsContainer.classList.add("eletronicsContainer");
 
-    // Loop through each item in the inventory
-    this.invatory.forEach((item) => {
-      // Create grid element
-      const element = document.createElement("div");
-      element.classList.add("grid-item");
+    // Create boxes for CircuitBoard and Wires
+    const circuitBoardBox = this.createElectronicsBox("CircuitBoard");
+    const wiresBox = this.createElectronicsBox("Wires");
 
-      // Create img element
+    // Append the boxes to the container
+    this.eletronicsContainer.appendChild(circuitBoardBox);
+    this.eletronicsContainer.appendChild(wiresBox);
+
+    // Append the electronics container to the screen
+    this.eletronicsScreen.appendChild(this.eletronicsContainer);
+
+    // Add the electronics screen to the game container
+    this.gameContainer.appendChild(this.eletronicsScreen);
+  }
+
+  // Helper function to create a box for an electronic item
+  createElectronicsBox(itemName) {
+    this.hero = this.map.gameObjects["hero"];
+    const boxContainer = document.createElement("div");
+    boxContainer.classList.add("gridContainer");
+
+    const box = document.createElement("div");
+    box.classList.add("grid-item");
+
+    // Find the item in the inventory
+    const item = this.invatory.find((invItem) => invItem.name === itemName);
+
+    // If item is not in the inventory, just display the name
+    const textElement = document.createElement("p");
+    textElement.classList.add("eletronicsText");
+    textElement.innerText = itemName; // Display the item name (CircuitBoard or Wires)
+    boxContainer.appendChild(textElement);
+
+    // If the item is found, populate the box with the image and name
+    if (item) {
       const img = document.createElement("img");
       img.classList.add("eletronicsImg");
       img.src = utils.setDynamicPath(item.imageSrc); // Use dynamic path from the item
-      element.appendChild(img);
+      box.appendChild(img);
+      // Add event listener to show the add-to-inventory button
+      box.addEventListener("click", () => this.showAddToInvButton(item, box));
+      // add gird item to container
+      boxContainer.appendChild(box);
+    } else {
+      // add gird item to container
+      boxContainer.appendChild(box);
+      // Find the needed item from the heros inventory
+      const neededItem = this.hero.invatory.find(
+        (invItem) => invItem.name === itemName
+      );
+      if (neededItem) {
+        const addButton = document.createElement("div");
+        addButton.classList.add("eletronicsAddButton");
+        addButton.innerText = "Add " + itemName + " to panel";
 
-      // Create text element
-      const textElement = document.createElement("p");
-      textElement.classList.add("eletronicsText");
-      textElement.innerText = item.name; // Set the text from the item
-      element.appendChild(textElement);
+        // Add event listener to show the add-to-inventory button
+        addButton.addEventListener("click", () =>
+          this.addItemFromHero(neededItem)
+        );
 
-      // add event listener to add to show add to invatory button
-      element.addEventListener("click", () =>
-        this.showAddToInvButton(item, element)
-      ); // or passing item
+        boxContainer.appendChild(addButton);
+      }
+    }
 
-      // Append the created element to the container
-      this.eletronicsContainer.appendChild(element);
-    });
+    return boxContainer;
+  }
 
-    // this.yesButton = document.createElement("div");
-    // this.yesButton.classList.add("menuButton", "green");
-    // this.yesButton.innerText = "Yes";
-    // this.yesButton.addEventListener("click", () => this.showElectronicsScreen())
-    // this.buttonContainer.appendChild(this.yesButton);
+  addItemFromHero(neededItem) {
+    // Find index of the item in the inventory
+    const itemIndex = this.hero.invatory.indexOf(neededItem);
+    // Remove item from heros inventory using splice
+    this.hero.invatory.splice(itemIndex, 1);
 
-    this.eletronicsScreen.appendChild(this.eletronicsContainer);
+    this.invatory.push(neededItem);
 
-    this.gameContainer.appendChild(this.eletronicsScreen);
+    this.resetEletroncicsScreen();
   }
 
   showAddToInvButton(item, divElement) {
@@ -329,9 +375,7 @@ class WallScreen extends GameObject {
 
         console.log("moved object", hero.invatory, this.invatory, item);
 
-        // Update UI
-        this.closeAllScreens(); //  resets the current screen
-        this.showElectronicsScreen();
+        this.resetEletroncicsScreen();
       } else {
         console.error("Item not found in inventory.");
       }
@@ -343,6 +387,12 @@ class WallScreen extends GameObject {
 
     // Append addScreen to the provided element
     this.eletronicsScreen.appendChild(addScreen);
+  }
+
+  resetEletroncicsScreen() {
+    // Update UI
+    this.closeAllScreens(); //  resets the current screen
+    this.showElectronicsScreen();
   }
 
   startBehavior(state, behavior) {

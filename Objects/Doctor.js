@@ -41,7 +41,7 @@ class Doctor extends GameObject {
       new Copper({ quantity: 3 }),
       //new CircuitBoard({ quantity: 3 }),
       new Battery({ quantity: 3 }),
-      new Wires({ quantity: 3 }),
+      //new Wires({ quantity: 3 }),
       this.sonicScrewdriver,
     ];
   }
