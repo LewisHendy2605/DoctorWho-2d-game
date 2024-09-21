@@ -47,21 +47,20 @@ class InvatoryScreen {
             event.dataTransfer.setData("text/plain", event.currentTarget.id);
           });
 
+          const itemData = window.Items[item.type];
+
           // Append item image if available
-          if (item.imageSrc) {
-            let imageElement = document.createElement("img");
-            imageElement.src = item.imageSrc;
-            imageElement.classList.add("InvatoryScreen_item_img");
-            itemDiv.appendChild(imageElement);
-          }
+          let imageElement = document.createElement("img");
+          imageElement.src = utils.setDynamicPath(itemData.imageSrc);
+          imageElement.classList.add("InvatoryScreen_item_img");
+          itemDiv.appendChild(imageElement);
 
           // Append item text (e.g., name and quantity)
           let textElement = document.createElement("p");
           textElement.classList.add("InvatoryScreen_item_text");
-          textElement.innerText =
-            item.type === "collectable"
-              ? item.name + ` - ×${item.quantity}`
-              : item.name;
+          textElement.innerText = item.quantity
+            ? item.name + ` - ×${item.quantity}`
+            : item.name;
           itemDiv.appendChild(textElement);
 
           // Add the item div to the slot
@@ -119,19 +118,19 @@ class InvatoryScreen {
           event.dataTransfer.setData("text/plain", event.currentTarget.id);
         });
 
-        // Append item image if available
-        if (item.imageSrc) {
-          let imageElement = document.createElement("img");
-          imageElement.src = item.imageSrc;
-          imageElement.classList.add("InvatoryScreen_item_img");
-          itemDiv.appendChild(imageElement);
-        }
+        const itemData = window.Items[item.type];
+
+        // Append item image
+
+        let imageElement = document.createElement("img");
+        imageElement.src = utils.setDynamicPath(itemData.imageSrc);
+        imageElement.classList.add("InvatoryScreen_item_img");
+        itemDiv.appendChild(imageElement);
 
         // Append item text (e.g., name and quantity)
         let textElement = document.createElement("p");
         textElement.classList.add("InvatoryScreen_item_text");
-        textElement.innerText =
-          item.type === "collectable" ? ` - ×${item.quantity}` : "";
+        textElement.innerText = item.quantity ? ` - ×${item.quantity}` : "";
         itemDiv.appendChild(textElement);
 
         // Add the item div to the slot
