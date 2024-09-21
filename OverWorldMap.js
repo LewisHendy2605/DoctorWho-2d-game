@@ -1031,6 +1031,12 @@ window.OverworldMaps = {
         // },
       ],
     },
+    walls: {
+      // Back wall fro starting room
+      // [utils.asGridCoord(48, 48)]: true,
+      // [utils.asGridCoord(48, 49)]: true,
+      // [utils.asGridCoord(48, 50)]: true,
+    },
     cutsceneSpaces: {},
   },
 };
