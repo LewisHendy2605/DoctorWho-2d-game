@@ -59,7 +59,7 @@ class WallScreen extends GameObject {
   hasAllElectricalComponents() {
     let hasWires = this.invatory.some((item) => item.name === "Wires");
     let hasCircuitBoard = this.invatory.some(
-      (item) => item.name === "CircuitBoard"
+      (item) => item.name === "Circuit Board"
     );
 
     return hasWires && hasCircuitBoard;
@@ -226,7 +226,7 @@ class WallScreen extends GameObject {
     this.eletronicsContainer.classList.add("eletronicsContainer");
 
     // Create boxes for CircuitBoard and Wires
-    const circuitBoardBox = this.createElectronicsBox("CircuitBoard");
+    const circuitBoardBox = this.createElectronicsBox("Circuit Board");
     const wiresBox = this.createElectronicsBox("Wires");
 
     // Append the boxes to the container
@@ -260,9 +260,10 @@ class WallScreen extends GameObject {
 
     // If the item is found, populate the box with the image and name
     if (item) {
+      const windowItem = window.Items[item.type];
       const img = document.createElement("img");
       img.classList.add("eletronicsImg");
-      img.src = utils.setDynamicPath(item.imageSrc); // Use dynamic path from the item
+      img.src = utils.setDynamicPath(windowItem.imageSrc); // Use dynamic path from the item
       box.appendChild(img);
       // Add event listener to show the add-to-inventory button
       box.addEventListener("click", () => this.showAddToInvButton(item, box));

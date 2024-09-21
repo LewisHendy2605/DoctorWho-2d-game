@@ -1,34 +1,23 @@
-class PlayerState {
+class CraftingState {
   constructor() {
-    this.level = 1;
-    this.xp = 0;
-    this.pizzas = {
-      p1: {
-        pizzaId: "s001",
-        hp: 1,
-        maxHp: 50,
-        xp: 90,
-        maxXp: 100,
-        level: 1,
-        status: { type: "saucy" },
+    this.craftingOptions = {
+      circuitboard: {
+        name: "Circuit Board",
+        type: "circuitBoard",
+        levelRequired: 1,
+        recipe: ["copper", "wires"],
       },
-      p2: {
-        pizzaId: "v001",
-        hp: 30,
-        maxHp: 50,
-        xp: 75,
-        maxXp: 100,
-        level: 1,
-        status: null,
+      wires: {
+        name: "Wires",
+        type: "wires",
+        levelRequired: 1,
+        recipe: ["copper"],
       },
-      p3: {
-        pizzaId: "f001",
-        hp: 30,
-        maxHp: 50,
-        xp: 75,
-        maxXp: 100,
-        level: 1,
-        status: null,
+      battery: {
+        name: "Battery",
+        type: "battery",
+        levelRequired: 2,
+        recipe: ["copper", "wires", "circuitBoard"],
       },
     };
     this.lineup = ["p1"];
@@ -74,4 +63,4 @@ class PlayerState {
   }
 }
 
-window.playerState = new PlayerState();
+window.crafting = new CraftingState();

@@ -36,13 +36,18 @@ class Doctor extends GameObject {
     //   { type: "collectable", name: "Darlek Metal Scrap", quantity: 2 },
     // ];
 
+    // this.invatory = [
+    //   new Titanium({ quantity: 6 }),
+    //   new Copper({ quantity: 3 }),
+    //   //new CircuitBoard({ quantity: 3 }),
+    //   new Battery({ quantity: 3 }),
+    //   //new Wires({ quantity: 3 }),
+    //   this.sonicScrewdriver,
+    // ];
     this.invatory = [
-      new Titanium({ quantity: 6 }),
-      new Copper({ quantity: 3 }),
-      //new CircuitBoard({ quantity: 3 }),
-      new Battery({ quantity: 3 }),
-      //new Wires({ quantity: 3 }),
-      this.sonicScrewdriver,
+      { type: "titanium", quantity: 5 },
+      { type: "copper", quantity: 1 },
+      { type: "battery", quantity: 1 },
     ];
   }
 

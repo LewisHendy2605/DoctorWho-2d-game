@@ -29,6 +29,10 @@
       href="https://fonts.googleapis.com/css2?family=Ribeye&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
 
     <!--  CSS links -->
     <link id="global" type="text/css" rel="stylesheet" />
@@ -94,12 +98,25 @@
 
         // Scripts to load in order
         const scripts = [
+          // utils functions
+          "utils.js",
+
           // Content
           "Content/pizzas.js",
           "Content/actions.js",
           "Content/enemies.js",
+          "Content/Items.js",
+          "Content/Crafting.js",
+
+          // collectables, used in crafting cintent
+          "Objects/Collectables/Titanium.js",
+          "Objects/Collectables/Copper.js",
+          "Objects/Collectables/CircuitBoard.js",
+          "Objects/Collectables/Battery.js",
+          "Objects/Collectables/Wires.js",
 
           // State
+          //"State/Crafting.js",
           "State/PlayerState.js",
           "State/TardisState.js",
           "State/SonicState.js",
@@ -118,7 +135,6 @@
           // Objects
 
           // Scripts
-          "utils.js",
           "AudioManager.js",
           "KeyPressListener.js",
           "DirectionInput.js",
@@ -128,11 +144,6 @@
           "Overworld.js",
           "Objects/Projectile.js",
           "Objects/GameObject.js",
-          "Objects/Collectables/Titanium.js",
-          "Objects/Collectables/Copper.js",
-          "Objects/Collectables/CircuitBoard.js",
-          "Objects/Collectables/Battery.js",
-          "Objects/Collectables/Wires.js",
           "Objects/Box.js",
           "Objects/Console.js",
           "Objects/Person.js",

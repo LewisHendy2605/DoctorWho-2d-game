@@ -1,9 +1,12 @@
 class CircuitBoard {
   // extends collectable
   constructor({ quantity }) {
-    this.name = "CircuitBoard";
-    this.type = "collectable";
-    this.quantity = quantity;
-    this.imageSrc = utils.setDynamicPath("/images/objects/circuitboard.png");
+    this.type = "circuitBoard";
+    this.item = window.Items[this.type];
+    if (this.item) {
+      this.name = this.item.name;
+      this.quantity = quantity;
+      this.imageSrc = utils.setDynamicPath(this.item.imageSrc);
+    }
   }
 }

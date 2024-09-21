@@ -10,6 +10,9 @@ class HudUI {
 
     this.isSonicMenuActive = false;
     this.sonic - null;
+
+    // crafting variables
+    this.subScreenActive = false;
   }
 
   createElement() {
@@ -263,21 +266,21 @@ class HudUI {
             event.dataTransfer.setData("text/plain", event.currentTarget.id);
           });
 
+          // get item data
+          const itemData = window.Items[item.type];
+
           // Append item image if available
-          if (item.imageSrc) {
-            let imageElement = document.createElement("img");
-            imageElement.src = item.imageSrc;
-            imageElement.classList.add("InvatoryScreen_item_img");
-            itemDiv.appendChild(imageElement);
-          }
+          let imageElement = document.createElement("img");
+          imageElement.src = utils.setDynamicPath(itemData.imageSrc);
+          imageElement.classList.add("InvatoryScreen_item_img");
+          itemDiv.appendChild(imageElement);
 
           // Append item text (e.g., name and quantity)
           let textElement = document.createElement("p");
           textElement.classList.add("InvatoryScreen_item_text");
-          textElement.innerText =
-            item.type === "collectable"
-              ? item.name + ` - ×${item.quantity}`
-              : item.name;
+          textElement.innerText = item.quantity
+            ? itemData.name + ` - ×${item.quantity}`
+            : itemData.name;
           itemDiv.appendChild(textElement);
 
           // Add the item div to the slot
@@ -395,64 +398,49 @@ class HudUI {
       // );
       // this.invatoryScreen.appendChild(this.playerImg);
 
-      // // Create inventory container
-      // this.invatoryContainer = document.createElement("div");
-      // this.invatoryContainer.classList.add("inventory-box");
-      // this.invatoryScreen.appendChild(this.invatoryContainer);
-
       // // Define the number of slots (e.g., 12 slots for a 3x4 grid)
       // const maxSlots = 12;
       // let slotElement = null;
 
+      console.log(window.crafting);
+      const craftingItems = window.crafting.craftingOptions;
+
       // // Loop to create each grid slot
-      // for (let i = 0; i < maxSlots; i++) {
-      //   // Create a container div for the slot
-      //   slotElement = document.createElement("div");
-      //   slotElement.classList.add("grid-item");
+      for (const [key, item] of Object.entries(craftingItems)) {
+        console.log(item);
+        // Create a container div for the slot
+        let slotElement = document.createElement("div");
+        slotElement.classList.add("crafting-item");
 
-      //   // Add event listeners for drag and drop functionality
-      //   slotElement.addEventListener("drop", utils.drop);
-      //   slotElement.addEventListener("dragover", utils.allowDrop);
+        let itemDiv = document.createElement("div");
+        itemDiv.classList.add("InvatoryScreen_item");
 
-      //   // Check if there is an item to place in the slot
-      //   if (i < this.character.invatory.length) {
-      //     let item = this.character.invatory[i];
+        // Append item image if available
+        let craftingItem = window.Items[item.type];
+        if (craftingItem) {
+          let imageElement = document.createElement("img");
+          imageElement.src = utils.setDynamicPath(craftingItem.imageSrc);
+          imageElement.classList.add("InvatoryScreen_item_img");
+          if (
+            window.playerState.level < item.levelRequired ||
+            !this.canCraft(item.recipe, this.character.invatory)
+          ) {
+            imageElement.style.filter = "brightness(50%)"; // Darken the image
+            // or use opacity
+            // imageElement.style.opacity = "0.5";
+          }
+          itemDiv.appendChild(imageElement);
+        }
 
-      //     // Create a div to contain the item
-      //     let itemDiv = document.createElement("div");
-      //     itemDiv.classList.add("InvatoryScreen_item");
-      //     itemDiv.setAttribute("draggable", "true"); // Make item draggable
-      //     itemDiv.setAttribute("id", `item-${i}`); // Set unique ID for dragging
+        // show info + carfting button when hovered over
+        slotElement.addEventListener("click", () =>
+          this.toggleCraftingOption(slotElement, item)
+        );
 
-      //     itemDiv.addEventListener("dragstart", (event) => {
-      //       // Store the item's ID
-      //       event.dataTransfer.setData("text/plain", event.currentTarget.id);
-      //     });
+        slotElement.appendChild(itemDiv);
 
-      //     // Append item image if available
-      //     if (item.imageSrc) {
-      //       let imageElement = document.createElement("img");
-      //       imageElement.src = item.imageSrc;
-      //       imageElement.classList.add("InvatoryScreen_item_img");
-      //       itemDiv.appendChild(imageElement);
-      //     }
-
-      //     // Append item text (e.g., name and quantity)
-      //     let textElement = document.createElement("p");
-      //     textElement.classList.add("InvatoryScreen_item_text");
-      //     textElement.innerText =
-      //       item.type === "collectable"
-      //         ? item.name + ` - ×${item.quantity}`
-      //         : item.name;
-      //     itemDiv.appendChild(textElement);
-
-      //     // Add the item div to the slot
-      //     slotElement.appendChild(itemDiv);
-      //   }
-
-      //   // Append the slot element to the container
-      //   this.invatoryContainer.appendChild(slotElement);
-      // }
+        this.craftingContainer.appendChild(slotElement);
+      }
 
       // Append the entire inventory screen to the HUD
       this.playerHudMenu.appendChild(this.craftingScreen);
@@ -470,6 +458,110 @@ class HudUI {
 
     // reset menu elements
     this.craftingScreen = null;
+  }
+
+  toggleCraftingOption(slotElement, craftingItem) {
+    console.log(
+      "toggleCraftingOption clickd, this.subScreenActive:",
+      this.subScreenActive
+    );
+    if (!this.subScreenActive) {
+      this.subScreenActive = true;
+      this.showCraftingOption(slotElement, craftingItem);
+    } else {
+      this.subScreenActive = false;
+      this.hideCraftingOption();
+    }
+  }
+
+  showCraftingOption(slotElement, craftingItem) {
+    this.craftingSubScreen = document.createElement("div");
+    this.craftingSubScreen.classList.add("craftingSubScreen");
+
+    // Get the bounding rectangle of the crafting item
+    const rect = slotElement.getBoundingClientRect();
+    console.log("grid-item rect:", rect);
+
+    // Scaling factor
+    const scale = 3; // Adjust this based on your actual scaling factor
+    const transformOffset = -50; // Adjust this based on your transform value
+
+    // Adjust the position for scale and transform
+    this.craftingSubScreen.style.left = `${
+      rect.right / scale + transformOffset - 20
+    }px`; // Shift left slightly
+    this.craftingSubScreen.style.top = `${rect.top / scale - 70}px`; // Shift up slightly
+
+    const title = document.createElement("h3");
+    title.classList.add("craftingSubScreen_title");
+    title.innerText = craftingItem.name;
+    this.craftingSubScreen.appendChild(title);
+
+    const info = document.createElement("p");
+    info.classList.add("craftingSubScreen_p");
+    info.innerText = "Level Required: " + craftingItem.levelRequired;
+    this.craftingSubScreen.appendChild(info);
+
+    const recipe = document.createElement("p");
+    recipe.classList.add("craftingSubScreen_recipe");
+    recipe.innerText = "Recipe: " + craftingItem.recipe.join(", ");
+    this.craftingSubScreen.appendChild(recipe);
+
+    const craftButton = document.createElement("button");
+    craftButton.classList.add("craftingSubScreen_craftButton");
+    if (this.canCraft(craftingItem.recipe, this.character.invatory)) {
+      craftButton.innerText = "Craft Item";
+      craftButton.addEventListener("click", () => this.craftItem(craftingItem));
+    } else {
+      craftButton.innerText = "Need resourse to craft";
+    }
+
+    this.craftingSubScreen.appendChild(craftButton);
+
+    //slotElement.appendChild(this.craftingSubScreen);
+    this.craftingContainer.appendChild(this.craftingSubScreen);
+  }
+
+  hideCraftingOption() {
+    if (this.craftingSubScreen) {
+      this.craftingSubScreen.remove();
+    }
+  }
+
+  craftItem(craftingItem) {
+    // Loop through the crafting recipe
+    craftingItem.recipe.forEach((recipeItem) => {
+      // Find the index of the item in the inventory
+      const index = this.character.invatory.findIndex(
+        (item) => item.type === recipeItem
+      );
+      // If the item exists in the inventory, remove one
+      if (index !== -1 && this.character.invatory[index].quantity > 0) {
+        this.character.invatory[index].quantity -= 1; // Decrease the quantity
+        // If the quantity reaches 0, remove the item from the inventory
+        if (this.character.invatory[index].quantity === 0) {
+          this.character.invatory.splice(index, 1);
+        }
+      }
+    });
+
+    // Add the crafted item to the inventory
+    const craftedItem = {
+      type: craftingItem.type,
+      quantity: 1,
+    };
+    this.character.invatory.push(craftedItem);
+
+    // update UI
+    this.hideCraftingOption();
+    this.removeCraftingScreen();
+    this.addCraftingScreen();
+  }
+
+  canCraft(recipe, inventory) {
+    return recipe.every(
+      (recipeItem) => inventory.some((item) => item.type === recipeItem) // Adjust according to your item's property
+    );
   }
 
   addOrRemoveSonicHUD() {
