@@ -222,14 +222,26 @@ class Door extends GameObject {
   }
 
   tellPlayerElectricalSystemsNotActive() {
-    const textEvent = new OverworldEvent({
-      map: this.map,
-      event: {
-        type: "textMessage",
-        text: "Electrical Systems not active",
-      },
-    });
-    textEvent.init();
+    if (this.wallScreen.hasAllElectricalComponents()) {
+      const textEvent = new OverworldEvent({
+        map: this.map,
+        event: {
+          type: "textMessage",
+          text: "Electrical Systems not active",
+        },
+      });
+      textEvent.init();
+    } else {
+      const textEvent = new OverworldEvent({
+        map: this.map,
+        event: {
+          type: "textMessage",
+          text: "Electrical Systems not active, wall panel is missing componenets",
+          fontSize: "0.7rem",
+        },
+      });
+      textEvent.init();
+    }
   }
 
   checkElectricalSystems() {

@@ -45,9 +45,9 @@ class Doctor extends GameObject {
     //   this.sonicScrewdriver,
     // ];
     this.invatory = [
-      { type: "titanium", quantity: 5 },
-      { type: "copper", quantity: 1 },
-      { type: "battery", quantity: 1 },
+      //{ type: "titanium", quantity: 5 },
+      //{ type: "copper", quantity: 1 },
+      //{ type: "battery", quantity: 1 },
     ];
   }
 

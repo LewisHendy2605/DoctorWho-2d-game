@@ -51,8 +51,8 @@ class WallScreen extends GameObject {
     ];
 
     this.invatory = [
-      new CircuitBoard({ quantity: 1 }),
-      new Wires({ quantity: 1 }),
+      //new CircuitBoard({ quantity: 1 }),
+      //new Wires({ quantity: 1 }),
     ];
   }
 

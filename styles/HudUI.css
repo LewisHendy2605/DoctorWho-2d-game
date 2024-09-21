@@ -44,9 +44,9 @@
   position: absolute;
   margin-top: 6%;
   left: 2%;
-  width: 16px;
-  height: 16px;
-  border: 1px solid goldenrod;
+  width: 20px;
+  height: 20px;
+  /*border: 1px solid goldenrod;*/
   border-radius: 50%; /* Make the image circular */
   object-fit: cover; /* Ensure the image covers the area */
 }
@@ -59,14 +59,14 @@
 .HudUI_sonic {
   position: absolute;
   margin-top: 6%;
-  left: 15%;
+  left: 20%;
 }
 
 .HudUI_sonic_img {
   position: relative;
-  width: 16px;
-  height: 16px;
-  border: 1px solid green;
+  width: 20px;
+  height: 20px;
+  /*border: 1px solid green;*/
   border-radius: 50%; /* Make the image circular */
   object-fit: cover; /* Ensure the image covers the area */
   z-index: 20;
@@ -488,6 +488,7 @@
   box-sizing: border-box;
   margin: 2% auto;
   margin-top: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .crafting-item {
@@ -524,7 +525,7 @@
   z-index: 20;
   border: 1px solid black;
   border-radius: 1px;
-  overflow: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .craftingSubScreen_title {
@@ -532,6 +533,26 @@
   font-size: 0.5rem;
   margin: 0 5%;
   text-align: center;
+}
+
+.recipeItemContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  height: 35%;
+  margin-left: 5%;
+}
+
+.craftingSubScreen_item_container {
+  position: relative;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+.craftingSubScreen_recipeImg {
+  width: 16px;
+  height: 16px;
+  image-rendering: pixelated !important;
 }
 
 .craftingSubScreen_p {
@@ -542,16 +563,19 @@
 .craftingSubScreen_recipe {
   margin: 0 5%;
   margin-top: 5%;
+  font-size: 0.4rem;
 }
 
 .craftingSubScreen_craftButton {
   position: relative;
   width: 60%;
   height: 20%;
-  background-color: aquamarine;
+  background-color: rgb(51, 116, 13);
+  border-radius: 3px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
   font-size: 0.4rem;
   margin: 0 20%;
-  margin-top: 15%;
+  margin-top: 5%;
 }
 
 .hidden {

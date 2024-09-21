@@ -57,7 +57,10 @@ class Box extends GameObject {
       //   },
     ];
 
-    this.invatory = [new Titanium({ quantity: 19 })];
+    this.invatory = [
+      new Copper({ quantity: 10 }),
+      new Titanium({ quantity: 3 }),
+    ];
   }
 
   openBox() {

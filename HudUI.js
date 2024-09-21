@@ -502,10 +502,34 @@ class HudUI {
     info.innerText = "Level Required: " + craftingItem.levelRequired;
     this.craftingSubScreen.appendChild(info);
 
-    const recipe = document.createElement("p");
-    recipe.classList.add("craftingSubScreen_recipe");
-    recipe.innerText = "Recipe: " + craftingItem.recipe.join(", ");
-    this.craftingSubScreen.appendChild(recipe);
+    const recipeItemContainer = document.createElement("div");
+    recipeItemContainer.classList.add("recipeItemContainer");
+
+    const recipeItemContainerText = document.createElement("p");
+    recipeItemContainerText.innerText = "Recipie: ";
+    recipeItemContainer.appendChild(recipeItemContainerText);
+
+    // Loop through the recipe items and create an image for each
+    craftingItem.recipe.forEach((itemType) => {
+      const itemContainer = document.createElement("div");
+      itemContainer.classList.add("craftingSubScreen_item_container");
+
+      const recipeImg = document.createElement("img");
+      recipeImg.classList.add("craftingSubScreen_recipeImg");
+      recipeImg.src = utils.setDynamicPath(window.Items[itemType].imageSrc);
+      // Append each recipe image to the container
+      itemContainer.appendChild(recipeImg);
+
+      // create text element
+      const recipe = document.createElement("p");
+      recipe.classList.add("craftingSubScreen_recipe");
+      recipe.innerText = itemType;
+      itemContainer.appendChild(recipe);
+
+      recipeItemContainer.appendChild(itemContainer);
+    });
+
+    this.craftingSubScreen.appendChild(recipeItemContainer);
 
     const craftButton = document.createElement("button");
     craftButton.classList.add("craftingSubScreen_craftButton");

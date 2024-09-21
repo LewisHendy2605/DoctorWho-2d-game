@@ -967,7 +967,7 @@ window.OverworldMaps = {
         //x: utils.withGrid(44),
         //y: utils.withGrid(10),
         x: utils.withGrid(86),
-        y: utils.withGrid(80),
+        y: utils.withGrid(78),
         src: "/images/characters-doctor-who/doctor-11.png",
       }),
       tardis: new Tardis({
@@ -1020,9 +1020,9 @@ window.OverworldMaps = {
       startEvents: [
         {
           type: "textMessage",
-          text: "Look around the room and use the sonic to investigate / interact with objects (Use Q to equip, E to scan, space to fire a burst - Sonic mode can be changed in the HUD)",
-          fontSize: "0.5rem",
-          height: "8svh",
+          text: "You are in a darlek base !, Locate the tardis and esacpe.",
+          fontSize: "0.7rem",
+          height: "6svh",
         },
         // {
         //   type: "textMessage",
