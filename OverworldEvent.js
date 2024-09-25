@@ -51,6 +51,7 @@ class OverworldEvent {
   }
 
   walkFoward(resolve) {
+    console.log("person start walk called");
     const who = this.map.gameObjects[this.event.who];
     who.startBehavior(
       { map: this.map },
@@ -65,6 +66,7 @@ class OverworldEvent {
     const completeHandler = (e) => {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonWalkComplete", completeHandler);
+        console.log("person complete called");
         resolve();
       }
     };
@@ -74,18 +76,39 @@ class OverworldEvent {
 
   async followHero(resolve) {
     try {
-      // Face the hero
+      // Face the hero first
       await new Promise((res) => this.faceHero(res));
 
-      // Walk forward after facing the hero
-      await new Promise((res) => this.walkFoward(res));
+      const who = this.map.gameObjects[this.event.who];
 
-      resolve(); // Once everything is done, resolve the main promise
+      // Define a maximum number of retries to prevent an infinite loop
+      let maxRetries = 5;
+      let retries = 0;
+
+      // Retry walking if space is taken
+      while (retries < maxRetries) {
+        if (this.map.isSpaceTaken(who.x, who.y, who.direction)) {
+          //console.log("Space is taken, retrying...");
+          retries++;
+
+          // Optional: Wait before retrying to give the game some time to process
+          await new Promise((res) => setTimeout(res, 200)); // Wait for 500ms before retrying
+        } else {
+          // If space is not taken, walk forward
+          await new Promise((res) => this.walkFoward(res));
+          break; // Break out of the retry loop once the walk succeeds
+        }
+      }
+
+      // If retries exceeded maxRetries, consider resolving or handling failure
+      // if (retries >= maxRetries) {
+      //   console.log("Max retries reached, could not move forward.");
+      // }
+
+      resolve(); // Resolve the main promise after everything is done
     } catch (err) {
       console.error("Error in followHero process:", err);
-
-      // Ensure resolve is still called, even in case of an error
-      resolve();
+      resolve(); // Ensure resolve is still called in case of an error
     }
   }
 
@@ -191,13 +214,14 @@ class OverworldEvent {
   }
 
   async followHeroFiveSteps(resolve) {
+    console.log();
     try {
       // Move toward the hero and count steps
       await new Promise((res) => this.faceHero(res));
 
       for (let i = 0; i < 5; i++) {
         // Move for 5 steps
-        await new Promise((res) => this.walkFoward(res));
+        this.walkFoward();
       }
 
       resolve(); // Once the movement loop is done, resolve followHero
@@ -208,7 +232,13 @@ class OverworldEvent {
   }
 
   shoot() {
-    //console.log("shoot called", this, "gameobjects: ", this.map.gameObjects);
+    // console.log(
+    //   "shoot called",
+    //   this,
+    //   "gameobjects: ",
+    //   this.map.gameObjects,
+    //   this.event
+    // );
     if (this.event.who === "darlek") {
       const darlek = this.map.gameObjects[this.event.who];
       darlek.shoot();
@@ -221,20 +251,15 @@ class OverworldEvent {
     const shootEveryStepsNum = 7;
 
     try {
-      // Start moving toward the hero and shooting periodically
-      //await new Promise((res) => this.followHero(res));
-
-      // Move in steps and shoot periodically
+      // Loop for a number of steps, shooting periodically
       for (let i = 0; i < shootEveryStepsNum; i++) {
-        // Adjust the number of steps as needed
-        //await new Promise((res) => this.faceHero(res));
-        //await new Promise((res) => this.walkFoward(res)); // Move one step
+        // Follow the hero, with retry logic if blocked
         await new Promise((res) => this.followHero(res));
-        stepsTaken += 1;
+        stepsTaken++;
 
         // Shoot after every shootEveryStepsNum steps
         if (stepsTaken >= shootEveryStepsNum) {
-          console.log("Shooting after  ", shootEveryStepsNum, " steps");
+          console.log("Shooting after ", shootEveryStepsNum, " steps");
           this.shoot();
           stepsTaken = 0; // Reset step counter
         }
@@ -244,7 +269,7 @@ class OverworldEvent {
       resolve();
     } catch (err) {
       console.error("Error in followHeroAndShoot:", err);
-      resolve(); // Always resolve the promise
+      resolve(); // Always resolve the promise even in case of an error
     }
   }
 
@@ -709,7 +734,43 @@ class OverworldEvent {
 
   init() {
     return new Promise((resolve) => {
-      this[this.event.type](resolve);
+      if (this.event.required) {
+        if (window.playerState.storyFlags[this.event.required]) {
+          // if stroy flag has happend then call event
+          this[this.event.type](resolve);
+        } else {
+          // else resolve after 100 ms
+          setTimeout(resolve, 100);
+        }
+      } else {
+        this[this.event.type](resolve);
+      }
     });
   }
+
+  // init() {
+  //   //window.playerState.storyFlags[this.event.required] = true;
+  //   console.log("window.playerState.storyFlags", window.playerState.storyFlags);
+  //   return new Promise((resolve, reject) => {
+  //     // Check if the event has a required story flag
+  //     if (this.event.required) {
+  //       console.log("event required")
+  //       // If the required flag is active, trigger the event
+  //       if (window.playerState.storyFlags[this.event.required]) {
+  //         this[this.event.type](resolve);
+  //       } else {
+  //         // Log a message and resolve the promise without triggering the event
+  //         console.log(
+  //           "Story flag not active",
+  //           window.playerState.storyFlags,
+  //           this.event
+  //         );
+  //         resolve(); // Resolve immediately, nothing to do
+  //       }
+  //     } else {
+  //       // If no story flag is required, simply trigger the event
+  //       this[this.event.type](resolve);
+  //     }
+  //   });
+  // }
 }

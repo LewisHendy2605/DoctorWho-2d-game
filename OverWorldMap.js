@@ -118,6 +118,12 @@ class OverWorldMap {
 
   isSpaceTaken(currentX, currentY, direction) {
     const { x, y } = utils.nextPosition(currentX, currentY, direction);
+    // let objectInWay = false;
+    // for (let obj of this.gameObjects) {
+    //   if (obj.x === x && obj.y === y) {
+    //     objectInWay = true;
+    //   }
+    // }
     return this.walls[`${x},${y}`] || false;
   }
 
@@ -992,17 +998,27 @@ window.OverworldMaps = {
         src: "/images/objects/box-tech.png",
         //src: "/images/characters-doctor-who/doctor-11.png",
       }),
-      // darlek: new Darlek({
-      //   isPlayerControlled: false,
-      //   x: utils.withGrid(30),
-      //   y: utils.withGrid(18),
-      //   src: "/images/characters-doctor-who/darlek.png",
-      //   behaviorLoop: [
-      //     { type: "followHero" },
-      //     { type: "speak", text: "Exterminate !" },
-      //     { type: "shoot" },
-      //   ],
-      // }),
+      darlek: new Darlek({
+        isPlayerControlled: false,
+        x: utils.withGrid(85),
+        y: utils.withGrid(60),
+        src: "/images/characters-doctor-who/darlek.png",
+        // behaviorLoop: [
+        //   { type: "followHero" },
+        //   {
+        //     type: "speak",
+        //     text: "Exterminate !",
+        //   },
+        //   { type: "shoot" },
+        // ],
+        behaviorLoop: [
+          {
+            type: "followHeroAndShoot",
+            required: "HERO_LEFT_ROOM",
+            id: "darlek",
+          },
+        ],
+      }),
       // darlekOne: new Darlek({
       //   isPlayerControlled: false,
       //   x: utils.withGrid(68),
@@ -1032,10 +1048,24 @@ window.OverworldMaps = {
       ],
     },
     walls: {
-      // Back wall fro starting room
-      // [utils.asGridCoord(48, 48)]: true,
-      // [utils.asGridCoord(48, 49)]: true,
-      // [utils.asGridCoord(48, 50)]: true,
+      // Back wall for starting room
+      [utils.asGridCoord(89, 72)]: true,
+      [utils.asGridCoord(80, 72)]: true,
+      [utils.asGridCoord(81, 72)]: true,
+      [utils.asGridCoord(82, 72)]: true,
+
+      [utils.asGridCoord(86, 72)]: true,
+
+      [utils.asGridCoord(88, 72)]: true,
+      [utils.asGridCoord(89, 72)]: true,
+      [utils.asGridCoord(90, 72)]: true,
+      [utils.asGridCoord(91, 72)]: true,
+      [utils.asGridCoord(92, 72)]: true,
+      [utils.asGridCoord(93, 72)]: true,
+      [utils.asGridCoord(94, 72)]: true,
+      [utils.asGridCoord(95, 72)]: true,
+      [utils.asGridCoord(96, 72)]: true,
+      [utils.asGridCoord(97, 72)]: true,
     },
     cutsceneSpaces: {},
   },

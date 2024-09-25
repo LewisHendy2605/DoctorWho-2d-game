@@ -198,6 +198,12 @@ class Door extends GameObject {
         !this.isHeroInFrontOfDoor(gameObject)
       ) {
         this.toggleOpenOrCloseDoor(); // Close door after the player passes through
+        // add story flag ehrn player  leaves
+        const event = new OverworldEvent({
+          map: this.map,
+          event: { type: "addStoryFlag", flag: "HERO_LEFT_ROOM" },
+        });
+        event.init();
       }
     }
   }

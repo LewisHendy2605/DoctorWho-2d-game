@@ -108,6 +108,7 @@ class GameObject {
 
     // Create an event instance out of our next event config
     const eventHandler = new OverworldEvent({ map, event: eventConfig });
+    //console.log("initilains event loop event");
     await eventHandler.init();
 
     // Setting the next event to fire

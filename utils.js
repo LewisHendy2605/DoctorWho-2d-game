@@ -152,28 +152,29 @@ const utils = {
         // Determine horizontal direction
         obj1.direction = deltaX > 0 ? "right" : "left";
         // Align y-coordinate for shooting
-        obj1.y = y2; // Align y to the hero's y
-        // Move obj1 towards obj2
-        obj1.x =
-          x1 +
-          (deltaX > 0
-            ? Math.min(deltaX, minDistance)
-            : Math.max(deltaX, -minDistance));
+        // obj1.y = y2; // Align y to the hero's y
+        // // Move obj1 towards obj2
+        // obj1.x =
+        //   x1 +
+        //   (deltaX > 0
+        //     ? Math.min(deltaX, minDistance)
+        //     : Math.max(deltaX, -minDistance));
       } else {
         // Determine vertical direction
         obj1.direction = deltaY > 0 ? "down" : "up";
         // Align x-coordinate for shooting
-        obj1.x = x2; // Align x to the hero's x
-        // Move obj1 towards obj2
-        obj1.y =
-          y1 +
-          (deltaY > 0
-            ? Math.min(deltaY, minDistance)
-            : Math.max(deltaY, -minDistance));
+        // obj1.x = x2; // Align x to the hero's x
+        // // Move obj1 towards obj2
+        // obj1.y =
+        //   y1 +
+        //   (deltaY > 0
+        //     ? Math.min(deltaY, minDistance)
+        //     : Math.max(deltaY, -minDistance));
       }
     } else {
       // Stop moving if within the minimum distance
       obj1.direction = "none"; // No movement
+      console.log("direction set to none");
     }
 
     // Optional: Log the direction and coordinates for debugging
