@@ -577,7 +577,7 @@ class HudUI {
     this.character.invatory.push(craftedItem);
 
     // update UI
-    this.hideCraftingOption();
+    this.toggleCraftingOption();
     this.removeCraftingScreen();
     this.addCraftingScreen();
   }

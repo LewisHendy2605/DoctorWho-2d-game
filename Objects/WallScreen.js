@@ -57,9 +57,9 @@ class WallScreen extends GameObject {
   }
 
   hasAllElectricalComponents() {
-    let hasWires = this.invatory.some((item) => item.name === "Wires");
+    let hasWires = this.invatory.some((item) => item.type === "wires");
     let hasCircuitBoard = this.invatory.some(
-      (item) => item.name === "Circuit Board"
+      (item) => item.type === "circuitBoard"
     );
 
     return hasWires && hasCircuitBoard;
@@ -215,6 +215,7 @@ class WallScreen extends GameObject {
   }
 
   showElectronicsScreen() {
+    console.log("show showElectronicsScreen");
     this.closeInteractiveOption();
 
     // Create the main electronics screen
@@ -226,8 +227,8 @@ class WallScreen extends GameObject {
     this.eletronicsContainer.classList.add("eletronicsContainer");
 
     // Create boxes for CircuitBoard and Wires
-    const circuitBoardBox = this.createElectronicsBox("Circuit Board");
-    const wiresBox = this.createElectronicsBox("Wires");
+    const circuitBoardBox = this.createElectronicsBox("circuitBoard");
+    const wiresBox = this.createElectronicsBox("wires");
 
     // Append the boxes to the container
     this.eletronicsContainer.appendChild(circuitBoardBox);
@@ -241,7 +242,7 @@ class WallScreen extends GameObject {
   }
 
   // Helper function to create a box for an electronic item
-  createElectronicsBox(itemName) {
+  createElectronicsBox(itemType) {
     this.hero = this.map.gameObjects["hero"];
     const boxContainer = document.createElement("div");
     boxContainer.classList.add("gridContainer");
@@ -250,12 +251,14 @@ class WallScreen extends GameObject {
     box.classList.add("grid-item");
 
     // Find the item in the inventory
-    const item = this.invatory.find((invItem) => invItem.name === itemName);
+    const item = this.invatory.find((invItem) => invItem.type === itemType);
+
+    console.log("createElectronicsBox", item, itemType);
 
     // If item is not in the inventory, just display the name
     const textElement = document.createElement("p");
     textElement.classList.add("eletronicsText");
-    textElement.innerText = itemName; // Display the item name (CircuitBoard or Wires)
+    textElement.innerText = itemType; // Display the item name (CircuitBoard or Wires)
     boxContainer.appendChild(textElement);
 
     // If the item is found, populate the box with the image and name
@@ -274,12 +277,13 @@ class WallScreen extends GameObject {
       boxContainer.appendChild(box);
       // Find the needed item from the heros inventory
       const neededItem = this.hero.invatory.find(
-        (invItem) => invItem.name === itemName
+        (invItem) => invItem.type === itemType
       );
+      console.log("needed item: ", neededItem);
       if (neededItem) {
         const addButton = document.createElement("div");
         addButton.classList.add("eletronicsAddButton");
-        addButton.innerText = "Add " + itemName + " to panel";
+        addButton.innerText = "Add " + itemType + " to panel";
 
         // Add event listener to show the add-to-inventory button
         addButton.addEventListener("click", () =>
@@ -296,6 +300,7 @@ class WallScreen extends GameObject {
   addItemFromHero(neededItem) {
     // Find index of the item in the inventory
     const itemIndex = this.hero.invatory.indexOf(neededItem);
+    console.log("addItemFromHero", neededItem, itemIndex, this.hero.invatory);
     // Remove item from heros inventory using splice
     this.hero.invatory.splice(itemIndex, 1);
 
