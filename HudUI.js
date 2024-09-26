@@ -20,17 +20,26 @@ class HudUI {
     this.element = document.createElement("div");
     this.element.classList.add("HudUI");
     this.element.innerHTML = `
-    <h3 class="HudUI_p_name">${utils.capitalizeFirstLetter(
-      this.character.type
-    )}</h3>
-      <img src="${this.imgPath}" class="HudUI_img " />
-      <div class="HudUI_sonic hidden">
-      <img src="${this.sonicImgPath}" class="HudUI_sonic_img" />
-      <p class="HudUI_sonic_mode_p"> Mode: ${
-        this.character.sonicScrewdriver.activeMode.name
-      } </p>
+    <div class="HudContainer">
+      <img src="${utils.setDynamicPath(
+        "/images/ui/UI_Hologram_Fillbar_05a.png"
+      )}" class="HudUI_Background_Img" />
+    
+      <div class="HudUI_Elements">
+          <img src="${this.imgPath}" class="HudUI_img " />
+          <div class="HudUI_sonic hidden">
+          <img src="${this.sonicImgPath}" class="HudUI_sonic_img" />
+          <p class="HudUI_sonic_mode_p"> Mode: ${
+            this.character.sonicScrewdriver.activeMode.name
+          } </p>
+          </div>
+        </div>
       </div>
     `;
+
+    // <h3 class="HudUI_p_name">${utils.capitalizeFirstLetter(
+    //   this.character.type
+    // )}</h3>
 
     //<p class="HudUI_sonic_img"> Mode: ${
     //  this.character.sonicScrewdriver.activeMode.name

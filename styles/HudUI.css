@@ -9,6 +9,37 @@
   margin: 0;
 }
 
+.HudContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42%;
+  height: 150%;
+  margin-top: 0;
+}
+
+.HudUI_Background_Img {
+  position: relative;
+  top: -20%;
+  left: -1%;
+  width: 100%;
+  height: 100%;
+  opacity: 0.95;
+}
+
+.HudUI_Elements {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  padding: 12% 9%;
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+  display: grid; /* Enables grid layout */
+  grid-template-columns: repeat(4, 1fr); /* Creates 3 equal columns */
+  gap: 0; /* Optional: adds a gap between the columns */
+}
+
 .HudUI_p_name {
   position: absolute;
   font-family: "DoctorWho2", sans-serif;
@@ -41,14 +72,13 @@
   -ms-interpolation-mode: nearest-neighbor; /* IE */
 }
 .HudUI_img {
-  position: absolute;
-  margin-top: 6%;
-  left: 2%;
+  position: relative;
   width: 20px;
   height: 20px;
   /*border: 1px solid goldenrod;*/
   border-radius: 50%; /* Make the image circular */
   object-fit: cover; /* Ensure the image covers the area */
+  z-index: 22;
 }
 .HudUI_img:hover {
   border: 1px solid gold;
@@ -57,9 +87,12 @@
 }
 
 .HudUI_sonic {
-  position: absolute;
-  margin-top: 6%;
-  left: 20%;
+  position: relative;
+  width: 200%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  z-index: 20;
 }
 
 .HudUI_sonic_img {
@@ -69,7 +102,6 @@
   /*border: 1px solid green;*/
   border-radius: 50%; /* Make the image circular */
   object-fit: cover; /* Ensure the image covers the area */
-  z-index: 20;
 }
 
 .HudUI_sonic_img:hover {
@@ -79,9 +111,13 @@
 
 .HudUI_sonic_mode_p {
   position: relative;
+  width: 300%;
   font-family: "DoctorWho2", sans-serif;
   font-size: 0.2em;
   font-weight: bold;
+  text-align: center;
+  color: rgb(83, 153, 83);
+  padding: 10% 0;
 }
 
 .SonicHudUI {
@@ -91,7 +127,7 @@
   width: 45%;
   height: auto;
   margin-top: 6%;
-  left: 15%;
+  left: 50%;
   border: 1px solid greenyellow;
   border-radius: 10px;
   font-family: "DoctorWho2", sans-serif;
@@ -144,6 +180,7 @@
   display: flex;
   flex-direction: column;
   margin: 6%;
+  z-index: 21;
 }
 
 .PlayerHudUI_header {
