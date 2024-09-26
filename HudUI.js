@@ -597,44 +597,77 @@ class HudUI {
     );
   }
 
+  // addOrRemoveSonicHUD() {
+  //   console.log("sonic clicked");
+  //   //toggleSonic;
+  //   // if active hide menu
+  //   if (this.isSonicMenuActive) {
+  //     this.sonicHudMenu.remove();
+  //     this.isSonicMenuActive = false;
+  //   } else {
+  //     // else add it to hud
+  //     this.sonicHudMenu = document.createElement("div");
+  //     this.sonicHudMenu.classList.add("SonicHudUI");
+  //     this.sonicHudMenu.innerHTML = `
+  //     <h3 class="SonicHudUI_title">${"Sonic Modes"}</h3>
+
+  //     `;
+  //     // <p class="SonicHudUI_option"> Settings </p>
+
+  //     // Set up conrtrols for sonic
+  //     //console.log("Sonic: ", this.sonic.modes);
+  //     // create sonic menu options
+  //     let tempElement = null;
+  //     this.character.sonicScrewdriver.modes.forEach((element) => {
+  //       tempElement = document.createElement("p");
+  //       tempElement.classList.add("SonicHudUI_option");
+  //       tempElement.innerText = element.name;
+  //       tempElement.addEventListener("click", () =>
+  //         this.sonicModeOptionClicked(element)
+  //       );
+  //       this.sonicHudMenu.appendChild(tempElement);
+  //     });
+
+  //     // add elemet to game container
+  //     this.element.appendChild(this.sonicHudMenu);
+  //     this.isSonicMenuActive = true;
+  //   }
+  // }
+
   addOrRemoveSonicHUD() {
-    console.log("sonic clicked");
-    //toggleSonic;
-    // if active hide menu
     if (this.isSonicMenuActive) {
-      this.sonicHudMenu.remove();
+      this.sonicMenu.end();
       this.isSonicMenuActive = false;
     } else {
-      // else add it to hud
-      this.sonicHudMenu = document.createElement("div");
-      this.sonicHudMenu.classList.add("SonicHudUI");
-      this.sonicHudMenu.innerHTML = `
-      <h3 class="SonicHudUI_title">${"Sonic Modes"}</h3>
-    
-  
-      `;
-      // <p class="SonicHudUI_option"> Settings </p>
-
-      // Set up conrtrols for sonic
-      //console.log("Sonic: ", this.sonic.modes);
-      // create sonic menu options
-      let tempElement = null;
-      this.character.sonicScrewdriver.modes.forEach((element) => {
-        tempElement = document.createElement("p");
-        tempElement.classList.add("SonicHudUI_option");
-        tempElement.innerText = element.name;
-        tempElement.addEventListener("click", () =>
-          this.sonicModeOptionClicked(element)
-        );
-        this.sonicHudMenu.appendChild(tempElement);
-      });
-
-      // add elemet to game container
-      this.element.appendChild(this.sonicHudMenu);
       this.isSonicMenuActive = true;
+
+      let options = [];
+
+      for (let obj of this.character.sonicScrewdriver.modes) {
+        let option = {
+          label: obj.name,
+          class: "choose-dest",
+          handler: () => {
+            this.addOrRemoveSonicHUD();
+
+            this.sonicModeOptionClicked(obj);
+          },
+        };
+        options.push(option);
+      }
+
+      this.sonicMenu = new SonicMenu({
+        map: this.character.map,
+        user: this.character,
+        onComplete: () => {
+          //this.sonicMenu.end();
+          //resolve();
+        },
+        options: options,
+      });
+      this.sonicMenu.init(document.querySelector(".game-container"));
     }
   }
-
   sonicModeOptionClicked(elem) {
     //this.character.sonicScrewdriver.activeMode = elem;
     this.character.sonicScrewdriver.setActiveMode(elem);

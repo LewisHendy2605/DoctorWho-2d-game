@@ -86,7 +86,7 @@ body {
 .sonicButton {
   position: absolute;
   left: 10svw;
-  bottom: 35svh;
+  bottom: 33svh;
   padding: 15px;
   background-color: blue;
   display: block;
@@ -95,7 +95,7 @@ body {
 .sonicShootButton {
   position: absolute;
   right: 10svw;
-  bottom: 35svh;
+  bottom: 33svh;
   padding: 15px;
   background-color: darkcyan;
   display: block;
