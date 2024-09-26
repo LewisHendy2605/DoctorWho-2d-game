@@ -57,12 +57,30 @@ class Doctor extends GameObject {
     console.log("doctor killed", this);
     this.isAlive = false;
 
-    const event = [
-      {
-        type: "heroKilled",
-        map: "Tardis",
-      },
-    ];
+    let event = [];
+    //   {
+    //     type: "heroKilled",
+    //     map: "Tardis",
+    //   },
+    // ];
+
+    if (this.map.id === "DemoLevel") {
+      event = [
+        {
+          type: "heroKilled",
+          map: "DemoLevel",
+        },
+      ];
+    } else {
+      event = [
+        {
+          type: "heroKilled",
+          map: "Tardis",
+        },
+      ];
+    }
+
+    console.log("doctor killed map:", event, this.map);
     this.map.startCutscene(event);
 
     // const killevent = new OverworldEvent({

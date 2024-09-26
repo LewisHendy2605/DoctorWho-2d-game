@@ -50,7 +50,18 @@ class Projectile {
       (obj) => obj.x === this.x && obj.y === this.y
     );
 
+    const walls = Object.keys(this.user.map.walls);
+    console.log("wallas: ", walls);
+    // Find the matching wall by comparing x and y values
+    const wallMatch = walls.find((wall) => {
+      // Split the wall string to get x and y
+      const [wallX, wallY] = wall.split(",").map(Number);
+      // Compare with this.x and this.y
+      return wallX === this.x && wallY === this.y;
+    });
+
     if (match) {
+      this.isActive = false;
       //console.log("Hitt somthing", match, this);
       if (match.projectilePerceptibles) {
         (obj) => obj.name === this.activeMode;
@@ -68,6 +79,18 @@ class Projectile {
             // Handle cases where effect is not a function, if needed
           }
         }
+      }
+    } else if (wallMatch) {
+      const [wallX, wallY] = wallMatch.split(",").map(Number);
+      // Check if the wall is within 16px of the user's position
+      if (
+        Math.abs(wallX - this.user.x) <= 16 &&
+        Math.abs(wallY - this.user.y) <= 16
+      ) {
+        console.log("hit itself", wallMatch, this.user);
+      } else {
+        console.log("hit wall", wallMatch, this.user);
+        this.isActive = false;
       }
     }
 

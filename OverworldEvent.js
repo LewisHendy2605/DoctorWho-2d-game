@@ -712,7 +712,7 @@ class OverworldEvent {
     //console.log("heroKilled event: ", this);
 
     // Change back to tardis map
-    this.event.map = "Tardis"; // TODO better way of setting map
+    //this.event.map = "Tardis"; // TODO better way of setting map
     const killScreen = new KillScreen();
     killScreen.init(document.querySelector(".game-container"), async () => {
       this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
