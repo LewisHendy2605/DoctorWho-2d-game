@@ -79,14 +79,14 @@ body {
 .actionButton {
   position: absolute;
   right: 1em;
-  bottom: 15em;
+  bottom: 12em;
   background-color: green;
 }
 
 .sonicButton {
   position: absolute;
   left: 10svw;
-  bottom: 38svh;
+  bottom: 35svh;
   padding: 15px;
   background-color: blue;
   display: block;
@@ -95,7 +95,7 @@ body {
 .sonicShootButton {
   position: absolute;
   right: 10svw;
-  bottom: 38svh;
+  bottom: 35svh;
   padding: 15px;
   background-color: darkcyan;
   display: block;

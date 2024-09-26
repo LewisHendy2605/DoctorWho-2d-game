@@ -638,46 +638,51 @@
     /*left: 35%;*/
   }
   .HudUI {
-    width: 30svw;
+    width: 35svw;
     height: 10svh;
   }
-  .HudUI_p_name {
+  .HudContainer {
+    width: 80%;
+    height: 100%;
+  }
+  .HudUI_Elements {
+    width: 100%;
+    height: 100%;
+
+    gap: 5%;
+  }
+  /* .HudUI_p_name {
     font-size: medium;
     left: 7%;
     margin: 0;
-  }
+  } */
   .HudUI_img {
-    margin-top: 20%;
-    left: 13%;
-    /*width: 32px;
-    height: 32px;*/
-    transform: scale(2);
+    transform: scale(1.1);
     transform-origin: center;
   }
   /*  Remove effects from desktop */
-  .HudUI_img:hover {
+  /* .HudUI_img:hover {
     border: 1px solid gold;
     transform: scale(2);
     transform-origin: center;
-  }
+  } */
 
   .HudUI_sonic_img {
-    margin-top: 20%;
-    left: 50%;
-    transform: scale(2);
+    transform: scale(1.1);
     transform-origin: center;
   }
 
-  .HudUI_sonic_mode_p {
+  /* .HudUI_sonic_mode_p {
     font-size: 0.5em;
     color: blue;
     margin-top: 15% !important;
     left: 30%;
-  }
+  } */
 
   .HudUI_sonic_mode_p {
-    font-size: 0.7em;
-    color: blue;
+    font-size: 0.45em;
+    font-weight: bolder;
+    padding: 2% 0;
   }
 
   .SonicHudUI {
