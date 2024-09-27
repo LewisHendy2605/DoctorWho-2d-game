@@ -461,7 +461,7 @@ window.OverworldMaps = {
   Tardis: {
     id: "Tardis",
     lowerSrc: "/images/tardis/Tardis-map-v7.png",
-    upperSrc: "",
+    upperSrc: "/images/maps/KitchenUpper.png",
     outsideMap: "Outside_tardis",
     tardisLanded: true,
     gameObjects: {
