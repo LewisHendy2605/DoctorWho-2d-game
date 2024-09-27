@@ -22,20 +22,24 @@ class HudUI {
     this.element.innerHTML = `
     <div class="HudContainer">
       <img src="${utils.setDynamicPath(
-        "/images/ui/UI_Hologram_Fillbar_05a.png"
+        "/images/ui/UI_Hologram_Fillbar_04a.png"
       )}" class="HudUI_Background_Img" />
     
       <div class="HudUI_Elements">
           <img src="${this.imgPath}" class="HudUI_img " />
           <div class="HudUI_sonic hidden">
           <img src="${this.sonicImgPath}" class="HudUI_sonic_img" />
-          <p class="HudUI_sonic_mode_p"> Mode: ${
-            this.character.sonicScrewdriver.activeMode.name
-          } </p>
+          
           </div>
         </div>
       </div>
     `;
+
+    // <div class="HudUI_sonic_mode_div">
+    //         <p class="HudUI_sonic_mode_p"> Mode: ${
+    //           this.character.sonicScrewdriver.activeMode.name
+    //         } </p>
+    //       </div>
 
     // <h3 class="HudUI_p_name">${utils.capitalizeFirstLetter(
     //   this.character.type

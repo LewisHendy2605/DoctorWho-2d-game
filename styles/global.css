@@ -26,9 +26,21 @@ body {
   font-family: "Ribeye", cursive;
 }
 
+/* .game-container {
+  position: relative;
+  width: 352px;
+  height: 198px;
+  margin: 0 auto;
+  top: 0;
+  outline: 1px solid #fff;
+  transform: scale(3) translateY(-50%);
+
+  transform-origin: top;
+} */
+
 .game-container {
   position: relative;
-  width: 352px; /* Original width */
+  width: 30%; /* Original width */
   height: 198px; /* Original height */
   margin: 0 auto;
   top: 0;
@@ -126,18 +138,19 @@ body {
 }
 
 /* Show controls-container on mobile devices */
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   .keyboard-display {
     display: none !important;
   }
   .controls-container {
     display: grid;
   }
-
+  /* Adjust the scale for mobile */
+  /* + Move the game container closer to the top */
   .game-container {
     width: 90svw;
-    transform: scale(1.1) translateY(-60%); /* Adjust the scale for mobile */
-    margin-top: 4svh; /* Move the game container closer to the top */
+    transform: scale(1.1) translateY(-60%);
+    margin-top: 4svh;
   }
 
   .control-button {

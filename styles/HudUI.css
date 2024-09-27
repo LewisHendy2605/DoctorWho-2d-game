@@ -1,8 +1,8 @@
 .HudUI {
   position: relative;
-  width: 15svw;
-  height: 5svh;
-  margin: 2px;
+  width: 200px;
+  height: 46px;
+  margin: 0;
 }
 
 .HudUI p {
@@ -20,18 +20,18 @@
 
 .HudUI_Background_Img {
   position: relative;
-  top: -20%;
-  left: -1%;
-  width: 100%;
+  top: -10px;
+  left: 0;
+  width: 67%;
   height: 100%;
   opacity: 0.95;
 }
 
 .HudUI_Elements {
   position: absolute;
-  top: 0%;
+  top: 4%;
   left: 0;
-  padding: 12% 9%;
+  padding: 15% 9%;
   width: 100%;
   height: 100%;
   margin-top: 0;
@@ -108,16 +108,21 @@
   border: 1px solid lightgreen;
   transform: scale(1.2);
 }
-
-.HudUI_sonic_mode_p {
+.HudUI_sonic_mode_div {
   position: relative;
-  width: 300%;
+  width: 90px;
+  padding: 2px 8px;
+}
+.HudUI_sonic_mode_p {
+  background-color: antiquewhite;
+  position: relative;
   font-family: "DoctorWho2", sans-serif;
-  font-size: 0.2em;
+  font-size: 8px;
   font-weight: bold;
-  text-align: center;
   color: rgb(83, 153, 83);
-  padding: 10% 0;
+  /* a */
+  /* text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000; */
 }
 
 .SonicHudUI {
