@@ -89,7 +89,7 @@ class ConsoleSprite {
             frameY * 32,
             32,
             32,
-            x,
+            x,a
             y,
             32,
             32
@@ -98,17 +98,7 @@ class ConsoleSprite {
           */
 
     this.isLoaded &&
-      ctx.drawImage(
-        this.image,
-        frameX * 100,
-        frameY * 100,
-        100,
-        100,
-        x,
-        y,
-        100,
-        100
-      );
+      ctx.drawImage(this.image, 0, 0, 96, 150, x, y - 40, 96, 150);
 
     this.updateAnimationProgress();
   }
