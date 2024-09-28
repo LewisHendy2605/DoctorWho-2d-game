@@ -474,7 +474,7 @@ window.OverworldMaps = {
       console: new Console({
         x: utils.withGrid(47.5),
         y: utils.withGrid(48),
-        src: "/images/tardis/console-v8.png",
+        src: "/images/tardis/console-v9.png",
         isConsole: true,
         behaviorLoop: [
           //{ type: "circleLeverDown" }
@@ -582,25 +582,25 @@ window.OverworldMaps = {
     },
     walls: {
       // Console
-      [utils.asGridCoord(48, 48)]: true,
-      [utils.asGridCoord(48, 49)]: true,
-      [utils.asGridCoord(48, 50)]: true,
-      [utils.asGridCoord(47, 49)]: true,
-      [utils.asGridCoord(47, 50)]: true,
-      [utils.asGridCoord(52, 50)]: true,
-      [utils.asGridCoord(52, 49)]: true,
-      [utils.asGridCoord(48, 51)]: true,
+      // [utils.asGridCoord(48, 48)]: true,
+      // [utils.asGridCoord(48, 49)]: true,
+      // [utils.asGridCoord(48, 50)]: true,
+      // [utils.asGridCoord(47, 49)]: true,
+      // [utils.asGridCoord(47, 50)]: true,
+      // [utils.asGridCoord(52, 50)]: true,
+      // [utils.asGridCoord(52, 49)]: true,
+      // [utils.asGridCoord(48, 51)]: true,
 
-      [utils.asGridCoord(49, 51)]: true,
-      [utils.asGridCoord(50, 51)]: true,
-      [utils.asGridCoord(51, 51)]: true,
+      // [utils.asGridCoord(49, 51)]: true,
+      // [utils.asGridCoord(50, 51)]: true,
+      // [utils.asGridCoord(51, 51)]: true,
 
-      [utils.asGridCoord(51, 50)]: true,
-      [utils.asGridCoord(51, 49)]: true,
-      [utils.asGridCoord(51, 48)]: true,
+      // [utils.asGridCoord(51, 50)]: true,
+      // [utils.asGridCoord(51, 49)]: true,
+      // [utils.asGridCoord(51, 48)]: true,
 
-      [utils.asGridCoord(50, 48)]: true,
-      [utils.asGridCoord(49, 48)]: true,
+      // [utils.asGridCoord(50, 48)]: true,
+      // [utils.asGridCoord(49, 48)]: true,
 
       //// RAILS
 
