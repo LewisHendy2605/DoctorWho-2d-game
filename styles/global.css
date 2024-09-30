@@ -26,6 +26,14 @@ body {
   font-family: "Ribeye", cursive;
 }
 
+.hover_mouse_text {
+  position: absolute;
+  /* left: 50%; */
+  z-index: 22;
+  font-size: 0.3em;
+  color: white;
+}
+
 /* .game-container {
   position: relative;
   width: 352px;
@@ -40,8 +48,8 @@ body {
 
 .game-container {
   position: relative;
-  width: 30%; /* Original width */
-  height: 198px; /* Original height */
+  width: 30%;
+  height: 198px;
   margin: 0 auto;
   top: 0;
   outline: 1px solid #fff;

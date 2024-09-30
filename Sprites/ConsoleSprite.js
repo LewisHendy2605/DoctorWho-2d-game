@@ -7,6 +7,12 @@ class ConsoleSprite {
       this.isLoaded = true;
     };
 
+    // panel animations
+    this.panelSheet = new Image();
+    this.panelSheet.src = utils.setDynamicPath(
+      "/images/tardis/console-animations.png"
+    );
+
     //Shadow
     this.shadow = new Image();
     this.useShadow = true; //config.useShadow || fasle
@@ -69,6 +75,14 @@ class ConsoleSprite {
     }
   }
 
+  drawLeftPanel(ctx, x, y) {
+    if (this.gameObject.takeOffActivated) {
+      ctx.drawImage(this.panelSheet, 32 * 1, 0, 32, 49, x + 6, y + 3, 32, 49);
+    } else {
+      ctx.drawImage(this.panelSheet, 0, 0, 32, 49, x + 6, y + 3, 32, 49);
+    }
+  }
+
   draw(ctx, cameraPerson) {
     const x = this.gameObject.x - 8 + utils.withGrid(10.5) - cameraPerson.x;
     const y = this.gameObject.y - 18 + utils.withGrid(6) - cameraPerson.y;
@@ -97,8 +111,12 @@ class ConsoleSprite {
       }
           */
 
+    // draw console
     this.isLoaded &&
       ctx.drawImage(this.image, 0, 0, 96, 250, x, y - 140, 96, 250);
+
+    // draw panels
+    this.drawLeftPanel(ctx, x, y);
 
     this.updateAnimationProgress();
   }
