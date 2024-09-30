@@ -97,12 +97,12 @@ class Console extends GameObject {
         )
           if (this.takeOffActivated) {
             this.takeOffActivated = false;
-            this.createInteractiveText();
-            console.log("takeOffActivated:", this.takeOffActivated);
+            this.createInteractiveTextLeftPanel();
+            //console.log("takeOffActivated:", this.takeOffActivated);
           } else {
             this.takeOffActivated = true;
-            this.createInteractiveText();
-            console.log("takeOffActivated:", this.takeOffActivated);
+            this.createInteractiveTextLeftPanel();
+            //console.log("takeOffActivated:", this.takeOffActivated);
           }
       }
     });
@@ -191,7 +191,7 @@ class Console extends GameObject {
     // a
   }
 
-  createInteractiveText() {
+  createInteractiveTextLeftPanel() {
     if (this.hoverElement) {
       this.hoverElement.remove();
       this.hoverElement = null;
@@ -215,6 +215,50 @@ class Console extends GameObject {
     this.hoverElement.style.top = `30%`;
   }
 
+  createInteractiveTextBottomPanel() {
+    if (this.hoverElement) {
+      this.hoverElement.remove();
+      this.hoverElement = null;
+    }
+    // Show hover text near the mouse cursor
+    this.hoverElement = document.createElement("div");
+    this.hoverElement.classList.add("hover_mouse_text");
+
+    // if (this.takeOffActivated) {
+    //   this.hoverElement.innerText = "Shields On (Click)";
+    // } else {
+    //   //this.hoverElement.innerText = "Test";
+    //   this.hoverElement.innerText = "Shields Off (Click)";
+    //   //this.hoverElement.innerText = "Land Tardis (R Key)";
+    // }
+
+    this.hoverElement.innerText = "Shields On (Click)";
+
+    this.map.overworld.element.appendChild(this.hoverElement);
+
+    // Update hover text position next to the mouse (adjust for scale)
+    this.hoverElement.style.left = `45%`; // Offset 10px
+    this.hoverElement.style.top = `40%`;
+  }
+
+  createInteractiveRightPanel() {
+    if (this.hoverElement) {
+      this.hoverElement.remove();
+      this.hoverElement = null;
+    }
+    // Show hover text near the mouse cursor
+    this.hoverElement = document.createElement("div");
+    this.hoverElement.classList.add("hover_mouse_text");
+
+    this.hoverElement.innerText = "Screen";
+
+    this.map.overworld.element.appendChild(this.hoverElement);
+
+    // Update hover text position next to the mouse (adjust for scale)
+    this.hoverElement.style.left = `50%`; // Offset 10px
+    this.hoverElement.style.top = `30%`;
+  }
+
   update(state) {
     // TODO: add screen animation
     // called each game tick
@@ -229,7 +273,27 @@ class Console extends GameObject {
       //console.log("marching x, y");
       if (!this.isConsoleInteractiveActive) {
         this.isConsoleInteractiveActive = true;
-        this.createInteractiveText();
+        this.createInteractiveTextLeftPanel();
+      }
+    } else if (
+      this.map.gameObjects["hero"].x >= this.x - 0 &&
+      this.map.gameObjects["hero"].x <= this.x + 50 &&
+      this.map.gameObjects["hero"].y >= this.y + 30 &&
+      this.map.gameObjects["hero"].y <= this.y + 60
+    ) {
+      if (!this.isConsoleInteractiveActive) {
+        this.isConsoleInteractiveActive = true;
+        this.createInteractiveTextBottomPanel();
+      }
+    } else if (
+      this.map.gameObjects["hero"].x >= this.x + 60 &&
+      this.map.gameObjects["hero"].x <= this.x + 90 &&
+      this.map.gameObjects["hero"].y >= this.y - 0 &&
+      this.map.gameObjects["hero"].y <= this.y + 30
+    ) {
+      if (!this.isConsoleInteractiveActive) {
+        this.isConsoleInteractiveActive = true;
+        this.createInteractiveRightPanel();
       }
     } else {
       if (this.hoverElement) {

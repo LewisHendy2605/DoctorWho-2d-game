@@ -522,50 +522,49 @@ window.OverworldMaps = {
     },
     interavtives: {
       // Console taek off
-      [utils.asGridCoord(47, 50)]: [
-        {
-          events: [{ type: "tardisLandOrFly" }],
-        },
-      ],
-      [utils.asGridCoord(47, 51)]: [
-        {
-          events: [{ type: "tardisLandOrFly" }],
-        },
-      ],
-
-      // Console screen
-      [utils.asGridCoord(52, 50)]: [
-        {
-          events: [
-            { type: "textMessage", text: "Press Enter to use console" },
-            { type: "useConsoleScreen" },
-          ],
-        },
-      ],
-      [utils.asGridCoord(52, 51)]: [
-        {
-          events: [
-            { type: "textMessage", text: "Press Enter to use console" },
-            { type: "useConsoleScreen" },
-          ],
-        },
-      ],
-      [utils.asGridCoord(52, 52)]: [
-        {
-          events: [
-            { type: "textMessage", text: "Press Enter to use console" },
-            { type: "useConsoleScreen" },
-          ],
-        },
-      ],
-      [utils.asGridCoord(51, 52)]: [
-        {
-          events: [
-            { type: "textMessage", text: "Press Enter to use console" },
-            { type: "useConsoleScreen" },
-          ],
-        },
-      ],
+      // [utils.asGridCoord(47, 50)]: [
+      //   {
+      //     events: [{ type: "tardisLandOrFly" }],
+      //   },
+      // ],
+      // [utils.asGridCoord(47, 51)]: [
+      //   {
+      //     events: [{ type: "tardisLandOrFly" }],
+      //   },
+      // ],
+      // // Console screen
+      // [utils.asGridCoord(52, 50)]: [
+      //   {
+      //     events: [
+      //       { type: "textMessage", text: "Press Enter to use console" },
+      //       { type: "useConsoleScreen" },
+      //     ],
+      //   },
+      // ],
+      // [utils.asGridCoord(52, 51)]: [
+      //   {
+      //     events: [
+      //       { type: "textMessage", text: "Press Enter to use console" },
+      //       { type: "useConsoleScreen" },
+      //     ],
+      //   },
+      // ],
+      // [utils.asGridCoord(52, 52)]: [
+      //   {
+      //     events: [
+      //       { type: "textMessage", text: "Press Enter to use console" },
+      //       { type: "useConsoleScreen" },
+      //     ],
+      //   },
+      // ],
+      // [utils.asGridCoord(51, 52)]: [
+      //   {
+      //     events: [
+      //       { type: "textMessage", text: "Press Enter to use console" },
+      //       { type: "useConsoleScreen" },
+      //     ],
+      //   },
+      // ],
     },
     sonicspaces: {
       // Console sonic controls
