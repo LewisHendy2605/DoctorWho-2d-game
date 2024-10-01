@@ -7,6 +7,7 @@ class Console extends GameObject {
     this.isPlayerControlled = config.isPlayerControlled || false;
 
     this.takeOffActivated = false;
+    this.isConsoleScreenActive = false;
 
     this.directionUpdate = {
       up: ["y", -1],
@@ -88,13 +89,17 @@ class Console extends GameObject {
     const canvas = this.map.overworld.canvas;
 
     canvas.addEventListener("click", (event) => {
+      console.log(
+        this.hoverElement.innerText.includes("Screen"),
+        this.isConsoleInteractiveActive
+      );
       if (this.isConsoleInteractiveActive) {
         // The mouse is inside the hover area and was clicked
 
         if (
           this.hoverElement.innerText.includes("Take Off") ||
           this.hoverElement.innerText.includes("Land")
-        )
+        ) {
           if (this.takeOffActivated) {
             this.takeOffActivated = false;
             this.createInteractiveTextLeftPanel();
@@ -104,6 +109,23 @@ class Console extends GameObject {
             this.createInteractiveTextLeftPanel();
             //console.log("takeOffActivated:", this.takeOffActivated);
           }
+        } else if (this.hoverElement.innerText.includes("Screen")) {
+          console.log(this.hoverElement.innerText);
+          if (this.isConsoleScreenActive) {
+            this.consoleScreen.end();
+            this.isConsoleScreenActive = false;
+          } else {
+            this.consoleScreen = new ConsoleScreen({
+              map: this.map,
+              onComplete: () => {
+                this.consoleScreen.end();
+                //resolve();
+              },
+            });
+            this.consoleScreen.init(document.querySelector(".game-container"));
+            this.isConsoleScreenActive = true;
+          }
+        }
       }
     });
 
@@ -242,21 +264,30 @@ class Console extends GameObject {
   }
 
   createInteractiveRightPanel() {
-    if (this.hoverElement) {
-      this.hoverElement.remove();
-      this.hoverElement = null;
+    if (this.consoleScreen) {
+      this.consoleScreen.end();
+      this.consoleScreen = null;
     }
-    // Show hover text near the mouse cursor
+    // // Show hover text near the mouse cursor
     this.hoverElement = document.createElement("div");
     this.hoverElement.classList.add("hover_mouse_text");
 
-    this.hoverElement.innerText = "Screen";
+    this.hoverElement.innerText = "Screen (Click)";
 
     this.map.overworld.element.appendChild(this.hoverElement);
 
     // Update hover text position next to the mouse (adjust for scale)
     this.hoverElement.style.left = `50%`; // Offset 10px
     this.hoverElement.style.top = `30%`;
+
+    //  this.consoleScreen = new ConsoleScreen({
+    //    map: this.map,
+    //    onComplete: () => {
+    //      this.consoleScreen.end();
+    //      //resolve();
+    //   },
+    // });
+    // this.consoleScreen.init(document.querySelector(".game-container"));
   }
 
   update(state) {
@@ -299,6 +330,11 @@ class Console extends GameObject {
       if (this.hoverElement) {
         this.hoverElement.remove();
         this.isConsoleInteractiveActive = false;
+      }
+      if (this.isConsoleScreenActive) {
+        this.consoleScreen.end();
+        this.consoleScreen = null;
+        this.isConsoleScreenActive = false;
       }
     }
   }

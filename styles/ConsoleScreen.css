@@ -1,9 +1,11 @@
 .ConsoleScreen {
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  left: 10%;
+  right: 10%;
+  top: 10%;
+  bottom: 10%;
+  /* width: 70%;
+  height: 80%; */
 
   background-size: cover;
   image-rendering: pixelated;
@@ -11,10 +13,14 @@
 
 .tardis_status {
   color: gold;
-  position: absolute;
+  position: relative;
   top: 50%;
   left: 50%;
+  right: 2%;
+  width: 45%;
+  height: 100%;
   transform: translate(10%, -60%);
+  font-size: 0.9em;
 }
 
 /*  Custom fonts */
