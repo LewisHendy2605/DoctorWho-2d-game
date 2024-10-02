@@ -50,6 +50,19 @@ class OverworldEvent {
     document.addEventListener("PersonWalkComplete", completeHandler);
   }
 
+  async walkSteps(resolve) {
+    for (let i = 0; i < this.event.steps; i++) {
+      console.log(i);
+      // Wait for each step to finish before proceeding to the next
+      await new Promise((res) => this.walk(res));
+      this.event.time = 100;
+      await new Promise((res) => this.stand(res));
+    }
+    // Resolve after all steps have been completed
+    //return Promise.resolve();
+    resolve();
+  }
+
   walkFoward(resolve) {
     console.log("person start walk called");
     const who = this.map.gameObjects[this.event.who];

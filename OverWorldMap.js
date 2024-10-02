@@ -70,6 +70,18 @@ class OverWorldMap {
           ...obj,
           src: obj.imageSrc || obj.src,
         });
+      } else if (obj instanceof Npc) {
+        newGameObjects[key] = new Npc({
+          ...obj,
+          src: obj.imageSrc || obj.src,
+        });
+        //
+      } else if (obj instanceof Person) {
+        newGameObjects[key] = new Person({
+          ...obj,
+          src: obj.imageSrc || obj.src,
+        });
+        //
       } else {
         // Handle other object types or throw a detailed error
         throw new Error(`Unknown object type for key: ${key}`);
@@ -680,7 +692,7 @@ window.OverworldMaps = {
       [utils.asGridCoord(34, 50)]: true,
     },
   },
-  Outside_tardis: {
+  Earth_Town: {
     id: "Street",
     lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
     upperSrc: "/images/maps/KitchenUpper.png",
@@ -696,27 +708,16 @@ window.OverworldMaps = {
       tardis: new Tardis({
         isPlayerControlled: false,
         x: utils.withGrid(45),
-        y: utils.withGrid(25),
+        y: utils.withGrid(20),
         src: "/images/tardis/tardis-light-blue.png",
         //src: "/images/characters-doctor-who/doctor-11.png",
       }),
-
-      // npcB: new Person({
-      //   x: utils.withGrid(10),
-      //   y: utils.withGrid(8),
-      //   src: "/images/characters/people/npc3.png",
-      //   talking: [
-      //     {
-      //       events: [
-      //         {
-      //           type: "textMessage",
-      //           text: "Hey, you made it",
-      //           faceHero: ["npcB"],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // }),
+      npc: new Npc({
+        x: utils.withGrid(25),
+        y: utils.withGrid(50),
+        src: "/images/characters-doctor-who/blue-jacket-sprite.png",
+        mission: "electricalProblem",
+      }),
     },
     cutsceneSpaces: {
       // [utils.asGridCoord(48, 39)]: [
@@ -776,6 +777,7 @@ window.OverworldMaps = {
         isPlayerControlled: true,
         x: utils.withGrid(30),
         y: utils.withGrid(10),
+        src: "/images/characters-doctor-who/doctor-11.png",
       }),
     },
     cutsceneSpaces: {
