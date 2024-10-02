@@ -745,6 +745,36 @@ class OverworldEvent {
     });
   }
 
+  async consoleTimeRotarAnimation(resolve) {
+    const consoleObject = this.map.gameObjects[this.event.who];
+
+    // Set the initial animation
+    consoleObject.sprite.setAnimation("time-rotor-1");
+
+    // Await a delay of 500ms
+    await new Promise((res) => setTimeout(res, 400));
+
+    // Set the next animation
+    consoleObject.sprite.setAnimation("time-rotor-2");
+
+    // Await a delay of 500ms
+    await new Promise((res) => setTimeout(res, 500));
+
+    // Set the next animation
+    consoleObject.sprite.setAnimation("time-rotor-1");
+
+    // Await another 500ms delay
+    await new Promise((res) => setTimeout(res, 400));
+
+    // Reset the animation to start
+    consoleObject.sprite.setAnimation("start");
+
+    // Await another 500ms delay
+    await new Promise((res) => setTimeout(res, 900));
+
+    resolve();
+  }
+
   init() {
     return new Promise((resolve) => {
       if (this.event.required) {

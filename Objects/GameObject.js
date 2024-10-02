@@ -101,23 +101,29 @@ class GameObject {
       return;
     }
 
+    //if (eventConfig.type = )
+
     //console.log("doing object behavior", this);
     //Setting up out event with relevant info
     let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
-    eventConfig.who = this.id;
+    if (eventConfig) {
+      eventConfig.who = this.id;
 
-    // Create an event instance out of our next event config
-    const eventHandler = new OverworldEvent({ map, event: eventConfig });
-    //console.log("initilains event loop event");
-    await eventHandler.init();
+      // Create an event instance out of our next event config
+      const eventHandler = new OverworldEvent({ map, event: eventConfig });
+      //console.log("initilains event loop event");
+      await eventHandler.init();
 
-    // Setting the next event to fire
-    this.behaviorLoopIndex += 1;
-    if (this.behaviorLoopIndex === this.behaviorLoop.length) {
-      this.behaviorLoopIndex = 0;
+      // Setting the next event to fire
+      this.behaviorLoopIndex += 1;
+      if (this.behaviorLoopIndex === this.behaviorLoop.length) {
+        this.behaviorLoopIndex = 0;
+      }
+
+      // Do it again
+      this.deBehaviorEvent(map);
+    } else {
+      //   // this.behaviorLoopIndex = 0;
     }
-
-    // Do it again
-    this.deBehaviorEvent(map);
   }
 }

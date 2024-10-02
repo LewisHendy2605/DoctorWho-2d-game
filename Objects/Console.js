@@ -9,6 +9,18 @@ class Console extends GameObject {
     this.takeOffActivated = false;
     this.isConsoleScreenActive = false;
 
+    this.behaviorLoop = [];
+
+    // this.behaviorLoop = [
+    //   { type: "walkSteps", direction: "right", steps: 30 },
+    //   { type: "stand", direction: "right", time: 800 },
+    //   { type: "walkSteps", direction: "left", steps: 30 },
+    //   { type: "stand", direction: "left", time: 800 },
+    //   //   { type: "walk", direction: "down" },
+    //   //   { type: "walk", direction: "left" },
+    //   //   { type: "walk", direction: "up" },
+    // ];
+
     this.directionUpdate = {
       up: ["y", -1],
       down: ["y", 1],
@@ -102,10 +114,18 @@ class Console extends GameObject {
         ) {
           if (this.takeOffActivated) {
             this.takeOffActivated = false;
+            this.behaviorLoop = [];
+            this.sprite.setAnimation("start");
+            console.log("stop behavior loop", this);
             this.createInteractiveTextLeftPanel();
             //console.log("takeOffActivated:", this.takeOffActivated);
           } else {
             this.takeOffActivated = true;
+            // set behavior loop and call it for animation
+            this.behaviorLoop = [{ type: "consoleTimeRotarAnimation" }];
+            this.behaviorLoopIndex = 0;
+            this.deBehaviorEvent(this.map);
+            // update inteactive element
             this.createInteractiveTextLeftPanel();
             //console.log("takeOffActivated:", this.takeOffActivated);
           }
@@ -294,6 +314,8 @@ class Console extends GameObject {
     // TODO: add screen animation
     // called each game tick
     //console.log(this.map.gameObjects["hero"].x, this.map.gameObjects["hero"].y);
+
+    // this.updateSprite(type)
 
     if (
       this.map.gameObjects["hero"].x >= this.x - 30 &&

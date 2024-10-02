@@ -486,7 +486,8 @@ window.OverworldMaps = {
       console: new Console({
         x: utils.withGrid(47.5),
         y: utils.withGrid(48),
-        src: "/images/tardis/console-v10.png",
+        // src: "/images/tardis/console-v10.png",
+        src: "/images/tardis/console-core-animation.png",
         isConsole: true,
         behaviorLoop: [
           //{ type: "circleLeverDown" }
