@@ -29,6 +29,8 @@ class ConsoleSprite {
       start: [[0, 0]],
       "time-rotor-1": [[1, 0]],
       "time-rotor-2": [[2, 0]],
+      "time-rotor-bottom1": [[3, 0]],
+      "time-rotor-bottom2": [[4, 0]],
       // "take-off-one": [[1, 0]],
       // "take-off-two": [[2, 0]],
       // "take-off-three": [[0, 1]],

@@ -326,7 +326,11 @@ class OverworldEvent {
   }
 
   leaveTardis(resolve) {
-    if (this.map.tardisLanded) {
+    // grab console and check if take off active
+    const consoleObject = this.map.gameObjects["console"];
+
+    //if (this.map.tardisLanded) {
+    if (!consoleObject.takeOffActivated) {
       this.event.map = window.tardisState.destination;
       // test
       //console.log(window.OverworldMaps[this.event.map]);
@@ -752,25 +756,55 @@ class OverworldEvent {
     consoleObject.sprite.setAnimation("time-rotor-1");
 
     // Await a delay of 500ms
-    await new Promise((res) => setTimeout(res, 400));
+    await new Promise((res) => setTimeout(res, 200));
 
     // Set the next animation
     consoleObject.sprite.setAnimation("time-rotor-2");
 
     // Await a delay of 500ms
-    await new Promise((res) => setTimeout(res, 500));
+    await new Promise((res) => setTimeout(res, 600));
 
     // Set the next animation
     consoleObject.sprite.setAnimation("time-rotor-1");
 
     // Await another 500ms delay
-    await new Promise((res) => setTimeout(res, 400));
+    await new Promise((res) => setTimeout(res, 200));
 
     // Reset the animation to start
     consoleObject.sprite.setAnimation("start");
 
     // Await another 500ms delay
-    await new Promise((res) => setTimeout(res, 900));
+    await new Promise((res) => setTimeout(res, 200));
+
+    // Reset the animation to start
+    consoleObject.sprite.setAnimation("time-rotor-bottom1");
+
+    // Await another 500ms delay
+    await new Promise((res) => setTimeout(res, 200));
+
+    // Reset the animation to start
+    consoleObject.sprite.setAnimation("time-rotor-bottom2");
+
+    // Await another 500ms delay
+    await new Promise((res) => setTimeout(res, 600));
+
+    // Reset the animation to start
+    consoleObject.sprite.setAnimation("time-rotor-bottom1");
+
+    // Await another 500ms delay
+    await new Promise((res) => setTimeout(res, 200));
+
+    // Reset the animation to start
+    consoleObject.sprite.setAnimation("start");
+
+    // // Await another 500ms delay
+    // await new Promise((res) => setTimeout(res, 400));
+
+    // // Reset the animation to start
+    // consoleObject.sprite.setAnimation("start");
+
+    // Await another 500ms delay
+    await new Promise((res) => setTimeout(res, 200));
 
     resolve();
   }

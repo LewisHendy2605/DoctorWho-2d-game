@@ -115,7 +115,7 @@ class Console extends GameObject {
           if (this.takeOffActivated) {
             this.takeOffActivated = false;
             this.behaviorLoop = [];
-            this.sprite.setAnimation("start");
+            //this.sprite.setAnimation("start");
             console.log("stop behavior loop", this);
             this.createInteractiveTextLeftPanel();
             //console.log("takeOffActivated:", this.takeOffActivated);
