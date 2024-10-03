@@ -8,6 +8,8 @@ class Npc extends GameObject {
 
     this.speedMultiplier = 0.5;
 
+    this.isSpeechBoxActive = false;
+
     this.behaviorLoop = [
       { type: "walkSteps", direction: "right", steps: 40 },
       // idle movement
@@ -40,11 +42,37 @@ class Npc extends GameObject {
     };
   }
 
+  stopBehavior() {}
+
+  restartBehavior() {}
+
   update(state) {
     // handle any interactivity
+    const hero = this.map.gameObjects["hero"];
 
-    // handle walking
+    if (
+      hero.x >= this.x - 16 &&
+      hero.x <= this.x + 16 &&
+      hero.y >= this.y - 16 &&
+      hero.y <= this.y + 16
+    ) {
+      if (!this.isSpeechBoxActive) {
+        this.isSpeechBoxActive = true;
+        //this.stopBehavior();
+        this.isPaused = true;
+        this.doInteractivity();
+      }
+    } else {
+      if (this.isSpeechBoxActive) {
+        this.isSpeechBoxActive = false;
+        this.finishSpeechBoxResult();
+        //this.restartBehavior();
+        this.isPaused = false;
+      }
+    }
+
     if (this.movingProgressRemaining > 0) {
+      // handle walking
       this.updatePosition();
     } else {
       // More cases for starting to walk will come here
@@ -64,6 +92,22 @@ class Npc extends GameObject {
       }
       this.updateSprite(state);
     }
+  }
+
+  async doInteractivity() {
+    // response options
+    this.options = [];
+
+    const speechEvent = new OverworldEvent({
+      map: this.map,
+      event: {
+        type: "speechBox",
+        who: this.key,
+        text: "Hey there stranger.",
+        responseOptions: this.options,
+      },
+    });
+    this.finishSpeechBoxResult = await speechEvent.init();
   }
 
   startBehavior(state, behavior) {

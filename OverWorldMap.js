@@ -44,42 +44,50 @@ class OverWorldMap {
         newGameObjects[key] = new Doctor({
           ...obj, // Spread first to keep original properties
           src: obj.imageSrc || obj.src, // Set src to obj.imageSrc or fallback to original src
+          key: key,
         });
       } else if (obj instanceof Tardis) {
         newGameObjects[key] = new Tardis({
           ...obj,
           src: obj.imageSrc || obj.src,
+          key: key,
         });
       } else if (obj instanceof Console) {
         newGameObjects[key] = new Console({
           ...obj,
           src: obj.imageSrc || obj.src,
+          key: key,
         });
       } else if (obj instanceof Darlek) {
         newGameObjects[key] = new Darlek({
           ...obj,
           src: obj.imageSrc || obj.src,
+          key: key,
         });
       } else if (obj instanceof Door) {
         newGameObjects[key] = new Door({
           ...obj,
           src: obj.imageSrc || obj.src,
+          key: key,
         });
       } else if (obj instanceof Box) {
         newGameObjects[key] = new Box({
           ...obj,
           src: obj.imageSrc || obj.src,
+          key: key,
         });
       } else if (obj instanceof Npc) {
         newGameObjects[key] = new Npc({
           ...obj,
           src: obj.imageSrc || obj.src,
+          key: key,
         });
         //
       } else if (obj instanceof Person) {
         newGameObjects[key] = new Person({
           ...obj,
           src: obj.imageSrc || obj.src,
+          key: key,
         });
         //
       } else {
@@ -718,6 +726,17 @@ window.OverworldMaps = {
         y: utils.withGrid(50),
         src: "/images/characters-doctor-who/blue-jacket-sprite.png",
         mission: "electricalProblem",
+        // talking: [
+        //   {
+        //     events: [
+        //       { type: "textMessage", text: "Fight me", faceHero: "npc" },
+        //       //{ type: "addStoryFlag", flag: "TALKED_TO_ERIO" },
+        //       //{ type: "battle", enemyId: "erio" },
+        //       //{ type: "textMessage", text: "Who tf are you .." },
+        //       //{ who: "hero", type: "walk", direction: "up" },
+        //     ],
+        //   },
+        // ],
       }),
     },
     cutsceneSpaces: {

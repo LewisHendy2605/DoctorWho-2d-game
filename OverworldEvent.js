@@ -52,18 +52,24 @@ class OverworldEvent {
   }
 
   async walkSteps(resolve) {
-    //console.log("walk steps called", this.event);
+    const gameObject = this.map.gameObjects[this.event.who];
+    console.log("walk steps called", this.event, gameObject);
+
     for (let i = 0; i < this.event.steps; i++) {
-      //console.log(i);
       // Wait for each step to finish before proceeding to the next
+
+      // Wait until `isPaused` becomes false
+      while (gameObject.isPaused) {
+        await new Promise((res) => setTimeout(res, 1500));
+        90;
+      }
+
+      // Once not paused, proceed with the step
       await new Promise((res) => this.walk(res));
-      // this.event.time = 50;
-      // await new Promise((res) => this.stand(res));
     }
+
     // Resolve after all steps have been completed
-    //return Promise.resolve();
     resolve();
-    //console.log("Resolve called");
   }
 
   walkFoward(resolve) {
@@ -150,6 +156,22 @@ class OverworldEvent {
       },
     });
     message.init(document.querySelector(".game-container"));
+  }
+
+  async speechBox(resolve) {
+    console.log("speechBox called");
+    const message = new SpeechBox({
+      text: this.event.text,
+      who: this.event.who,
+      onComplete: resolve,
+      fontSize: "0.6em",
+      responseOptions: this.event.responseOptions,
+    });
+    const finishBox = await message.init(
+      document.querySelector(".game-container")
+    );
+
+    resolve(finishBox);
   }
 
   textMessage(resolve) {

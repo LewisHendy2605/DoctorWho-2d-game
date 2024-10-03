@@ -2,22 +2,40 @@
   position: absolute;
   left: 30%;
   right: 30%;
-  bottom: 0;
+  top: 60%;
   height: 4svh;
   width: 14svw;
-  border: 1px solid black;
-  border-radius: 9px;
+  /* border: 1px solid black;
+  border-radius: 9px; */
   font-size: 1rem;
   padding: 0.5rem;
-  background: var(--menu-background);
-  border-top: 1px solid var(--menu-border-color);
+  /* background: var(--menu-background); */
+  /* border-top: 1px solid var(--menu-border-color); */
   color: var(--menu-font-color);
+}
+
+.SpeechBox_img {
+  position: absolute;
+  top: -50%;
+  left: -20%;
+  right: -20%;
+  width: 160%;
+  height: 180%;
+  image-rendering: pixelated;
+}
+
+.SpeechBox_container {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  z-index: 2;
 }
 
 .SpeechBox_p {
   padding: 0;
   margin: 0;
   font-size: 1rem;
+  color: antiquewhite;
 }
 
 .SpeechBox span {
