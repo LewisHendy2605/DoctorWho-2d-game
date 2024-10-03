@@ -101,6 +101,18 @@ class DoctorSprite {
     }
   }
 
+  // setAnimation(key) {
+  //   if (this.currentAnimation !== key) {
+  //     this.currentAnimation = key;
+  //     this.currentAnimationFrame = 0;
+  //     // Change frame limit based on walking or idle animation
+  //     this.animationFrameLimit = key.startsWith("walk")
+  //       ? this.walkFrameLimit
+  //       : 12; // Slow down walk more than idle
+  //     this.animationFrameProgress = this.animationFrameLimit;
+  //   }
+  // }
+
   updateAnimationProgress() {
     // Downtick frame progress
     if (this.animationFrameProgress > 0) {
@@ -165,9 +177,11 @@ class DoctorSprite {
     this.updateAnimationProgress();
 
     //console.log("Drawing Projetiles: ", this.gameObject);
-    // Draw all active projectiles
-    this.gameObject.sonicProjectiles.forEach((projectile) =>
-      projectile.draw(ctx, cameraPerson)
-    );
+    if (this.gameObject.sonicProjectiles) {
+      // Draw all active projectiles
+      this.gameObject.sonicProjectiles.forEach((projectile) =>
+        projectile.draw(ctx, cameraPerson)
+      );
+    }
   }
 }

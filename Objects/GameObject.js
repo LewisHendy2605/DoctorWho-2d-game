@@ -58,6 +58,11 @@ class GameObject {
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
+    } else if (this.type === "npc") {
+      this.sprite = new DoctorSprite({
+        gameObject: this,
+        src: config.src || "/images/characters/people/hero.png",
+      });
     } else {
       this.sprite = new Sprite({
         gameObject: this,
@@ -87,6 +92,7 @@ class GameObject {
 
   // Dont do anything if there is a more important cutscene or idont have config to do anything
   async deBehaviorEvent(map) {
+    //console.log("do behavior called", this);
     if (
       map.isCutScenePlaying ||
       this.behaviorLoop.length === 0 ||
@@ -113,6 +119,8 @@ class GameObject {
       const eventHandler = new OverworldEvent({ map, event: eventConfig });
       //console.log("initilains event loop event");
       await eventHandler.init();
+
+      //console.log("behavior complete");
 
       // Setting the next event to fire
       this.behaviorLoopIndex += 1;

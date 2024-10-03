@@ -44,6 +44,7 @@ class OverworldEvent {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonWalkComplete", completeHandler);
         resolve();
+        //console.log("person walk coplete called");
       }
     };
 
@@ -51,20 +52,22 @@ class OverworldEvent {
   }
 
   async walkSteps(resolve) {
+    //console.log("walk steps called", this.event);
     for (let i = 0; i < this.event.steps; i++) {
-      console.log(i);
+      //console.log(i);
       // Wait for each step to finish before proceeding to the next
       await new Promise((res) => this.walk(res));
-      this.event.time = 100;
-      await new Promise((res) => this.stand(res));
+      // this.event.time = 50;
+      // await new Promise((res) => this.stand(res));
     }
     // Resolve after all steps have been completed
     //return Promise.resolve();
     resolve();
+    //console.log("Resolve called");
   }
 
   walkFoward(resolve) {
-    console.log("person start walk called");
+    //console.log("person start walk called");
     const who = this.map.gameObjects[this.event.who];
     who.startBehavior(
       { map: this.map },
@@ -79,7 +82,7 @@ class OverworldEvent {
     const completeHandler = (e) => {
       if (e.detail.whoId === this.event.who) {
         document.removeEventListener("PersonWalkComplete", completeHandler);
-        console.log("person complete called");
+        //console.log("person complete called");
         resolve();
       }
     };

@@ -1,18 +1,32 @@
 class Npc extends GameObject {
   constructor(config) {
-    super(config, "person");
+    super(config, "npc");
     this.movingProgressRemaining = 0;
     this.isStanding = false;
 
     this.isPlayerControlled = config.isPlayerControlled || false;
 
-    this.speedMultiplier = 1.5;
+    this.speedMultiplier = 0.5;
 
     this.behaviorLoop = [
-      { type: "walkSteps", direction: "right", steps: 30 },
+      { type: "walkSteps", direction: "right", steps: 40 },
+      // idle movement
       { type: "stand", direction: "right", time: 800 },
-      { type: "walkSteps", direction: "left", steps: 30 },
-      { type: "stand", direction: "left", time: 800 },
+      { type: "stand", direction: "down", time: 3000 },
+      { type: "stand", direction: "left", time: 3000 },
+      { type: "stand", direction: "down", time: 3000 },
+      { type: "stand", direction: "right", time: 800 },
+      { type: "stand", direction: "down", time: 3000 },
+      { type: "stand", direction: "left", time: 3000 },
+      { type: "stand", direction: "down", time: 3000 },
+      { type: "stand", direction: "right", time: 800 },
+      { type: "stand", direction: "down", time: 3000 },
+      { type: "stand", direction: "left", time: 3000 },
+      { type: "stand", direction: "down", time: 3000 },
+      //{ type: "walkSteps", direction: "right", steps: 20 },
+      //{ type: "stand", direction: "right", time: 1500 },
+      { type: "walkSteps", direction: "left", steps: 20 },
+      //{ type: "stand", direction: "left", time: 1100 },
       //   { type: "walk", direction: "down" },
       //   { type: "walk", direction: "left" },
       //   { type: "walk", direction: "up" },
@@ -27,6 +41,9 @@ class Npc extends GameObject {
   }
 
   update(state) {
+    // handle any interactivity
+
+    // handle walking
     if (this.movingProgressRemaining > 0) {
       this.updatePosition();
     } else {
@@ -69,6 +86,8 @@ class Npc extends GameObject {
         whoId: this.id,
       });
       this.movingProgressRemaining = 16;
+      // Adjust progress remaining based on speed multiplier
+      //this.movingProgressRemaining = 16 / this.speedMultiplier; // Lower the steps per frame if speedMultiplier > 1
       this.updateSprite(state);
     }
 
@@ -84,12 +103,16 @@ class Npc extends GameObject {
   }
 
   updatePosition() {
+    //console.log("update position called");
     const [property, change] = this.directionUpdate[this.direction];
-    this[property] += change;
-    this.movingProgressRemaining -= 1;
+    // this[property] += change;
+    // Adjust the speed of movement by applying speedMultiplier
+    this[property] += change * this.speedMultiplier;
+    this.movingProgressRemaining -= 1 * this.speedMultiplier;
 
     if (this.movingProgressRemaining === 0) {
       // We finished the walk
+      //console.log("emiting: PersonWalkComplete ");
       utils.emitEvent("PersonWalkComplete", {
         whoId: this.id,
       });
