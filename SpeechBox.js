@@ -17,27 +17,38 @@ class SpeechBox {
     this.element.classList.add("SpeechBox");
 
     // create image for speeck box
-    // this.imageElement = document.createElement("img");
-    // this.imageElement.classList.add("SpeechBox_img");
-    // this.imageElement.src = utils.setDynamicPath(
-    //   "/images/ui/UI_Hologram_Button_Large_Lock_02a2.png"
-    // );
-    // this.element.appendChild(this.imageElement);
-    // console.log("appended image eleemnt", this.element, this.imageElement);
+    this.imageElement = document.createElement("img");
+    this.imageElement.classList.add("SpeechBox_img");
+    this.imageElement.src = utils.setDynamicPath(
+      "/images/ui/UI_Hologram_Button_Large_Lock_02a2.png"
+    );
+    this.element.appendChild(this.imageElement);
 
-    //this.element.style.backgroundImage = `url("/images/ui/UI_Hologram_Button_Large_Lock_02a2.png")`;
-    // if (this.fontSize) {
-    //   this.element.style.fontSize = this.fontSize;
-    // }
+    // create speech elemnt
+    this.speechContainer = document.createElement("div");
+    this.speechContainer.classList.add("SpeechBox_container");
+    this.speech = document.createElement("p");
+    this.speech.innerText = `${utils.capitalizeFirstLetter(this.who)}: `;
+    this.speech.classList.add("SpeechBox_p");
 
-    this.element.innerHTML = `
-        <img src ="${utils.setDynamicPath(
-          "/images/ui/UI_Hologram_Button_Large_Lock_02a2.png"
-        )}" class="SpeechBox_img">
-        <div class="SpeechBox_container">
-          <p class="SpeechBox_p">${utils.capitalizeFirstLetter(this.who)}: </p>
-        </div>
-    `;
+    this.speechContainer.appendChild(this.speech);
+    this.element.appendChild(this.speechContainer);
+
+    console.log("response options: ", this.responseOptions);
+
+    this.responseContainer = document.createElement("div");
+    this.responseContainer.classList.add("responseContainer");
+
+    // this.element.appendChild(this.responseContainer);
+
+    // this.element.innerHTML = `
+    //     <img src ="${utils.setDynamicPath(
+    //       "/images/ui/UI_Hologram_Button_Large_Lock_02a2.png"
+    //     )}" class="SpeechBox_img">
+    //     <div class="SpeechBox_container">
+    //       <p class="SpeechBox_p">${utils.capitalizeFirstLetter(this.who)}: </p>
+    //     </div>
+    // `;
 
     if (this.fontSize) {
       this.pElement = this.element.querySelector(".SpeechBox_p");
@@ -49,6 +60,36 @@ class SpeechBox {
       element: this.element.querySelector(".SpeechBox_p"),
       text: this.text,
     });
+  }
+
+  createResponseElement() {
+    if (this.responseOptions.length > 0) {
+      for (let i = 0; i < this.responseOptions.length; i++) {
+        // for (let i = 0; i < 2; i++) {
+        let response = document.createElement("div");
+        response.classList.add("response");
+
+        let responseImg = document.createElement("img");
+        responseImg.classList.add("response_img");
+        responseImg.src = utils.setDynamicPath(
+          "/images/ui/UI_Hologram_Banner_03a.png"
+        );
+        response.appendChild(responseImg);
+
+        let responseText = document.createElement("p");
+        responseText.classList.add("response_p");
+        responseText.innerText = `"${this.responseOptions[i].text}"`;
+        response.appendChild(responseText);
+
+        this.responseContainer.appendChild(response);
+
+        // add event listerneers to response
+        response.addEventListener("click", () => {
+          console.log("response clicked:", this.responseOptions[i].text);
+          this.responseFromUser = this.responseOptions[i].text;
+        });
+      }
+    }
   }
 
   doneResolve() {
@@ -79,15 +120,23 @@ class SpeechBox {
       this.element = null;
       //this.actionListener.unbind();
     }
+
+    if (this.responseContainer) {
+      this.responseContainer.remove();
+      this.responseContainer = null;
+      //this.actionListener.unbind();
+    }
     //this.onComplete();
   }
 
   async init(container) {
     this.createElement();
     container.appendChild(this.element);
+    this.createResponseElement();
+    container.appendChild(this.responseContainer);
     this.revealingText.init();
     return this.done;
-
+    // return { done: this.done, response: this.responseFromUser };
     // Show text for 1 seconfd then close
     // await utils.wait(1000);
 

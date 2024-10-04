@@ -4,6 +4,8 @@ class Npc extends GameObject {
     this.movingProgressRemaining = 0;
     this.isStanding = false;
 
+    this.key = config.key;
+
     this.isPlayerControlled = config.isPlayerControlled || false;
 
     this.speedMultiplier = 0.5;
@@ -96,7 +98,11 @@ class Npc extends GameObject {
 
   async doInteractivity() {
     // response options
-    this.options = [];
+    this.options = [
+      { text: "Go away" },
+      { text: "Hello, whats this place like" },
+      { text: "Anything interesting around here" },
+    ];
 
     const speechEvent = new OverworldEvent({
       map: this.map,
