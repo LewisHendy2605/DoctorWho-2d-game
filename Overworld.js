@@ -13,7 +13,7 @@ class OverWorld {
   }
 
   startGameLoop() {
-    const step = () => {
+    const step = async () => {
       // Clear canvas
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -31,7 +31,7 @@ class OverWorld {
       });
 
       // Draw Lower Layer
-      this.map.drawLowerImage(this.ctx, cameraPerson);
+      await this.map.drawLowerImage(this.ctx, cameraPerson);
 
       // Draw Game Objects
       Object.values(this.map.gameObjects)

@@ -17,6 +17,7 @@ class OverWorldMap {
     // Set images
     this.lowerImage = new Image();
     this.lowerImage.src = utils.setDynamicPath(config.lowerSrc);
+    //this.lowerImage.onload = () => console.log("Lower image loaded");
 
     this.upperImage = new Image();
     this.upperImage.src = utils.setDynamicPath(config.upperSrc);
@@ -120,7 +121,24 @@ class OverWorldMap {
     return copy;
   }
 
-  drawLowerImage(ctx, cameraPerson) {
+  async loadImage(image) {
+    return new Promise((resolve, reject) => {
+      if (image.complete) {
+        // Image is already loaded
+        resolve(image);
+      } else {
+        // Wait for the image to load
+        image.onload = () => resolve(image);
+        image.onerror = (err) => reject(err);
+      }
+    });
+  }
+
+  async drawLowerImage(ctx, cameraPerson) {
+    // Wait until the image is loaded
+    await this.loadImage(this.lowerImage);
+
+    // Once loaded, draw the image
     ctx.drawImage(
       this.lowerImage,
       utils.withGrid(10.5) - cameraPerson.x,
