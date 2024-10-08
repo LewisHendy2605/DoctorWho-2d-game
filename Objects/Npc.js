@@ -36,6 +36,38 @@ class Npc extends GameObject {
       //   { type: "walk", direction: "up" },
     ];
 
+    this.dialogues = {
+      initial: {
+        text: "Hey there stranger.",
+        options: [
+          { text: "Go away", nextEvent: null },
+          { text: "Hello, what's this place like?", nextEvent: "placeInfo" },
+          {
+            text: "Anything interesting around here?",
+            nextEvent: "interesting",
+          },
+        ],
+      },
+      placeInfo: {
+        text: "This is a small town, not much happens around here.",
+        options: [
+          { text: "Thanks, bye.", nextEvent: null },
+          { text: "Tell me more.", nextEvent: "moreInfo" },
+        ],
+      },
+      interesting: {
+        text: "Not much, just some local shops and a tavern.",
+        options: [
+          { text: "Goodbye.", nextEvent: null },
+          { text: "Can you show me the way?", nextEvent: "placeInfo" },
+        ],
+      },
+      moreInfo: {
+        text: "Well, there is a local legend about hidden treasure, but no one really believes it.",
+        options: [{ text: "Thanks for the info!", nextEvent: null }],
+      },
+    };
+
     this.directionUpdate = {
       up: ["y", -1],
       down: ["y", 1],
@@ -67,6 +99,10 @@ class Npc extends GameObject {
     } else {
       if (this.isSpeechBoxActive) {
         this.isSpeechBoxActive = false;
+
+        if (this.isPaused) {
+          this.isPaused = false;
+        }
       }
     }
 
@@ -94,45 +130,47 @@ class Npc extends GameObject {
   }
 
   async doInteractivity() {
-    // response options
-    this.options = [
-      { text: "Go away" },
-      { text: "Hello, whats this place like" },
-      { text: "Anything interesting around here" },
-    ];
+    await this.startSpeechEvent.call(this, "initial");
+  }
 
+  async startSpeechEvent(eventKey) {
+    console.log("start speech called:", eventKey);
+    const dialogue = this.dialogues[eventKey];
+
+    // Ensure the dialogue exists
+    if (!dialogue) {
+      console.error("Invalid dialogue event key:", eventKey);
+      return;
+    }
+
+    // Create the speech event based on the current dialogue object
     const speechEvent = new OverworldEvent({
       map: this.map,
       event: {
         type: "speechBox",
         who: this.key,
-        text: "Hey there stranger.",
-        responseOptions: this.options,
+        text: dialogue.text,
+        responseOptions: dialogue.options,
       },
     });
+
     const { done, messageBox } = await speechEvent.init();
-
-    // console.log(done, messageBox);
-
     this.finishSpeechBoxResult = done;
 
     let isSpeechInterrupted = false;
 
-    // Watch for the player walking away without overriding finishSpeechBoxResult
     const stopInteraction = new Promise((resolve) => {
       const checkForWalkAway = setInterval(() => {
         if (this.isSpeechBoxActive === false) {
-          // Check if player walked away
           clearInterval(checkForWalkAway);
           isSpeechInterrupted = true;
           resolve("Player walked away");
         }
-      }, 100); // Check every 100ms
+      }, 100);
     });
 
-    // Race between player's response and the player walking away
     try {
-      const responseFromPlayer = await Promise.race([
+      const playerResponse = await Promise.race([
         messageBox.awaitResults(),
         stopInteraction,
       ]);
@@ -140,14 +178,21 @@ class Npc extends GameObject {
       if (isSpeechInterrupted) {
         console.log("Player left the interaction zone, stopping interaction.");
         this.finishSpeechBoxResult();
-        this.isPaused = false;
-      } else {
-        console.log("Result from speech event:", responseFromPlayer);
-        this.finishSpeechBoxResult();
-        this.isPaused = false;
+        return;
+      }
+
+      this.finishSpeechBoxResult();
+      // Find the next event based on the player's response
+      const selectedOption = dialogue.options.find(
+        (option) => option.text === playerResponse
+      );
+      console.log("dialoge next event: ", selectedOption);
+
+      if (selectedOption && selectedOption.nextEvent) {
+        await this.startSpeechEvent(selectedOption.nextEvent);
       }
     } catch (e) {
-      console.error("An error occurred during the interaction.", e);
+      console.error("An error occurred during the interaction:", e);
     }
   }
 

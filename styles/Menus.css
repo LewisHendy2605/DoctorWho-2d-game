@@ -28,12 +28,13 @@
 
 .SonicMenu {
   padding: 0;
+  background-image: url("/images/ui/UI_Hologram_Button_Large_Release_02a4.png");
 }
 
 .SonicMenu .Menu {
   position: absolute;
   left: 20%;
-  top: 40%;
+  top: 25%;
   width: auto;
   height: auto;
   color: var(--menu-font-color);
@@ -41,6 +42,9 @@
   border-radius: 1.5px;
   background-color: inherit;
   border: inherit;
+  opacity: 0.8;
+  /* background-image: url("/images/ui/UI_Hologram_Button_Small_Lock_01a1.png");
+  object-fit: cover; */
 }
 
 .blue {
@@ -57,11 +61,11 @@
   font-family: "DoctorWho2", sans-serif;
   font-size: 0.6rem;
   width: 100%;
-  border: 2px solid black;
+  /* border: 2px solid black;
   border-radius: 0px;
   padding: 0;
   margin: 0;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s; */
 }
 .SonicMenu .optionButton:hover {
   background-color: green;
