@@ -741,7 +741,7 @@ window.OverworldMaps = {
       tardis: new Tardis({
         isPlayerControlled: false,
         x: utils.withGrid(45),
-        y: utils.withGrid(20),
+        y: utils.withGrid(30),
         src: "/images/tardis/tardis-iso.png",
         // src: "/images/tardis/tardis-light-blue.png",
       }),
@@ -749,9 +749,9 @@ window.OverworldMaps = {
       ship: new Ship({
         isPlayerControlled: false,
         x: utils.withGrid(45),
-        y: utils.withGrid(30),
-        src: "/images/objects/ScoutShip-Base.png",
-        //src: "/images/characters-doctor-who/doctor-11.png",
+        y: utils.withGrid(53),
+        src: "/images/objects/spaceship-prototype.png",
+        // src: "/images/objects/ScoutShip-Base.png",
       }),
       npc: new Npc({
         x: utils.withGrid(25),

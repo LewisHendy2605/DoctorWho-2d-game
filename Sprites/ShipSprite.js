@@ -104,7 +104,7 @@ class ShipSprite {
           }
               */
 
-    this.isLoaded && ctx.drawImage(this.image, 0, 0, 100, 100, x, y, 200, 200);
+    this.isLoaded && ctx.drawImage(this.image, 0, 0, 250, 250, x, y, 250, 250);
 
     this.updateAnimationProgress();
   }
