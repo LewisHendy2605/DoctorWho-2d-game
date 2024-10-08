@@ -108,13 +108,13 @@ class TardisSprite {
       ctx.drawImage(
         this.image,
         frameX * 100,
-        frameY * 100,
+        frameY * 110,
         100,
-        100,
+        110,
         x,
         y,
         100,
-        100
+        110
       );
 
     this.updateAnimationProgress();
