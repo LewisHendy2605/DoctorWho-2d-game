@@ -53,6 +53,12 @@ class OverWorldMap {
           src: obj.imageSrc || obj.src,
           key: key,
         });
+      } else if (obj instanceof Ship) {
+        newGameObjects[key] = new Ship({
+          ...obj,
+          src: obj.imageSrc || obj.src,
+          key: key,
+        });
       } else if (obj instanceof Console) {
         newGameObjects[key] = new Console({
           ...obj,
@@ -736,7 +742,15 @@ window.OverworldMaps = {
         isPlayerControlled: false,
         x: utils.withGrid(45),
         y: utils.withGrid(20),
-        src: "/images/tardis/tardis-light-blue.png",
+        src: "/images/tardis/tardis-iso.png",
+        // src: "/images/tardis/tardis-light-blue.png",
+      }),
+
+      ship: new Ship({
+        isPlayerControlled: false,
+        x: utils.withGrid(45),
+        y: utils.withGrid(30),
+        src: "/images/objects/ScoutShip-Base.png",
         //src: "/images/characters-doctor-who/doctor-11.png",
       }),
       npc: new Npc({

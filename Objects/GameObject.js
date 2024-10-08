@@ -35,6 +35,11 @@ class GameObject {
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
+    } else if (this.type === "ship") {
+      this.sprite = new ShipSprite({
+        gameObject: this,
+        src: config.src,
+      });
     } else if (this.type === "doctor") {
       this.sprite = new DoctorSprite({
         gameObject: this,
