@@ -1,10 +1,9 @@
 .SpeechBox {
   position: absolute;
-  left: 30%;
-  right: 30%;
+  left: 20%;
+  right: 20%;
   top: 60%;
   height: 4svh;
-  width: 14svw;
   /* border: 1px solid black;
   border-radius: 9px; */
   font-size: 1rem;
@@ -17,8 +16,8 @@
 .SpeechBox_img {
   position: absolute;
   top: -50%;
-  left: -30%;
-  right: -20%;
+  left: -25%;
+  /* right: -50%; */
   width: 150%;
   height: 180%;
   image-rendering: pixelated;
