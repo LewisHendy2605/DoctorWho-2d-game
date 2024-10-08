@@ -36,9 +36,6 @@ class SpeechBox {
 
     console.log("response options: ", this.responseOptions);
 
-    this.responseContainer = document.createElement("div");
-    this.responseContainer.classList.add("responseContainer");
-
     // this.element.appendChild(this.responseContainer);
 
     // this.element.innerHTML = `
@@ -62,7 +59,41 @@ class SpeechBox {
     });
   }
 
-  createResponseElement() {
+  // createResponseElement() {
+  //   if (this.responseOptions.length > 0) {
+  //     for (let i = 0; i < this.responseOptions.length; i++) {
+  //       // for (let i = 0; i < 2; i++) {
+  //       let response = document.createElement("div");
+  //       response.classList.add("response");
+
+  //       let responseImg = document.createElement("img");
+  //       responseImg.classList.add("response_img");
+  //       responseImg.src = utils.setDynamicPath(
+  //         "/images/ui/UI_Hologram_Banner_03a.png"
+  //       );
+  //       response.appendChild(responseImg);
+
+  //       let responseText = document.createElement("p");
+  //       responseText.classList.add("response_p");
+  //       responseText.innerText = `"${this.responseOptions[i].text}"`;
+  //       response.appendChild(responseText);
+
+  //       this.responseContainer.appendChild(response);
+
+  //       // add event listerneers to response
+  //       response.addEventListener("click", () => {
+  //         console.log("response clicked:", this.responseOptions[i].text);
+  //         this.responseFromUser = this.responseOptions[i].text;
+  //         resolve(this.responseOptions[i].text);
+  //       });
+  //     }
+  //   }
+  // }
+
+  async createResponseElement(resolve) {
+    this.responseContainer = document.createElement("div");
+    this.responseContainer.classList.add("responseContainer");
+
     if (this.responseOptions.length > 0) {
       for (let i = 0; i < this.responseOptions.length; i++) {
         // for (let i = 0; i < 2; i++) {
@@ -83,10 +114,13 @@ class SpeechBox {
 
         this.responseContainer.appendChild(response);
 
+        this.container.appendChild(this.responseContainer);
+
         // add event listerneers to response
         response.addEventListener("click", () => {
           console.log("response clicked:", this.responseOptions[i].text);
           this.responseFromUser = this.responseOptions[i].text;
+          resolve(this.responseOptions[i].text);
         });
       }
     }
@@ -129,11 +163,10 @@ class SpeechBox {
     //this.onComplete();
   }
 
-  async init(container) {
+  init(container) {
+    this.container = container;
     this.createElement();
     container.appendChild(this.element);
-    this.createResponseElement();
-    container.appendChild(this.responseContainer);
     this.revealingText.init();
     return this.done;
     // return { done: this.done, response: this.responseFromUser };
@@ -142,4 +175,27 @@ class SpeechBox {
 
     // this.done();
   }
+
+  async awaitResults() {
+    console.log("waitin for rresponse");
+    const responseFromPlayer = await new Promise((res) =>
+      this.createResponseElement(res)
+    );
+
+    return responseFromPlayer;
+  }
+
+  // async init(container) {
+  //   this.createElement();
+  //   container.appendChild(this.element);
+  //   this.createResponseElement();
+  //   container.appendChild(this.responseContainer);
+  //   this.revealingText.init();
+  //   return this.done;
+  //   // return { done: this.done, response: this.responseFromUser };
+  //   // Show text for 1 seconfd then close
+  //   // await utils.wait(1000);
+
+  //   // this.done();
+  // }
 }

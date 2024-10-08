@@ -67,9 +67,6 @@ class Npc extends GameObject {
     } else {
       if (this.isSpeechBoxActive) {
         this.isSpeechBoxActive = false;
-        this.finishSpeechBoxResult();
-        //this.restartBehavior();
-        this.isPaused = false;
       }
     }
 
@@ -113,7 +110,45 @@ class Npc extends GameObject {
         responseOptions: this.options,
       },
     });
-    this.finishSpeechBoxResult = await speechEvent.init();
+    const { done, messageBox } = await speechEvent.init();
+
+    // console.log(done, messageBox);
+
+    this.finishSpeechBoxResult = done;
+
+    let isSpeechInterrupted = false;
+
+    // Watch for the player walking away without overriding finishSpeechBoxResult
+    const stopInteraction = new Promise((resolve) => {
+      const checkForWalkAway = setInterval(() => {
+        if (this.isSpeechBoxActive === false) {
+          // Check if player walked away
+          clearInterval(checkForWalkAway);
+          isSpeechInterrupted = true;
+          resolve("Player walked away");
+        }
+      }, 100); // Check every 100ms
+    });
+
+    // Race between player's response and the player walking away
+    try {
+      const responseFromPlayer = await Promise.race([
+        messageBox.awaitResults(),
+        stopInteraction,
+      ]);
+
+      if (isSpeechInterrupted) {
+        console.log("Player left the interaction zone, stopping interaction.");
+        this.finishSpeechBoxResult();
+        this.isPaused = false;
+      } else {
+        console.log("Result from speech event:", responseFromPlayer);
+        this.finishSpeechBoxResult();
+        this.isPaused = false;
+      }
+    } catch (e) {
+      console.error("An error occurred during the interaction.", e);
+    }
   }
 
   startBehavior(state, behavior) {

@@ -158,7 +158,7 @@ class OverworldEvent {
     message.init(document.querySelector(".game-container"));
   }
 
-  async speechBox(resolve) {
+  speechBox(resolve) {
     console.log("speechBox called");
     const message = new SpeechBox({
       text: this.event.text,
@@ -167,11 +167,9 @@ class OverworldEvent {
       fontSize: "0.6em",
       responseOptions: this.event.responseOptions,
     });
-    const finishBox = await message.init(
-      document.querySelector(".game-container")
-    );
+    const finishBox = message.init(document.querySelector(".game-container"));
 
-    resolve(finishBox);
+    resolve({ done: finishBox, messageBox: message });
   }
 
   textMessage(resolve) {
