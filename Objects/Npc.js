@@ -44,27 +44,55 @@ class Npc extends GameObject {
           { text: "Hello, what's this place like?", nextEvent: "placeInfo" },
           {
             text: "Anything interesting around here?",
-            nextEvent: "interesting",
+            nextEvent: "placeInfo",
           },
         ],
       },
       placeInfo: {
-        text: "This is a small town, not much happens around here.",
+        text: "This is a small town, everyone is frindly. Theres not alot around tho.",
         options: [
           { text: "Thanks, bye.", nextEvent: null },
-          { text: "Tell me more.", nextEvent: "moreInfo" },
+          {
+            text: "Anything unordinary ever happen around here ?",
+            nextEvent: "interesting",
+          },
         ],
       },
       interesting: {
-        text: "Not much, just some local shops and a tavern.",
+        text: "The power went out a few nights ago, my electrics haven't been the same since",
         options: [
           { text: "Goodbye.", nextEvent: null },
-          { text: "Can you show me the way?", nextEvent: "placeInfo" },
+          {
+            text: "Where is the power station ?",
+            nextEvent: "wherePowStation",
+          },
+          {
+            text: "Whats been differnt with the power ?",
+            nextEvent: "whatsUpWithPower",
+          },
         ],
       },
-      moreInfo: {
-        text: "Well, there is a local legend about hidden treasure, but no one really believes it.",
-        options: [{ text: "Thanks for the info!", nextEvent: null }],
+      wherePowStation: {
+        text: "Up North, past the woods. Theres not alot around there",
+        options: [
+          { text: "Thanks.", nextEvent: null },
+          {
+            text: "I'll Look into it",
+            nextEvent: null,
+            objective: "Invertigate Power Station",
+          },
+        ],
+      },
+      whatsUpWithPower: {
+        text: "Well the night it went off all my fuses blew, but ever since then the power has been so weak I can barly run my tv",
+        options: [
+          { text: "Thanks for the info!", nextEvent: null },
+          {
+            text: "I'll Look into it",
+            nextEvent: null,
+            objective: "Invertigate Power Station",
+          },
+        ],
       },
     };
 
