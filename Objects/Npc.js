@@ -79,7 +79,7 @@ class Npc extends GameObject {
           {
             text: "I'll Look into it",
             nextEvent: null,
-            objective: "Invertigate Power Station",
+            objective: "Investigate Power Station",
           },
         ],
       },
@@ -90,7 +90,7 @@ class Npc extends GameObject {
           {
             text: "I'll Look into it",
             nextEvent: null,
-            objective: "Invertigate Power Station",
+            objective: "Investigate Power Station",
           },
         ],
       },
