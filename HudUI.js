@@ -82,6 +82,7 @@ class HudUI {
       
       <div class="PlayerHudUI_header"> 
         <p class="PlayerHudUI_header_option invatory">Invatory</p> 
+        <p class="PlayerHudUI_header_option objectives">Objectives</p> 
         <p class="PlayerHudUI_header_option skills">Skills</p> 
         <p class="PlayerHudUI_header_option crafting">Crafting</p> 
         <p class="PlayerHudUI_header_option map">Map</p> 
@@ -97,6 +98,13 @@ class HudUI {
       );
       this.invatoryHeaderElem.addEventListener("click", () =>
         this.addInvatoryScreen()
+      );
+      //objectives
+      this.objectivesHeaderElem = this.playerHudMenu.querySelector(
+        ".PlayerHudUI_header_option.objectives"
+      );
+      this.objectivesHeaderElem.addEventListener("click", () =>
+        this.addObjectivesScreen()
       );
       //skills
       this.skillsHeaderElem = this.playerHudMenu.querySelector(
@@ -134,6 +142,7 @@ class HudUI {
     this.removeSkillsScreen();
     this.removeMapScreen();
     this.removeCraftingScreen();
+    this.removeObjectivesScreen();
   }
 
   // addInvatoryScreen() {
@@ -223,7 +232,7 @@ class HudUI {
 
   addInvatoryScreen() {
     this.clearPlayerMenuScreen();
-    console.log("invatory clicked");
+    //console.log("invatory clicked");
 
     this.playerMenuActiveScreen = "invatory";
     if (!this.invatoryHeaderElem.classList.contains("active")) {
@@ -231,7 +240,7 @@ class HudUI {
     }
 
     if (!this.invatoryScreen) {
-      console.log("creating invatory");
+      //console.log("creating invatory");
 
       // Create invatory screen if not created
       this.invatoryScreen = document.createElement("div");
@@ -323,9 +332,49 @@ class HudUI {
     this.invatoryScreen = null;
   }
 
+  addObjectivesScreen() {
+    this.clearPlayerMenuScreen();
+    if (!this.objectivesHeaderElem.classList.contains("active")) {
+      this.objectivesHeaderElem.classList.add("active");
+    }
+    if (!this.objectivesScreen) {
+      // create invatory screen if not created
+      this.objectivesScreen = document.createElement("div");
+      this.objectivesScreen.classList.add("ObjectivesScreen");
+
+      // Create  container
+      this.objectivesContainer = document.createElement("div");
+      this.objectivesContainer.classList.add("objectives-container");
+      this.objectivesScreen.appendChild(this.objectivesContainer);
+
+      // create map img
+      // this.mapImg = document.createElement("img");
+      // this.mapImg.classList.add("MapScreen_img");
+      // this.mapImg.src = this.character.map.lowerImage.src;
+      // // add to map screen
+      // this.mapScreen.appendChild(this.mapImg);
+
+      // add elemet to game container
+      this.playerHudMenu.appendChild(this.objectivesScreen);
+    }
+  }
+
+  removeObjectivesScreen() {
+    if (this.objectivesScreen) {
+      this.objectivesScreen.remove();
+    }
+
+    if (this.objectivesHeaderElem.classList.contains("active")) {
+      this.objectivesHeaderElem.classList.remove("active");
+    }
+
+    // reset menu elements
+    this.objectivesScreen = null;
+  }
+
   addSkillsScreen() {
     this.clearPlayerMenuScreen();
-    console.log("skills clicked");
+    //console.log("skills clicked");
     this.playerMenuActiveScreen = "skills";
     if (!this.skillsHeaderElem.classList.contains("active")) {
       this.skillsHeaderElem.classList.add("active");
@@ -415,7 +464,7 @@ class HudUI {
       // const maxSlots = 12;
       // let slotElement = null;
 
-      console.log(window.crafting);
+      //console.log(window.crafting);
       const craftingItems = window.crafting.craftingOptions;
 
       // // Loop to create each grid slot
