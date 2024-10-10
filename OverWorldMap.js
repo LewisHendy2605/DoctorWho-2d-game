@@ -77,6 +77,12 @@ class OverWorldMap {
           src: obj.imageSrc || obj.src,
           key: key,
         });
+      } else if (obj instanceof TardisDoor) {
+        newGameObjects[key] = new TardisDoor({
+          ...obj,
+          src: obj.imageSrc || obj.src,
+          key: key,
+        });
       } else if (obj instanceof Box) {
         newGameObjects[key] = new Box({
           ...obj,
@@ -509,6 +515,12 @@ window.OverworldMaps = {
     outsideMap: "Outside_tardis",
     tardisLanded: true,
     gameObjects: {
+      door: new TardisDoor({
+        isPlayerControlled: true,
+        x: utils.withGrid(34.5),
+        y: utils.withGrid(46),
+        src: "/images/objects/tardis-door.png",
+      }),
       hero: new Doctor({
         isPlayerControlled: true,
         x: utils.withGrid(45),
