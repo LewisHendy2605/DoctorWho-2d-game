@@ -55,6 +55,11 @@ class GameObject {
         gameObject: this,
         src: config.src || "/images/characters/people/hero.png",
       });
+    } else if (this.type === "tardis-door") {
+      this.sprite = new TardisDoorSprite({
+        gameObject: this,
+        src: config.src,
+      });
     } else if (this.type === "box") {
       this.sprite = new BoxSprite({
         gameObject: this,
