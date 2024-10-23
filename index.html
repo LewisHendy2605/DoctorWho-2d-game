@@ -36,6 +36,7 @@
 
     <!--  CSS links -->
     <link id="global" type="text/css" rel="stylesheet" />
+    <link id="ObjectiveUIPopUp" type="text/css" rel="stylesheet" />
     <link id="TitleScreen" type="text/css" rel="stylesheet" />
     <link id="InteractiveOption" type="text/css" rel="stylesheet" />
     <link id="TextMessage" type="text/css" rel="stylesheet" />
@@ -76,6 +77,7 @@
         // List of stylesheets to load
         const stylesheets = [
           { id: "global", path: "global.css" },
+          { id: "ObjectiveUIPopUp", path: "ObjectiveUIPopUp.css" },
           { id: "TitleScreen", path: "TitleScreen.css" },
           { id: "InteractiveOption", path: "InteractiveOption.css" },
           { id: "TextMessage", path: "TextMessage.css" },
@@ -140,7 +142,8 @@
           "DirectionInput.js",
           "TitleScreen.js",
           "InvatoryScreen.js",
-          "HudUI.js",
+          "UI/HudUI.js",
+          "UI/ObjectiveUIPopUp.js",
           "Overworld.js",
           "Objects/Projectile.js",
           "Objects/GameObject.js",

@@ -162,7 +162,7 @@ class Npc extends GameObject {
   }
 
   async startSpeechEvent(eventKey) {
-    console.log("start speech called:", eventKey);
+    //console.log("start speech called:", eventKey);
     const dialogue = this.dialogues[eventKey];
 
     // Ensure the dialogue exists
@@ -204,7 +204,7 @@ class Npc extends GameObject {
       ]);
 
       if (isSpeechInterrupted) {
-        console.log("Player left the interaction zone, stopping interaction.");
+        //console.log("Player left the interaction zone, stopping interaction.");
         this.finishSpeechBoxResult();
         return;
       }
@@ -214,10 +214,16 @@ class Npc extends GameObject {
       const selectedOption = dialogue.options.find(
         (option) => option.text === playerResponse
       );
-      console.log("dialoge next event: ", selectedOption);
+      //console.log("dialoge next event: ", selectedOption);
 
       if (selectedOption && selectedOption.nextEvent) {
         await this.startSpeechEvent(selectedOption.nextEvent);
+      }
+      if (selectedOption && selectedOption.objective) {
+        // get hero
+        const hero = this.map.gameObjects["hero"];
+        // if response has objective add it to player
+        hero.addObjective(selectedOption.objective);
       }
     } catch (e) {
       console.error("An error occurred during the interaction:", e);

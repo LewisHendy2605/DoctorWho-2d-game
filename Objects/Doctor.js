@@ -49,6 +49,12 @@ class Doctor extends GameObject {
       //{ type: "copper", quantity: 1 },
       //{ type: "battery", quantity: 1 },
     ];
+
+    this.objectives = [
+      // { name: "Investiagte power station", completed: true },
+      // { name: "help steve", completed: true },
+      // { name: "Go to mars", completed: true },
+    ];
   }
 
   kill() {
@@ -222,5 +228,27 @@ class Doctor extends GameObject {
     } else {
       this.sprite.setAnimation("idle-" + this.direction);
     }
+  }
+
+  addObjective(objective) {
+    // add new objective to user
+    let newObjective = { name: objective, completed: false };
+
+    // see if objective is already added
+    for (let i = 0; i < this, this.objectives.length; i++) {
+      if ((this.objectives[i].name = newObjective.name)) {
+        return;
+      }
+    }
+
+    console.log("adding objective", newObjective, this.objectives);
+    this.objectives.push(newObjective);
+
+    // show new objective pop up UI elemnt
+    const container = this.map.overworld.element;
+    const objectivePopUp = new ObjectiveUIPopUp(container);
+    objectivePopUp.init(newObjective);
+
+    // add story flag to stop interaction again
   }
 }
