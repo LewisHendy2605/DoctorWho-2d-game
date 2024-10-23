@@ -37,7 +37,7 @@ class Npc extends GameObject {
     ];
 
     this.dialogues = {
-      initial: {
+      initial_powerStationStart: {
         text: "Hey there stranger.",
         options: [
           { text: "Go away", nextEvent: null },
@@ -91,6 +91,16 @@ class Npc extends GameObject {
             text: "I'll Look into it",
             nextEvent: null,
             objective: "Investigate Power Station",
+          },
+        ],
+      },
+      initial_powerStationAfter: {
+        text: "Oh its you !, the guy who asked about the power station",
+        options: [
+          { text: "Yeah thats me", nextEvent: null },
+          {
+            text: "I'll Look into it, dont worry",
+            nextEvent: null,
           },
         ],
       },
@@ -158,7 +168,20 @@ class Npc extends GameObject {
   }
 
   async doInteractivity() {
-    await this.startSpeechEvent.call(this, "initial");
+    if (!this.checkForStoryFlag("TALKED_TO_NPC_ABOUT_POWER_STATION")) {
+      await this.startSpeechEvent.call(this, "initial_powerStationStart");
+    } else {
+      await this.startSpeechEvent.call(this, "initial_powerStationAfter");
+    }
+  }
+
+  checkForStoryFlag(storyFlag) {
+    console.log(
+      "checking story flag",
+      window.playerState.storyFlags,
+      window.playerState.storyFlags[storyFlag]
+    );
+    return window.playerState.storyFlags[storyFlag];
   }
 
   async startSpeechEvent(eventKey) {
@@ -184,6 +207,7 @@ class Npc extends GameObject {
 
     const { done, messageBox } = await speechEvent.init();
     this.finishSpeechBoxResult = done;
+    console.log("done assigned: ", done)
 
     let isSpeechInterrupted = false;
 

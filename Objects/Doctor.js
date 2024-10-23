@@ -250,5 +250,13 @@ class Doctor extends GameObject {
     objectivePopUp.init(newObjective);
 
     // add story flag to stop interaction again
+    const event = new OverworldEvent({
+      map: this.map,
+      event: {
+        type: "addStoryFlag",
+        flag: "TALKED_TO_NPC_ABOUT_POWER_STATION",
+      },
+    });
+    event.init();
   }
 }
