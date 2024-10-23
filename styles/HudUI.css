@@ -493,13 +493,29 @@
   padding: 1% 1%;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Creates 3 columns for items */
-  grid-template-rows: repeat(5, 1fr); /* Creates 4 rows for items */
+  /* grid-template-columns: repeat(5, 1fr); */
+  grid-template-rows: repeat(5, 1fr);
   gap: 5%; /* Space between inventory slots */
   box-sizing: border-box;
   margin: 2% auto;
   margin-top: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.objectives-element-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.objectives-element {
+  font-size: 0.5rem;
+}
+
+.objectives-checkbox {
+  width: 10px;
+  height: 10px;
+  border: 1px solid black;
+  border-radius: 1px;
 }
 
 /*

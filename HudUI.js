@@ -345,7 +345,36 @@ class HudUI {
       // Create  container
       this.objectivesContainer = document.createElement("div");
       this.objectivesContainer.classList.add("objectives-container");
-      this.objectivesScreen.appendChild(this.objectivesContainer);
+
+      // add objevtives to container
+      if (this.character.objectives.length > 0) {
+        for (let i = 0; i < this.character.objectives.length; i++) {
+          // craete container for objective
+          let objectsivesElementContainer = document.createElement("div");
+          objectsivesElementContainer.classList.add(
+            "objectives-element-container"
+          );
+
+          // create objectives element
+          let objectsivesElement = document.createElement("div");
+          objectsivesElement.classList.add("objectives-element");
+          objectsivesElement.innerText = this.character.objectives[i].name;
+
+          console.log(this.character.objectives[i]);
+          // create checkboc for eobjective
+          //if (this.character.objectives[0].completed) {
+          let objectiveCheckBox = document.createElement("div");
+          objectiveCheckBox.classList.add("objectives-checkbox");
+          //}
+
+          // add text + box to elemt container
+          objectsivesElementContainer.appendChild(objectsivesElement);
+          objectsivesElementContainer.appendChild(objectiveCheckBox);
+
+          // add elemnt to container
+          this.objectivesContainer.appendChild(objectsivesElementContainer);
+        }
+      }
 
       // create map img
       // this.mapImg = document.createElement("img");
@@ -353,6 +382,9 @@ class HudUI {
       // this.mapImg.src = this.character.map.lowerImage.src;
       // // add to map screen
       // this.mapScreen.appendChild(this.mapImg);
+
+      // add conatiner to screen
+      this.objectivesScreen.appendChild(this.objectivesContainer);
 
       // add elemet to game container
       this.playerHudMenu.appendChild(this.objectivesScreen);
