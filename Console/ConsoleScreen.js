@@ -7,6 +7,7 @@ class ConsoleScreen {
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("ConsoleScreen");
+    this.element.classList.add("consoleScreenBox");
     this.element.innerHTML = `
         <div class="tardis_status">
             <h3>Tardis Status</h3>
@@ -71,7 +72,9 @@ class ConsoleScreen {
             // Change tardis outside map
             const event = new OverworldEvent({
               map: this.map,
-              event: { type: "useChangeDestScreen" },
+              event: {
+                type: "useChangeDestScreen",
+              },
             });
             event.init();
 

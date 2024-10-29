@@ -374,6 +374,24 @@ class HudUI {
           // add elemnt to container
           this.objectivesContainer.appendChild(objectsivesElementContainer);
         }
+      } else {
+        // show no objectives
+        // craete container for objective
+        let objectsivesElementContainer = document.createElement("div");
+        objectsivesElementContainer.classList.add(
+          "objectives-element-container"
+        );
+
+        // create objectives element
+        let objectsivesElement = document.createElement("div");
+        objectsivesElement.classList.add("objectives-element");
+        objectsivesElement.innerText = "No Objectives";
+
+        // add text + box to elemt container
+        objectsivesElementContainer.appendChild(objectsivesElement);
+
+        // add elemnt to container
+        this.objectivesContainer.appendChild(objectsivesElementContainer);
       }
 
       // create map img
@@ -442,6 +460,9 @@ class HudUI {
       this.mapImg = document.createElement("img");
       this.mapImg.classList.add("MapScreen_img");
       this.mapImg.src = this.character.map.lowerImage.src;
+      if (this.character.map.miniMapSrc) {
+        this.mapImg.src = this.character.map.miniMapSrc;
+      }
       // add to map screen
       this.mapScreen.appendChild(this.mapImg);
 

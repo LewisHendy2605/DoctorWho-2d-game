@@ -54,6 +54,8 @@ class MarsDestScreen {
           handler: () => {
             // Close console screen
             this.onComplete();
+
+            // show inetractive text
           },
         },
         {

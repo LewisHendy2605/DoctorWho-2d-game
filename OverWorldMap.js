@@ -14,6 +14,9 @@ class OverWorldMap {
     this.sonicspaces = config.sonicspaces || {};
     this.walls = config.walls || {};
 
+    // Mini map
+    this.miniMapSrc = config.miniMapSrc || null;
+
     // Set images
     this.lowerImage = new Image();
     this.lowerImage.src = utils.setDynamicPath(config.lowerSrc);
@@ -738,9 +741,10 @@ window.OverworldMaps = {
     },
   },
   Earth_Town: {
-    id: "Street",
+    id: "SunnyVale",
     lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
     upperSrc: "/images/maps/KitchenUpper.png",
+    miniMapSrc: "/images/maps/Town/townMiniMap.png",
     tardisDoorX: utils.withGrid(48),
     tardisDoorY: utils.withGrid(40),
     gameObjects: {
@@ -810,6 +814,28 @@ window.OverworldMaps = {
       //     ],
       //   },
       // ],
+    },
+  },
+  SunnyVale_PowerStation: {
+    id: "PowerStation",
+    lowerSrc: "/images/maps/SunnyVale/PowerStation.png",
+    upperSrc: "/images/maps/KitchenUpper.png",
+    miniMapSrc: "/images/maps/Town/townMiniMap.png",
+    tardisDoorX: utils.withGrid(48),
+    tardisDoorY: utils.withGrid(40),
+    gameObjects: {
+      hero: new Doctor({
+        isPlayerControlled: true,
+        x: utils.withGrid(48),
+        y: utils.withGrid(40),
+        src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      tardis: new Tardis({
+        isPlayerControlled: false,
+        x: utils.withGrid(45),
+        y: utils.withGrid(30),
+        src: "/images/tardis/tardis-iso.png",
+      }),
     },
   },
   Mars: {

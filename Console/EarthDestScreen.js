@@ -1,12 +1,14 @@
 class EarthDestScreen {
   constructor({ map, onComplete }) {
     this.map = map;
+    //this.hoverInteractiveText = hoverInteractiveText;
     this.onComplete = onComplete;
   }
 
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("ChangeDestScreen");
+    this.element.classList.add("consoleScreenBox");
   }
 
   addBackgroundImage() {
@@ -54,26 +56,40 @@ class EarthDestScreen {
           handler: () => {
             // Close console screen
             this.onComplete();
+
+            // show interactiev again
+            //this.hoverInteractiveText.style.display = "block";
           },
         },
 
         {
-          label: "Street",
+          label: "Town",
           class: "dest-button",
-          map: "Outside_tardis",
+          map: "Earth_Town",
           handler: () => {
-            // Change tardis outside map
+            // get the map data
+            const selectedMap = window.OverworldMaps["Earth_Town"];
+
+            // Show the mini map for the town
             const event = new OverworldEvent({
               map: this.map,
-              event: { type: "changeTardisDest", map: "Outside_tardis" },
+              hoverInteractiveText: this.hoverInteractiveText,
+              event: { type: "showMiniMap", mapToShow: selectedMap },
             });
             event.init();
+
+            // Change tardis outside map
+            // const event = new OverworldEvent({
+            //   map: this.map,
+            //   event: { type: "changeTardisDest", map: "Earth_Town" },
+            // });
+            // event.init();
             // Tell palyer theve aarived
-            const textEvent = new OverworldEvent({
-              map: this.map,
-              event: { type: "textMessage", text: "Tardis Landed" },
-            });
-            textEvent.init();
+            // const textEvent = new OverworldEvent({
+            //   map: this.map,
+            //   event: { type: "textMessage", text: "Tardis Landed" },
+            // });
+            // textEvent.init();
             // Close console screen
             this.onComplete();
           },
@@ -110,21 +126,51 @@ class EarthDestScreen {
 
         // Graps the map image src from the overworldMaps json
         const options = this.getPages();
-        const mapId = options.root[index].map;
-        const imgSrc = window.OverworldMaps[mapId];
+        console.log(options, index, options.root[index]);
+        // chack if map is present
+        if (options.root[index]) {
+          const mapId = options.root[index].map;
+          const map = window.OverworldMaps[mapId];
 
-        if (imgSrc) {
-          const lowerSrc = imgSrc.lowerSrc;
+          if (map) {
+            let imgSrc = map.lowerSrc;
+            // use mini map map img if it exsists
+            if (map.miniMapSrc) {
+              imgSrc = map.miniMapSrc;
+            }
 
-          const dynamicUrl = utils.setDynamicPath(lowerSrc);
+            const dynamicUrl = utils.setDynamicPath(imgSrc);
 
-          const button = option.querySelector("button");
+            const button = option.querySelector("button");
 
-          if (button.classList.contains("dest-button")) {
-            button.style.backgroundImage = `url(${dynamicUrl})`;
-            button.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Add desired background color
-            button.style.border = "7px solid blue";
-            button.style.borderRadius = "15%";
+            if (button.classList.contains("dest-button")) {
+              // craete and add img to button
+              const imgElement = document.createElement("img");
+              imgElement.src = dynamicUrl;
+              imgElement.style.position = "absolute";
+              //imgElement.style.objectFit = "cover";
+              imgElement.style.width = "100%";
+              imgElement.style.height = "100%";
+              imgElement.style.border = "1px solid black";
+              imgElement.style.borderRadius = "5px";
+              button.appendChild(imgElement);
+
+              // add text to buton
+              const textElement = document.createElement("p");
+              textElement.innerText = map.id;
+              textElement.style.position = "absolute";
+              textElement.style.fontSize = "0.8rem";
+              textElement.style.width = "100%";
+              textElement.style.height = "100%";
+              textElement.style.margin = "0";
+              textElement.style.padding = "20% 0";
+              button.appendChild(textElement);
+              console.log("appended img to button", button);
+              // button.style.backgroundImage = `url(${dynamicUrl})`;
+              // button.style.backgroundColor = "rgba(0, 0, 0, 0.5)"; // Add desired background color
+              // button.style.border = "1px solid blue";
+              // button.style.borderRadius = "2px";
+            }
           }
         }
       });

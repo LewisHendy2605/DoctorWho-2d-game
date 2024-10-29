@@ -553,6 +553,25 @@ class OverworldEvent {
     resolve();
   }
 
+  showMiniMap(resolve) {
+    console.log("show Mini map called:", this.map, this.event.mapToShow);
+    const miniMap = new MiniMap({
+      map: this.map,
+      mapToShow: this.event.mapToShow,
+      hoverInteractiveText: this.event.hoverInteractiveText,
+      onComplete: () => {
+        miniMap.end();
+        resolve();
+      },
+    });
+
+    miniMap.init(document.querySelector(".game-container"));
+
+    setTimeout(() => {
+      resolve();
+    }, 500);
+  }
+
   useConsoleScreen(resolve) {
     const consoleScreen = new ConsoleScreen({
       map: this.map,

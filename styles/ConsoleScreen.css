@@ -1,9 +1,13 @@
-.ConsoleScreen {
+.consoleScreenBox {
   position: absolute;
   left: 10%;
   right: 10%;
   top: 10%;
   bottom: 10%;
+  z-index: 23;
+}
+
+.ConsoleScreen {
   /* width: 70%;
   height: 80%; */
 
@@ -77,11 +81,6 @@
 /*   Change dest styles */
 
 .ChangeDestScreen {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
   background-size: cover;
   image-rendering: pixelated;
 }
@@ -93,30 +92,37 @@
 .ChangeDestScreen .KeyboardMenu {
   border: none;
   background: none;
-  left: 35%;
-  top: 3%;
+  left: 0;
+  top: 5%;
   position: absolute;
   font-family: "DoctorWho2", sans-serif;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  /* display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 1rem;
+  */
+  gap: 5px;
 }
 .ChangeDestScreen .KeyboardMenu button {
   border-radius: 15px;
 }
 
 .ChangeDestScreen .KeyboardMenu .back-button {
+  width: 25px;
+  height: 15px;
   font-size: 0.5rem;
-  padding-left: 0;
-  padding: 0.3rem;
+  padding: 8px;
   background-color: red;
+  margin-left: 5px;
+  text-align: center;
 }
 
 .ChangeDestScreen .KeyboardMenu .dest-button {
-  width: 120px;
-  height: 60px;
+  width: 70px;
+  height: 50px;
   font-size: 1rem;
   color: rgb(235, 250, 27);
   background-size: cover;

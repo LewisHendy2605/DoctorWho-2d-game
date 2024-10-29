@@ -7,6 +7,7 @@ class ChangeDestScreen {
   createElement() {
     this.element = document.createElement("div");
     this.element.classList.add("ChangeDestScreen");
+    this.element.classList.add("consoleScreenBox");
   }
 
   addBackgroundImage() {
@@ -53,6 +54,7 @@ class ChangeDestScreen {
           handler: () => {
             // Close console screen
             this.onComplete();
+            // show interactive hover element
           },
         },
 

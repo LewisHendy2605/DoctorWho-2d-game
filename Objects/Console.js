@@ -101,10 +101,10 @@ class Console extends GameObject {
     const canvas = this.map.overworld.canvas;
 
     canvas.addEventListener("click", (event) => {
-      console.log(
-        this.hoverElement.innerText.includes("Screen"),
-        this.isConsoleInteractiveActive
-      );
+      // console.log(
+      //   this.hoverElement.innerText.includes("Screen"),
+      //   this.isConsoleInteractiveActive
+      // );
       if (this.isConsoleInteractiveActive) {
         // The mouse is inside the hover area and was clicked
 
@@ -130,19 +130,23 @@ class Console extends GameObject {
             //console.log("takeOffActivated:", this.takeOffActivated);
           }
         } else if (this.hoverElement.innerText.includes("Screen")) {
-          console.log(this.hoverElement.innerText);
+          //console.log(this.hoverElement.innerText);
           if (this.isConsoleScreenActive) {
             this.consoleScreen.end();
             this.isConsoleScreenActive = false;
           } else {
             this.consoleScreen = new ConsoleScreen({
               map: this.map,
+              hoverInteractiveText: this.hoverElement,
               onComplete: () => {
                 this.consoleScreen.end();
+                //this.hoverElement.style.display = `block`;
                 //resolve();
               },
             });
             this.consoleScreen.init(document.querySelector(".game-container"));
+            // hide interactive fro console while screen is used
+            //this.hoverElement.style.display = `none`;
             this.isConsoleScreenActive = true;
           }
         }
@@ -348,6 +352,9 @@ class Console extends GameObject {
         this.isConsoleInteractiveActive = true;
         this.createInteractiveRightPanel();
       }
+      // if ((this.isConsoleScreenActive = false)) {
+      //   this.hoverElement.style.display = "block";
+      // }
     } else {
       if (this.hoverElement) {
         this.hoverElement.remove();
