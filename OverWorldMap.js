@@ -745,8 +745,8 @@ window.OverworldMaps = {
     lowerSrc: "/images/maps/tardis-outside-grass-street-map-edit.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     miniMapSrc: "/images/maps/Town/townMiniMap.png",
-    tardisDoorX: utils.withGrid(48),
-    tardisDoorY: utils.withGrid(40),
+    // tardisDoorX: utils.withGrid(48),
+    // tardisDoorY: utils.withGrid(40),
     gameObjects: {
       hero: new Doctor({
         isPlayerControlled: true,
@@ -760,14 +760,6 @@ window.OverworldMaps = {
         y: utils.withGrid(30),
         src: "/images/tardis/tardis-iso.png",
         // src: "/images/tardis/tardis-light-blue.png",
-      }),
-
-      ship: new Ship({
-        isPlayerControlled: false,
-        x: utils.withGrid(45),
-        y: utils.withGrid(53),
-        src: "/images/objects/spaceship-prototype.png",
-        // src: "/images/objects/ScoutShip-Base.png",
       }),
       npc: new Npc({
         x: utils.withGrid(25),
@@ -817,7 +809,7 @@ window.OverworldMaps = {
     },
   },
   SunnyVale_PowerStation: {
-    id: "PowerStation",
+    id: "SunnyVale_PowerStation",
     lowerSrc: "/images/maps/SunnyVale/PowerStation.png",
     upperSrc: "/images/maps/KitchenUpper.png",
     miniMapSrc: "/images/maps/Town/townMiniMap.png",
@@ -832,10 +824,70 @@ window.OverworldMaps = {
       }),
       tardis: new Tardis({
         isPlayerControlled: false,
-        x: utils.withGrid(45),
-        y: utils.withGrid(30),
+        x: utils.withGrid(30),
+        y: utils.withGrid(40),
         src: "/images/tardis/tardis-iso.png",
       }),
+      ship: new Ship({
+        isPlayerControlled: false,
+        x: utils.withGrid(30),
+        y: utils.withGrid(10),
+        src: "/images/objects/SpaceShip.png",
+      }),
+    },
+  },
+  SpaceShip_Entrance: {
+    id: "SpaceShip_Entrance",
+    lowerSrc: "/images/maps/SpaceShip/spaceShipEntrance.png",
+    upperSrc: "/images/maps/KitchenUpper.png",
+    // tardisDoorX: utils.withGrid(48),
+    // tardisDoorY: utils.withGrid(40),
+    gameObjects: {
+      hero: new Doctor({
+        isPlayerControlled: true,
+        x: utils.withGrid(58),
+        y: utils.withGrid(60),
+        src: "/images/characters-doctor-who/doctor-11.png",
+      }),
+      // tardis: new Tardis({
+      //   isPlayerControlled: false,
+      //   x: utils.withGrid(30),
+      //   y: utils.withGrid(40),
+      //   src: "/images/tardis/tardis-iso.png",
+      // }),
+      // ship: new Ship({
+      //   isPlayerControlled: false,
+      //   x: utils.withGrid(30),
+      //   y: utils.withGrid(10),
+      //   src: "/images/objects/SpaceShip.png",
+      // }),
+    },
+    cutsceneSpaces: {
+      // Exit
+      [utils.asGridCoord(44, 39)]: [
+        {
+          events: [
+            {
+              type: "leaveShip",
+              x: utils.withGrid(47),
+              y: utils.withGrid(40),
+              direction: "down",
+            },
+          ],
+        },
+      ],
+      [utils.asGridCoord(45, 39)]: [
+        {
+          events: [
+            {
+              type: "leaveShip",
+              x: utils.withGrid(47),
+              y: utils.withGrid(40),
+              direction: "down",
+            },
+          ],
+        },
+      ],
     },
   },
   Mars: {

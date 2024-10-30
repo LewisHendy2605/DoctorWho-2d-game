@@ -378,6 +378,27 @@ class OverworldEvent {
     }
   }
 
+  leaveShip(resolve) {
+    // needs to grab ship location from state
+    this.event.map = "SunnyVale_PowerStation";
+    // const ship = this.map.gameObjects["ship"];
+    // this.event.map = ship.map.id;
+
+    //this.event.map = window.tardisState.destination;
+    // test
+    //console.log(window.OverworldMaps[this.event.map]);
+    const gameObjects = window.OverworldMaps[this.event.map].gameObjects;
+    //console.log(gameObjects);
+
+    Object.values(gameObjects).forEach((go) => {
+      if (go.type === "ship") {
+        this.event.x = go.x + utils.withGrid(6);
+        this.event.y = go.y + utils.withGrid(6);
+      }
+    });
+    this.changeMap(resolve);
+  }
+
   // Currently two options to find interactives
   tardisConsoleSonicEvent(resolve) {
     // Create asyncronous function to show console options in sonic menu

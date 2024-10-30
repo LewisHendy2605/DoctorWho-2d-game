@@ -22,8 +22,8 @@ class ShipSprite {
     //console.log("config a: ", config.animations);
     this.animations = config.animations || {
       start: [[0, 0]],
-      // down: [[0, 0]],
-      // up: [[0, 0]],
+      doorHalfOpen: [[1, 0]],
+      doorOpen: [[2, 0]],
       // right: [[0, 0]],
       // left: [[0, 0]],
       // "take-off-four": [[1, 1]],
@@ -104,7 +104,18 @@ class ShipSprite {
           }
               */
 
-    this.isLoaded && ctx.drawImage(this.image, 0, 0, 250, 250, x, y, 250, 250);
+    this.isLoaded &&
+      ctx.drawImage(
+        this.image,
+        frameX * 230,
+        frameY * 120,
+        230,
+        120,
+        x,
+        y,
+        230,
+        120
+      );
 
     this.updateAnimationProgress();
   }

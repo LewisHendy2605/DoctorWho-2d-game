@@ -4,6 +4,9 @@ class Ship extends GameObject {
     this.movingProgressRemaining = 0;
     this.isStanding = false;
 
+    //this.currentLocation = this.map.id;
+    this.isOpen = false;
+
     this.isPlayerControlled = config.isPlayerControlled || false;
 
     this.speedMultiplier = 3;
@@ -83,26 +86,93 @@ class Ship extends GameObject {
   }
 
   update(state) {
-    //console.log(this);
-    // if (this.movingProgressRemaining > 0) {
-    //   this.updatePosition();
-    // } else {
-    //   // More cases for starting to walk will come here
-    //   //
-    //   //
-    //   // Case: Were keyboard ready and have an arrow presed
-    //   if (
-    //     !state.map.isCutScenePlaying &&
-    //     this.isPlayerControlled &&
-    //     state.arrow
-    //   ) {
-    //     console.log(state.arrow);
-    //     this.startBehavior(state, {
-    //       type: "walk",
-    //       direction: state.arrow,
-    //     });
+    // --- check if user has waled into entrance
+    const gameObject = state.map.gameObjects["hero"];
+
+    // Check if player's position has changed
+    if (gameObject.x !== this.prevX || gameObject.y !== this.prevY) {
+      this.prevX = gameObject.x;
+      this.prevY = gameObject.y;
+
+      // Check if player is near the door
+      if (this.isHeroInFrontOfDoor(gameObject) && !this.isOpen) {
+        this.toggleOpenOrCloseDoor(); // Open door if it's closed and electrical systems are active
+      }
+    }
+
+    // hide player spriet in doorway
+    // if (this.isHeroInDoorway(gameObject) && this.isOpen) {
+    //   gameObject.sprite.hide = true;
+    // } else if (!this.isHeroInDoorway(gameObject) && this.isOpen) {
+    //   gameObject.sprite.hide = false;
+    // }
+
+    // Check if player has passed through the door and should close it
+    if (
+      this.isOpen &&
+      //!this.isHeroInDoorway(gameObject) &&
+      !this.isHeroInFrontOfDoor(gameObject)
+    ) {
+      this.toggleOpenOrCloseDoor(); // Close door after the player passes through
+    }
+
+    // change map if player enters
+    if (this.heroEntersDoor(gameObject)) {
+      console.log("hero entered doorway, chnage map");
+      const event = new OverworldEvent({
+        map: this.map,
+        event: {
+          type: "changeMap",
+          map: "SpaceShip_Entrance",
+          x: utils.withGrid(44),
+          y: utils.withGrid(38),
+          direction: gameObject.direction,
+        },
+      });
+      event.init();
+    }
+  }
+
+  heroEntersDoor(gameObject) {
+    return (
+      gameObject.x === this.x + utils.withGrid(6) &&
+      gameObject.y === this.y + utils.withGrid(4)
+    );
+  }
+
+  // Helper function to check if hero is standing in front of the door
+  isHeroInFrontOfDoor(gameObject) {
+    return (
+      (gameObject.x === this.x + utils.withGrid(6) &&
+        gameObject.y <= this.y + utils.withGrid(8) &&
+        gameObject.y >= this.y + utils.withGrid(5)) ||
+      gameObject.y === this.y - utils.withGrid(1)
+    );
+  }
+
+  async toggleOpenOrCloseDoor() {
+    // Toggle the door state
+    this.isOpen = !this.isOpen;
+
+    // Update the animation based on the new state
+    if (this.isOpen) {
+      this.sprite.setAnimation("doorHalfOpen");
+      await utils.wait(200);
+      this.sprite.setAnimation("doorOpen");
+      //this.updateWalls(false); // Remove walls to allow walk-through
+    } else {
+      this.sprite.setAnimation("doorHalfOpen");
+      await utils.wait(200);
+      this.sprite.setAnimation("start");
+      //this.updateWalls(true); // Add walls to block the door
+    }
+
+    // Update the "Status" field in the data dynamically
+    // for (let i = 0; i < this.data.length; i++) {
+    //   if (this.data[i].type === "Status") {
+    //     this.data[i].data = this.isOpen ? "Open" : "Closed";
+    //     break; // No need to continue once the status is updated
     //   }
-    //   this.updateSprite(state);
     // }
   }
 
